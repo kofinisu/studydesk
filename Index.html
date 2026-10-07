@@ -459,7 +459,6 @@ html[data-theme="light"] #cursorGlow,html[data-theme="solar"] #cursorGlow{mix-bl
     <div class="login-error" id="loginError"></div>
 
     <div class="login-hint">
-      Usernames: <code>student</code> or <code>teacher</code><br>
       Credentials are verified by the backend server.
     </div>
   </div>
@@ -503,7 +502,6 @@ html[data-theme="light"] #cursorGlow,html[data-theme="solar"] #cursorGlow{mix-bl
     <section class="tab-panel active" id="tab-hub">
       <div class="hub-grid">
 
-        <!-- Clock -->
         <div class="card clock-card">
           <h3>Time of Day</h3>
           <div class="clock-time" id="clockTime">--:--:--</div>
@@ -511,7 +509,6 @@ html[data-theme="light"] #cursorGlow,html[data-theme="solar"] #cursorGlow{mix-bl
           <div class="greeting" id="greeting">Welcome back!</div>
         </div>
 
-        <!-- Timer -->
         <div class="card timer-card">
           <h3>Timer</h3>
           <div class="ring-wrap" id="timerRingWrap">
@@ -534,7 +531,6 @@ html[data-theme="light"] #cursorGlow,html[data-theme="solar"] #cursorGlow{mix-bl
           </div>
         </div>
 
-        <!-- Stopwatch -->
         <div class="card stopwatch-card">
           <h3>Stopwatch</h3>
           <div class="ring-wrap" id="swRingWrap">
@@ -551,13 +547,11 @@ html[data-theme="light"] #cursorGlow,html[data-theme="solar"] #cursorGlow{mix-bl
           </div>
         </div>
 
-        <!-- Due assignments -->
         <div class="card due-card">
           <h3>Due Assignments</h3>
           <div class="list" id="dueList"></div>
         </div>
 
-        <!-- Priority list -->
         <div class="card priority-card">
           <h3>Priority List</h3>
           <div class="list" id="priorityList"></div>
@@ -784,8 +778,8 @@ html[data-theme="light"] #cursorGlow,html[data-theme="solar"] #cursorGlow{mix-bl
 
     <div class="setting-group">
       <label class="title">Data &amp; Sync</label>
-      <div class="badge-mode local" id="syncBadge" style="margin-bottom:12px">
-        <span class="dot"></span><span id="syncText">Local mode</span>
+      <div class="badge-mode" id="syncBadge" style="margin-bottom:12px">
+        <span class="dot"></span><span id="syncText">Cloud sync</span>
       </div>
       <button class="btn danger full" id="resetData">Reset All Data</button>
     </div>
@@ -797,25 +791,10 @@ html[data-theme="light"] #cursorGlow,html[data-theme="solar"] #cursorGlow{mix-bl
 /* ============================================================
    ⚠️ EDIT THIS — CLOUD CONFIG
    Paste your Apps Script /exec URL below.
-   Leave as `null` to run fully offline in local mode.
 ============================================================ */
 const CLOUD_CONFIG = {
-  url: 'PASTE_YOUR_APPS_SCRIPT_EXEC_URL_HERE',
+  url: 'https://script.google.com/macros/s/AKfycbydeCkveR2Rm20daJhUM75NzCrDUGNi4dl6ruPno2XT6VsMe8O7A-y90l5Xvht-JHgAEQ/exec',
   pollMs: 4000
-};
-// To disable cloud sync and run offline, change the line above to:
-// const CLOUD_CONFIG = null;
-
-
-/* ============================================================
-   LOCAL FALLBACK USERS
-   Only used when CLOUD_CONFIG is null.
-   In cloud mode, authentication happens server-side
-   and these are never checked.
-============================================================ */
-const LOCAL_USERS = {
-  student: { password: 'Stud7Hu8_',  name: 'Student' },
-  teacher: { password: 'T3ach3rL0G', name: 'Teacher' }
 };
 
 
@@ -857,9 +836,14 @@ function relativeDue(ts){
   if (days === 1) return 'Due tomorrow';
   return `Due in ${days}d`;
 }
+function isCloudConfigured(){
+  return CLOUD_CONFIG
+    && CLOUD_CONFIG.url
+    && CLOUD_CONFIG.url.indexOf('PASTE_') === -1;
+}
 
 /* ============================================================
-   DEFAULT DATA (blank — no users stored client-side)
+   DEFAULT DATA (no users stored anywhere client-side)
 ============================================================ */
 function DEFAULT_DATA(){
   return {
@@ -881,13 +865,13 @@ function DEFAULT_DATA(){
 }
 
 /* ============================================================
-   STORE  (local  |  Google Apps Script)
+   STORE  (cloud-only, with local cache for fast boot)
 ============================================================ */
 const LS_KEY = 'studydesk_v1';
 
 const Store = {
   data: null,
-  mode: 'local',
+  mode: 'cloud',
   pushTimer: null,
   pollId: null,
 
@@ -909,23 +893,12 @@ const Store = {
       }
     });
 
-    if (CLOUD_CONFIG && CLOUD_CONFIG.url && CLOUD_CONFIG.url.indexOf('PASTE_') === -1) {
-      // Cloud mode: DON'T fetch yet — we're waiting for a login token.
-      this.mode = 'cloud';
-      this.data = localData || DEFAULT_DATA();
-      applyAll();
-    } else {
-      // Local mode
-      this.mode = 'local';
-      this.data = localData || DEFAULT_DATA();
-      if (!localData) localStorage.setItem(LS_KEY, JSON.stringify(this.data));
-      applyAll();
-    }
+    this.data = localData || DEFAULT_DATA();
+    applyAll();
   },
 
-  // Called after successful login
   async loadCloudData(){
-    if (this.mode !== 'cloud') return;
+    if (!isCloudConfigured()) return;
     try {
       const remote = await this.fetchCloud();
       if (remote && typeof remote === 'object' && !remote.error) {
@@ -940,6 +913,7 @@ const Store = {
   },
 
   async fetchCloud(){
+    if (!isCloudConfigured()) throw new Error('Cloud not configured');
     const token = session ? session.token : '';
     const res = await fetch(
       CLOUD_CONFIG.url + '?token=' + encodeURIComponent(token) + '&t=' + Date.now(),
@@ -952,6 +926,7 @@ const Store = {
   },
 
   async pushCloud(){
+    if (!isCloudConfigured()) return;
     const token = session ? session.token : '';
     await fetch(CLOUD_CONFIG.url, {
       method: 'POST',
@@ -964,6 +939,7 @@ const Store = {
     clearInterval(this.pollId);
     const ms = (CLOUD_CONFIG && CLOUD_CONFIG.pollMs) || 4000;
     this.pollId = setInterval(async () => {
+      if (!isCloudConfigured() || !session || !session.token) return;
       try {
         const remote = await this.fetchCloud();
         if (remote && (remote.updatedAt || 0) > (this.data.updatedAt || 0)) {
@@ -972,7 +948,6 @@ const Store = {
           applyAll();
         }
       } catch (err) {
-        // Token expired or server rejected — force logout
         if (String(err.message || '').toLowerCase().includes('unauth')) {
           console.warn('Session expired, signing out.');
           logout();
@@ -983,7 +958,7 @@ const Store = {
 
   persist(){
     localStorage.setItem(LS_KEY, JSON.stringify(this.data));
-    if (this.mode === 'cloud') {
+    if (isCloudConfigured() && session && session.token) {
       clearTimeout(this.pushTimer);
       this.pushTimer = setTimeout(() => {
         this.pushCloud().catch(e => console.warn('Cloud push failed:', e));
@@ -1054,7 +1029,7 @@ function applySettings(){
 }
 
 /* ============================================================
-   LOGIN  (async — calls the Apps Script backend in cloud mode)
+   LOGIN  (cloud-only — no passwords in the browser)
 ============================================================ */
 function initLogin(){
   els('#roleSwitch button').forEach(btn => {
@@ -1086,49 +1061,40 @@ async function doLogin(){
     el('#loginError').textContent = `That account is a ${user} account — switch the role toggle.`;
     return;
   }
+  if (!isCloudConfigured()) {
+    el('#loginError').textContent = 'Backend not configured. Cannot sign in.';
+    return;
+  }
 
   const btn = el('#loginBtn');
   el('#loginError').textContent = 'Signing in…';
   btn.disabled = true;
 
-  // ---- CLOUD MODE: verify on the server ----
-  if (Store.mode === 'cloud') {
-    try {
-      const res = await fetch(CLOUD_CONFIG.url, {
-        method: 'POST',
-        redirect: 'follow',
-        body: JSON.stringify({ action: 'login', username: user, password: pass })
-      });
-      const data = await res.json();
+  try {
+    const res = await fetch(CLOUD_CONFIG.url, {
+      method: 'POST',
+      redirect: 'follow',
+      body: JSON.stringify({ action: 'login', username: user, password: pass })
+    });
+    const data = await res.json();
 
-      if (!data.ok) {
-        el('#loginError').textContent = data.error || 'Login failed.';
-        btn.disabled = false;
-        return;
-      }
-
-      session = {
-        username: user,
-        name: data.name || user,
-        role: data.role || user,
-        token: data.token
-      };
-    } catch (err) {
-      console.error(err);
-      el('#loginError').textContent = 'Cannot reach server. Check your connection.';
+    if (!data.ok) {
+      el('#loginError').textContent = data.error || 'Login failed.';
       btn.disabled = false;
       return;
     }
-  }
-  // ---- LOCAL MODE: check hardcoded users ----
-  else {
-    const u = LOCAL_USERS[user];
-    if (!u || u.password !== pass) {
-      el('#loginError').textContent = 'Incorrect username or password.';
-      btn.disabled = false;
-      return;
-    }
-    session = { username: user, name: u.name, role: user, token: null };
+
+    session = {
+      username: user,
+      name: data.name || user,
+      role: data.role || user,
+      token: data.token
+    };
+  } catch (err) {
+    console.error(err);
+    el('#loginError').textContent = 'Cannot reach server. Check your connection.';
+    btn.disabled = false;
+    return;
   }
 
   saveSession();
@@ -1137,11 +1103,7 @@ async function doLogin(){
   btn.disabled = false;
 
   enterApp();
-
-  // Pull fresh data from the cloud after login
-  if (Store.mode === 'cloud') {
-    await Store.loadCloudData();
-  }
+  await Store.loadCloudData();
 }
 
 function enterApp(){
@@ -1153,8 +1115,7 @@ function enterApp(){
 }
 
 async function logout(){
-  // Tell the server to invalidate the token
-  if (session && session.token && Store.mode === 'cloud') {
+  if (session && session.token && isCloudConfigured()) {
     try {
       await fetch(CLOUD_CONFIG.url, {
         method: 'POST',
@@ -1677,15 +1638,13 @@ function initSettings(){
     commit('edited', 'Settings', `Timer sound ${e.target.checked ? 'enabled' : 'disabled'}`);
   });
 
-  // Password change — asks the server in cloud mode
+  // Password change — server-verified
   el('#savePass').addEventListener('click', async () => {
     const np = el('#newPass').value;
     if (np.length < 4) { toast('Password must be at least 4 characters.'); return; }
 
-    if (Store.mode === 'local') {
-      LOCAL_USERS[session.username].password = np;
-      toast('Password updated (local mode only).');
-      el('#newPass').value = '';
+    if (!isCloudConfigured()) {
+      toast('Backend not configured.');
       return;
     }
 
@@ -1752,12 +1711,12 @@ function updateSyncBadge(){
   const badge = el('#syncBadge');
   const text = el('#syncText');
   if (!badge) return;
-  if (Store.mode === 'cloud') {
+  if (isCloudConfigured()) {
     badge.classList.remove('local');
     text.textContent = 'Live cloud sync active (Google Sheets)';
   } else {
     badge.classList.add('local');
-    text.textContent = 'Local mode — syncs across this browser\'s tabs';
+    text.textContent = 'Backend not configured — login disabled';
   }
 }
 
@@ -1996,19 +1955,15 @@ function boot(){
 
   Store.init();
 
-  // Restore session if valid
   loadSession();
   if (session) {
-    // In cloud mode a session without a token is stale — clear it.
-    if (Store.mode === 'cloud' && !session.token) {
-      session = null;
-      saveSession();
-    } else if (Store.mode === 'local' && !session.username) {
+    // Cloud-only: require a token
+    if (!session.token) {
       session = null;
       saveSession();
     } else {
       enterApp();
-      if (Store.mode === 'cloud') Store.loadCloudData();
+      Store.loadCloudData();
     }
   }
 
