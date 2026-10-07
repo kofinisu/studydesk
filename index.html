@@ -44,6 +44,7 @@ button{cursor:pointer;border:none;background:none}
 .role-switch button.active{background:var(--accent);color:#fff;box-shadow:0 4px 14px color-mix(in srgb,var(--accent) 45%,transparent)}
 .field{margin-bottom:14px}
 .field label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px;font-weight:600;letter-spacing:.3px}
+.field label .opt{color:var(--muted);font-weight:400;font-size:10.5px;letter-spacing:.4px;text-transform:uppercase;margin-left:6px}
 .field input,.field select,.field textarea{width:100%;padding:11px 13px;border-radius:11px;border:1px solid var(--border);background:var(--surface2);outline:none;transition:border .2s,box-shadow .2s}
 .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 22%,transparent)}
 .btn{padding:11px 16px;border-radius:11px;background:var(--accent);color:#fff;font-weight:600;transition:transform .16s ease,filter .2s ease,box-shadow .2s ease}
@@ -54,6 +55,7 @@ html[data-elanim="on"] .btn:hover{transform:translateY(-2px);filter:brightness(1
 .btn.ghost:hover{box-shadow:none;border-color:var(--accent)}
 .btn.danger{background:var(--danger);color:#fff}
 .btn.full{width:100%;padding:13px}
+.btn.mini{padding:6px 10px;font-size:12px;border-radius:8px}
 .login-error{color:var(--danger);font-size:13px;margin-top:12px;min-height:18px;text-align:center}
 .login-hint{margin-top:18px;text-align:center;font-size:11.5px;color:var(--muted);line-height:1.6}
 
@@ -149,6 +151,7 @@ html[data-timeranim="on"] .ring-wrap.running .sw-ring .ring-fg{animation:spinRin
 .pill.teacher{color:var(--warn);border-color:color-mix(in srgb,var(--warn) 45%,transparent);background:color-mix(in srgb,var(--warn) 14%,transparent)}
 .pill.overdue{color:var(--danger);border-color:color-mix(in srgb,var(--danger) 45%,transparent);background:color-mix(in srgb,var(--danger) 14%,transparent)}
 .pill.soon{color:var(--warn);border-color:color-mix(in srgb,var(--warn) 45%,transparent);background:color-mix(in srgb,var(--warn) 14%,transparent)}
+.section-pill{font-size:10px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;padding:3px 9px;border-radius:20px;border:1px solid;white-space:nowrap}
 .score-badge{min-width:46px;height:46px;border-radius:12px;display:grid;place-items:center;font-weight:800;font-size:15px;color:#fff;flex-shrink:0;background:linear-gradient(135deg,var(--accent),var(--accent2));font-variant-numeric:tabular-nums}
 .score-badge.low{background:linear-gradient(135deg,var(--muted),var(--border));color:var(--text)}
 .mini-actions{display:flex;gap:6px;flex-shrink:0}
@@ -157,11 +160,34 @@ html[data-timeranim="on"] .ring-wrap.running .sw-ring .ring-fg{animation:spinRin
 .mini.del:hover{border-color:var(--danger);color:var(--danger)}
 .empty{color:var(--muted);font-size:13px;text-align:center;padding:24px 10px;font-style:italic}
 
-.two-col{display:grid;grid-template-columns:minmax(320px,400px) 1fr;gap:18px;align-items:start}
+/* Assignments tab */
+.two-col{display:grid;grid-template-columns:minmax(340px,420px) 1fr;gap:18px;align-items:start}
 @media(max-width:900px){.two-col{grid-template-columns:1fr}}
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .form-grid .span2{grid-column:span 2}
 @media(max-width:520px){.form-grid{grid-template-columns:1fr}.form-grid .span2{grid-column:span 1}}
+
+/* Section selector row */
+.section-selector{display:flex;gap:8px;align-items:stretch}
+.section-selector select{flex:1}
+.section-selector .btn.mini{padding:0 12px;font-size:14px;font-weight:800;min-width:38px;display:grid;place-items:center}
+
+/* Section filter */
+.list-header{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.list-header h3{margin-bottom:0 !important}
+.list-header .filters{display:flex;gap:8px;align-items:center}
+.list-header select{width:auto;padding:7px 11px;font-size:12.5px;border-radius:9px}
+
+/* Sections manager */
+.sections-manager{display:flex;flex-direction:column;gap:6px;margin-top:10px;padding-top:12px;border-top:1px dashed var(--border)}
+.sections-manager .sec-row{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:9px;background:var(--surface2);font-size:12.5px}
+.sections-manager .sec-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.sections-manager .sec-name{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sections-manager .sec-count{font-size:10.5px;color:var(--muted)}
+.sections-manager .sec-actions{display:flex;gap:4px}
+.sections-manager .sec-actions button{width:24px;height:24px;border-radius:6px;font-size:11px;display:grid;place-items:center;background:var(--surface);border:1px solid var(--border);transition:all .15s}
+.sections-manager .sec-actions button:hover{border-color:var(--accent);color:var(--accent)}
+.sections-manager .sec-actions button.del:hover{border-color:var(--danger);color:var(--danger)}
 
 .code-layout{display:grid;grid-template-columns:250px 1fr 1fr;gap:16px;align-items:start}
 @media(max-width:1200px){.code-layout{grid-template-columns:230px 1fr}.preview-card{grid-column:span 2}}
@@ -312,24 +338,79 @@ select{width:100%;padding:10px 12px;border-radius:11px;border:1px solid var(--bo
       </div>
     </section>
 
+    <!-- ============= ASSIGNMENTS TAB (updated) ============= -->
     <section class="tab-panel" id="tab-assignments">
       <div class="two-col">
+
+        <!-- LEFT: FORM -->
         <div class="card">
           <h3 id="assignFormTitle">Add Assignment</h3>
           <div class="form-grid">
-            <div class="field span2"><label>Assignment name</label><input id="aName" type="text" placeholder="e.g. Unit 4 Calculus Test"></div>
-            <div class="field"><label>Teacher</label><input id="aTeacher" type="text" placeholder="Ms. Rivera"></div>
-            <div class="field"><label>Weight (%)</label><input id="aWeight" type="number" min="0" max="100" placeholder="30"></div>
-            <div class="field span2"><label>Link to assignment</label><input id="aLink" type="url" placeholder="https://classroom.google.com/..."></div>
-            <div class="field"><label>Due date &amp; time</label><input id="aDue" type="datetime-local"></div>
-            <div class="field"><label>Type</label><select id="aType"><option value="summative">Summative</option><option value="performance">Performance</option></select></div>
+            <div class="field span2">
+              <label>Assignment name</label>
+              <input id="aName" type="text" placeholder="e.g. Unit 4 Calculus Test">
+            </div>
+
+            <div class="field span2">
+              <label>Class / Section</label>
+              <div class="section-selector">
+                <select id="aSection">
+                  <option value="">— No section —</option>
+                </select>
+                <button class="btn mini" id="addSectionBtn" title="Add new section">＋</button>
+              </div>
+            </div>
+
+            <div class="field">
+              <label>Teacher</label>
+              <input id="aTeacher" type="text" placeholder="Ms. Rivera">
+            </div>
+            <div class="field">
+              <label>Weight (%)</label>
+              <input id="aWeight" type="number" min="0" max="100" placeholder="30">
+            </div>
+
+            <div class="field">
+              <label>Due date</label>
+              <input id="aDue" type="date">
+            </div>
+            <div class="field">
+              <label>Time <span class="opt">optional</span></label>
+              <input id="aDueTime" type="time">
+            </div>
+
+            <div class="field">
+              <label>Type</label>
+              <select id="aType"><option value="summative">Summative</option><option value="performance">Performance</option></select>
+            </div>
+            <div class="field">
+              <label>Link <span class="opt">optional</span></label>
+              <input id="aLink" type="url" placeholder="https://...">
+            </div>
           </div>
+
           <div class="row" style="justify-content:flex-start;margin-top:6px">
             <button class="btn" id="aSubmit">+ Add Assignment</button>
             <button class="btn ghost hidden" id="aCancel">Cancel</button>
           </div>
+
+          <div class="sections-manager" id="sectionsManager"></div>
         </div>
-        <div class="card"><h3>All Assignments (<span id="assignCount">0</span>)</h3><div class="list" id="assignList" style="max-height:620px"></div></div>
+
+        <!-- RIGHT: LIST -->
+        <div class="card">
+          <div class="list-header">
+            <h3>All Assignments (<span id="assignCount">0</span>)</h3>
+            <div class="filters">
+              <select id="sectionFilter">
+                <option value="all">All sections</option>
+                <option value="none">No section</option>
+              </select>
+            </div>
+          </div>
+          <div class="list" id="assignList" style="max-height:620px"></div>
+        </div>
+
       </div>
     </section>
 
@@ -441,11 +522,26 @@ const els = (s, r = document) => Array.from(r.querySelectorAll(s));
 const uid = () => Math.random().toString(36).slice(2, 9) + Date.now().toString(36);
 const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
 
+/* Section color palette — index into this array */
+const SECTION_COLORS = [
+  '#6c8cff', '#39d4c8', '#f59e0b', '#ec4899',
+  '#8b5cf6', '#10b981', '#ef4444', '#06b6d4'
+];
+
 function escapeHtml(s){
   return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
 function fmtDateTime(ts){ if (!ts) return '—'; return new Date(ts).toLocaleString([],{year:'numeric',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit',second:'2-digit'}); }
-function fmtDue(ts){ if (!ts) return 'No date'; return new Date(ts).toLocaleString([],{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}); }
+
+/* Compact due formatter — omits time when it's end-of-day (23:59) */
+function fmtDue(ts){
+  if (!ts) return 'No date';
+  const d = new Date(ts);
+  const h = d.getHours(), m = d.getMinutes();
+  const datePart = d.toLocaleDateString([], { month:'short', day:'numeric' });
+  if (h === 23 && m === 59) return datePart;
+  return datePart + ' ' + d.toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' });
+}
 function relativeDue(ts){
   const diff = new Date(ts).getTime() - Date.now();
   const days = Math.floor(diff / 86400000);
@@ -460,35 +556,40 @@ function isCloudConfigured(){
   return CLOUD_CONFIG && CLOUD_CONFIG.url && CLOUD_CONFIG.url.indexOf('PASTE_') === -1;
 }
 
+/* Combine date + optional time into an ISO string. Default time = 23:59 */
+function combineDueDate(dateStr, timeStr){
+  if (!dateStr) return null;
+  const t = timeStr || '23:59';
+  return new Date(dateStr + 'T' + t).toISOString();
+}
+/* Split an ISO string back into date + time. Time is omitted when it's 23:59. */
+function splitDue(iso){
+  if (!iso) return { date: '', time: '' };
+  const d = new Date(iso);
+  const pad = n => String(n).padStart(2, '0');
+  const date = `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+  const time = (d.getHours() === 23 && d.getMinutes() === 59) ? '' : `${pad(d.getHours())}:${pad(d.getMinutes())}`;
+  return { date, time };
+}
+
 /* ============================================================
-   CONNECTION STATUS — 5 states
+   CONNECTION STATUS
 ============================================================ */
 let connState = 'hidden';
-
-const CONN_LABELS = {
-  synced:      'Synced',
-  syncing:     'Syncing…',
-  unavailable: 'Unavailable',
-  error:       'Sync error',
-  local:       'Local mode',
-  hidden:      'Hidden'
-};
+const CONN_LABELS = { synced:'Synced', syncing:'Syncing…', unavailable:'Unavailable', error:'Sync error', local:'Local mode', hidden:'Hidden' };
 
 function setConnStatus(state){
   connState = state;
-
   const pill = el('#connStatus');
   if (pill) {
     pill.classList.remove('synced','syncing','unavailable','error','local','hidden');
-    if (state === 'hidden') {
-      pill.classList.add('hidden');
-    } else {
+    if (state === 'hidden') pill.classList.add('hidden');
+    else {
       pill.classList.add(state);
       const txt = pill.querySelector('.text');
       if (txt) txt.textContent = CONN_LABELS[state] || state;
     }
   }
-
   updateSyncBadge();
 }
 
@@ -507,14 +608,17 @@ function classifyError(err){
 ============================================================ */
 function DEFAULT_DATA(){
   return {
-    assignments: [], projects: [], audit: [],
+    assignments: [],
+    sections: [],      // { id, name, colorIndex }
+    projects: [],
+    audit: [],
     settings: { theme:'aurora', cursor:'glow', tabAnim:true, tabAnimStyle:'slide', elementAnim:true, timerAnim:true, clock24:true, sound:true },
     updatedAt: Date.now()
   };
 }
 
 /* ============================================================
-   STORE — on-demand sync only (no polling)
+   STORE
 ============================================================ */
 const LS_KEY = 'studydesk_v1';
 
@@ -539,13 +643,14 @@ const Store = {
     });
 
     this.data = localData || DEFAULT_DATA();
+    // Ensure sections array exists (for older saved data)
+    if (!Array.isArray(this.data.sections)) this.data.sections = [];
     applyAll();
   },
 
   async apiPost(payload){
     const res = await fetch(CLOUD_CONFIG.url, {
-      method: 'POST',
-      redirect: 'follow',
+      method: 'POST', redirect: 'follow',
       body: JSON.stringify(payload)
     });
     if (!res.ok) throw new Error('HTTP ' + res.status);
@@ -556,10 +661,7 @@ const Store = {
 
   async withStatus(fn, { silent = false } = {}){
     if (!isCloudConfigured()) return fn();
-    if (!navigator.onLine) {
-      if (!silent) setConnStatus('unavailable');
-      return fn();
-    }
+    if (!navigator.onLine) { if (!silent) setConnStatus('unavailable'); return fn(); }
     if (!silent) setConnStatus('syncing');
     try {
       const result = await fn();
@@ -571,7 +673,6 @@ const Store = {
     }
   },
 
-  // Pull data from Sheet (called at login or via manual sync button)
   async loadCloudData(){
     if (!isCloudConfigured()) { setConnStatus('local'); return; }
     try {
@@ -580,6 +681,7 @@ const Store = {
       );
       if (data && data.data && typeof data.data === 'object') {
         this.data = data.data;
+        if (!Array.isArray(this.data.sections)) this.data.sections = [];
         localStorage.setItem(LS_KEY, JSON.stringify(this.data));
         applyAll();
       }
@@ -595,7 +697,6 @@ const Store = {
     );
   },
 
-  // Only fires when something is actually changed
   persist(){
     localStorage.setItem(LS_KEY, JSON.stringify(this.data));
     if (isCloudConfigured() && session && session.token) {
@@ -608,11 +709,7 @@ const Store = {
 };
 
 function commit(action, item, details){
-  const entry = {
-    id: uid(), user: session ? session.name : 'Unknown',
-    role: session ? session.role : 'unknown',
-    action, item, details: details || '', time: Date.now()
-  };
+  const entry = { id: uid(), user: session ? session.name : 'Unknown', role: session ? session.role : 'unknown', action, item, details: details || '', time: Date.now() };
   Store.data.audit.unshift(entry);
   if (Store.data.audit.length > 800) Store.data.audit.length = 800;
   Store.data.updatedAt = Date.now();
@@ -620,22 +717,38 @@ function commit(action, item, details){
   applyAll();
 }
 
+/* ============================================================
+   SECTIONS HELPERS
+============================================================ */
+function getSection(id){
+  if (!id) return null;
+  return Store.data.sections.find(s => s.id === id) || null;
+}
+function sectionColor(section){
+  if (!section) return null;
+  return SECTION_COLORS[(section.colorIndex || 0) % SECTION_COLORS.length];
+}
+function sectionPillHtml(sectionId){
+  const s = getSection(sectionId);
+  if (!s) return '';
+  const c = sectionColor(s);
+  return `<span class="section-pill" style="color:${c};border-color:${c}55;background:${c}22">${escapeHtml(s.name)}</span>`;
+}
+
+/* ============================================================
+   SESSION
+============================================================ */
 let session = null;
 let loginRole = 'student';
-
-function loadSession(){
-  try { const raw = sessionStorage.getItem('studydesk_session'); if (raw) session = JSON.parse(raw); } catch {}
-}
-function saveSession(){
-  if (session) sessionStorage.setItem('studydesk_session', JSON.stringify(session));
-  else sessionStorage.removeItem('studydesk_session');
-}
+function loadSession(){ try { const raw = sessionStorage.getItem('studydesk_session'); if (raw) session = JSON.parse(raw); } catch {} }
+function saveSession(){ if (session) sessionStorage.setItem('studydesk_session', JSON.stringify(session)); else sessionStorage.removeItem('studydesk_session'); }
 
 function applyAll(){
   if (!Store.data) return;
   applySettings();
   updateProfileUI();
   renderHubLists();
+  renderSectionsUI();
   renderAssignments();
   renderProjects();
   renderAudit();
@@ -767,7 +880,7 @@ function assignmentRow(a, showScore){
   if (diff < 0) duePill = '<span class="pill overdue">Overdue</span>';
   else if (diff < 2 * 86400000) duePill = '<span class="pill soon">Soon</span>';
   const linkHtml = a.link ? `<a href="${escapeHtml(a.link)}" target="_blank" rel="noopener">Open link ↗</a>` : '';
-  return `<div class="item"><div class="item-main"><div class="item-title">${escapeHtml(a.name)}<span class="pill ${a.type}">${a.type === 'summative' ? 'Summative' : 'Performance'}</span>${duePill}</div><div class="item-meta"><span>👤 ${escapeHtml(a.teacher || 'No teacher')}</span><span>📅 ${fmtDue(a.due)} · ${relativeDue(a.due)}</span><span>⚖️ ${escapeHtml(String(a.weight ?? 0))}%</span>${linkHtml}</div></div>${showScore ? `<div class="score-badge ${score < 35 ? 'low' : ''}">${score}</div>` : ''}</div>`;
+  return `<div class="item"><div class="item-main"><div class="item-title">${escapeHtml(a.name)}${sectionPillHtml(a.sectionId)}<span class="pill ${a.type}">${a.type === 'summative' ? 'Summative' : 'Performance'}</span>${duePill}</div><div class="item-meta"><span>👤 ${escapeHtml(a.teacher || 'No teacher')}</span><span>📅 ${fmtDue(a.due)} · ${relativeDue(a.due)}</span><span>⚖️ ${escapeHtml(String(a.weight ?? 0))}%</span>${linkHtml}</div></div>${showScore ? `<div class="score-badge ${score < 35 ? 'low' : ''}">${score}</div>` : ''}</div>`;
 }
 
 function renderHubLists(){
@@ -778,55 +891,247 @@ function renderHubLists(){
   el('#priorityList').innerHTML = ranked.length ? ranked.map(a => assignmentRow(a,true)).join('') : '<div class="empty">Add assignments to build your priority list.</div>';
 }
 
+/* ============================================================
+   ASSIGNMENTS TAB
+============================================================ */
 let editingId = null;
+
 function initAssignments(){
   el('#aSubmit').addEventListener('click', submitAssignment);
   el('#aCancel').addEventListener('click', cancelEdit);
+  el('#addSectionBtn').addEventListener('click', promptAddSection);
+  el('#sectionFilter').addEventListener('change', renderAssignments);
 }
+
+function refreshSectionDropdown(){
+  const sel = el('#aSection');
+  if (!sel) return;
+  const current = sel.value;
+  const opts = ['<option value="">— No section —</option>']
+    .concat(Store.data.sections.map(s => `<option value="${s.id}">${escapeHtml(s.name)}</option>`));
+  sel.innerHTML = opts.join('');
+  // preserve selection if still valid
+  if (Array.from(sel.options).some(o => o.value === current)) sel.value = current;
+
+  // Also update the filter dropdown
+  const filter = el('#sectionFilter');
+  if (filter) {
+    const curFilter = filter.value;
+    filter.innerHTML = ['<option value="all">All sections</option>', '<option value="none">No section</option>']
+      .concat(Store.data.sections.map(s => `<option value="${s.id}">${escapeHtml(s.name)}</option>`))
+      .join('');
+    if (Array.from(filter.options).some(o => o.value === curFilter)) filter.value = curFilter;
+  }
+}
+
+function promptAddSection(){
+  const name = (prompt('Name your section / class (e.g. "Math", "English"):') || '').trim();
+  if (!name) return;
+  // Prevent duplicates by name
+  if (Store.data.sections.some(s => s.name.toLowerCase() === name.toLowerCase())) {
+    toast('A section with that name already exists.');
+    return;
+  }
+  const colorIndex = Store.data.sections.length % SECTION_COLORS.length;
+  const section = { id: uid(), name, colorIndex };
+  Store.data.sections.push(section);
+  commit('added', 'Section', `Created section "${name}"`);
+
+  // Auto-select the new section in the form
+  refreshSectionDropdown();
+  el('#aSection').value = section.id;
+}
+
+function renameSection(id){
+  const s = getSection(id);
+  if (!s) return;
+  const name = (prompt('Rename section:', s.name) || '').trim();
+  if (!name || name === s.name) return;
+  if (Store.data.sections.some(x => x.id !== id && x.name.toLowerCase() === name.toLowerCase())) {
+    toast('A section with that name already exists.');
+    return;
+  }
+  s.name = name;
+  commit('edited', 'Section', `Renamed section to "${name}"`);
+}
+
+function deleteSection(id){
+  const s = getSection(id);
+  if (!s) return;
+  const count = Store.data.assignments.filter(a => a.sectionId === id).length;
+  const msg = count
+    ? `Delete section "${s.name}"? ${count} assignment${count === 1 ? '' : 's'} will become "No section".`
+    : `Delete section "${s.name}"?`;
+  if (!confirm(msg)) return;
+
+  Store.data.sections = Store.data.sections.filter(x => x.id !== id);
+  // Orphan its assignments
+  Store.data.assignments.forEach(a => { if (a.sectionId === id) a.sectionId = ''; });
+  commit('removed', 'Section', `Deleted section "${s.name}"`);
+}
+
+function renderSectionsUI(){
+  refreshSectionDropdown();
+
+  const mgr = el('#sectionsManager');
+  if (!mgr) return;
+
+  if (!Store.data.sections.length) {
+    mgr.innerHTML = '<div style="font-size:11.5px;color:var(--muted);text-align:center;padding:6px">No sections yet. Click ＋ above to create one.</div>';
+    return;
+  }
+
+  mgr.innerHTML = Store.data.sections.map(s => {
+    const c = sectionColor(s);
+    const count = Store.data.assignments.filter(a => a.sectionId === s.id).length;
+    return `<div class="sec-row">
+      <span class="sec-dot" style="background:${c};box-shadow:0 0 6px ${c}88"></span>
+      <span class="sec-name">${escapeHtml(s.name)}</span>
+      <span class="sec-count">${count} item${count === 1 ? '' : 's'}</span>
+      <span class="sec-actions">
+        <button data-rename="${s.id}" title="Rename">✎</button>
+        <button class="del" data-delsec="${s.id}" title="Delete">🗑</button>
+      </span>
+    </div>`;
+  }).join('');
+
+  els('[data-rename]').forEach(b => b.addEventListener('click', () => renameSection(b.dataset.rename)));
+  els('[data-delsec]').forEach(b => b.addEventListener('click', () => deleteSection(b.dataset.delsec)));
+}
+
 function submitAssignment(){
-  const name = el('#aName').value.trim(), teacher = el('#aTeacher').value.trim(), link = el('#aLink').value.trim(), due = el('#aDue').value, weight = el('#aWeight').value, type = el('#aType').value;
+  const name = el('#aName').value.trim();
+  const sectionId = el('#aSection').value;
+  const teacher = el('#aTeacher').value.trim();
+  const link = el('#aLink').value.trim();
+  const dueDate = el('#aDue').value;
+  const dueTime = el('#aDueTime').value;
+  const weight = el('#aWeight').value;
+  const type = el('#aType').value;
+
   if (!name) { toast('Please enter an assignment name.'); return; }
-  if (!due) { toast('Please pick a due date.'); return; }
-  const dueISO = new Date(due).toISOString();
+  if (!dueDate) { toast('Please pick a due date.'); return; }
+
+  const dueISO = combineDueDate(dueDate, dueTime);
+
   if (editingId) {
     const a = Store.data.assignments.find(x => x.id === editingId);
-    if (a) { Object.assign(a, { name, teacher, link, due: dueISO, weight: Number(weight) || 0, type }); commit('edited','Assignment',`Updated "${name}"`); }
+    if (a) {
+      Object.assign(a, { name, sectionId, teacher, link, due: dueISO, weight: Number(weight) || 0, type });
+      commit('edited', 'Assignment', `Updated "${name}"`);
+    }
     cancelEdit();
   } else {
-    Store.data.assignments.push({ id: uid(), name, teacher, link, due: dueISO, weight: Number(weight) || 0, type, createdBy: session.name, createdAt: Date.now() });
-    commit('added','Assignment',`Created "${name}" (${type}, ${Number(weight) || 0}%)`);
+    Store.data.assignments.push({
+      id: uid(), name, sectionId, teacher, link, due: dueISO,
+      weight: Number(weight) || 0, type,
+      createdBy: session.name, createdAt: Date.now()
+    });
+    const secName = sectionId ? ` [${getSection(sectionId)?.name || ''}]` : '';
+    commit('added', 'Assignment', `Created "${name}"${secName} (${type}, ${Number(weight) || 0}%)`);
   }
   clearAssignmentForm();
 }
-function clearAssignmentForm(){ el('#aName').value=''; el('#aTeacher').value=''; el('#aLink').value=''; el('#aDue').value=''; el('#aWeight').value=''; el('#aType').value='summative'; }
-function cancelEdit(){ editingId=null; clearAssignmentForm(); el('#assignFormTitle').textContent='Add Assignment'; el('#aSubmit').textContent='+ Add Assignment'; el('#aCancel').classList.add('hidden'); }
+
+function clearAssignmentForm(){
+  el('#aName').value = '';
+  el('#aTeacher').value = '';
+  el('#aLink').value = '';
+  el('#aDue').value = '';
+  el('#aDueTime').value = '';
+  el('#aWeight').value = '';
+  el('#aType').value = 'summative';
+  el('#aSection').value = '';
+}
+
+function cancelEdit(){
+  editingId = null;
+  clearAssignmentForm();
+  el('#assignFormTitle').textContent = 'Add Assignment';
+  el('#aSubmit').textContent = '+ Add Assignment';
+  el('#aCancel').classList.add('hidden');
+}
+
 function editAssignment(id){
-  const a = Store.data.assignments.find(x => x.id === id); if (!a) return;
+  const a = Store.data.assignments.find(x => x.id === id);
+  if (!a) return;
   editingId = id;
-  el('#aName').value = a.name; el('#aTeacher').value = a.teacher || ''; el('#aLink').value = a.link || ''; el('#aWeight').value = a.weight ?? ''; el('#aType').value = a.type;
-  const d = new Date(a.due); const pad = n => String(n).padStart(2,'0');
-  el('#aDue').value = `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
-  el('#assignFormTitle').textContent = 'Edit Assignment'; el('#aSubmit').textContent = '✓ Save Changes'; el('#aCancel').classList.remove('hidden'); el('#aName').focus();
+  el('#aName').value = a.name;
+  el('#aTeacher').value = a.teacher || '';
+  el('#aLink').value = a.link || '';
+  el('#aWeight').value = a.weight ?? '';
+  el('#aType').value = a.type;
+  el('#aSection').value = a.sectionId || '';
+
+  const { date, time } = splitDue(a.due);
+  el('#aDue').value = date;
+  el('#aDueTime').value = time;
+
+  el('#assignFormTitle').textContent = 'Edit Assignment';
+  el('#aSubmit').textContent = '✓ Save Changes';
+  el('#aCancel').classList.remove('hidden');
+  el('#aName').focus();
   switchTab('assignments');
 }
+
 function deleteAssignment(id){
-  const a = Store.data.assignments.find(x => x.id === id); if (!a) return;
+  const a = Store.data.assignments.find(x => x.id === id);
+  if (!a) return;
   if (!confirm(`Delete assignment "${a.name}"?`)) return;
   Store.data.assignments = Store.data.assignments.filter(x => x.id !== id);
-  commit('removed','Assignment',`Deleted "${a.name}"`);
+  commit('removed', 'Assignment', `Deleted "${a.name}"`);
 }
+
 function renderAssignments(){
   if (!Store.data) return;
-  const list = Store.data.assignments.slice().sort((a,b) => new Date(a.due) - new Date(b.due));
-  el('#assignCount').textContent = list.length;
-  el('#assignList').innerHTML = list.length ? list.map(a => `
-    <div class="item"><div class="item-main"><div class="item-title">${escapeHtml(a.name)}<span class="pill ${a.type}">${a.type}</span></div>
-    <div class="item-meta"><span>👤 ${escapeHtml(a.teacher || '—')}</span><span>📅 ${fmtDue(a.due)} · ${relativeDue(a.due)}</span><span>⚖️ ${escapeHtml(String(a.weight ?? 0))}%</span>${a.link ? `<a href="${escapeHtml(a.link)}" target="_blank" rel="noopener">Link ↗</a>` : ''}<span>Added by ${escapeHtml(a.createdBy || '—')}</span></div></div>
-    <div class="mini-actions"><button class="mini" data-edit="${a.id}" title="Edit">✎</button><button class="mini del" data-del="${a.id}" title="Delete">🗑</button></div></div>`).join('') : '<div class="empty">No assignments yet. Add one on the left.</div>';
+
+  const filterVal = el('#sectionFilter') ? el('#sectionFilter').value : 'all';
+  let items = Store.data.assignments.slice();
+  if (filterVal === 'none') items = items.filter(a => !a.sectionId);
+  else if (filterVal !== 'all') items = items.filter(a => a.sectionId === filterVal);
+
+  items.sort((a, b) => new Date(a.due) - new Date(b.due));
+
+  el('#assignCount').textContent = items.length;
+
+  if (!items.length) {
+    el('#assignList').innerHTML = Store.data.assignments.length
+      ? '<div class="empty">No assignments in this section.</div>'
+      : '<div class="empty">No assignments yet. Add one on the left.</div>';
+    return;
+  }
+
+  el('#assignList').innerHTML = items.map(a => {
+    const secName = getSection(a.sectionId)?.name;
+    return `<div class="item">
+      <div class="item-main">
+        <div class="item-title">
+          ${escapeHtml(a.name)}
+          ${sectionPillHtml(a.sectionId)}
+          <span class="pill ${a.type}">${a.type}</span>
+        </div>
+        <div class="item-meta">
+          <span>👤 ${escapeHtml(a.teacher || '—')}</span>
+          <span>📅 ${fmtDue(a.due)} · ${relativeDue(a.due)}</span>
+          <span>⚖️ ${escapeHtml(String(a.weight ?? 0))}%</span>
+          ${a.link ? `<a href="${escapeHtml(a.link)}" target="_blank" rel="noopener">Link ↗</a>` : ''}
+          <span>Added by ${escapeHtml(a.createdBy || '—')}</span>
+        </div>
+      </div>
+      <div class="mini-actions">
+        <button class="mini" data-edit="${a.id}" title="Edit">✎</button>
+        <button class="mini del" data-del="${a.id}" title="Delete">🗑</button>
+      </div>
+    </div>`;
+  }).join('');
+
   els('[data-edit]').forEach(b => b.addEventListener('click', () => editAssignment(b.dataset.edit)));
   els('[data-del]').forEach(b => b.addEventListener('click', () => deleteAssignment(b.dataset.del)));
 }
 
+/* ============================================================
+   CODE STORAGE
+============================================================ */
 let currentProjectId = null, previewTimer = null;
 function initCode(){
   el('#pSave').addEventListener('click', saveProject);
@@ -867,6 +1172,9 @@ function renderProjects(){
   els('[data-pdel]').forEach(btn => btn.addEventListener('click', e => { e.stopPropagation(); deleteProject(btn.dataset.pdel); }));
 }
 
+/* ============================================================
+   AUDIT
+============================================================ */
 function initAudit(){
   el('#auditFilter').addEventListener('change', renderAudit);
   el('#clearAudit').addEventListener('click', () => {
@@ -885,6 +1193,9 @@ function renderAudit(){
   el('#auditBody').innerHTML = rows.length ? rows.map(r => `<tr><td class="muted" style="white-space:nowrap">${fmtDateTime(r.time)}</td><td><span class="pill ${r.role}">${escapeHtml(r.role)}</span> <span style="margin-left:6px">${escapeHtml(r.user)}</span></td><td><span class="action-tag ${r.action}">${escapeHtml(r.action)}</span></td><td>${escapeHtml(r.item)}</td><td class="muted">${escapeHtml(r.details || '')}</td></tr>`).join('') : '<tr><td colspan="5" class="empty">No activity recorded yet.</td></tr>';
 }
 
+/* ============================================================
+   SETTINGS
+============================================================ */
 const THEMES = [
   { id:'aurora', name:'Aurora', dots:['#6c8cff','#39d4c8','#0b1020'] },
   { id:'midnight', name:'Midnight', dots:['#2f81f7','#39d353','#05070d'] },
@@ -906,7 +1217,6 @@ function initSettings(){
   el('#setTimerAnim').addEventListener('change', e => { Store.data.settings.timerAnim = e.target.checked; commit('edited','Settings',`Timer anim ${e.target.checked?'on':'off'}`); });
   el('#setClock24').addEventListener('change', e => { Store.data.settings.clock24 = e.target.checked; commit('edited','Settings',`Clock → ${e.target.checked?'24h':'12h'}`); tickClock(); });
   el('#setSound').addEventListener('change', e => { Store.data.settings.sound = e.target.checked; commit('edited','Settings',`Sound ${e.target.checked?'on':'off'}`); });
-
   el('#savePass').addEventListener('click', async () => {
     const np = el('#newPass').value;
     if (np.length < 4) { toast('Password must be at least 4 characters.'); return; }
@@ -916,14 +1226,12 @@ function initSettings(){
       toast('Password updated ✓'); el('#newPass').value = '';
     } catch (err) { toast('Failed: ' + err.message); }
   });
-
   el('#manualSync').addEventListener('click', async () => {
     if (!isCloudConfigured()) { toast('Backend not configured.'); return; }
     toast('Pulling latest…');
     await Store.loadCloudData();
     toast('Data refreshed');
   });
-
   el('#resetData').addEventListener('click', () => {
     if (!confirm('Reset ALL dashboard data?')) return;
     Store.data = DEFAULT_DATA(); Store.persist(); currentProjectId = null; applyAll(); el('#codeArea').value = ''; toast('Dashboard reset.');
@@ -945,36 +1253,15 @@ function updateSyncBadge(){
   const badge = el('#syncBadge');
   const text  = el('#syncText');
   if (!badge || !text) return;
-
   badge.classList.remove('local','error','unavailable');
-
-  if (!isCloudConfigured()) {
-    badge.classList.add('local');
-    text.textContent = 'Backend not configured';
-    return;
-  }
-
+  if (!isCloudConfigured()) { badge.classList.add('local'); text.textContent = 'Backend not configured'; return; }
   switch (connState) {
-    case 'synced':
-      text.textContent = 'Synced with Google Sheets';
-      break;
-    case 'syncing':
-      text.textContent = 'Syncing…';
-      break;
-    case 'unavailable':
-      badge.classList.add('unavailable');
-      text.textContent = 'Unavailable — changes saved locally';
-      break;
-    case 'error':
-      badge.classList.add('error');
-      text.textContent = 'Sync error — check the console';
-      break;
-    case 'local':
-      badge.classList.add('local');
-      text.textContent = 'Local mode';
-      break;
-    default:
-      text.textContent = 'Cloud sync configured';
+    case 'synced': text.textContent = 'Synced with Google Sheets'; break;
+    case 'syncing': text.textContent = 'Syncing…'; break;
+    case 'unavailable': badge.classList.add('unavailable'); text.textContent = 'Unavailable — changes saved locally'; break;
+    case 'error': badge.classList.add('error'); text.textContent = 'Sync error — check the console'; break;
+    case 'local': badge.classList.add('local'); text.textContent = 'Local mode'; break;
+    default: text.textContent = 'Cloud sync configured';
   }
 }
 
@@ -986,6 +1273,9 @@ function initProfileMenu(){
   el('#menuSettings').addEventListener('click', openSettings);
 }
 
+/* ============================================================
+   TIMER
+============================================================ */
 const RING_C = 2 * Math.PI * 54;
 let timerState = { total:1500, remaining:1500, running:false, endAt:0, id:null };
 function initTimer(){
@@ -1039,6 +1329,9 @@ function beep(){
   } catch {}
 }
 
+/* ============================================================
+   STOPWATCH
+============================================================ */
 let swState = { elapsed:0, running:false, startAt:0, id:null };
 function initStopwatch(){
   el('#swStart').addEventListener('click', startSW);
@@ -1054,6 +1347,9 @@ function updateSWUI(){
   el('#swDisplay').textContent = `${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}.${tenths}`;
 }
 
+/* ============================================================
+   CURSOR
+============================================================ */
 let lastTrail = 0;
 function initCursor(){
   const glow = el('#cursorGlow');
@@ -1096,7 +1392,6 @@ function boot(){
   window.addEventListener('online', () => {
     if (!session) return;
     if (!isCloudConfigured()) { setConnStatus('local'); return; }
-    // Auto-pull fresh data when connection returns
     Store.loadCloudData();
   });
   window.addEventListener('offline', () => { if (session) setConnStatus('unavailable'); });
