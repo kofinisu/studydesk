@@ -1,0 +1,2023 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="aurora" data-tabanim="on" data-tabstyle="slide" data-elanim="on">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>StudyDesk — Student Dashboard</title>
+
+<style>
+/* ============================================================
+   BASE
+============================================================ */
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0b1020; --surface:#141b33; --surface2:#1c2544; --text:#e8ecff;
+  --muted:#8b96bd; --accent:#6c8cff; --accent2:#39d4c8; --border:#26305a;
+  --danger:#ff5f7e; --success:#3ddc97; --warn:#ffc857;
+  --radius:16px; --shadow:0 12px 34px rgba(0,0,0,.38);
+  --font:'Segoe UI',system-ui,-apple-system,'Helvetica Neue',sans-serif;
+  --mono:'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace;
+}
+html[data-theme="midnight"]{
+  --bg:#05070d; --surface:#0d1117; --surface2:#161b22; --text:#e6edf3;
+  --muted:#7d8590; --accent:#2f81f7; --accent2:#39d353; --border:#21262d;
+  --danger:#f85149; --success:#3fb950; --warn:#d29922;
+}
+html[data-theme="light"]{
+  --bg:#f2f5fc; --surface:#ffffff; --surface2:#eef2fa; --text:#131a2c;
+  --muted:#5c6884; --accent:#3b5bfd; --accent2:#0d9b9b; --border:#dde3f0;
+  --danger:#e11d48; --success:#0f9d58; --warn:#b45309;
+  --shadow:0 10px 26px rgba(30,45,90,.12);
+}
+html[data-theme="solar"]{
+  --bg:#fdf6e9; --surface:#fffdf7; --surface2:#f7ecd7; --text:#3a2e1e;
+  --muted:#8a7757; --accent:#e08a1e; --accent2:#c2410c; --border:#ecd9b8;
+  --danger:#b91c1c; --success:#15803d; --warn:#a16207;
+  --shadow:0 10px 26px rgba(140,100,30,.14);
+}
+html[data-theme="neon"]{
+  --bg:#050505; --surface:#0e0e12; --surface2:#17171f; --text:#f2f2f7;
+  --muted:#8a8a9e; --accent:#ff2fd0; --accent2:#b6ff3a; --border:#2a2a38;
+  --danger:#ff3860; --success:#b6ff3a; --warn:#ffd60a;
+}
+html[data-theme="forest"]{
+  --bg:#08130f; --surface:#0f1f19; --surface2:#163026; --text:#e3f4ec;
+  --muted:#82a396; --accent:#34d399; --accent2:#a3e635; --border:#1e3b31;
+  --danger:#f87171; --success:#34d399; --warn:#fbbf24;
+}
+
+html,body{height:100%}
+body{
+  background:var(--bg); color:var(--text); font-family:var(--font);
+  min-height:100vh; overflow-x:hidden;
+  transition:background .35s ease,color .35s ease;
+}
+body::before{
+  content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+  background:
+    radial-gradient(700px 500px at 12% -5%, color-mix(in srgb, var(--accent) 20%, transparent), transparent 60%),
+    radial-gradient(600px 460px at 95% 8%, color-mix(in srgb, var(--accent2) 16%, transparent), transparent 62%);
+  opacity:.9;
+}
+button,input,select,textarea{font-family:inherit;font-size:14px;color:inherit}
+button{cursor:pointer;border:none;background:none}
+.hidden{display:none !important}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:8px}
+::-webkit-scrollbar-thumb:hover{background:var(--accent)}
+
+/* ============================================================
+   LOGIN
+============================================================ */
+.login-screen{
+  position:fixed; inset:0; z-index:500; display:grid; place-items:center;
+  background:var(--bg); padding:20px;
+}
+.login-card{
+  width:min(420px,100%); background:var(--surface); border:1px solid var(--border);
+  border-radius:22px; padding:34px 30px; box-shadow:var(--shadow);
+  animation:cardIn .5s cubic-bezier(.2,.9,.25,1) both;
+}
+@keyframes cardIn{from{opacity:0;transform:translateY(18px) scale(.97)}to{opacity:1;transform:none}}
+.login-card h1{font-size:28px;letter-spacing:-.5px;display:flex;align-items:center;gap:10px}
+.login-card h1 .dot{
+  width:12px;height:12px;border-radius:50%;background:var(--accent);
+  box-shadow:0 0 16px var(--accent); animation:pulseDot 1.8s infinite;
+}
+@keyframes pulseDot{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.35);opacity:.6}}
+.login-card .sub{color:var(--muted);font-size:13px;margin:6px 0 22px}
+.role-switch{
+  display:grid;grid-template-columns:1fr 1fr;gap:6px;background:var(--surface2);
+  padding:5px;border-radius:12px;margin-bottom:18px;border:1px solid var(--border);
+}
+.role-switch button{
+  padding:10px;border-radius:9px;font-weight:600;font-size:13px;color:var(--muted);
+  transition:all .22s ease;
+}
+.role-switch button.active{background:var(--accent);color:#fff;box-shadow:0 4px 14px color-mix(in srgb,var(--accent) 45%,transparent)}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px;font-weight:600;letter-spacing:.3px}
+.field input,.field select,.field textarea{
+  width:100%;padding:11px 13px;border-radius:11px;border:1px solid var(--border);
+  background:var(--surface2);outline:none;transition:border .2s,box-shadow .2s;
+}
+.field input:focus,.field select:focus,.field textarea:focus{
+  border-color:var(--accent); box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 22%,transparent);
+}
+.btn{
+  padding:11px 16px;border-radius:11px;background:var(--accent);color:#fff;font-weight:600;
+  transition:transform .16s ease,filter .2s ease,box-shadow .2s ease;
+}
+html[data-elanim="on"] .btn:hover{transform:translateY(-2px);filter:brightness(1.08);box-shadow:0 8px 20px color-mix(in srgb,var(--accent) 40%,transparent)}
+.btn:active{transform:translateY(0) scale(.98)}
+.btn:disabled{opacity:.6;cursor:wait;transform:none !important}
+.btn.ghost{background:var(--surface2);color:var(--text);border:1px solid var(--border)}
+.btn.ghost:hover{box-shadow:none;border-color:var(--accent)}
+.btn.danger{background:var(--danger);color:#fff}
+.btn.full{width:100%;padding:13px}
+.login-error{color:var(--danger);font-size:13px;margin-top:12px;min-height:18px;text-align:center}
+.login-hint{margin-top:18px;text-align:center;font-size:11.5px;color:var(--muted);line-height:1.6}
+.login-hint code{background:var(--surface2);padding:2px 6px;border-radius:6px;font-family:var(--mono)}
+
+/* ============================================================
+   TOP BAR
+============================================================ */
+.topbar{
+  position:sticky;top:0;z-index:120;display:flex;align-items:center;gap:18px;
+  padding:12px 22px;background:color-mix(in srgb,var(--bg) 82%,transparent);
+  backdrop-filter:blur(14px);border-bottom:1px solid var(--border);flex-wrap:wrap;
+}
+.brand{display:flex;align-items:center;gap:9px;font-weight:800;letter-spacing:-.4px;font-size:17px;white-space:nowrap}
+.brand .logo{
+  width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font-size:15px;color:#fff;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  box-shadow:0 5px 16px color-mix(in srgb,var(--accent) 45%,transparent);
+}
+.tabs{display:flex;gap:5px;background:var(--surface);border:1px solid var(--border);padding:5px;border-radius:13px;flex-wrap:wrap}
+.tab-btn{
+  padding:9px 16px;border-radius:9px;font-size:13px;font-weight:600;color:var(--muted);
+  transition:all .25s cubic-bezier(.2,.8,.2,1);position:relative;white-space:nowrap;
+}
+.tab-btn:hover{color:var(--text)}
+.tab-btn.active{background:linear-gradient(135deg,var(--accent),color-mix(in srgb,var(--accent2) 55%,var(--accent)));color:#fff;box-shadow:0 5px 16px color-mix(in srgb,var(--accent) 42%,transparent)}
+.top-right{margin-left:auto;display:flex;align-items:center;gap:10px;position:relative}
+.icon-btn{
+  width:40px;height:40px;border-radius:12px;background:var(--surface);border:1px solid var(--border);
+  display:grid;place-items:center;font-size:17px;transition:all .22s ease;
+}
+html[data-elanim="on"] .icon-btn:hover{transform:translateY(-2px) rotate(22deg);border-color:var(--accent);color:var(--accent)}
+.profile-btn{
+  display:flex;align-items:center;gap:10px;padding:6px 13px 6px 7px;border-radius:13px;
+  background:var(--surface);border:1px solid var(--border);transition:all .22s ease;
+}
+html[data-elanim="on"] .profile-btn:hover{border-color:var(--accent);transform:translateY(-1px)}
+.avatar{
+  width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font-weight:700;font-size:13px;color:#fff;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+}
+.profile-meta{display:flex;flex-direction:column;align-items:flex-start;line-height:1.15}
+.profile-meta strong{font-size:12.5px}
+.profile-meta small{font-size:10.5px;color:var(--muted);text-transform:capitalize;letter-spacing:.4px}
+.menu{
+  position:absolute;top:52px;right:0;background:var(--surface);border:1px solid var(--border);
+  border-radius:13px;padding:6px;min-width:170px;box-shadow:var(--shadow);z-index:200;
+  animation:menuIn .18s ease both;
+}
+@keyframes menuIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.menu button{display:block;width:100%;text-align:left;padding:10px 12px;border-radius:9px;font-size:13px;transition:background .15s}
+.menu button:hover{background:var(--surface2)}
+.menu .sep{height:1px;background:var(--border);margin:5px 4px}
+
+/* ============================================================
+   LAYOUT / PANELS
+============================================================ */
+main{position:relative;z-index:1;padding:22px;max-width:1500px;margin:0 auto}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+html[data-tabanim="on"][data-tabstyle="slide"] .tab-panel.active{animation:tabSlide .38s cubic-bezier(.2,.85,.25,1) both}
+html[data-tabanim="on"][data-tabstyle="fade"]  .tab-panel.active{animation:tabFade .34s ease both}
+html[data-tabanim="on"][data-tabstyle="zoom"]  .tab-panel.active{animation:tabZoom .34s cubic-bezier(.2,.9,.25,1) both}
+@keyframes tabSlide{from{opacity:0;transform:translateX(24px)}to{opacity:1;transform:none}}
+@keyframes tabFade{from{opacity:0}to{opacity:1}}
+@keyframes tabZoom{from{opacity:0;transform:scale(.965)}to{opacity:1;transform:none}}
+
+.card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:18px;box-shadow:var(--shadow);transition:transform .25s cubic-bezier(.2,.8,.2,1),border-color .25s,box-shadow .25s;
+  position:relative;overflow:hidden;
+}
+html[data-elanim="on"] .card:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--accent) 45%,var(--border))}
+.card h3{
+  font-size:12px;text-transform:uppercase;letter-spacing:1.2px;color:var(--muted);
+  margin-bottom:14px;display:flex;align-items:center;gap:8px;font-weight:700;
+}
+.card h3::before{content:'';width:3px;height:14px;border-radius:3px;background:var(--accent)}
+
+.hub-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
+.clock-card{grid-column:span 4}
+.timer-card{grid-column:span 4}
+.stopwatch-card{grid-column:span 4}
+.due-card{grid-column:span 6}
+.priority-card{grid-column:span 6}
+@media(max-width:1080px){.clock-card,.timer-card,.stopwatch-card,.due-card,.priority-card{grid-column:span 12}}
+@media(max-width:640px){main{padding:14px}.topbar{padding:10px 14px;gap:10px}.tabs{order:3;width:100%;justify-content:center}}
+
+/* ============================================================
+   CLOCK
+============================================================ */
+.clock-time{
+  font-size:clamp(34px,5.4vw,50px);font-weight:800;letter-spacing:-2px;line-height:1;
+  background:linear-gradient(120deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  font-variant-numeric:tabular-nums;
+}
+.clock-date{color:var(--muted);font-size:13.5px;margin-top:10px;font-weight:600}
+.greeting{
+  margin-top:16px;padding:9px 14px;border-radius:11px;background:var(--surface2);
+  font-size:13px;border-left:3px solid var(--accent2);
+}
+
+/* ============================================================
+   RINGS (timer / stopwatch)
+============================================================ */
+.ring-wrap{position:relative;width:158px;height:158px;margin:2px auto 14px}
+.ring{width:100%;height:100%;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:8;stroke-linecap:round}
+.ring-bg{stroke:var(--surface2)}
+.ring-fg{
+  stroke:url(#grad1);stroke:var(--accent);
+  stroke-dasharray:339.292;stroke-dashoffset:0;
+  transition:stroke-dashoffset .18s linear, stroke .3s;
+  filter:drop-shadow(0 0 7px color-mix(in srgb,var(--accent) 65%,transparent));
+}
+html[data-timeranim="on"] .ring-wrap.running .ring-fg{animation:ringPulse 1.7s ease-in-out infinite}
+@keyframes ringPulse{0%,100%{filter:drop-shadow(0 0 6px color-mix(in srgb,var(--accent) 55%,transparent))}50%{filter:drop-shadow(0 0 16px var(--accent))}}
+.ring-label{
+  position:absolute;inset:0;display:grid;place-items:center;
+  font-size:27px;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-1px;
+}
+.sw-ring .ring-fg{stroke:var(--accent2);stroke-dasharray:60 280;transition:none}
+html[data-timeranim="on"] .ring-wrap.running .sw-ring .ring-fg{animation:spinRing 1.4s linear infinite}
+@keyframes spinRing{to{stroke-dashoffset:-340}}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:center}
+.row input[type=number]{
+  width:64px;padding:8px 10px;border-radius:9px;border:1px solid var(--border);
+  background:var(--surface2);text-align:center;outline:none;
+}
+.row input[type=number]:focus{border-color:var(--accent)}
+.row .lbl{font-size:12px;color:var(--muted)}
+.ctrl-btn{
+  padding:9px 15px;border-radius:10px;background:var(--surface2);border:1px solid var(--border);
+  font-size:12.5px;font-weight:600;transition:all .2s ease;
+}
+html[data-elanim="on"] .ctrl-btn:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+.ctrl-btn.primary{background:var(--accent);color:#fff;border-color:transparent}
+
+/* ============================================================
+   LISTS / ITEMS
+============================================================ */
+.list{display:flex;flex-direction:column;gap:9px;max-height:330px;overflow-y:auto;padding-right:4px}
+.item{
+  display:flex;align-items:center;gap:12px;padding:12px 13px;border-radius:12px;
+  background:var(--surface2);border:1px solid transparent;transition:all .22s ease;
+}
+html[data-elanim="on"] .item:hover{transform:translateX(4px);border-color:color-mix(in srgb,var(--accent) 40%,transparent)}
+.item-main{flex:1;min-width:0}
+.item-title{font-size:13.5px;font-weight:600;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.item-meta{font-size:11.5px;color:var(--muted);margin-top:4px;display:flex;gap:10px;flex-wrap:wrap}
+.item-meta a{color:var(--accent2);text-decoration:none}
+.item-meta a:hover{text-decoration:underline}
+.pill{
+  font-size:10px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;
+  padding:3px 8px;border-radius:20px;border:1px solid;
+}
+.pill.summative{color:var(--danger);border-color:color-mix(in srgb,var(--danger) 45%,transparent);background:color-mix(in srgb,var(--danger) 14%,transparent)}
+.pill.performance{color:var(--accent2);border-color:color-mix(in srgb,var(--accent2) 45%,transparent);background:color-mix(in srgb,var(--accent2) 14%,transparent)}
+.pill.student{color:var(--accent);border-color:color-mix(in srgb,var(--accent) 45%,transparent);background:color-mix(in srgb,var(--accent) 14%,transparent)}
+.pill.teacher{color:var(--warn);border-color:color-mix(in srgb,var(--warn) 45%,transparent);background:color-mix(in srgb,var(--warn) 14%,transparent)}
+.pill.overdue{color:var(--danger);border-color:color-mix(in srgb,var(--danger) 45%,transparent);background:color-mix(in srgb,var(--danger) 14%,transparent)}
+.pill.soon{color:var(--warn);border-color:color-mix(in srgb,var(--warn) 45%,transparent);background:color-mix(in srgb,var(--warn) 14%,transparent)}
+.score-badge{
+  min-width:46px;height:46px;border-radius:12px;display:grid;place-items:center;
+  font-weight:800;font-size:15px;color:#fff;flex-shrink:0;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  font-variant-numeric:tabular-nums;
+}
+.score-badge.low{background:linear-gradient(135deg,var(--muted),var(--border));color:var(--text)}
+.mini-actions{display:flex;gap:6px;flex-shrink:0}
+.mini{
+  width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font-size:13px;
+  background:var(--surface);border:1px solid var(--border);transition:all .18s ease;
+}
+.mini:hover{border-color:var(--accent);color:var(--accent);transform:scale(1.08)}
+.mini.del:hover{border-color:var(--danger);color:var(--danger)}
+.empty{color:var(--muted);font-size:13px;text-align:center;padding:24px 10px;font-style:italic}
+
+/* ============================================================
+   ASSIGNMENTS TAB
+============================================================ */
+.two-col{display:grid;grid-template-columns:minmax(320px,400px) 1fr;gap:18px;align-items:start}
+@media(max-width:900px){.two-col{grid-template-columns:1fr}}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.form-grid .span2{grid-column:span 2}
+@media(max-width:520px){.form-grid{grid-template-columns:1fr}.form-grid .span2{grid-column:span 1}}
+
+/* ============================================================
+   CODE TAB
+============================================================ */
+.code-layout{display:grid;grid-template-columns:250px 1fr 1fr;gap:16px;align-items:start}
+@media(max-width:1200px){.code-layout{grid-template-columns:230px 1fr}.preview-card{grid-column:span 2}}
+@media(max-width:800px){.code-layout{grid-template-columns:1fr}.preview-card{grid-column:span 1}}
+.code-editor{
+  width:100%;min-height:380px;padding:14px;border-radius:12px;border:1px solid var(--border);
+  background:#0b0e18;color:#dbe4ff;font-family:var(--mono);font-size:13px;line-height:1.6;
+  resize:vertical;outline:none;tab-size:2;white-space:pre;overflow:auto;
+}
+html[data-theme="light"] .code-editor,html[data-theme="solar"] .code-editor{background:#0f1420;color:#dbe4ff}
+.code-editor:focus{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 20%,transparent)}
+.preview-frame{
+  width:100%;height:380px;border-radius:12px;border:1px solid var(--border);background:#fff;
+}
+.proj-item{
+  display:flex;align-items:center;gap:9px;padding:10px 11px;border-radius:11px;
+  background:var(--surface2);cursor:pointer;transition:all .2s ease;border:1px solid transparent;
+}
+html[data-elanim="on"] .proj-item:hover{transform:translateX(3px);border-color:var(--accent)}
+.proj-item.active{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 14%,var(--surface2))}
+.proj-item .lang-tag{font-size:9.5px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--accent2)}
+.proj-item .pname{font-size:12.5px;font-weight:600;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* ============================================================
+   AUDIT
+============================================================ */
+.table-wrap{overflow-x:auto;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface)}
+table{width:100%;border-collapse:collapse;font-size:12.5px;min-width:720px}
+th{
+  text-align:left;padding:13px 15px;font-size:10.5px;text-transform:uppercase;letter-spacing:1px;
+  color:var(--muted);background:var(--surface2);font-weight:800;border-bottom:1px solid var(--border);
+}
+td{padding:12px 15px;border-bottom:1px solid var(--border);vertical-align:middle}
+tbody tr{transition:background .18s}
+tbody tr:hover{background:var(--surface2)}
+tbody tr:last-child td{border-bottom:none}
+.action-tag{font-weight:800;font-size:11px;text-transform:uppercase;letter-spacing:.6px}
+.action-tag.added{color:var(--success)}
+.action-tag.removed{color:var(--danger)}
+.action-tag.edited{color:var(--warn)}
+.muted{color:var(--muted)}
+
+/* ============================================================
+   SETTINGS DRAWER
+============================================================ */
+.drawer{
+  position:fixed;top:0;right:0;height:100vh;width:min(380px,92vw);z-index:300;
+  background:var(--surface);border-left:1px solid var(--border);box-shadow:-18px 0 50px rgba(0,0,0,.35);
+  transform:translateX(102%);transition:transform .38s cubic-bezier(.25,.9,.3,1);display:flex;flex-direction:column;
+}
+.drawer.open{transform:translateX(0)}
+.drawer-head{display:flex;align-items:center;justify-content:space-between;padding:20px;border-bottom:1px solid var(--border)}
+.drawer-head h3{font-size:16px;font-weight:800;letter-spacing:-.3px}
+.drawer-body{padding:20px;overflow-y:auto;flex:1;display:flex;flex-direction:column;gap:24px}
+.setting-group label.title{display:block;font-size:11px;text-transform:uppercase;letter-spacing:1.1px;color:var(--muted);font-weight:800;margin-bottom:10px}
+.theme-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.theme-swatch{
+  padding:10px 8px;border-radius:11px;border:2px solid var(--border);text-align:center;
+  font-size:10.5px;font-weight:700;transition:all .2s ease;background:var(--surface2);
+}
+.theme-swatch:hover{transform:translateY(-2px)}
+.theme-swatch.active{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 22%,transparent)}
+.theme-dots{display:flex;gap:4px;justify-content:center;margin-bottom:6px}
+.theme-dots span{width:11px;height:11px;border-radius:50%;display:block}
+.switch{position:relative;display:inline-block;width:44px;height:25px;flex-shrink:0}
+.switch input{opacity:0;width:0;height:0}
+.slider{
+  position:absolute;inset:0;background:var(--surface2);border:1px solid var(--border);
+  border-radius:30px;transition:.28s;cursor:pointer;
+}
+.slider::before{
+  content:'';position:absolute;height:17px;width:17px;left:3px;top:3px;background:var(--muted);
+  border-radius:50%;transition:.28s cubic-bezier(.2,.9,.3,1);
+}
+.switch input:checked + .slider{background:var(--accent);border-color:var(--accent)}
+.switch input:checked + .slider::before{transform:translateX(19px);background:#fff}
+.toggle-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 0}
+.toggle-row span{font-size:13px;font-weight:600}
+.toggle-row small{display:block;color:var(--muted);font-size:11px;font-weight:400;margin-top:2px}
+select{
+  width:100%;padding:10px 12px;border-radius:11px;border:1px solid var(--border);
+  background:var(--surface2);outline:none;cursor:pointer;transition:border .2s;
+}
+select:focus{border-color:var(--accent)}
+.divider{height:1px;background:var(--border)}
+.badge-mode{
+  display:inline-flex;align-items:center;gap:7px;font-size:11.5px;color:var(--muted);
+  background:var(--surface2);padding:8px 12px;border-radius:10px;border:1px solid var(--border);
+}
+.badge-mode .dot{width:8px;height:8px;border-radius:50%;background:var(--success);box-shadow:0 0 8px var(--success);animation:pulseDot 2s infinite}
+.badge-mode.local .dot{background:var(--warn);box-shadow:0 0 8px var(--warn)}
+
+/* ============================================================
+   CURSOR EFFECTS
+============================================================ */
+#cursorGlow{
+  position:fixed;top:0;left:0;width:340px;height:340px;border-radius:50%;pointer-events:none;z-index:9998;
+  background:radial-gradient(circle,color-mix(in srgb,var(--accent) 26%,transparent) 0%,transparent 62%);
+  transform:translate(-50%,-50%);transition:opacity .3s;opacity:0;mix-blend-mode:screen;
+}
+html[data-theme="light"] #cursorGlow,html[data-theme="solar"] #cursorGlow{mix-blend-mode:multiply}
+.cursor-dot{
+  position:fixed;width:8px;height:8px;border-radius:50%;pointer-events:none;z-index:9997;
+  background:var(--accent);transform:translate(-50%,-50%);
+  animation:dotFade .65s ease-out forwards;
+}
+@keyframes dotFade{from{opacity:.85;transform:translate(-50%,-50%) scale(1)}to{opacity:0;transform:translate(-50%,-50%) scale(.15)}}
+.cursor-spark{
+  position:fixed;pointer-events:none;z-index:9999;font-size:13px;color:var(--accent2);
+  transform:translate(-50%,-50%);animation:sparkFade .85s ease-out forwards;text-shadow:0 0 8px var(--accent2);
+}
+@keyframes sparkFade{from{opacity:1;transform:translate(-50%,-50%) scale(.5) rotate(0deg)}to{opacity:0;transform:translate(-50%,-140%) scale(1.3) rotate(140deg)}}
+
+/* toast */
+#toast{
+  position:fixed;bottom:24px;left:50%;transform:translate(-50%,120%);z-index:9999;
+  background:var(--surface);border:1px solid var(--accent);color:var(--text);
+  padding:12px 22px;border-radius:13px;font-size:13px;font-weight:600;box-shadow:var(--shadow);
+  transition:transform .35s cubic-bezier(.2,.9,.3,1);
+}
+#toast.show{transform:translate(-50%,0)}
+</style>
+</head>
+<body>
+
+<div id="cursorGlow"></div>
+<div id="toast"></div>
+
+<!-- ============================================================
+     LOGIN
+============================================================ -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-card">
+    <h1><span class="dot"></span> StudyDesk</h1>
+    <p class="sub">Sign in to open your dashboard</p>
+
+    <div class="role-switch" id="roleSwitch">
+      <button data-role="student" class="active">Student</button>
+      <button data-role="teacher">Teacher</button>
+    </div>
+
+    <div class="field">
+      <label>Username</label>
+      <input id="loginUser" type="text" placeholder="student" autocomplete="username">
+    </div>
+    <div class="field">
+      <label>Password</label>
+      <input id="loginPass" type="password" placeholder="••••••••" autocomplete="current-password">
+    </div>
+
+    <button class="btn full" id="loginBtn">Sign In</button>
+    <div class="login-error" id="loginError"></div>
+
+    <div class="login-hint">
+      Usernames: <code>student</code> or <code>teacher</code><br>
+      Credentials are verified by the backend server.
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     APP
+============================================================ -->
+<div id="app" class="hidden">
+
+  <header class="topbar">
+    <div class="brand"><span class="logo">◆</span> StudyDesk</div>
+
+    <nav class="tabs" id="tabNav">
+      <button class="tab-btn active" data-tab="hub">Main Hub</button>
+      <button class="tab-btn" data-tab="assignments">Assignments</button>
+      <button class="tab-btn" data-tab="code">Code Storage</button>
+      <button class="tab-btn" data-tab="audit">Audit Log</button>
+    </nav>
+
+    <div class="top-right">
+      <button class="icon-btn" id="settingsBtn" title="Settings">⚙</button>
+      <button class="profile-btn" id="profileBtn">
+        <span class="avatar" id="avatarInitial">S</span>
+        <span class="profile-meta">
+          <strong id="profileName">Student</strong>
+          <small id="profileRole">student</small>
+        </span>
+      </button>
+      <div class="menu hidden" id="profileMenu">
+        <button id="menuSettings">⚙ Settings</button>
+        <div class="sep"></div>
+        <button id="logoutBtn">⎋ Sign out</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ================= TAB 1 : MAIN HUB ================= -->
+    <section class="tab-panel active" id="tab-hub">
+      <div class="hub-grid">
+
+        <!-- Clock -->
+        <div class="card clock-card">
+          <h3>Time of Day</h3>
+          <div class="clock-time" id="clockTime">--:--:--</div>
+          <div class="clock-date" id="clockDate">—</div>
+          <div class="greeting" id="greeting">Welcome back!</div>
+        </div>
+
+        <!-- Timer -->
+        <div class="card timer-card">
+          <h3>Timer</h3>
+          <div class="ring-wrap" id="timerRingWrap">
+            <svg class="ring" viewBox="0 0 120 120">
+              <circle class="ring-bg" cx="60" cy="60" r="54"></circle>
+              <circle class="ring-fg" id="timerRing" cx="60" cy="60" r="54"></circle>
+            </svg>
+            <div class="ring-label" id="timerDisplay">25:00</div>
+          </div>
+          <div class="row" style="margin-bottom:10px">
+            <input type="number" id="timerMin" value="25" min="0" max="180">
+            <span class="lbl">min</span>
+            <input type="number" id="timerSec" value="0" min="0" max="59">
+            <span class="lbl">sec</span>
+          </div>
+          <div class="row">
+            <button class="ctrl-btn primary" id="timerStart">▶ Start</button>
+            <button class="ctrl-btn" id="timerPause">⏸ Pause</button>
+            <button class="ctrl-btn" id="timerReset">⟲ Reset</button>
+          </div>
+        </div>
+
+        <!-- Stopwatch -->
+        <div class="card stopwatch-card">
+          <h3>Stopwatch</h3>
+          <div class="ring-wrap" id="swRingWrap">
+            <svg class="ring sw-ring" viewBox="0 0 120 120">
+              <circle class="ring-bg" cx="60" cy="60" r="54"></circle>
+              <circle class="ring-fg" cx="60" cy="60" r="54"></circle>
+            </svg>
+            <div class="ring-label" id="swDisplay">00:00.0</div>
+          </div>
+          <div class="row">
+            <button class="ctrl-btn primary" id="swStart">▶ Start</button>
+            <button class="ctrl-btn" id="swStop">⏸ Stop</button>
+            <button class="ctrl-btn" id="swReset">⟲ Reset</button>
+          </div>
+        </div>
+
+        <!-- Due assignments -->
+        <div class="card due-card">
+          <h3>Due Assignments</h3>
+          <div class="list" id="dueList"></div>
+        </div>
+
+        <!-- Priority list -->
+        <div class="card priority-card">
+          <h3>Priority List</h3>
+          <div class="list" id="priorityList"></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= TAB 2 : ASSIGNMENTS ================= -->
+    <section class="tab-panel" id="tab-assignments">
+      <div class="two-col">
+
+        <div class="card">
+          <h3 id="assignFormTitle">Add Assignment</h3>
+          <div class="form-grid">
+            <div class="field span2">
+              <label>Assignment name</label>
+              <input id="aName" type="text" placeholder="e.g. Unit 4 Calculus Test">
+            </div>
+            <div class="field">
+              <label>Teacher</label>
+              <input id="aTeacher" type="text" placeholder="Ms. Rivera">
+            </div>
+            <div class="field">
+              <label>Weight (%)</label>
+              <input id="aWeight" type="number" min="0" max="100" placeholder="30">
+            </div>
+            <div class="field span2">
+              <label>Link to assignment</label>
+              <input id="aLink" type="url" placeholder="https://classroom.google.com/...">
+            </div>
+            <div class="field">
+              <label>Due date &amp; time</label>
+              <input id="aDue" type="datetime-local">
+            </div>
+            <div class="field">
+              <label>Type</label>
+              <select id="aType">
+                <option value="summative">Summative</option>
+                <option value="performance">Performance</option>
+              </select>
+            </div>
+          </div>
+          <div class="row" style="justify-content:flex-start;margin-top:6px">
+            <button class="btn" id="aSubmit">+ Add Assignment</button>
+            <button class="btn ghost hidden" id="aCancel">Cancel</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>All Assignments (<span id="assignCount">0</span>)</h3>
+          <div class="list" id="assignList" style="max-height:620px"></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= TAB 3 : CODE STORAGE ================= -->
+    <section class="tab-panel" id="tab-code">
+      <div class="code-layout">
+
+        <div class="card">
+          <h3>Library</h3>
+          <div class="field">
+            <label>Project name</label>
+            <input id="pName" type="text" placeholder="My Project">
+          </div>
+          <div class="field">
+            <label>Language</label>
+            <select id="pLang">
+              <option value="html">HTML</option>
+              <option value="css">CSS</option>
+              <option value="javascript">JavaScript</option>
+              <option value="typescript">TypeScript</option>
+              <option value="python">Python</option>
+              <option value="java">Java</option>
+              <option value="csharp">C#</option>
+              <option value="cpp">C++</option>
+              <option value="sql">SQL</option>
+              <option value="json">JSON</option>
+              <option value="markdown">Markdown</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="row" style="justify-content:flex-start;margin-bottom:14px">
+            <button class="btn" id="pSave" style="padding:9px 14px;font-size:13px">💾 Save</button>
+            <button class="btn ghost" id="pNew" style="padding:9px 14px;font-size:13px">＋ New</button>
+          </div>
+          <div class="divider" style="margin-bottom:14px"></div>
+          <div class="list" id="projList" style="max-height:360px"></div>
+        </div>
+
+        <div class="card">
+          <h3>Editor</h3>
+          <textarea class="code-editor" id="codeArea" spellcheck="false" placeholder="// Start coding here..."></textarea>
+          <div class="row" style="justify-content:flex-start;margin-top:12px">
+            <button class="btn" id="runBtn" style="padding:9px 14px;font-size:13px">▶ Run Preview</button>
+            <label style="display:flex;align-items:center;gap:7px;font-size:12px;color:var(--muted)">
+              <input type="checkbox" id="autoRun" checked> Auto preview
+            </label>
+          </div>
+        </div>
+
+        <div class="card preview-card">
+          <h3>Live Preview</h3>
+          <iframe class="preview-frame" id="previewFrame" sandbox="allow-scripts allow-modals"></iframe>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= TAB 4 : AUDIT LOG ================= -->
+    <section class="tab-panel" id="tab-audit">
+      <div class="card" style="margin-bottom:16px">
+        <div class="row" style="justify-content:space-between">
+          <div class="row" style="justify-content:flex-start">
+            <span class="lbl">Filter:</span>
+            <select id="auditFilter" style="width:auto;padding:8px 12px">
+              <option value="all">All activity</option>
+              <option value="student">Student only</option>
+              <option value="teacher">Teacher only</option>
+              <option value="added">Added</option>
+              <option value="removed">Removed</option>
+              <option value="edited">Edited</option>
+            </select>
+          </div>
+          <button class="btn ghost" id="clearAudit" style="padding:9px 14px;font-size:12.5px">Clear Log</button>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Date &amp; Time</th>
+              <th>User</th>
+              <th>Action</th>
+              <th>Item</th>
+              <th>Details</th>
+            </tr>
+          </thead>
+          <tbody id="auditBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- ============================================================
+     SETTINGS DRAWER
+============================================================ -->
+<aside class="drawer" id="settingsDrawer">
+  <div class="drawer-head">
+    <h3>⚙ Settings</h3>
+    <button class="icon-btn" id="closeSettings" style="width:34px;height:34px;font-size:15px">✕</button>
+  </div>
+  <div class="drawer-body">
+
+    <div class="setting-group">
+      <label class="title">Theme</label>
+      <div class="theme-grid" id="themeGrid"></div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="setting-group">
+      <label class="title">Cursor Effect</label>
+      <select id="setCursor">
+        <option value="none">None</option>
+        <option value="glow">Glow Aura</option>
+        <option value="trail">Fading Trail</option>
+        <option value="sparkle">Sparkles</option>
+      </select>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="setting-group">
+      <label class="title">Tab Switching Animation</label>
+      <select id="setTabStyle" style="margin-bottom:12px">
+        <option value="slide">Slide</option>
+        <option value="fade">Fade</option>
+        <option value="zoom">Zoom</option>
+      </select>
+      <div class="toggle-row">
+        <span>Animate tab switching<small>Turn off for instant tab changes</small></span>
+        <label class="switch"><input type="checkbox" id="setTabAnim"><span class="slider"></span></label>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="setting-group">
+      <label class="title">Animations</label>
+      <div class="toggle-row">
+        <span>Element animations<small>Hover lifts, button presses, card motion</small></span>
+        <label class="switch"><input type="checkbox" id="setElAnim"><span class="slider"></span></label>
+      </div>
+      <div class="toggle-row">
+        <span>Timer ring animation<small>Pulsing glow while running</small></span>
+        <label class="switch"><input type="checkbox" id="setTimerAnim"><span class="slider"></span></label>
+      </div>
+      <div class="toggle-row">
+        <span>24-hour clock<small>Off = 12-hour AM/PM</small></span>
+        <label class="switch"><input type="checkbox" id="setClock24"><span class="slider"></span></label>
+      </div>
+      <div class="toggle-row">
+        <span>Timer sound<small>Beep when countdown ends</small></span>
+        <label class="switch"><input type="checkbox" id="setSound"><span class="slider"></span></label>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="setting-group">
+      <label class="title">Change My Password</label>
+      <div class="field">
+        <input type="password" id="newPass" placeholder="New password">
+      </div>
+      <button class="btn full" id="savePass">Update Password</button>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="setting-group">
+      <label class="title">Data &amp; Sync</label>
+      <div class="badge-mode local" id="syncBadge" style="margin-bottom:12px">
+        <span class="dot"></span><span id="syncText">Local mode</span>
+      </div>
+      <button class="btn danger full" id="resetData">Reset All Data</button>
+    </div>
+
+  </div>
+</aside>
+
+<script>
+/* ============================================================
+   ⚠️ EDIT THIS — CLOUD CONFIG
+   Paste your Apps Script /exec URL below.
+   Leave as `null` to run fully offline in local mode.
+============================================================ */
+const CLOUD_CONFIG = {
+  url: 'PASTE_YOUR_APPS_SCRIPT_EXEC_URL_HERE',
+  pollMs: 4000
+};
+// To disable cloud sync and run offline, change the line above to:
+// const CLOUD_CONFIG = null;
+
+
+/* ============================================================
+   LOCAL FALLBACK USERS
+   Only used when CLOUD_CONFIG is null.
+   In cloud mode, authentication happens server-side
+   and these are never checked.
+============================================================ */
+const LOCAL_USERS = {
+  student: { password: 'Stud7Hu8_',  name: 'Student' },
+  teacher: { password: 'T3ach3rL0G', name: 'Teacher' }
+};
+
+
+/* ============================================================
+   HELPERS
+============================================================ */
+const el  = (s, r = document) => r.querySelector(s);
+const els = (s, r = document) => Array.from(r.querySelectorAll(s));
+const uid = () => Math.random().toString(36).slice(2, 9) + Date.now().toString(36);
+const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+
+function escapeHtml(s){
+  return String(s ?? '').replace(/[&<>"']/g, c => (
+    { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]
+  ));
+}
+function fmtDateTime(ts){
+  if (!ts) return '—';
+  return new Date(ts).toLocaleString([], {
+    year:'numeric', month:'short', day:'numeric',
+    hour:'2-digit', minute:'2-digit', second:'2-digit'
+  });
+}
+function fmtDue(ts){
+  if (!ts) return 'No date';
+  const d = new Date(ts);
+  return d.toLocaleString([], { month:'short', day:'numeric', hour:'2-digit', minute:'2-digit' });
+}
+function relativeDue(ts){
+  const diff = new Date(ts).getTime() - Date.now();
+  const days = Math.floor(diff / 86400000);
+  const hrs  = Math.floor(diff / 3600000);
+  if (diff < 0) {
+    const od = Math.abs(days);
+    return od === 0 ? 'Overdue' : `Overdue by ${od}d`;
+  }
+  if (hrs < 1)  return 'Due within the hour';
+  if (hrs < 24) return `Due in ${hrs}h`;
+  if (days === 1) return 'Due tomorrow';
+  return `Due in ${days}d`;
+}
+
+/* ============================================================
+   DEFAULT DATA (blank — no users stored client-side)
+============================================================ */
+function DEFAULT_DATA(){
+  return {
+    assignments: [],
+    projects: [],
+    audit: [],
+    settings: {
+      theme: 'aurora',
+      cursor: 'glow',
+      tabAnim: true,
+      tabAnimStyle: 'slide',
+      elementAnim: true,
+      timerAnim: true,
+      clock24: true,
+      sound: true
+    },
+    updatedAt: Date.now()
+  };
+}
+
+/* ============================================================
+   STORE  (local  |  Google Apps Script)
+============================================================ */
+const LS_KEY = 'studydesk_v1';
+
+const Store = {
+  data: null,
+  mode: 'local',
+  pushTimer: null,
+  pollId: null,
+
+  init(){
+    let localData = null;
+    const raw = localStorage.getItem(LS_KEY);
+    if (raw) { try { localData = JSON.parse(raw); } catch {} }
+
+    // Sync across tabs/windows of the same browser
+    window.addEventListener('storage', e => {
+      if (e.key === LS_KEY && e.newValue) {
+        try {
+          const incoming = JSON.parse(e.newValue);
+          if (!this.data || (incoming.updatedAt || 0) > (this.data.updatedAt || 0)) {
+            this.data = incoming;
+            applyAll();
+          }
+        } catch {}
+      }
+    });
+
+    if (CLOUD_CONFIG && CLOUD_CONFIG.url && CLOUD_CONFIG.url.indexOf('PASTE_') === -1) {
+      // Cloud mode: DON'T fetch yet — we're waiting for a login token.
+      this.mode = 'cloud';
+      this.data = localData || DEFAULT_DATA();
+      applyAll();
+    } else {
+      // Local mode
+      this.mode = 'local';
+      this.data = localData || DEFAULT_DATA();
+      if (!localData) localStorage.setItem(LS_KEY, JSON.stringify(this.data));
+      applyAll();
+    }
+  },
+
+  // Called after successful login
+  async loadCloudData(){
+    if (this.mode !== 'cloud') return;
+    try {
+      const remote = await this.fetchCloud();
+      if (remote && typeof remote === 'object' && !remote.error) {
+        this.data = remote;
+        localStorage.setItem(LS_KEY, JSON.stringify(this.data));
+        applyAll();
+      }
+    } catch (e) {
+      console.warn('Initial cloud fetch failed:', e);
+    }
+    this.startPolling();
+  },
+
+  async fetchCloud(){
+    const token = session ? session.token : '';
+    const res = await fetch(
+      CLOUD_CONFIG.url + '?token=' + encodeURIComponent(token) + '&t=' + Date.now(),
+      { method: 'GET', redirect: 'follow' }
+    );
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    if (data && data.ok === false) throw new Error(data.error || 'Unauthorized');
+    return data;
+  },
+
+  async pushCloud(){
+    const token = session ? session.token : '';
+    await fetch(CLOUD_CONFIG.url, {
+      method: 'POST',
+      redirect: 'follow',
+      body: JSON.stringify({ token, data: this.data })
+    });
+  },
+
+  startPolling(){
+    clearInterval(this.pollId);
+    const ms = (CLOUD_CONFIG && CLOUD_CONFIG.pollMs) || 4000;
+    this.pollId = setInterval(async () => {
+      try {
+        const remote = await this.fetchCloud();
+        if (remote && (remote.updatedAt || 0) > (this.data.updatedAt || 0)) {
+          this.data = remote;
+          localStorage.setItem(LS_KEY, JSON.stringify(this.data));
+          applyAll();
+        }
+      } catch (err) {
+        // Token expired or server rejected — force logout
+        if (String(err.message || '').toLowerCase().includes('unauth')) {
+          console.warn('Session expired, signing out.');
+          logout();
+        }
+      }
+    }, ms);
+  },
+
+  persist(){
+    localStorage.setItem(LS_KEY, JSON.stringify(this.data));
+    if (this.mode === 'cloud') {
+      clearTimeout(this.pushTimer);
+      this.pushTimer = setTimeout(() => {
+        this.pushCloud().catch(e => console.warn('Cloud push failed:', e));
+      }, 500);
+    }
+  }
+};
+
+/* commit a change + write an audit entry */
+function commit(action, item, details){
+  const entry = {
+    id: uid(),
+    user: session ? session.name : 'Unknown',
+    role: session ? session.role : 'unknown',
+    action, item, details: details || '',
+    time: Date.now()
+  };
+  Store.data.audit.unshift(entry);
+  if (Store.data.audit.length > 800) Store.data.audit.length = 800;
+  Store.data.updatedAt = Date.now();
+  Store.persist();
+  applyAll();
+}
+
+/* ============================================================
+   SESSION
+============================================================ */
+let session = null;
+let loginRole = 'student';
+
+function loadSession(){
+  try {
+    const raw = sessionStorage.getItem('studydesk_session');
+    if (raw) session = JSON.parse(raw);
+  } catch {}
+}
+function saveSession(){
+  if (session) sessionStorage.setItem('studydesk_session', JSON.stringify(session));
+  else sessionStorage.removeItem('studydesk_session');
+}
+
+/* ============================================================
+   APPLY EVERYTHING
+============================================================ */
+function applyAll(){
+  if (!Store.data) return;
+  applySettings();
+  updateProfileUI();
+  renderHubLists();
+  renderAssignments();
+  renderProjects();
+  renderAudit();
+  renderSettingsUI();
+  updateSyncBadge();
+}
+
+function applySettings(){
+  const s = Store.data.settings;
+  const html = document.documentElement;
+  html.dataset.theme = s.theme;
+  html.dataset.tabanim = s.tabAnim ? 'on' : 'off';
+  html.dataset.tabstyle = s.tabAnimStyle;
+  html.dataset.elanim = s.elementAnim ? 'on' : 'off';
+  html.dataset.timeranim = s.timerAnim ? 'on' : 'off';
+
+  const glow = el('#cursorGlow');
+  if (glow) glow.style.opacity = (s.cursor === 'glow') ? '1' : '0';
+}
+
+/* ============================================================
+   LOGIN  (async — calls the Apps Script backend in cloud mode)
+============================================================ */
+function initLogin(){
+  els('#roleSwitch button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      els('#roleSwitch button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      loginRole = btn.dataset.role;
+      el('#loginUser').value = loginRole;
+      el('#loginError').textContent = '';
+    });
+  });
+
+  el('#loginUser').value = 'student';
+
+  el('#loginBtn').addEventListener('click', doLogin);
+  el('#loginPass').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+  el('#loginUser').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+}
+
+async function doLogin(){
+  const user = el('#loginUser').value.trim().toLowerCase();
+  const pass = el('#loginPass').value;
+
+  if (!user || !pass) {
+    el('#loginError').textContent = 'Enter username and password.';
+    return;
+  }
+  if (user !== loginRole) {
+    el('#loginError').textContent = `That account is a ${user} account — switch the role toggle.`;
+    return;
+  }
+
+  const btn = el('#loginBtn');
+  el('#loginError').textContent = 'Signing in…';
+  btn.disabled = true;
+
+  // ---- CLOUD MODE: verify on the server ----
+  if (Store.mode === 'cloud') {
+    try {
+      const res = await fetch(CLOUD_CONFIG.url, {
+        method: 'POST',
+        redirect: 'follow',
+        body: JSON.stringify({ action: 'login', username: user, password: pass })
+      });
+      const data = await res.json();
+
+      if (!data.ok) {
+        el('#loginError').textContent = data.error || 'Login failed.';
+        btn.disabled = false;
+        return;
+      }
+
+      session = {
+        username: user,
+        name: data.name || user,
+        role: data.role || user,
+        token: data.token
+      };
+    } catch (err) {
+      console.error(err);
+      el('#loginError').textContent = 'Cannot reach server. Check your connection.';
+      btn.disabled = false;
+      return;
+    }
+  }
+  // ---- LOCAL MODE: check hardcoded users ----
+  else {
+    const u = LOCAL_USERS[user];
+    if (!u || u.password !== pass) {
+      el('#loginError').textContent = 'Incorrect username or password.';
+      btn.disabled = false;
+      return;
+    }
+    session = { username: user, name: u.name, role: user, token: null };
+  }
+
+  saveSession();
+  el('#loginError').textContent = '';
+  el('#loginPass').value = '';
+  btn.disabled = false;
+
+  enterApp();
+
+  // Pull fresh data from the cloud after login
+  if (Store.mode === 'cloud') {
+    await Store.loadCloudData();
+  }
+}
+
+function enterApp(){
+  el('#loginScreen').classList.add('hidden');
+  el('#app').classList.remove('hidden');
+  updateProfileUI();
+  switchTab('hub');
+  tickClock();
+}
+
+async function logout(){
+  // Tell the server to invalidate the token
+  if (session && session.token && Store.mode === 'cloud') {
+    try {
+      await fetch(CLOUD_CONFIG.url, {
+        method: 'POST',
+        redirect: 'follow',
+        body: JSON.stringify({ action: 'logout', token: session.token })
+      });
+    } catch {}
+  }
+  session = null;
+  saveSession();
+  clearInterval(Store.pollId);
+  el('#app').classList.add('hidden');
+  el('#loginScreen').classList.remove('hidden');
+  el('#profileMenu').classList.add('hidden');
+}
+
+function updateProfileUI(){
+  if (!session) return;
+  el('#profileName').textContent = session.name;
+  el('#profileRole').textContent = session.role;
+  el('#avatarInitial').textContent = (session.name || '?').charAt(0).toUpperCase();
+}
+
+/* ============================================================
+   TABS
+============================================================ */
+let currentTab = 'hub';
+
+function initTabs(){
+  els('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+  });
+}
+
+function switchTab(name){
+  if (name === currentTab && el('#tab-' + name).classList.contains('active')) return;
+  currentTab = name;
+  els('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === name));
+  els('.tab-panel').forEach(p => {
+    p.classList.toggle('active', p.id === 'tab-' + name);
+  });
+}
+
+/* ============================================================
+   CLOCK
+============================================================ */
+function tickClock(){
+  const now = new Date();
+  const s = Store.data.settings;
+  el('#clockTime').textContent = now.toLocaleTimeString([], {
+    hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: !s.clock24
+  });
+  el('#clockDate').textContent = now.toLocaleDateString([], {
+    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+  });
+  const h = now.getHours();
+  const greet = h < 12 ? 'Good morning' : h < 18 ? 'Good afternoon' : 'Good evening';
+  el('#greeting').textContent = `${greet}, ${session ? session.name : 'there'} — let's get things done.`;
+}
+setInterval(tickClock, 1000);
+setInterval(() => { if (Store.data) renderHubLists(); }, 60000);
+
+/* ============================================================
+   PRIORITY SCORING
+============================================================ */
+function priorityScore(a){
+  const due = new Date(a.due).getTime();
+  const days = (due - Date.now()) / 86400000;
+
+  let urgency;
+  if (days <= 0) urgency = 1;
+  else urgency = Math.max(0, 1 - days / 14);
+
+  const weight = clamp(Number(a.weight) || 0, 0, 100) / 100;
+  const typeBonus = a.type === 'summative' ? 0.08 : 0;
+
+  return Math.round(clamp(weight * 0.6 + urgency * 0.4 + typeBonus, 0, 1) * 100);
+}
+
+function assignmentRow(a, showScore){
+  const score = priorityScore(a);
+  const due = new Date(a.due).getTime();
+  const diff = due - Date.now();
+  let duePill = '';
+  if (diff < 0) duePill = '<span class="pill overdue">Overdue</span>';
+  else if (diff < 2 * 86400000) duePill = '<span class="pill soon">Soon</span>';
+
+  const linkHtml = a.link
+    ? `<a href="${escapeHtml(a.link)}" target="_blank" rel="noopener">Open link ↗</a>`
+    : '';
+
+  return `
+    <div class="item">
+      <div class="item-main">
+        <div class="item-title">
+          ${escapeHtml(a.name)}
+          <span class="pill ${a.type}">${a.type === 'summative' ? 'Summative' : 'Performance'}</span>
+          ${duePill}
+        </div>
+        <div class="item-meta">
+          <span>👤 ${escapeHtml(a.teacher || 'No teacher')}</span>
+          <span>📅 ${fmtDue(a.due)} · ${relativeDue(a.due)}</span>
+          <span>⚖️ ${escapeHtml(String(a.weight ?? 0))}%</span>
+          ${linkHtml}
+        </div>
+      </div>
+      ${showScore ? `<div class="score-badge ${score < 35 ? 'low' : ''}">${score}</div>` : ''}
+    </div>`;
+}
+
+/* ============================================================
+   HUB RENDERING
+============================================================ */
+function renderHubLists(){
+  if (!Store.data) return;
+
+  const dueBox = el('#dueList');
+  const upcoming = Store.data.assignments
+    .filter(a => new Date(a.due).getTime() - Date.now() < 14 * 86400000)
+    .sort((a, b) => new Date(a.due) - new Date(b.due));
+
+  dueBox.innerHTML = upcoming.length
+    ? upcoming.map(a => assignmentRow(a, false)).join('')
+    : '<div class="empty">Nothing due in the next two weeks 🎉</div>';
+
+  const prioBox = el('#priorityList');
+  const ranked = Store.data.assignments
+    .slice()
+    .sort((a, b) => {
+      const d = priorityScore(b) - priorityScore(a);
+      if (d !== 0) return d;
+      return new Date(a.due) - new Date(b.due);
+    })
+    .slice(0, 8);
+
+  prioBox.innerHTML = ranked.length
+    ? ranked.map(a => assignmentRow(a, true)).join('')
+    : '<div class="empty">Add assignments to build your priority list.</div>';
+}
+
+/* ============================================================
+   ASSIGNMENTS TAB
+============================================================ */
+let editingId = null;
+
+function initAssignments(){
+  el('#aSubmit').addEventListener('click', submitAssignment);
+  el('#aCancel').addEventListener('click', cancelEdit);
+}
+
+function submitAssignment(){
+  const name = el('#aName').value.trim();
+  const teacher = el('#aTeacher').value.trim();
+  const link = el('#aLink').value.trim();
+  const due = el('#aDue').value;
+  const weight = el('#aWeight').value;
+  const type = el('#aType').value;
+
+  if (!name) { toast('Please enter an assignment name.'); return; }
+  if (!due)  { toast('Please pick a due date.'); return; }
+
+  const dueISO = new Date(due).toISOString();
+
+  if (editingId) {
+    const a = Store.data.assignments.find(x => x.id === editingId);
+    if (a) {
+      Object.assign(a, { name, teacher, link, due: dueISO, weight: Number(weight) || 0, type });
+      commit('edited', 'Assignment', `Updated "${name}"`);
+    }
+    cancelEdit();
+  } else {
+    Store.data.assignments.push({
+      id: uid(), name, teacher, link, due: dueISO,
+      weight: Number(weight) || 0, type,
+      createdBy: session.name, createdAt: Date.now()
+    });
+    commit('added', 'Assignment', `Created "${name}" (${type}, ${Number(weight) || 0}%)`);
+  }
+
+  clearAssignmentForm();
+}
+
+function clearAssignmentForm(){
+  el('#aName').value = '';
+  el('#aTeacher').value = '';
+  el('#aLink').value = '';
+  el('#aDue').value = '';
+  el('#aWeight').value = '';
+  el('#aType').value = 'summative';
+}
+
+function cancelEdit(){
+  editingId = null;
+  clearAssignmentForm();
+  el('#assignFormTitle').textContent = 'Add Assignment';
+  el('#aSubmit').textContent = '+ Add Assignment';
+  el('#aCancel').classList.add('hidden');
+}
+
+function editAssignment(id){
+  const a = Store.data.assignments.find(x => x.id === id);
+  if (!a) return;
+  editingId = id;
+  el('#aName').value = a.name;
+  el('#aTeacher').value = a.teacher || '';
+  el('#aLink').value = a.link || '';
+  el('#aWeight').value = a.weight ?? '';
+  el('#aType').value = a.type;
+  const d = new Date(a.due);
+  const pad = n => String(n).padStart(2, '0');
+  el('#aDue').value = `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+
+  el('#assignFormTitle').textContent = 'Edit Assignment';
+  el('#aSubmit').textContent = '✓ Save Changes';
+  el('#aCancel').classList.remove('hidden');
+  el('#aName').focus();
+  switchTab('assignments');
+}
+
+function deleteAssignment(id){
+  const a = Store.data.assignments.find(x => x.id === id);
+  if (!a) return;
+  if (!confirm(`Delete assignment "${a.name}"?`)) return;
+  Store.data.assignments = Store.data.assignments.filter(x => x.id !== id);
+  commit('removed', 'Assignment', `Deleted "${a.name}"`);
+}
+
+function renderAssignments(){
+  if (!Store.data) return;
+  const list = Store.data.assignments
+    .slice()
+    .sort((a, b) => new Date(a.due) - new Date(b.due));
+
+  el('#assignCount').textContent = list.length;
+
+  el('#assignList').innerHTML = list.length
+    ? list.map(a => `
+      <div class="item">
+        <div class="item-main">
+          <div class="item-title">
+            ${escapeHtml(a.name)}
+            <span class="pill ${a.type}">${a.type}</span>
+          </div>
+          <div class="item-meta">
+            <span>👤 ${escapeHtml(a.teacher || '—')}</span>
+            <span>📅 ${fmtDue(a.due)} · ${relativeDue(a.due)}</span>
+            <span>⚖️ ${escapeHtml(String(a.weight ?? 0))}%</span>
+            ${a.link ? `<a href="${escapeHtml(a.link)}" target="_blank" rel="noopener">Link ↗</a>` : ''}
+            <span>Added by ${escapeHtml(a.createdBy || '—')}</span>
+          </div>
+        </div>
+        <div class="mini-actions">
+          <button class="mini" data-edit="${a.id}" title="Edit">✎</button>
+          <button class="mini del" data-del="${a.id}" title="Delete">🗑</button>
+        </div>
+      </div>`).join('')
+    : '<div class="empty">No assignments yet. Add one on the left.</div>';
+
+  els('[data-edit]').forEach(b => b.addEventListener('click', () => editAssignment(b.dataset.edit)));
+  els('[data-del]').forEach(b => b.addEventListener('click', () => deleteAssignment(b.dataset.del)));
+}
+
+/* ============================================================
+   CODE STORAGE
+============================================================ */
+let currentProjectId = null;
+let previewTimer = null;
+
+function initCode(){
+  el('#pSave').addEventListener('click', saveProject);
+  el('#pNew').addEventListener('click', newProject);
+  el('#runBtn').addEventListener('click', runPreview);
+
+  el('#codeArea').addEventListener('input', () => {
+    if (el('#autoRun').checked) {
+      clearTimeout(previewTimer);
+      previewTimer = setTimeout(runPreview, 600);
+    }
+  });
+
+  el('#pLang').addEventListener('change', () => {
+    if (el('#autoRun').checked) runPreview();
+  });
+
+  runPreview();
+}
+
+function saveProject(){
+  const name = el('#pName').value.trim();
+  const lang = el('#pLang').value;
+  const code = el('#codeArea').value;
+
+  if (!name) { toast('Give your project a name first.'); return; }
+
+  if (currentProjectId) {
+    const p = Store.data.projects.find(x => x.id === currentProjectId);
+    if (p) {
+      const oldName = p.name;
+      Object.assign(p, { name, lang, code, updatedBy: session.name, updatedAt: Date.now() });
+      commit('edited', 'Code Project', oldName === name ? `Updated "${name}" (${lang})` : `Renamed "${oldName}" → "${name}"`);
+    }
+  } else {
+    const proj = {
+      id: uid(), name, lang, code,
+      updatedBy: session.name, updatedAt: Date.now()
+    };
+    Store.data.projects.push(proj);
+    currentProjectId = proj.id;
+    commit('added', 'Code Project', `Created "${name}" (${lang})`);
+  }
+
+  toast('Project saved ✓');
+}
+
+function newProject(){
+  currentProjectId = null;
+  el('#pName').value = '';
+  el('#pLang').value = 'html';
+  el('#codeArea').value = '';
+  el('#projList').querySelectorAll('.proj-item').forEach(n => n.classList.remove('active'));
+  runPreview();
+  el('#pName').focus();
+}
+
+function loadProject(id){
+  const p = Store.data.projects.find(x => x.id === id);
+  if (!p) return;
+  currentProjectId = id;
+  el('#pName').value = p.name;
+  el('#pLang').value = p.lang;
+  el('#codeArea').value = p.code || '';
+  renderProjects();
+  runPreview();
+}
+
+function deleteProject(id){
+  const p = Store.data.projects.find(x => x.id === id);
+  if (!p) return;
+  if (!confirm(`Delete project "${p.name}"?`)) return;
+  Store.data.projects = Store.data.projects.filter(x => x.id !== id);
+  if (currentProjectId === id) newProject();
+  commit('removed', 'Code Project', `Deleted "${p.name}"`);
+}
+
+function buildPreview(code, lang){
+  if (lang === 'html') return code || '<p style="font-family:system-ui;color:#888;padding:20px">Nothing to preview yet.</p>';
+
+  if (lang === 'css') {
+    return `<!doctype html><html><head><style>
+      body{font-family:system-ui;padding:24px;background:#fff;color:#222}
+      ${code}
+    </style></head><body>
+      <h1>Heading 1</h1><p>Sample paragraph text for styling.</p>
+      <button>Button</button>
+      <div class="box" style="margin-top:14px;padding:14px;border:1px dashed #bbb">.box element</div>
+    </body></html>`;
+  }
+
+  if (lang === 'javascript') {
+    return `<!doctype html><html><body style="font-family:ui-monospace,monospace;background:#0b0e18;color:#dbe4ff;padding:16px;margin:0">
+      <pre id="out" style="white-space:pre-wrap;font-size:13px;line-height:1.6"></pre>
+      <script>
+        const out = document.getElementById('out');
+        const log = (...a) => { out.textContent += a.map(v => typeof v === 'object' ? JSON.stringify(v) : String(v)).join(' ') + '\\n'; };
+        console.log = log; console.error = log;
+        try { ${code} } catch (e) { log('⚠ ' + e.name + ': ' + e.message); }
+      <\/script>
+    </body></html>`;
+  }
+
+  if (lang === 'json') {
+    return `<!doctype html><html><body style="font-family:ui-monospace,monospace;background:#0b0e18;color:#9ae6b4;padding:16px;margin:0">
+      <pre style="white-space:pre-wrap;font-size:13px">${escapeHtml(code)}</pre>
+    </body></html>`;
+  }
+
+  return `<!doctype html><html><body style="font-family:ui-monospace,monospace;background:#0b0e18;color:#dbe4ff;padding:16px;margin:0">
+    <div style="font-family:system-ui;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#6c8cff;margin-bottom:10px">
+      ${escapeHtml(lang)} — source preview (no runtime)
+    </div>
+    <pre style="white-space:pre-wrap;font-size:13px;line-height:1.6">${escapeHtml(code)}</pre>
+  </body></html>`;
+}
+
+function runPreview(){
+  const code = el('#codeArea').value;
+  const lang = el('#pLang').value;
+  el('#previewFrame').srcdoc = buildPreview(code, lang);
+}
+
+function renderProjects(){
+  if (!Store.data) return;
+  const list = Store.data.projects.slice().sort((a, b) => (b.updatedAt || 0) - (a.updatedAt || 0));
+
+  el('#projList').innerHTML = list.length
+    ? list.map(p => `
+      <div class="proj-item ${p.id === currentProjectId ? 'active' : ''}" data-open="${p.id}">
+        <div style="flex:1;min-width:0">
+          <div class="pname">${escapeHtml(p.name)}</div>
+          <div class="lang-tag">${escapeHtml(p.lang)} · ${new Date(p.updatedAt || Date.now()).toLocaleDateString()}</div>
+        </div>
+        <button class="mini del" data-pdel="${p.id}" title="Delete">🗑</button>
+      </div>`).join('')
+    : '<div class="empty">No saved projects yet.</div>';
+
+  els('[data-open]').forEach(node => {
+    node.addEventListener('click', e => {
+      if (e.target.closest('[data-pdel]')) return;
+      loadProject(node.dataset.open);
+    });
+  });
+  els('[data-pdel]').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      deleteProject(btn.dataset.pdel);
+    });
+  });
+}
+
+/* ============================================================
+   AUDIT LOG
+============================================================ */
+function initAudit(){
+  el('#auditFilter').addEventListener('change', renderAudit);
+  el('#clearAudit').addEventListener('click', () => {
+    if (!Store.data.audit.length) { toast('Log is already empty.'); return; }
+    if (!confirm('Clear the entire audit log? This cannot be undone.')) return;
+    Store.data.audit = [];
+    commit('removed', 'Audit Log', 'Cleared all audit entries');
+  });
+}
+
+function renderAudit(){
+  if (!Store.data) return;
+  const filter = el('#auditFilter').value;
+
+  let rows = Store.data.audit.slice();
+  if (filter === 'student' || filter === 'teacher') rows = rows.filter(r => r.role === filter);
+  else if (['added', 'removed', 'edited'].includes(filter)) rows = rows.filter(r => r.action === filter);
+
+  rows = rows.slice(0, 400);
+
+  el('#auditBody').innerHTML = rows.length
+    ? rows.map(r => `
+      <tr>
+        <td class="muted" style="white-space:nowrap">${fmtDateTime(r.time)}</td>
+        <td>
+          <span class="pill ${r.role}">${escapeHtml(r.role)}</span>
+          <span style="margin-left:6px">${escapeHtml(r.user)}</span>
+        </td>
+        <td><span class="action-tag ${r.action}">${escapeHtml(r.action)}</span></td>
+        <td>${escapeHtml(r.item)}</td>
+        <td class="muted">${escapeHtml(r.details || '')}</td>
+      </tr>`).join('')
+    : '<tr><td colspan="5" class="empty">No activity recorded yet.</td></tr>';
+}
+
+/* ============================================================
+   SETTINGS
+============================================================ */
+const THEMES = [
+  { id:'aurora',   name:'Aurora',   dots:['#6c8cff','#39d4c8','#0b1020'] },
+  { id:'midnight', name:'Midnight', dots:['#2f81f7','#39d353','#05070d'] },
+  { id:'light',    name:'Daylight', dots:['#3b5bfd','#0d9b9b','#f2f5fc'] },
+  { id:'solar',    name:'Solar',    dots:['#e08a1e','#c2410c','#fdf6e9'] },
+  { id:'neon',     name:'Neon',     dots:['#ff2fd0','#b6ff3a','#050505'] },
+  { id:'forest',   name:'Forest',   dots:['#34d399','#a3e635','#08130f'] }
+];
+
+function initSettings(){
+  el('#settingsBtn').addEventListener('click', () => openSettings());
+  el('#closeSettings').addEventListener('click', () => closeSettings());
+
+  el('#themeGrid').innerHTML = THEMES.map(t => `
+    <button class="theme-swatch" data-theme="${t.id}">
+      <div class="theme-dots">${t.dots.map(c => `<span style="background:${c}"></span>`).join('')}</div>
+      ${t.name}
+    </button>`).join('');
+
+  els('#themeGrid [data-theme]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      Store.data.settings.theme = btn.dataset.theme;
+      commit('edited', 'Settings', `Theme changed to "${btn.dataset.theme}"`);
+    });
+  });
+
+  el('#setCursor').addEventListener('change', e => {
+    Store.data.settings.cursor = e.target.value;
+    commit('edited', 'Settings', `Cursor effect → ${e.target.value}`);
+  });
+
+  el('#setTabStyle').addEventListener('change', e => {
+    Store.data.settings.tabAnimStyle = e.target.value;
+    commit('edited', 'Settings', `Tab animation style → ${e.target.value}`);
+  });
+
+  el('#setTabAnim').addEventListener('change', e => {
+    Store.data.settings.tabAnim = e.target.checked;
+    commit('edited', 'Settings', `Tab animations ${e.target.checked ? 'enabled' : 'disabled'}`);
+  });
+
+  el('#setElAnim').addEventListener('change', e => {
+    Store.data.settings.elementAnim = e.target.checked;
+    commit('edited', 'Settings', `Element animations ${e.target.checked ? 'enabled' : 'disabled'}`);
+  });
+
+  el('#setTimerAnim').addEventListener('change', e => {
+    Store.data.settings.timerAnim = e.target.checked;
+    commit('edited', 'Settings', `Timer animation ${e.target.checked ? 'enabled' : 'disabled'}`);
+  });
+
+  el('#setClock24').addEventListener('change', e => {
+    Store.data.settings.clock24 = e.target.checked;
+    commit('edited', 'Settings', `Clock format → ${e.target.checked ? '24-hour' : '12-hour'}`);
+    tickClock();
+  });
+
+  el('#setSound').addEventListener('change', e => {
+    Store.data.settings.sound = e.target.checked;
+    commit('edited', 'Settings', `Timer sound ${e.target.checked ? 'enabled' : 'disabled'}`);
+  });
+
+  // Password change — asks the server in cloud mode
+  el('#savePass').addEventListener('click', async () => {
+    const np = el('#newPass').value;
+    if (np.length < 4) { toast('Password must be at least 4 characters.'); return; }
+
+    if (Store.mode === 'local') {
+      LOCAL_USERS[session.username].password = np;
+      toast('Password updated (local mode only).');
+      el('#newPass').value = '';
+      return;
+    }
+
+    try {
+      const res = await fetch(CLOUD_CONFIG.url, {
+        method: 'POST',
+        redirect: 'follow',
+        body: JSON.stringify({
+          action: 'changePassword',
+          token: session.token,
+          newPassword: np
+        })
+      });
+      const data = await res.json();
+      if (data.ok) {
+        toast('Password updated ✓');
+        el('#newPass').value = '';
+      } else {
+        toast('Failed: ' + (data.error || 'unknown error'));
+      }
+    } catch {
+      toast('Could not reach server.');
+    }
+  });
+
+  el('#resetData').addEventListener('click', () => {
+    if (!confirm('Reset ALL dashboard data (assignments, projects, audit log, settings)?')) return;
+    const fresh = DEFAULT_DATA();
+    Store.data = fresh;
+    Store.persist();
+    currentProjectId = null;
+    applyAll();
+    el('#codeArea').value = '';
+    toast('Dashboard reset.');
+  });
+}
+
+function openSettings(){
+  el('#settingsDrawer').classList.add('open');
+  el('#profileMenu').classList.add('hidden');
+}
+function closeSettings(){
+  el('#settingsDrawer').classList.remove('open');
+}
+
+function renderSettingsUI(){
+  if (!Store.data) return;
+  const s = Store.data.settings;
+
+  els('#themeGrid [data-theme]').forEach(b => {
+    b.classList.toggle('active', b.dataset.theme === s.theme);
+  });
+
+  el('#setCursor').value = s.cursor;
+  el('#setTabStyle').value = s.tabAnimStyle;
+  el('#setTabAnim').checked = !!s.tabAnim;
+  el('#setElAnim').checked = !!s.elementAnim;
+  el('#setTimerAnim').checked = !!s.timerAnim;
+  el('#setClock24').checked = !!s.clock24;
+  el('#setSound').checked = !!s.sound;
+}
+
+function updateSyncBadge(){
+  const badge = el('#syncBadge');
+  const text = el('#syncText');
+  if (!badge) return;
+  if (Store.mode === 'cloud') {
+    badge.classList.remove('local');
+    text.textContent = 'Live cloud sync active (Google Sheets)';
+  } else {
+    badge.classList.add('local');
+    text.textContent = 'Local mode — syncs across this browser\'s tabs';
+  }
+}
+
+/* ============================================================
+   PROFILE MENU
+============================================================ */
+function initProfileMenu(){
+  el('#profileBtn').addEventListener('click', e => {
+    e.stopPropagation();
+    el('#profileMenu').classList.toggle('hidden');
+  });
+  document.addEventListener('click', () => el('#profileMenu').classList.add('hidden'));
+  el('#profileMenu').addEventListener('click', e => e.stopPropagation());
+
+  el('#logoutBtn').addEventListener('click', logout);
+  el('#menuSettings').addEventListener('click', openSettings);
+}
+
+/* ============================================================
+   TIMER
+============================================================ */
+const RING_C = 2 * Math.PI * 54;
+let timerState = { total: 1500, remaining: 1500, running: false, endAt: 0, id: null };
+
+function initTimer(){
+  el('#timerRing').style.strokeDasharray = RING_C;
+  el('#timerRing').style.strokeDashoffset = 0;
+
+  el('#timerMin').addEventListener('change', applyTimerInputs);
+  el('#timerSec').addEventListener('change', applyTimerInputs);
+
+  el('#timerStart').addEventListener('click', startTimer);
+  el('#timerPause').addEventListener('click', pauseTimer);
+  el('#timerReset').addEventListener('click', resetTimer);
+
+  applyTimerInputs();
+}
+
+function applyTimerInputs(){
+  if (timerState.running) return;
+  const m = clamp(Number(el('#timerMin').value) || 0, 0, 180);
+  const s = clamp(Number(el('#timerSec').value) || 0, 0, 59);
+  timerState.total = m * 60 + s;
+  timerState.remaining = timerState.total;
+  updateTimerUI();
+}
+
+function startTimer(){
+  if (timerState.running) return;
+  if (timerState.remaining <= 0) {
+    applyTimerInputs();
+    if (timerState.remaining <= 0) return;
+  }
+  timerState.running = true;
+  timerState.endAt = Date.now() + timerState.remaining * 1000;
+  el('#timerRingWrap').classList.add('running');
+
+  timerState.id = setInterval(() => {
+    timerState.remaining = Math.max(0, (timerState.endAt - Date.now()) / 1000);
+    updateTimerUI();
+    if (timerState.remaining <= 0) {
+      pauseTimer();
+      timerFinished();
+    }
+  }, 100);
+}
+
+function pauseTimer(){
+  timerState.running = false;
+  clearInterval(timerState.id);
+  el('#timerRingWrap').classList.remove('running');
+}
+
+function resetTimer(){
+  pauseTimer();
+  applyTimerInputs();
+}
+
+function updateTimerUI(){
+  const total = timerState.total || 1;
+  const progress = clamp(timerState.remaining / total, 0, 1);
+  el('#timerRing').style.strokeDashoffset = RING_C * (1 - progress);
+
+  const secs = Math.ceil(timerState.remaining);
+  const m = Math.floor(secs / 60);
+  const s = secs % 60;
+  el('#timerDisplay').textContent = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+}
+
+function timerFinished(){
+  el('#timerDisplay').textContent = '00:00';
+  el('#timerRing').style.strokeDashoffset = RING_C;
+  toast('⏰ Time is up!');
+  if (Store.data.settings.sound) beep();
+}
+
+function beep(){
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    [0, 0.18, 0.36].forEach(offset => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain); gain.connect(ctx.destination);
+      osc.frequency.value = 880;
+      osc.type = 'sine';
+      gain.gain.setValueAtTime(0.0001, ctx.currentTime + offset);
+      gain.gain.exponentialRampToValueAtTime(0.25, ctx.currentTime + offset + 0.01);
+      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + offset + 0.15);
+      osc.start(ctx.currentTime + offset);
+      osc.stop(ctx.currentTime + offset + 0.16);
+    });
+  } catch {}
+}
+
+/* ============================================================
+   STOPWATCH
+============================================================ */
+let swState = { elapsed: 0, running: false, startAt: 0, id: null };
+
+function initStopwatch(){
+  el('#swStart').addEventListener('click', startSW);
+  el('#swStop').addEventListener('click', stopSW);
+  el('#swReset').addEventListener('click', resetSW);
+  updateSWUI();
+}
+
+function startSW(){
+  if (swState.running) return;
+  swState.running = true;
+  swState.startAt = Date.now() - swState.elapsed;
+  el('#swRingWrap').classList.add('running');
+  swState.id = setInterval(() => {
+    swState.elapsed = Date.now() - swState.startAt;
+    updateSWUI();
+  }, 50);
+}
+
+function stopSW(){
+  if (!swState.running) return;
+  swState.running = false;
+  clearInterval(swState.id);
+  el('#swRingWrap').classList.remove('running');
+}
+
+function resetSW(){
+  stopSW();
+  swState.elapsed = 0;
+  updateSWUI();
+}
+
+function updateSWUI(){
+  const total = swState.elapsed;
+  const mins = Math.floor(total / 60000);
+  const secs = Math.floor((total % 60000) / 1000);
+  const tenths = Math.floor((total % 1000) / 100);
+  el('#swDisplay').textContent =
+    `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}.${tenths}`;
+}
+
+/* ============================================================
+   CURSOR EFFECTS
+============================================================ */
+let lastTrail = 0;
+
+function initCursor(){
+  const glow = el('#cursorGlow');
+
+  document.addEventListener('mousemove', e => {
+    if (!Store.data) return;
+    const effect = Store.data.settings.cursor;
+    if (effect === 'none') return;
+
+    if (effect === 'glow') {
+      glow.style.left = e.clientX + 'px';
+      glow.style.top  = e.clientY + 'px';
+      glow.style.opacity = '1';
+      return;
+    }
+
+    const now = Date.now();
+    if (effect === 'trail') {
+      if (now - lastTrail < 32) return;
+      lastTrail = now;
+      const dot = document.createElement('div');
+      dot.className = 'cursor-dot';
+      dot.style.left = e.clientX + 'px';
+      dot.style.top  = e.clientY + 'px';
+      dot.style.background = Math.random() > .5 ? 'var(--accent)' : 'var(--accent2)';
+      document.body.appendChild(dot);
+      setTimeout(() => dot.remove(), 700);
+      return;
+    }
+
+    if (effect === 'sparkle') {
+      if (now - lastTrail < 55) return;
+      lastTrail = now;
+      const sp = document.createElement('div');
+      sp.className = 'cursor-spark';
+      sp.textContent = ['✦', '✧', '⋆', '✶'][Math.floor(Math.random() * 4)];
+      sp.style.left = (e.clientX + (Math.random() * 22 - 11)) + 'px';
+      sp.style.top  = (e.clientY + (Math.random() * 22 - 11)) + 'px';
+      document.body.appendChild(sp);
+      setTimeout(() => sp.remove(), 900);
+    }
+  });
+
+  document.addEventListener('mouseleave', () => { glow.style.opacity = '0'; });
+}
+
+/* ============================================================
+   TOAST
+============================================================ */
+let toastTimer = null;
+function toast(msg){
+  const t = el('#toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2400);
+}
+
+/* ============================================================
+   BOOT
+============================================================ */
+function boot(){
+  initLogin();
+  initTabs();
+  initAssignments();
+  initCode();
+  initAudit();
+  initSettings();
+  initProfileMenu();
+  initTimer();
+  initStopwatch();
+  initCursor();
+
+  Store.init();
+
+  // Restore session if valid
+  loadSession();
+  if (session) {
+    // In cloud mode a session without a token is stale — clear it.
+    if (Store.mode === 'cloud' && !session.token) {
+      session = null;
+      saveSession();
+    } else if (Store.mode === 'local' && !session.username) {
+      session = null;
+      saveSession();
+    } else {
+      enterApp();
+      if (Store.mode === 'cloud') Store.loadCloudData();
+    }
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeSettings();
+  });
+}
+
+boot();
+</script>
+</body>
+</html>
