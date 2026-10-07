@@ -79,43 +79,19 @@ html[data-elanim="on"] .profile-btn:hover{border-color:var(--accent);transform:t
 .menu button:hover{background:var(--surface2)}
 .menu .sep{height:1px;background:var(--border);margin:5px 4px}
 
-/* ============================================================
-   CONNECTION STATUS PILL — 5 states
-============================================================ */
-.conn-status{
-  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
-  display:flex;align-items:center;gap:8px;padding:6px 14px;border-radius:20px;
-  background:var(--surface);border:1px solid var(--border);
-  font-size:12px;font-weight:600;letter-spacing:.2px;
-  transition:border-color .3s ease,color .3s ease;
-  z-index:130;pointer-events:none;white-space:nowrap;
-  box-shadow:0 4px 14px rgba(0,0,0,.18);
-}
+.conn-status{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;align-items:center;gap:8px;padding:6px 14px;border-radius:20px;background:var(--surface);border:1px solid var(--border);font-size:12px;font-weight:600;letter-spacing:.2px;transition:border-color .3s ease,color .3s ease;z-index:130;pointer-events:none;white-space:nowrap;box-shadow:0 4px 14px rgba(0,0,0,.18)}
 .conn-status.hidden{display:none}
-.conn-status .dot{
-  width:8px;height:8px;border-radius:50%;background:var(--muted);
-  flex-shrink:0;transition:background .3s ease,box-shadow .3s ease;
-}
-
-/* SYNCED — green, calm */
+.conn-status .dot{width:8px;height:8px;border-radius:50%;background:var(--muted);flex-shrink:0;transition:background .3s ease,box-shadow .3s ease}
 .conn-status.synced{border-color:color-mix(in srgb,#3ddc97 50%,var(--border));color:#3ddc97}
 .conn-status.synced .dot{background:#3ddc97;box-shadow:0 0 10px #3ddc97}
-
-/* SYNCING — accent, active pulse */
 .conn-status.syncing{border-color:color-mix(in srgb,var(--accent) 55%,var(--border));color:var(--accent)}
 .conn-status.syncing .dot{background:var(--accent);box-shadow:0 0 10px var(--accent);animation:syncingPulse .9s ease-in-out infinite}
 @keyframes syncingPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.5);opacity:.4}}
-
-/* UNAVAILABLE — red, no pulse */
 .conn-status.unavailable{border-color:color-mix(in srgb,#ff5f7e 50%,var(--border));color:#ff5f7e}
 .conn-status.unavailable .dot{background:#ff5f7e;box-shadow:0 0 10px #ff5f7e}
-
-/* ERROR — amber, warning */
 .conn-status.error{border-color:color-mix(in srgb,#ffc857 55%,var(--border));color:#ffc857}
 .conn-status.error .dot{background:#ffc857;box-shadow:0 0 10px #ffc857;animation:errorBlink 1.4s ease-in-out infinite}
 @keyframes errorBlink{0%,100%{opacity:1}50%{opacity:.35}}
-
-/* LOCAL — muted */
 .conn-status.local{border-color:var(--border);color:var(--muted)}
 .conn-status.local .dot{background:var(--muted)}
 
@@ -446,6 +422,7 @@ select{width:100%;padding:10px 12px;border-radius:11px;border:1px solid var(--bo
     <div class="setting-group">
       <label class="title">Data &amp; Sync</label>
       <div class="badge-mode" id="syncBadge" style="margin-bottom:12px"><span class="dot"></span><span id="syncText">Synced</span></div>
+      <button class="btn ghost full" id="manualSync" style="margin-bottom:8px">↻ Pull latest from cloud</button>
       <button class="btn danger full" id="resetData">Reset All Data</button>
     </div>
   </div>
@@ -456,8 +433,7 @@ select{width:100%;padding:10px 12px;border-radius:11px;border:1px solid var(--bo
    CLOUD CONFIG
 ============================================================ */
 const CLOUD_CONFIG = {
-  url: 'https://script.google.com/macros/s/AKfycbycUyYQkmHCch9j71XJU6wyXQWEaYJwydaRDDNOKlJed8utBu2EI7hOF_sgQGKYZCsN2w/exec',
-  pollMs: 5000
+  url: 'https://script.google.com/macros/s/AKfycbycUyYQkmHCch9j71XJU6wyXQWEaYJwydaRDDNOKlJed8utBu2EI7hOF_sgQGKYZCsN2w/exec'
 };
 
 const el  = (s, r = document) => r.querySelector(s);
@@ -486,7 +462,6 @@ function isCloudConfigured(){
 
 /* ============================================================
    CONNECTION STATUS — 5 states
-   synced | syncing | unavailable | error | local | hidden
 ============================================================ */
 let connState = 'hidden';
 
@@ -519,13 +494,11 @@ function setConnStatus(state){
 
 function classifyError(err){
   const msg = String(err && err.message || '').toLowerCase();
-  // Server said no / auth problems → "error"
-  if (msg.includes('unauth'))       return 'error';
-  if (msg.includes('incorrect'))    return 'error';
-  if (msg.includes('no such user')) return 'error';
+  if (msg.includes('unauth'))         return 'error';
+  if (msg.includes('incorrect'))      return 'error';
+  if (msg.includes('no such user'))   return 'error';
   if (msg.includes('unknown action')) return 'error';
-  if (msg.includes('invalid json')) return 'error';
-  // Network / CORS / DNS / HTTP 5xx → "unavailable"
+  if (msg.includes('invalid json'))   return 'error';
   return 'unavailable';
 }
 
@@ -541,16 +514,13 @@ function DEFAULT_DATA(){
 }
 
 /* ============================================================
-   STORE
+   STORE — on-demand sync only (no polling)
 ============================================================ */
 const LS_KEY = 'studydesk_v1';
 
 const Store = {
   data: null,
   pushTimer: null,
-  pollId: null,
-  consecutiveFailures: 0,
-  MAX_AUTH_FAILURES: 3,
 
   init(){
     let localData = null;
@@ -584,7 +554,6 @@ const Store = {
     return data;
   },
 
-  // Wraps any API call with status updates
   async withStatus(fn, { silent = false } = {}){
     if (!isCloudConfigured()) return fn();
     if (!navigator.onLine) {
@@ -602,65 +571,31 @@ const Store = {
     }
   },
 
+  // Pull data from Sheet (called at login or via manual sync button)
   async loadCloudData(){
     if (!isCloudConfigured()) { setConnStatus('local'); return; }
     try {
-      const data = await this.withStatus(() => this.apiPost({ action: 'read', token: session ? session.token : '' }));
+      const data = await this.withStatus(() =>
+        this.apiPost({ action: 'read', token: session ? session.token : '' })
+      );
       if (data && data.data && typeof data.data === 'object') {
         this.data = data.data;
         localStorage.setItem(LS_KEY, JSON.stringify(this.data));
         applyAll();
       }
-      this.consecutiveFailures = 0;
     } catch (e) {
       console.warn('[StudyDesk] Initial fetch failed:', e.message);
     }
-    this.startPolling();
   },
 
   async pushCloud(){
     if (!isCloudConfigured() || !session) return;
-    await this.withStatus(() => this.apiPost({ action: 'save', token: session.token, data: this.data }));
+    await this.withStatus(() =>
+      this.apiPost({ action: 'save', token: session.token, data: this.data })
+    );
   },
 
-  startPolling(){
-    clearInterval(this.pollId);
-    const ms = (CLOUD_CONFIG && CLOUD_CONFIG.pollMs) || 5000;
-
-    this.pollId = setInterval(async () => {
-      if (!isCloudConfigured() || !session || !session.token) return;
-      if (!navigator.onLine) { setConnStatus('unavailable'); return; }
-
-      // Don't stomp on a fresh user-triggered sync (save in flight)
-      if (connState === 'syncing') return;
-
-      try {
-        const data = await this.withStatus(() => this.apiPost({ action: 'read', token: session.token }));
-        this.consecutiveFailures = 0;
-
-        if (data && data.data && (data.data.updatedAt || 0) > (this.data.updatedAt || 0)) {
-          this.data = data.data;
-          localStorage.setItem(LS_KEY, JSON.stringify(this.data));
-          applyAll();
-        }
-      } catch (err) {
-        const state = classifyError(err);
-
-        // Auth errors: count toward logout after N consecutive
-        if (state === 'error') {
-          this.consecutiveFailures++;
-          if (this.consecutiveFailures >= this.MAX_AUTH_FAILURES) {
-            console.warn('[StudyDesk] Session expired. Signing out.');
-            logout();
-          }
-        } else {
-          // Network errors: never log out, just keep showing "Unavailable"
-          this.consecutiveFailures = 0;
-        }
-      }
-    }, ms);
-  },
-
+  // Only fires when something is actually changed
   persist(){
     localStorage.setItem(LS_KEY, JSON.stringify(this.data));
     if (isCloudConfigured() && session && session.token) {
@@ -757,7 +692,6 @@ async function doLogin(){
     return;
   }
 
-  Store.consecutiveFailures = 0;
   saveSession();
   el('#loginError').textContent = '';
   el('#loginPass').value = '';
@@ -774,7 +708,7 @@ function enterApp(){
   tickClock();
   if (!isCloudConfigured()) setConnStatus('local');
   else if (!navigator.onLine) setConnStatus('unavailable');
-  else setConnStatus('syncing');  // will flip to synced after first poll
+  else setConnStatus('synced');
 }
 
 async function logout(){
@@ -782,9 +716,7 @@ async function logout(){
     try { await Store.withStatus(() => Store.apiPost({ action: 'logout', token: session.token }), { silent: true }); } catch {}
   }
   session = null;
-  Store.consecutiveFailures = 0;
   saveSession();
-  clearInterval(Store.pollId);
   setConnStatus('hidden');
   el('#app').classList.add('hidden');
   el('#loginScreen').classList.remove('hidden');
@@ -974,6 +906,7 @@ function initSettings(){
   el('#setTimerAnim').addEventListener('change', e => { Store.data.settings.timerAnim = e.target.checked; commit('edited','Settings',`Timer anim ${e.target.checked?'on':'off'}`); });
   el('#setClock24').addEventListener('change', e => { Store.data.settings.clock24 = e.target.checked; commit('edited','Settings',`Clock → ${e.target.checked?'24h':'12h'}`); tickClock(); });
   el('#setSound').addEventListener('change', e => { Store.data.settings.sound = e.target.checked; commit('edited','Settings',`Sound ${e.target.checked?'on':'off'}`); });
+
   el('#savePass').addEventListener('click', async () => {
     const np = el('#newPass').value;
     if (np.length < 4) { toast('Password must be at least 4 characters.'); return; }
@@ -983,6 +916,14 @@ function initSettings(){
       toast('Password updated ✓'); el('#newPass').value = '';
     } catch (err) { toast('Failed: ' + err.message); }
   });
+
+  el('#manualSync').addEventListener('click', async () => {
+    if (!isCloudConfigured()) { toast('Backend not configured.'); return; }
+    toast('Pulling latest…');
+    await Store.loadCloudData();
+    toast('Data refreshed');
+  });
+
   el('#resetData').addEventListener('click', () => {
     if (!confirm('Reset ALL dashboard data?')) return;
     Store.data = DEFAULT_DATA(); Store.persist(); currentProjectId = null; applyAll(); el('#codeArea').value = ''; toast('Dashboard reset.');
@@ -1155,8 +1096,7 @@ function boot(){
   window.addEventListener('online', () => {
     if (!session) return;
     if (!isCloudConfigured()) { setConnStatus('local'); return; }
-    setConnStatus('syncing');
-    Store.consecutiveFailures = 0;
+    // Auto-pull fresh data when connection returns
     Store.loadCloudData();
   });
   window.addEventListener('offline', () => { if (session) setConnStatus('unavailable'); });
