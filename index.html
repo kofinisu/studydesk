@@ -113,13 +113,34 @@ html[data-elanim="on"] .card:hover{transform:translateY(-3px);border-color:color
 .card h3::before{content:'';width:3px;height:14px;border-radius:3px;background:var(--accent)}
 
 .hub-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
-.clock-card{grid-column:span 4}.timer-card{grid-column:span 4}.stopwatch-card{grid-column:span 4}.due-card{grid-column:span 6}.priority-card{grid-column:span 6}
-@media(max-width:1080px){.clock-card,.timer-card,.stopwatch-card,.due-card,.priority-card{grid-column:span 12}}
+.clock-card{grid-column:span 4}
+.timer-card{grid-column:span 4}
+.calendar-card{grid-column:span 4}
+.due-card{grid-column:span 6}
+.priority-card{grid-column:span 6}
+@media(max-width:1080px){.clock-card,.timer-card,.calendar-card,.due-card,.priority-card{grid-column:span 12}}
 @media(max-width:640px){main{padding:14px}.topbar{padding:10px 14px;gap:10px}.tabs{order:3;width:100%;justify-content:center}.conn-status{position:fixed;top:10px;left:50%;transform:translateX(-50%);z-index:400;padding:5px 10px}}
 
 .clock-time{font-size:clamp(34px,5.4vw,50px);font-weight:800;letter-spacing:-2px;line-height:1;background:linear-gradient(120deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-variant-numeric:tabular-nums}
 .clock-date{color:var(--muted);font-size:13.5px;margin-top:10px;font-weight:600}
 .greeting{margin-top:16px;padding:9px 14px;border-radius:11px;background:var(--surface2);font-size:13px;border-left:3px solid var(--accent2)}
+
+/* ============================================================
+   TIMER / STOPWATCH COMBINED CARD
+============================================================ */
+.mode-toggle{
+  display:grid;grid-template-columns:1fr 1fr;gap:4px;
+  background:var(--surface2);padding:4px;border-radius:11px;
+  margin-bottom:14px;border:1px solid var(--border);
+}
+.mode-btn{
+  padding:8px;border-radius:8px;font-size:12.5px;font-weight:700;
+  color:var(--muted);transition:all .22s ease;letter-spacing:.3px;
+}
+.mode-btn:hover{color:var(--text)}
+.mode-btn.active{background:var(--accent);color:#fff;box-shadow:0 3px 12px color-mix(in srgb,var(--accent) 45%,transparent)}
+.mode-pane{animation:paneIn .25s ease both}
+@keyframes paneIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
 
 .ring-wrap{position:relative;width:158px;height:158px;margin:2px auto 14px}
 .ring{width:100%;height:100%;transform:rotate(-90deg)}
@@ -132,11 +153,66 @@ html[data-timeranim="on"] .ring-wrap.running .ring-fg{animation:ringPulse 1.7s e
 .sw-ring .ring-fg{stroke:var(--accent2);stroke-dasharray:60 280;transition:none}
 html[data-timeranim="on"] .ring-wrap.running .sw-ring .ring-fg{animation:spinRing 1.4s linear infinite}
 @keyframes spinRing{to{stroke-dashoffset:-340}}
+
 .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:center}
 .row input[type=number]{width:64px;padding:8px 10px;border-radius:9px;border:1px solid var(--border);background:var(--surface2);text-align:center;outline:none}
 .row .lbl{font-size:12px;color:var(--muted)}
 .ctrl-btn{padding:9px 15px;border-radius:10px;background:var(--surface2);border:1px solid var(--border);font-size:12.5px;font-weight:600;transition:all .2s ease}
 .ctrl-btn.primary{background:var(--accent);color:#fff;border-color:transparent}
+.ctrl-btn.sw-primary{background:var(--accent2);color:#06121c;border-color:transparent}
+
+/* ============================================================
+   CALENDAR
+============================================================ */
+.cal-header{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px}
+.cal-label{font-size:14px;font-weight:800;letter-spacing:-.2px}
+.cal-nav{width:30px;height:30px;border-radius:9px;background:var(--surface2);border:1px solid var(--border);display:grid;place-items:center;font-size:15px;transition:all .18s ease;color:var(--muted)}
+.cal-nav:hover{border-color:var(--accent);color:var(--accent)}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+.cal-wd{
+  text-align:center;font-size:10px;font-weight:800;text-transform:uppercase;
+  letter-spacing:.5px;color:var(--muted);padding:4px 0 8px;
+}
+.cal-cell{
+  position:relative;aspect-ratio:1/1;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:9px;font-size:12.5px;font-weight:600;
+  cursor:pointer;transition:all .15s ease;border:1px solid transparent;
+  user-select:none;
+}
+.cal-cell:hover{background:var(--surface2)}
+.cal-cell.blank{cursor:default;opacity:0}
+.cal-cell.blank:hover{background:transparent}
+.cal-cell.today{border-color:var(--accent);color:var(--accent);font-weight:800}
+.cal-cell.selected{background:var(--accent);color:#fff;font-weight:800}
+.cal-cell.selected.today{border-color:var(--accent)}
+.cal-cell.has-items .cal-dot{
+  position:absolute;bottom:5px;left:50%;transform:translateX(-50%);
+  width:4px;height:4px;border-radius:50%;
+  background:var(--accent2);box-shadow:0 0 6px var(--accent2);
+}
+.cal-cell.selected .cal-dot{background:#fff;box-shadow:0 0 6px #fff}
+.cal-cell.multi .cal-dot{width:18px;height:3px;border-radius:2px}
+
+.cal-day-panel{
+  margin-top:12px;padding-top:12px;border-top:1px solid var(--border);
+  max-height:150px;overflow-y:auto;
+}
+.cal-day-title{
+  font-size:10.5px;text-transform:uppercase;letter-spacing:.9px;
+  color:var(--muted);font-weight:800;margin-bottom:8px;
+}
+.cal-day-empty{font-size:12px;color:var(--muted);font-style:italic;text-align:center;padding:8px 0}
+.cal-day-item{
+  display:flex;align-items:center;gap:7px;
+  padding:6px 9px;border-radius:8px;font-size:11.5px;
+  background:var(--surface2);margin-bottom:4px;
+  border:1px solid transparent;transition:border-color .15s;
+}
+.cal-day-item:hover{border-color:color-mix(in srgb,var(--accent) 40%,transparent)}
+.cal-day-item .cal-dot-sm{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.cal-day-item .cal-name{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600}
+.cal-day-item .cal-time{font-size:10px;color:var(--muted);flex-shrink:0}
 
 .list{display:flex;flex-direction:column;gap:9px;max-height:330px;overflow-y:auto;padding-right:4px}
 .item{display:flex;align-items:center;gap:12px;padding:12px 13px;border-radius:12px;background:var(--surface2);border:1px solid transparent;transition:all .22s ease}
@@ -167,18 +243,15 @@ html[data-timeranim="on"] .ring-wrap.running .sw-ring .ring-fg{animation:spinRin
 .form-grid .span2{grid-column:span 2}
 @media(max-width:520px){.form-grid{grid-template-columns:1fr}.form-grid .span2{grid-column:span 1}}
 
-/* Section selector row */
 .section-selector{display:flex;gap:8px;align-items:stretch}
 .section-selector select{flex:1}
 .section-selector .btn.mini{padding:0 12px;font-size:14px;font-weight:800;min-width:38px;display:grid;place-items:center}
 
-/* Section filter */
 .list-header{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px;flex-wrap:wrap}
 .list-header h3{margin-bottom:0 !important}
 .list-header .filters{display:flex;gap:8px;align-items:center}
 .list-header select{width:auto;padding:7px 11px;font-size:12.5px;border-radius:9px}
 
-/* Sections manager */
 .sections-manager{display:flex;flex-direction:column;gap:6px;margin-top:10px;padding-top:12px;border-top:1px dashed var(--border)}
 .sections-manager .sec-row{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:9px;background:var(--surface2);font-size:12.5px}
 .sections-manager .sec-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
@@ -297,52 +370,89 @@ select{width:100%;padding:10px 12px;border-radius:11px;border:1px solid var(--bo
   </header>
 
   <main>
+    <!-- ================= MAIN HUB ================= -->
     <section class="tab-panel active" id="tab-hub">
       <div class="hub-grid">
+
+        <!-- CLOCK -->
         <div class="card clock-card">
           <h3>Time of Day</h3>
           <div class="clock-time" id="clockTime">--:--:--</div>
           <div class="clock-date" id="clockDate">—</div>
           <div class="greeting" id="greeting">Welcome back!</div>
         </div>
+
+        <!-- TIMER / STOPWATCH (combined) -->
         <div class="card timer-card">
-          <h3>Timer</h3>
-          <div class="ring-wrap" id="timerRingWrap">
-            <svg class="ring" viewBox="0 0 120 120"><circle class="ring-bg" cx="60" cy="60" r="54"></circle><circle class="ring-fg" id="timerRing" cx="60" cy="60" r="54"></circle></svg>
-            <div class="ring-label" id="timerDisplay">25:00</div>
+          <div class="mode-toggle" id="modeToggle">
+            <button class="mode-btn active" data-mode="timer">Timer</button>
+            <button class="mode-btn" data-mode="stopwatch">Stopwatch</button>
           </div>
-          <div class="row" style="margin-bottom:10px">
-            <input type="number" id="timerMin" value="25" min="0" max="180"><span class="lbl">min</span>
-            <input type="number" id="timerSec" value="0" min="0" max="59"><span class="lbl">sec</span>
+
+          <!-- TIMER PANE -->
+          <div class="mode-pane" id="pane-timer">
+            <div class="ring-wrap" id="timerRingWrap">
+              <svg class="ring" viewBox="0 0 120 120">
+                <circle class="ring-bg" cx="60" cy="60" r="54"></circle>
+                <circle class="ring-fg" id="timerRing" cx="60" cy="60" r="54"></circle>
+              </svg>
+              <div class="ring-label" id="timerDisplay">25:00</div>
+            </div>
+            <div class="row" style="margin-bottom:10px">
+              <input type="number" id="timerMin" value="25" min="0" max="180"><span class="lbl">min</span>
+              <input type="number" id="timerSec" value="0" min="0" max="59"><span class="lbl">sec</span>
+            </div>
+            <div class="row">
+              <button class="ctrl-btn primary" id="timerStart">▶ Start</button>
+              <button class="ctrl-btn" id="timerPause">⏸ Pause</button>
+              <button class="ctrl-btn" id="timerReset">⟲ Reset</button>
+            </div>
           </div>
-          <div class="row">
-            <button class="ctrl-btn primary" id="timerStart">▶ Start</button>
-            <button class="ctrl-btn" id="timerPause">⏸ Pause</button>
-            <button class="ctrl-btn" id="timerReset">⟲ Reset</button>
+
+          <!-- STOPWATCH PANE -->
+          <div class="mode-pane hidden" id="pane-stopwatch">
+            <div class="ring-wrap" id="swRingWrap">
+              <svg class="ring sw-ring" viewBox="0 0 120 120">
+                <circle class="ring-bg" cx="60" cy="60" r="54"></circle>
+                <circle class="ring-fg" cx="60" cy="60" r="54"></circle>
+              </svg>
+              <div class="ring-label" id="swDisplay">00:00.0</div>
+            </div>
+            <div class="row" style="margin-top:40px">
+              <button class="ctrl-btn sw-primary" id="swStart">▶ Start</button>
+              <button class="ctrl-btn" id="swStop">⏸ Stop</button>
+              <button class="ctrl-btn" id="swReset">⟲ Reset</button>
+            </div>
           </div>
         </div>
-        <div class="card stopwatch-card">
-          <h3>Stopwatch</h3>
-          <div class="ring-wrap" id="swRingWrap">
-            <svg class="ring sw-ring" viewBox="0 0 120 120"><circle class="ring-bg" cx="60" cy="60" r="54"></circle><circle class="ring-fg" cx="60" cy="60" r="54"></circle></svg>
-            <div class="ring-label" id="swDisplay">00:00.0</div>
+
+        <!-- CALENDAR -->
+        <div class="card calendar-card">
+          <h3>Calendar</h3>
+          <div class="cal-header">
+            <button class="cal-nav" id="calPrev" title="Previous month">‹</button>
+            <span class="cal-label" id="calMonthLabel">—</span>
+            <button class="cal-nav" id="calNext" title="Next month">›</button>
           </div>
-          <div class="row">
-            <button class="ctrl-btn primary" id="swStart">▶ Start</button>
-            <button class="ctrl-btn" id="swStop">⏸ Stop</button>
-            <button class="ctrl-btn" id="swReset">⟲ Reset</button>
+          <div class="cal-grid" id="calGrid"></div>
+          <div class="cal-day-panel" id="calDayPanel">
+            <div class="cal-day-empty">Tap a day to see what's due</div>
           </div>
         </div>
+
+        <!-- DUE ASSIGNMENTS -->
         <div class="card due-card"><h3>Due Assignments</h3><div class="list" id="dueList"></div></div>
+
+        <!-- PRIORITY LIST -->
         <div class="card priority-card"><h3>Priority List</h3><div class="list" id="priorityList"></div></div>
+
       </div>
     </section>
 
-    <!-- ============= ASSIGNMENTS TAB (updated) ============= -->
+    <!-- ================= ASSIGNMENTS TAB ================= -->
     <section class="tab-panel" id="tab-assignments">
       <div class="two-col">
 
-        <!-- LEFT: FORM -->
         <div class="card">
           <h3 id="assignFormTitle">Add Assignment</h3>
           <div class="form-grid">
@@ -397,7 +507,6 @@ select{width:100%;padding:10px 12px;border-radius:11px;border:1px solid var(--bo
           <div class="sections-manager" id="sectionsManager"></div>
         </div>
 
-        <!-- RIGHT: LIST -->
         <div class="card">
           <div class="list-header">
             <h3>All Assignments (<span id="assignCount">0</span>)</h3>
@@ -414,6 +523,7 @@ select{width:100%;padding:10px 12px;border-radius:11px;border:1px solid var(--bo
       </div>
     </section>
 
+    <!-- ================= CODE STORAGE ================= -->
     <section class="tab-panel" id="tab-code">
       <div class="code-layout">
         <div class="card">
@@ -446,6 +556,7 @@ select{width:100%;padding:10px 12px;border-radius:11px;border:1px solid var(--bo
       </div>
     </section>
 
+    <!-- ================= AUDIT ================= -->
     <section class="tab-panel" id="tab-audit">
       <div class="card" style="margin-bottom:16px">
         <div class="row" style="justify-content:space-between">
@@ -522,7 +633,6 @@ const els = (s, r = document) => Array.from(r.querySelectorAll(s));
 const uid = () => Math.random().toString(36).slice(2, 9) + Date.now().toString(36);
 const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
 
-/* Section color palette — index into this array */
 const SECTION_COLORS = [
   '#6c8cff', '#39d4c8', '#f59e0b', '#ec4899',
   '#8b5cf6', '#10b981', '#ef4444', '#06b6d4'
@@ -533,7 +643,6 @@ function escapeHtml(s){
 }
 function fmtDateTime(ts){ if (!ts) return '—'; return new Date(ts).toLocaleString([],{year:'numeric',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit',second:'2-digit'}); }
 
-/* Compact due formatter — omits time when it's end-of-day (23:59) */
 function fmtDue(ts){
   if (!ts) return 'No date';
   const d = new Date(ts);
@@ -556,13 +665,11 @@ function isCloudConfigured(){
   return CLOUD_CONFIG && CLOUD_CONFIG.url && CLOUD_CONFIG.url.indexOf('PASTE_') === -1;
 }
 
-/* Combine date + optional time into an ISO string. Default time = 23:59 */
 function combineDueDate(dateStr, timeStr){
   if (!dateStr) return null;
   const t = timeStr || '23:59';
   return new Date(dateStr + 'T' + t).toISOString();
 }
-/* Split an ISO string back into date + time. Time is omitted when it's 23:59. */
 function splitDue(iso){
   if (!iso) return { date: '', time: '' };
   const d = new Date(iso);
@@ -571,6 +678,11 @@ function splitDue(iso){
   const time = (d.getHours() === 23 && d.getMinutes() === 59) ? '' : `${pad(d.getHours())}:${pad(d.getMinutes())}`;
   return { date, time };
 }
+function isoDateKey(iso){
+  const d = new Date(iso);
+  return d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate();
+}
+function dateKey(y, m, d){ return y + '-' + (m+1) + '-' + d; }
 
 /* ============================================================
    CONNECTION STATUS
@@ -609,7 +721,7 @@ function classifyError(err){
 function DEFAULT_DATA(){
   return {
     assignments: [],
-    sections: [],      // { id, name, colorIndex }
+    sections: [],
     projects: [],
     audit: [],
     settings: { theme:'aurora', cursor:'glow', tabAnim:true, tabAnimStyle:'slide', elementAnim:true, timerAnim:true, clock24:true, sound:true },
@@ -643,7 +755,6 @@ const Store = {
     });
 
     this.data = localData || DEFAULT_DATA();
-    // Ensure sections array exists (for older saved data)
     if (!Array.isArray(this.data.sections)) this.data.sections = [];
     applyAll();
   },
@@ -718,7 +829,7 @@ function commit(action, item, details){
 }
 
 /* ============================================================
-   SECTIONS HELPERS
+   SECTIONS
 ============================================================ */
 function getSection(id){
   if (!id) return null;
@@ -748,6 +859,7 @@ function applyAll(){
   applySettings();
   updateProfileUI();
   renderHubLists();
+  renderCalendar();
   renderSectionsUI();
   renderAssignments();
   renderProjects();
@@ -862,8 +974,11 @@ function tickClock(){
   el('#greeting').textContent = `${greet}, ${session ? session.name : 'there'} — let's get things done.`;
 }
 setInterval(tickClock, 1000);
-setInterval(() => { if (Store.data) renderHubLists(); }, 60000);
+setInterval(() => { if (Store.data) { renderHubLists(); renderCalendar(); } }, 60000);
 
+/* ============================================================
+   PRIORITY + ROWS
+============================================================ */
 function priorityScore(a){
   const due = new Date(a.due).getTime();
   const days = (due - Date.now()) / 86400000;
@@ -892,6 +1007,124 @@ function renderHubLists(){
 }
 
 /* ============================================================
+   CALENDAR
+============================================================ */
+let calViewDate = new Date();
+let calSelectedDate = null;
+
+function initCalendar(){
+  el('#calPrev').addEventListener('click', () => {
+    calViewDate = new Date(calViewDate.getFullYear(), calViewDate.getMonth() - 1, 1);
+    renderCalendar();
+  });
+  el('#calNext').addEventListener('click', () => {
+    calViewDate = new Date(calViewDate.getFullYear(), calViewDate.getMonth() + 1, 1);
+    renderCalendar();
+  });
+}
+
+function renderCalendar(){
+  if (!Store.data || !el('#calGrid')) return;
+
+  const year = calViewDate.getFullYear();
+  const month = calViewDate.getMonth();
+  const first = new Date(year, month, 1);
+  const startWd = first.getDay();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+  el('#calMonthLabel').textContent = first.toLocaleDateString([], { month:'long', year:'numeric' });
+
+  // Build due map
+  const dueByDate = {};
+  Store.data.assignments.forEach(a => {
+    const key = isoDateKey(a.due);
+    if (!dueByDate[key]) dueByDate[key] = [];
+    dueByDate[key].push(a);
+  });
+
+  const nowKey = isoDateKey(new Date().toISOString());
+
+  const cells = [];
+  ['S','M','T','W','T','F','S'].forEach(d => cells.push(`<div class="cal-wd">${d}</div>`));
+
+  for (let i = 0; i < startWd; i++) cells.push('<div class="cal-cell blank"></div>');
+
+  for (let d = 1; d <= daysInMonth; d++) {
+    const key = dateKey(year, month, d);
+    const cls = ['cal-cell'];
+    if (key === nowKey) cls.push('today');
+    if (key === calSelectedDate) cls.push('selected');
+    const items = dueByDate[key];
+    if (items && items.length) cls.push('has-items');
+    if (items && items.length > 1) cls.push('multi');
+    cells.push(`<div class="${cls.join(' ')}" data-date="${key}">${d}${items ? '<span class="cal-dot"></span>' : ''}</div>`);
+  }
+
+  const total = startWd + daysInMonth;
+  const trail = (7 - (total % 7)) % 7;
+  for (let i = 0; i < trail; i++) cells.push('<div class="cal-cell blank"></div>');
+
+  el('#calGrid').innerHTML = cells.join('');
+
+  // Wire up click handlers
+  els('#calGrid [data-date]').forEach(c => {
+    c.addEventListener('click', () => {
+      calSelectedDate = c.dataset.date;
+      renderCalendar();
+    });
+  });
+
+  renderCalDayPanel(dueByDate);
+}
+
+function renderCalDayPanel(dueByDate){
+  const panel = el('#calDayPanel');
+  if (!panel) return;
+
+  if (!calSelectedDate) {
+    panel.innerHTML = '<div class="cal-day-empty">Tap a day to see what\'s due</div>';
+    return;
+  }
+
+  const items = dueByDate[calSelectedDate] || [];
+  const dateObj = new Date(calSelectedDate + 'T12:00:00');
+  const label = dateObj.toLocaleDateString([], { weekday:'long', month:'short', day:'numeric' });
+
+  if (!items.length) {
+    panel.innerHTML = `<div class="cal-day-title">${escapeHtml(label)}</div><div class="cal-day-empty">Nothing due this day</div>`;
+    return;
+  }
+
+  panel.innerHTML = `<div class="cal-day-title">${escapeHtml(label)} · ${items.length} due</div>` +
+    items.map(a => {
+      const sec = getSection(a.sectionId);
+      const c = sec ? sectionColor(sec) : '#8b96bd';
+      const d = new Date(a.due);
+      const showTime = !(d.getHours() === 23 && d.getMinutes() === 59);
+      const timeStr = showTime ? d.toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' }) : '';
+      return `<div class="cal-day-item">
+        <span class="cal-dot-sm" style="background:${c};box-shadow:0 0 5px ${c}88"></span>
+        <span class="cal-name">${escapeHtml(a.name)}</span>
+        ${timeStr ? `<span class="cal-time">${timeStr}</span>` : ''}
+      </div>`;
+    }).join('');
+}
+
+/* ============================================================
+   TIMER / STOPWATCH MODE TOGGLE
+============================================================ */
+function initModeToggle(){
+  els('#modeToggle button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const mode = btn.dataset.mode;
+      els('#modeToggle button').forEach(b => b.classList.toggle('active', b.dataset.mode === mode));
+      el('#pane-timer').classList.toggle('hidden', mode !== 'timer');
+      el('#pane-stopwatch').classList.toggle('hidden', mode !== 'stopwatch');
+    });
+  });
+}
+
+/* ============================================================
    ASSIGNMENTS TAB
 ============================================================ */
 let editingId = null;
@@ -907,13 +1140,11 @@ function refreshSectionDropdown(){
   const sel = el('#aSection');
   if (!sel) return;
   const current = sel.value;
-  const opts = ['<option value="">— No section —</option>']
-    .concat(Store.data.sections.map(s => `<option value="${s.id}">${escapeHtml(s.name)}</option>`));
-  sel.innerHTML = opts.join('');
-  // preserve selection if still valid
+  sel.innerHTML = ['<option value="">— No section —</option>']
+    .concat(Store.data.sections.map(s => `<option value="${s.id}">${escapeHtml(s.name)}</option>`))
+    .join('');
   if (Array.from(sel.options).some(o => o.value === current)) sel.value = current;
 
-  // Also update the filter dropdown
   const filter = el('#sectionFilter');
   if (filter) {
     const curFilter = filter.value;
@@ -927,7 +1158,6 @@ function refreshSectionDropdown(){
 function promptAddSection(){
   const name = (prompt('Name your section / class (e.g. "Math", "English"):') || '').trim();
   if (!name) return;
-  // Prevent duplicates by name
   if (Store.data.sections.some(s => s.name.toLowerCase() === name.toLowerCase())) {
     toast('A section with that name already exists.');
     return;
@@ -936,8 +1166,6 @@ function promptAddSection(){
   const section = { id: uid(), name, colorIndex };
   Store.data.sections.push(section);
   commit('added', 'Section', `Created section "${name}"`);
-
-  // Auto-select the new section in the form
   refreshSectionDropdown();
   el('#aSection').value = section.id;
 }
@@ -965,7 +1193,6 @@ function deleteSection(id){
   if (!confirm(msg)) return;
 
   Store.data.sections = Store.data.sections.filter(x => x.id !== id);
-  // Orphan its assignments
   Store.data.assignments.forEach(a => { if (a.sectionId === id) a.sectionId = ''; });
   commit('removed', 'Section', `Deleted section "${s.name}"`);
 }
@@ -1101,9 +1328,8 @@ function renderAssignments(){
     return;
   }
 
-  el('#assignList').innerHTML = items.map(a => {
-    const secName = getSection(a.sectionId)?.name;
-    return `<div class="item">
+  el('#assignList').innerHTML = items.map(a => `
+    <div class="item">
       <div class="item-main">
         <div class="item-title">
           ${escapeHtml(a.name)}
@@ -1122,8 +1348,7 @@ function renderAssignments(){
         <button class="mini" data-edit="${a.id}" title="Edit">✎</button>
         <button class="mini del" data-del="${a.id}" title="Delete">🗑</button>
       </div>
-    </div>`;
-  }).join('');
+    </div>`).join('');
 
   els('[data-edit]').forEach(b => b.addEventListener('click', () => editAssignment(b.dataset.edit)));
   els('[data-del]').forEach(b => b.addEventListener('click', () => deleteAssignment(b.dataset.del)));
@@ -1382,7 +1607,7 @@ function toast(msg){ const t = el('#toast'); t.textContent = msg; t.classList.ad
 
 function boot(){
   initLogin(); initTabs(); initAssignments(); initCode(); initAudit(); initSettings();
-  initProfileMenu(); initTimer(); initStopwatch(); initCursor();
+  initProfileMenu(); initTimer(); initStopwatch(); initModeToggle(); initCalendar(); initCursor();
   Store.init();
   loadSession();
   if (session) {
