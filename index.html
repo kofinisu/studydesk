@@ -15,11 +15,19 @@
   --font:'Segoe UI',system-ui,-apple-system,'Helvetica Neue',sans-serif;
   --mono:'JetBrains Mono','Fira Code',Consolas,'Courier New',monospace;
 }
+/* ===================== THEMES ===================== */
 html[data-theme="midnight"]{--bg:#05070d;--surface:#0d1117;--surface2:#161b22;--text:#e6edf3;--muted:#7d8590;--accent:#2f81f7;--accent2:#39d353;--border:#21262d;--danger:#f85149;--success:#3fb950;--warn:#d29922}
 html[data-theme="light"]{--bg:#f2f5fc;--surface:#ffffff;--surface2:#eef2fa;--text:#131a2c;--muted:#5c6884;--accent:#3b5bfd;--accent2:#0d9b9b;--border:#dde3f0;--danger:#e11d48;--success:#0f9d58;--warn:#b45309;--shadow:0 10px 26px rgba(30,45,90,.12)}
 html[data-theme="solar"]{--bg:#fdf6e9;--surface:#fffdf7;--surface2:#f7ecd7;--text:#3a2e1e;--muted:#8a7757;--accent:#e08a1e;--accent2:#c2410c;--border:#ecd9b8;--danger:#b91c1c;--success:#15803d;--warn:#a16207}
 html[data-theme="neon"]{--bg:#050505;--surface:#0e0e12;--surface2:#17171f;--text:#f2f2f7;--muted:#8a8a9e;--accent:#ff2fd0;--accent2:#b6ff3a;--border:#2a2a38;--danger:#ff3860;--success:#b6ff3a;--warn:#ffd60a}
 html[data-theme="forest"]{--bg:#08130f;--surface:#0f1f19;--surface2:#163026;--text:#e3f4ec;--muted:#82a396;--accent:#34d399;--accent2:#a3e635;--border:#1e3b31;--danger:#f87171;--success:#34d399;--warn:#fbbf24}
+html[data-theme="ocean"]{--bg:#061428;--surface:#0b1f3a;--surface2:#123055;--text:#d6eaff;--muted:#6f92bb;--accent:#22b8ff;--accent2:#00f0d4;--border:#1a3d66;--danger:#ff5f7e;--success:#3ddc97;--warn:#ffc857}
+html[data-theme="sunset"]{--bg:#1a0b22;--surface:#2a1233;--surface2:#3d1a44;--text:#ffe8e0;--muted:#b48aaa;--accent:#ff7b47;--accent2:#ff4d8d;--border:#4a2055;--danger:#ff3060;--success:#4ade80;--warn:#fbbf24}
+html[data-theme="cherry"]{--bg:#1a0810;--surface:#280f18;--surface2:#3a1622;--text:#ffe4ef;--muted:#b87a92;--accent:#ff4d8d;--accent2:#ff85b3;--border:#4a1d2e;--danger:#ff3060;--success:#4ade80;--warn:#fbbf24}
+html[data-theme="terminal"]{--bg:#000000;--surface:#0a0f0a;--surface2:#121a12;--text:#33ff33;--muted:#1f7a1f;--accent:#33ff33;--accent2:#33ff33;--border:#1a3a1a;--danger:#ff3333;--success:#33ff33;--warn:#ffff33}
+html[data-theme="lavender"]{--bg:#f3f0ff;--surface:#ffffff;--surface2:#ede9fe;--text:#2e1065;--muted:#7c6fa8;--accent:#8b5cf6;--accent2:#d946ef;--border:#ddd6fe;--danger:#e11d48;--success:#16a34a;--warn:#d97706;--shadow:0 10px 26px rgba(80,50,150,.12)}
+html[data-theme="crimson"]{--bg:#0a0305;--surface:#140508;--surface2:#1f0a10;--text:#ffe4e8;--muted:#a86a72;--accent:#dc2626;--accent2:#f97316;--border:#3a1018;--danger:#dc2626;--success:#4ade80;--warn:#fbbf24}
+html[data-theme="mono"]{--bg:#0a0a0a;--surface:#151515;--surface2:#1f1f1f;--text:#eaeaea;--muted:#8a8a8a;--accent:#eaeaea;--accent2:#a0a0a0;--border:#2e2e2e;--danger:#ff5f7e;--success:#3ddc97;--warn:#ffc857}
 
 html,body{height:100%}
 body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh;overflow-x:hidden;transition:background .35s ease,color .35s ease}
@@ -125,18 +133,8 @@ html[data-elanim="on"] .card:hover{transform:translateY(-3px);border-color:color
 .clock-date{color:var(--muted);font-size:13.5px;margin-top:10px;font-weight:600}
 .greeting{margin-top:16px;padding:9px 14px;border-radius:11px;background:var(--surface2);font-size:13px;border-left:3px solid var(--accent2)}
 
-/* ============================================================
-   TIMER / STOPWATCH COMBINED CARD
-============================================================ */
-.mode-toggle{
-  display:grid;grid-template-columns:1fr 1fr;gap:4px;
-  background:var(--surface2);padding:4px;border-radius:11px;
-  margin-bottom:14px;border:1px solid var(--border);
-}
-.mode-btn{
-  padding:8px;border-radius:8px;font-size:12.5px;font-weight:700;
-  color:var(--muted);transition:all .22s ease;letter-spacing:.3px;
-}
+.mode-toggle{display:grid;grid-template-columns:1fr 1fr;gap:4px;background:var(--surface2);padding:4px;border-radius:11px;margin-bottom:14px;border:1px solid var(--border)}
+.mode-btn{padding:8px;border-radius:8px;font-size:12.5px;font-weight:700;color:var(--muted);transition:all .22s ease;letter-spacing:.3px}
 .mode-btn:hover{color:var(--text)}
 .mode-btn.active{background:var(--accent);color:#fff;box-shadow:0 3px 12px color-mix(in srgb,var(--accent) 45%,transparent)}
 .mode-pane{animation:paneIn .25s ease both}
@@ -161,58 +159,52 @@ html[data-timeranim="on"] .ring-wrap.running .sw-ring .ring-fg{animation:spinRin
 .ctrl-btn.primary{background:var(--accent);color:#fff;border-color:transparent}
 .ctrl-btn.sw-primary{background:var(--accent2);color:#06121c;border-color:transparent}
 
-/* ============================================================
-   CALENDAR
-============================================================ */
+/* ===================== CALENDAR ===================== */
 .cal-header{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px}
 .cal-label{font-size:14px;font-weight:800;letter-spacing:-.2px}
 .cal-nav{width:30px;height:30px;border-radius:9px;background:var(--surface2);border:1px solid var(--border);display:grid;place-items:center;font-size:15px;transition:all .18s ease;color:var(--muted)}
 .cal-nav:hover{border-color:var(--accent);color:var(--accent)}
 .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
-.cal-wd{
-  text-align:center;font-size:10px;font-weight:800;text-transform:uppercase;
-  letter-spacing:.5px;color:var(--muted);padding:4px 0 8px;
-}
-.cal-cell{
-  position:relative;aspect-ratio:1/1;
-  display:flex;align-items:center;justify-content:center;
-  border-radius:9px;font-size:12.5px;font-weight:600;
-  cursor:pointer;transition:all .15s ease;border:1px solid transparent;
-  user-select:none;
-}
+.cal-wd{text-align:center;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);padding:4px 0 8px}
+.cal-cell{position:relative;aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;border-radius:9px;font-size:12.5px;font-weight:600;cursor:pointer;transition:all .15s ease;border:1px solid transparent;user-select:none}
 .cal-cell:hover{background:var(--surface2)}
 .cal-cell.blank{cursor:default;opacity:0}
 .cal-cell.blank:hover{background:transparent}
 .cal-cell.today{border-color:var(--accent);color:var(--accent);font-weight:800}
 .cal-cell.selected{background:var(--accent);color:#fff;font-weight:800}
 .cal-cell.selected.today{border-color:var(--accent)}
-.cal-cell.has-items .cal-dot{
-  position:absolute;bottom:5px;left:50%;transform:translateX(-50%);
-  width:4px;height:4px;border-radius:50%;
-  background:var(--accent2);box-shadow:0 0 6px var(--accent2);
-}
+.cal-cell.has-items .cal-dot{position:absolute;bottom:3px;left:50%;transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:var(--accent2);box-shadow:0 0 6px var(--accent2)}
 .cal-cell.selected .cal-dot{background:#fff;box-shadow:0 0 6px #fff}
-.cal-cell.multi .cal-dot{width:18px;height:3px;border-radius:2px}
+.cal-cell.multi .cal-dot{width:16px;height:3px;border-radius:2px}
+.cal-cell .cal-emoji-badge{position:absolute;top:1px;right:2px;font-size:10px;line-height:1;pointer-events:none;filter:drop-shadow(0 1px 2px rgba(0,0,0,.4))}
+.cal-cell.multi-events .cal-emoji-badge{font-size:9px}
 
-.cal-day-panel{
-  margin-top:12px;padding-top:12px;border-top:1px solid var(--border);
-  max-height:150px;overflow-y:auto;
-}
-.cal-day-title{
-  font-size:10.5px;text-transform:uppercase;letter-spacing:.9px;
-  color:var(--muted);font-weight:800;margin-bottom:8px;
-}
+.cal-day-panel{margin-top:12px;padding-top:12px;border-top:1px solid var(--border);max-height:240px;overflow-y:auto}
+.cal-day-title{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:10.5px;text-transform:uppercase;letter-spacing:.9px;color:var(--muted);font-weight:800;margin-bottom:8px}
+.cal-day-title .day-add-btn{font-size:10px;padding:4px 8px;border-radius:6px;background:var(--surface2);border:1px solid var(--border);color:var(--text);font-weight:700;letter-spacing:.4px;text-transform:uppercase;cursor:pointer;transition:all .18s}
+.cal-day-title .day-add-btn:hover{border-color:var(--accent);color:var(--accent)}
 .cal-day-empty{font-size:12px;color:var(--muted);font-style:italic;text-align:center;padding:8px 0}
-.cal-day-item{
-  display:flex;align-items:center;gap:7px;
-  padding:6px 9px;border-radius:8px;font-size:11.5px;
-  background:var(--surface2);margin-bottom:4px;
-  border:1px solid transparent;transition:border-color .15s;
-}
+.cal-day-item{display:flex;align-items:center;gap:7px;padding:6px 9px;border-radius:8px;font-size:11.5px;background:var(--surface2);margin-bottom:4px;border:1px solid transparent;transition:border-color .15s}
 .cal-day-item:hover{border-color:color-mix(in srgb,var(--accent) 40%,transparent)}
 .cal-day-item .cal-dot-sm{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.cal-day-item .cal-emoji{font-size:14px;line-height:1;flex-shrink:0}
 .cal-day-item .cal-name{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600}
 .cal-day-item .cal-time{font-size:10px;color:var(--muted);flex-shrink:0}
+.cal-day-item .item-del{width:20px;height:20px;border-radius:5px;display:grid;place-items:center;font-size:10px;background:transparent;border:1px solid transparent;color:var(--muted);flex-shrink:0;transition:all .15s}
+.cal-day-item .item-del:hover{color:var(--danger);border-color:var(--danger)}
+
+/* Event form (inline in day panel) */
+.event-form{margin-top:10px;padding:10px;border-radius:10px;background:var(--surface2);border:1px solid var(--accent);animation:paneIn .2s ease both}
+.event-form .emoji-grid{display:grid;grid-template-columns:repeat(10,1fr);gap:3px;margin-bottom:8px}
+.event-form .emoji-grid button{aspect-ratio:1/1;border-radius:6px;font-size:14px;display:grid;place-items:center;background:var(--surface);border:1px solid var(--border);transition:all .12s}
+.event-form .emoji-grid button:hover{border-color:var(--accent);transform:scale(1.1)}
+.event-form .emoji-grid button.picked{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 20%,transparent)}
+.event-form .ev-row{display:flex;gap:6px;margin-bottom:6px}
+.event-form .ev-row input{padding:7px 10px;font-size:12.5px;border-radius:8px;border:1px solid var(--border);background:var(--surface);outline:none;min-width:0}
+.event-form .ev-row input:focus{border-color:var(--accent)}
+.event-form .ev-row .emoji-input{width:48px;text-align:center;font-size:18px;padding:6px 4px}
+.event-form .ev-row .name-input{flex:1}
+.event-form .ev-actions{display:flex;gap:6px;justify-content:flex-end}
 
 .list{display:flex;flex-direction:column;gap:9px;max-height:330px;overflow-y:auto;padding-right:4px}
 .item{display:flex;align-items:center;gap:12px;padding:12px 13px;border-radius:12px;background:var(--surface2);border:1px solid transparent;transition:all .22s ease}
@@ -236,22 +228,18 @@ html[data-timeranim="on"] .ring-wrap.running .sw-ring .ring-fg{animation:spinRin
 .mini.del:hover{border-color:var(--danger);color:var(--danger)}
 .empty{color:var(--muted);font-size:13px;text-align:center;padding:24px 10px;font-style:italic}
 
-/* Assignments tab */
 .two-col{display:grid;grid-template-columns:minmax(340px,420px) 1fr;gap:18px;align-items:start}
 @media(max-width:900px){.two-col{grid-template-columns:1fr}}
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .form-grid .span2{grid-column:span 2}
 @media(max-width:520px){.form-grid{grid-template-columns:1fr}.form-grid .span2{grid-column:span 1}}
-
 .section-selector{display:flex;gap:8px;align-items:stretch}
 .section-selector select{flex:1}
 .section-selector .btn.mini{padding:0 12px;font-size:14px;font-weight:800;min-width:38px;display:grid;place-items:center}
-
 .list-header{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px;flex-wrap:wrap}
 .list-header h3{margin-bottom:0 !important}
 .list-header .filters{display:flex;gap:8px;align-items:center}
 .list-header select{width:auto;padding:7px 11px;font-size:12.5px;border-radius:9px}
-
 .sections-manager{display:flex;flex-direction:column;gap:6px;margin-top:10px;padding-top:12px;border-top:1px dashed var(--border)}
 .sections-manager .sec-row{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:9px;background:var(--surface2);font-size:12.5px}
 .sections-manager .sec-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
@@ -311,11 +299,26 @@ select{width:100%;padding:10px 12px;border-radius:11px;border:1px solid var(--bo
 .badge-mode.error .dot{background:#ffc857;box-shadow:0 0 8px #ffc857}
 .badge-mode.unavailable .dot{background:#ff5f7e;box-shadow:0 0 8px #ff5f7e}
 
+/* ===================== CURSOR EFFECTS ===================== */
 #cursorGlow{position:fixed;top:0;left:0;width:340px;height:340px;border-radius:50%;pointer-events:none;z-index:9998;background:radial-gradient(circle,color-mix(in srgb,var(--accent) 26%,transparent) 0%,transparent 62%);transform:translate(-50%,-50%);transition:opacity .3s;opacity:0;mix-blend-mode:screen}
 .cursor-dot{position:fixed;width:8px;height:8px;border-radius:50%;pointer-events:none;z-index:9997;background:var(--accent);transform:translate(-50%,-50%);animation:dotFade .65s ease-out forwards}
 @keyframes dotFade{to{opacity:0;transform:translate(-50%,-50%) scale(.15)}}
 .cursor-spark{position:fixed;pointer-events:none;z-index:9999;font-size:13px;color:var(--accent2);transform:translate(-50%,-50%);animation:sparkFade .85s ease-out forwards}
 @keyframes sparkFade{to{opacity:0;transform:translate(-50%,-140%) scale(1.3) rotate(140deg)}}
+.cursor-ripple{position:fixed;pointer-events:none;z-index:9996;border-radius:50%;border:2px solid var(--accent);transform:translate(-50%,-50%);animation:rippleExpand .9s ease-out forwards}
+@keyframes rippleExpand{from{width:6px;height:6px;opacity:.9}to{width:70px;height:70px;opacity:0}}
+.cursor-comet{position:fixed;pointer-events:none;z-index:9997;width:5px;height:5px;border-radius:50%;background:#fff;transform:translate(-50%,-50%);animation:cometFade .7s ease-out forwards;box-shadow:0 0 12px 3px var(--accent),0 0 24px 6px var(--accent2)}
+@keyframes cometFade{to{opacity:0;transform:translate(-50%,-50%) scale(.2)}}
+.cursor-star{position:fixed;pointer-events:none;z-index:9999;font-size:11px;color:var(--accent2);transform:translate(-50%,-50%);animation:starTwinkle 1.4s ease-out forwards;text-shadow:0 0 8px currentColor}
+@keyframes starTwinkle{0%{opacity:0;transform:translate(-50%,-50%) scale(.2)}20%{opacity:1;transform:translate(-50%,-50%) scale(1.1)}100%{opacity:0;transform:translate(-50%,-50%) scale(.6)}}
+.cursor-heart{position:fixed;pointer-events:none;z-index:9999;font-size:14px;transform:translate(-50%,-50%);animation:heartFloat 1.2s ease-out forwards}
+@keyframes heartFloat{0%{opacity:1;transform:translate(-50%,-50%) scale(.5)}100%{opacity:0;transform:translate(-50%,-180%) scale(1.2) rotate(20deg)}}
+.cursor-snow{position:fixed;pointer-events:none;z-index:9999;font-size:11px;color:#dbeaff;transform:translate(-50%,-50%);animation:snowDrift 1.6s ease-out forwards}
+@keyframes snowDrift{0%{opacity:.9;transform:translate(-50%,-50%) scale(.6)}100%{opacity:0;transform:translate(calc(-50% + 20px),120%) scale(1)}}
+.cursor-ink{position:fixed;pointer-events:none;z-index:9996;border-radius:50%;background:var(--accent);transform:translate(-50%,-50%);animation:inkSpread .8s ease-out forwards;mix-blend-mode:multiply}
+@keyframes inkSpread{from{width:14px;height:14px;opacity:.55;filter:blur(0px)}to{width:44px;height:44px;opacity:0;filter:blur(6px)}}
+.cursor-flame{position:fixed;pointer-events:none;z-index:9997;font-size:13px;transform:translate(-50%,-50%);animation:flameRise .7s ease-out forwards}
+@keyframes flameRise{0%{opacity:1;transform:translate(-50%,-50%) scale(.7)}100%{opacity:0;transform:translate(-50%,-160%) scale(.3)}}
 
 #toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,120%);z-index:9999;background:var(--surface);border:1px solid var(--accent);color:var(--text);padding:12px 22px;border-radius:13px;font-size:13px;font-weight:600;box-shadow:var(--shadow);transition:transform .35s cubic-bezier(.2,.9,.3,1)}
 #toast.show{transform:translate(-50%,0)}
@@ -370,11 +373,8 @@ select{width:100%;padding:10px 12px;border-radius:11px;border:1px solid var(--bo
   </header>
 
   <main>
-    <!-- ================= MAIN HUB ================= -->
     <section class="tab-panel active" id="tab-hub">
       <div class="hub-grid">
-
-        <!-- CLOCK -->
         <div class="card clock-card">
           <h3>Time of Day</h3>
           <div class="clock-time" id="clockTime">--:--:--</div>
@@ -382,20 +382,14 @@ select{width:100%;padding:10px 12px;border-radius:11px;border:1px solid var(--bo
           <div class="greeting" id="greeting">Welcome back!</div>
         </div>
 
-        <!-- TIMER / STOPWATCH (combined) -->
         <div class="card timer-card">
           <div class="mode-toggle" id="modeToggle">
             <button class="mode-btn active" data-mode="timer">Timer</button>
             <button class="mode-btn" data-mode="stopwatch">Stopwatch</button>
           </div>
-
-          <!-- TIMER PANE -->
           <div class="mode-pane" id="pane-timer">
             <div class="ring-wrap" id="timerRingWrap">
-              <svg class="ring" viewBox="0 0 120 120">
-                <circle class="ring-bg" cx="60" cy="60" r="54"></circle>
-                <circle class="ring-fg" id="timerRing" cx="60" cy="60" r="54"></circle>
-              </svg>
+              <svg class="ring" viewBox="0 0 120 120"><circle class="ring-bg" cx="60" cy="60" r="54"></circle><circle class="ring-fg" id="timerRing" cx="60" cy="60" r="54"></circle></svg>
               <div class="ring-label" id="timerDisplay">25:00</div>
             </div>
             <div class="row" style="margin-bottom:10px">
@@ -408,14 +402,9 @@ select{width:100%;padding:10px 12px;border-radius:11px;border:1px solid var(--bo
               <button class="ctrl-btn" id="timerReset">⟲ Reset</button>
             </div>
           </div>
-
-          <!-- STOPWATCH PANE -->
           <div class="mode-pane hidden" id="pane-stopwatch">
             <div class="ring-wrap" id="swRingWrap">
-              <svg class="ring sw-ring" viewBox="0 0 120 120">
-                <circle class="ring-bg" cx="60" cy="60" r="54"></circle>
-                <circle class="ring-fg" cx="60" cy="60" r="54"></circle>
-              </svg>
+              <svg class="ring sw-ring" viewBox="0 0 120 120"><circle class="ring-bg" cx="60" cy="60" r="54"></circle><circle class="ring-fg" cx="60" cy="60" r="54"></circle></svg>
               <div class="ring-label" id="swDisplay">00:00.0</div>
             </div>
             <div class="row" style="margin-top:40px">
@@ -426,7 +415,6 @@ select{width:100%;padding:10px 12px;border-radius:11px;border:1px solid var(--bo
           </div>
         </div>
 
-        <!-- CALENDAR -->
         <div class="card calendar-card">
           <h3>Calendar</h3>
           <div class="cal-header">
@@ -440,70 +428,35 @@ select{width:100%;padding:10px 12px;border-radius:11px;border:1px solid var(--bo
           </div>
         </div>
 
-        <!-- DUE ASSIGNMENTS -->
         <div class="card due-card"><h3>Due Assignments</h3><div class="list" id="dueList"></div></div>
-
-        <!-- PRIORITY LIST -->
         <div class="card priority-card"><h3>Priority List</h3><div class="list" id="priorityList"></div></div>
-
       </div>
     </section>
 
-    <!-- ================= ASSIGNMENTS TAB ================= -->
     <section class="tab-panel" id="tab-assignments">
       <div class="two-col">
-
         <div class="card">
           <h3 id="assignFormTitle">Add Assignment</h3>
           <div class="form-grid">
-            <div class="field span2">
-              <label>Assignment name</label>
-              <input id="aName" type="text" placeholder="e.g. Unit 4 Calculus Test">
-            </div>
-
+            <div class="field span2"><label>Assignment name</label><input id="aName" type="text" placeholder="e.g. Unit 4 Calculus Test"></div>
             <div class="field span2">
               <label>Class / Section</label>
               <div class="section-selector">
-                <select id="aSection">
-                  <option value="">— No section —</option>
-                </select>
+                <select id="aSection"><option value="">— No section —</option></select>
                 <button class="btn mini" id="addSectionBtn" title="Add new section">＋</button>
               </div>
             </div>
-
-            <div class="field">
-              <label>Teacher</label>
-              <input id="aTeacher" type="text" placeholder="Ms. Rivera">
-            </div>
-            <div class="field">
-              <label>Weight (%)</label>
-              <input id="aWeight" type="number" min="0" max="100" placeholder="30">
-            </div>
-
-            <div class="field">
-              <label>Due date</label>
-              <input id="aDue" type="date">
-            </div>
-            <div class="field">
-              <label>Time <span class="opt">optional</span></label>
-              <input id="aDueTime" type="time">
-            </div>
-
-            <div class="field">
-              <label>Type</label>
-              <select id="aType"><option value="summative">Summative</option><option value="performance">Performance</option></select>
-            </div>
-            <div class="field">
-              <label>Link <span class="opt">optional</span></label>
-              <input id="aLink" type="url" placeholder="https://...">
-            </div>
+            <div class="field"><label>Teacher</label><input id="aTeacher" type="text" placeholder="Ms. Rivera"></div>
+            <div class="field"><label>Weight (%)</label><input id="aWeight" type="number" min="0" max="100" placeholder="30"></div>
+            <div class="field"><label>Due date</label><input id="aDue" type="date"></div>
+            <div class="field"><label>Time <span class="opt">optional</span></label><input id="aDueTime" type="time"></div>
+            <div class="field"><label>Type</label><select id="aType"><option value="summative">Summative</option><option value="performance">Performance</option></select></div>
+            <div class="field"><label>Link <span class="opt">optional</span></label><input id="aLink" type="url" placeholder="https://..."></div>
           </div>
-
           <div class="row" style="justify-content:flex-start;margin-top:6px">
             <button class="btn" id="aSubmit">+ Add Assignment</button>
             <button class="btn ghost hidden" id="aCancel">Cancel</button>
           </div>
-
           <div class="sections-manager" id="sectionsManager"></div>
         </div>
 
@@ -511,19 +464,14 @@ select{width:100%;padding:10px 12px;border-radius:11px;border:1px solid var(--bo
           <div class="list-header">
             <h3>All Assignments (<span id="assignCount">0</span>)</h3>
             <div class="filters">
-              <select id="sectionFilter">
-                <option value="all">All sections</option>
-                <option value="none">No section</option>
-              </select>
+              <select id="sectionFilter"><option value="all">All sections</option><option value="none">No section</option></select>
             </div>
           </div>
           <div class="list" id="assignList" style="max-height:620px"></div>
         </div>
-
       </div>
     </section>
 
-    <!-- ================= CODE STORAGE ================= -->
     <section class="tab-panel" id="tab-code">
       <div class="code-layout">
         <div class="card">
@@ -556,7 +504,6 @@ select{width:100%;padding:10px 12px;border-radius:11px;border:1px solid var(--bo
       </div>
     </section>
 
-    <!-- ================= AUDIT ================= -->
     <section class="tab-panel" id="tab-audit">
       <div class="card" style="margin-bottom:16px">
         <div class="row" style="justify-content:space-between">
@@ -588,7 +535,19 @@ select{width:100%;padding:10px 12px;border-radius:11px;border:1px solid var(--bo
     <div class="divider"></div>
     <div class="setting-group">
       <label class="title">Cursor Effect</label>
-      <select id="setCursor"><option value="none">None</option><option value="glow">Glow Aura</option><option value="trail">Fading Trail</option><option value="sparkle">Sparkles</option></select>
+      <select id="setCursor">
+        <option value="none">None</option>
+        <option value="glow">Glow Aura</option>
+        <option value="trail">Fading Trail</option>
+        <option value="sparkle">Sparkles</option>
+        <option value="ripple">Ripple Rings</option>
+        <option value="comet">Comet Tail</option>
+        <option value="stars">Twinkling Stars</option>
+        <option value="hearts">Floating Hearts</option>
+        <option value="snow">Falling Snow</option>
+        <option value="ink">Ink Blots</option>
+        <option value="flame">Embers</option>
+      </select>
     </div>
     <div class="divider"></div>
     <div class="setting-group">
@@ -633,16 +592,15 @@ const els = (s, r = document) => Array.from(r.querySelectorAll(s));
 const uid = () => Math.random().toString(36).slice(2, 9) + Date.now().toString(36);
 const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
 
-const SECTION_COLORS = [
-  '#6c8cff', '#39d4c8', '#f59e0b', '#ec4899',
-  '#8b5cf6', '#10b981', '#ef4444', '#06b6d4'
-];
+const SECTION_COLORS = ['#6c8cff','#39d4c8','#f59e0b','#ec4899','#8b5cf6','#10b981','#ef4444','#06b6d4'];
+
+/* Emoji options for calendar events */
+const EVENT_EMOJIS = ['📌','📚','🎉','🎂','✏️','📝','🎯','⚽','🎵','🎨','🧪','💻','📅','⏰','⭐','❗','🔥','💡','🎓','🏆','🍕','🚀','❤️','☕','🎮','🛒','🎬','🎤','🏀','🧠'];
 
 function escapeHtml(s){
   return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
 function fmtDateTime(ts){ if (!ts) return '—'; return new Date(ts).toLocaleString([],{year:'numeric',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit',second:'2-digit'}); }
-
 function fmtDue(ts){
   if (!ts) return 'No date';
   const d = new Date(ts);
@@ -664,7 +622,6 @@ function relativeDue(ts){
 function isCloudConfigured(){
   return CLOUD_CONFIG && CLOUD_CONFIG.url && CLOUD_CONFIG.url.indexOf('PASTE_') === -1;
 }
-
 function combineDueDate(dateStr, timeStr){
   if (!dateStr) return null;
   const t = timeStr || '23:59';
@@ -689,29 +646,19 @@ function dateKey(y, m, d){ return y + '-' + (m+1) + '-' + d; }
 ============================================================ */
 let connState = 'hidden';
 const CONN_LABELS = { synced:'Synced', syncing:'Syncing…', unavailable:'Unavailable', error:'Sync error', local:'Local mode', hidden:'Hidden' };
-
 function setConnStatus(state){
   connState = state;
   const pill = el('#connStatus');
   if (pill) {
     pill.classList.remove('synced','syncing','unavailable','error','local','hidden');
     if (state === 'hidden') pill.classList.add('hidden');
-    else {
-      pill.classList.add(state);
-      const txt = pill.querySelector('.text');
-      if (txt) txt.textContent = CONN_LABELS[state] || state;
-    }
+    else { pill.classList.add(state); const txt = pill.querySelector('.text'); if (txt) txt.textContent = CONN_LABELS[state] || state; }
   }
   updateSyncBadge();
 }
-
 function classifyError(err){
   const msg = String(err && err.message || '').toLowerCase();
-  if (msg.includes('unauth'))         return 'error';
-  if (msg.includes('incorrect'))      return 'error';
-  if (msg.includes('no such user'))   return 'error';
-  if (msg.includes('unknown action')) return 'error';
-  if (msg.includes('invalid json'))   return 'error';
+  if (msg.includes('unauth') || msg.includes('incorrect') || msg.includes('no such user') || msg.includes('unknown action') || msg.includes('invalid json')) return 'error';
   return 'unavailable';
 }
 
@@ -722,6 +669,7 @@ function DEFAULT_DATA(){
   return {
     assignments: [],
     sections: [],
+    events: [],
     projects: [],
     audit: [],
     settings: { theme:'aurora', cursor:'glow', tabAnim:true, tabAnimStyle:'slide', elementAnim:true, timerAnim:true, clock24:true, sound:true },
@@ -733,88 +681,62 @@ function DEFAULT_DATA(){
    STORE
 ============================================================ */
 const LS_KEY = 'studydesk_v1';
-
 const Store = {
   data: null,
   pushTimer: null,
-
   init(){
     let localData = null;
     const raw = localStorage.getItem(LS_KEY);
     if (raw) { try { localData = JSON.parse(raw); } catch {} }
-
     window.addEventListener('storage', e => {
       if (e.key === LS_KEY && e.newValue) {
         try {
           const incoming = JSON.parse(e.newValue);
-          if (!this.data || (incoming.updatedAt || 0) > (this.data.updatedAt || 0)) {
-            this.data = incoming; applyAll();
-          }
+          if (!this.data || (incoming.updatedAt || 0) > (this.data.updatedAt || 0)) { this.data = incoming; applyAll(); }
         } catch {}
       }
     });
-
     this.data = localData || DEFAULT_DATA();
     if (!Array.isArray(this.data.sections)) this.data.sections = [];
+    if (!Array.isArray(this.data.events)) this.data.events = [];
     applyAll();
   },
-
   async apiPost(payload){
-    const res = await fetch(CLOUD_CONFIG.url, {
-      method: 'POST', redirect: 'follow',
-      body: JSON.stringify(payload)
-    });
+    const res = await fetch(CLOUD_CONFIG.url, { method: 'POST', redirect: 'follow', body: JSON.stringify(payload) });
     if (!res.ok) throw new Error('HTTP ' + res.status);
     const data = await res.json();
     if (data && data.ok === false) throw new Error(data.error || 'Unauthorized');
     return data;
   },
-
   async withStatus(fn, { silent = false } = {}){
     if (!isCloudConfigured()) return fn();
     if (!navigator.onLine) { if (!silent) setConnStatus('unavailable'); return fn(); }
     if (!silent) setConnStatus('syncing');
-    try {
-      const result = await fn();
-      if (!silent) setConnStatus('synced');
-      return result;
-    } catch (err) {
-      if (!silent) setConnStatus(classifyError(err));
-      throw err;
-    }
+    try { const result = await fn(); if (!silent) setConnStatus('synced'); return result; }
+    catch (err) { if (!silent) setConnStatus(classifyError(err)); throw err; }
   },
-
   async loadCloudData(){
     if (!isCloudConfigured()) { setConnStatus('local'); return; }
     try {
-      const data = await this.withStatus(() =>
-        this.apiPost({ action: 'read', token: session ? session.token : '' })
-      );
+      const data = await this.withStatus(() => this.apiPost({ action: 'read', token: session ? session.token : '' }));
       if (data && data.data && typeof data.data === 'object') {
         this.data = data.data;
         if (!Array.isArray(this.data.sections)) this.data.sections = [];
+        if (!Array.isArray(this.data.events)) this.data.events = [];
         localStorage.setItem(LS_KEY, JSON.stringify(this.data));
         applyAll();
       }
-    } catch (e) {
-      console.warn('[StudyDesk] Initial fetch failed:', e.message);
-    }
+    } catch (e) { console.warn('[StudyDesk] Initial fetch failed:', e.message); }
   },
-
   async pushCloud(){
     if (!isCloudConfigured() || !session) return;
-    await this.withStatus(() =>
-      this.apiPost({ action: 'save', token: session.token, data: this.data })
-    );
+    await this.withStatus(() => this.apiPost({ action: 'save', token: session.token, data: this.data }));
   },
-
   persist(){
     localStorage.setItem(LS_KEY, JSON.stringify(this.data));
     if (isCloudConfigured() && session && session.token) {
       clearTimeout(this.pushTimer);
-      this.pushTimer = setTimeout(() => {
-        this.pushCloud().catch(e => console.warn('[StudyDesk] Push failed:', e.message));
-      }, 500);
+      this.pushTimer = setTimeout(() => { this.pushCloud().catch(e => console.warn('[StudyDesk] Push failed:', e.message)); }, 500);
     }
   }
 };
@@ -831,14 +753,8 @@ function commit(action, item, details){
 /* ============================================================
    SECTIONS
 ============================================================ */
-function getSection(id){
-  if (!id) return null;
-  return Store.data.sections.find(s => s.id === id) || null;
-}
-function sectionColor(section){
-  if (!section) return null;
-  return SECTION_COLORS[(section.colorIndex || 0) % SECTION_COLORS.length];
-}
+function getSection(id){ if (!id) return null; return Store.data.sections.find(s => s.id === id) || null; }
+function sectionColor(section){ if (!section) return null; return SECTION_COLORS[(section.colorIndex || 0) % SECTION_COLORS.length]; }
 function sectionPillHtml(sectionId){
   const s = getSection(sectionId);
   if (!s) return '';
@@ -867,7 +783,6 @@ function applyAll(){
   renderSettingsUI();
   updateSyncBadge();
 }
-
 function applySettings(){
   const s = Store.data.settings;
   const html = document.documentElement;
@@ -895,18 +810,15 @@ function initLogin(){
   el('#loginPass').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
   el('#loginUser').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
 }
-
 async function doLogin(){
   const user = el('#loginUser').value.trim().toLowerCase();
   const pass = el('#loginPass').value;
   if (!user || !pass) { el('#loginError').textContent = 'Enter username and password.'; return; }
   if (user !== loginRole) { el('#loginError').textContent = `That account is a ${user} account — switch the role toggle.`; return; }
   if (!isCloudConfigured()) { el('#loginError').textContent = 'Backend not configured. Cannot sign in.'; return; }
-
   const btn = el('#loginBtn');
   el('#loginError').textContent = 'Signing in…';
   btn.disabled = true;
-
   try {
     const data = await Store.apiPost({ action: 'login', username: user, password: pass });
     session = { username: user, name: data.name || user, role: data.role || user, token: data.token };
@@ -916,7 +828,6 @@ async function doLogin(){
     btn.disabled = false;
     return;
   }
-
   saveSession();
   el('#loginError').textContent = '';
   el('#loginPass').value = '';
@@ -924,7 +835,6 @@ async function doLogin(){
   enterApp();
   await Store.loadCloudData();
 }
-
 function enterApp(){
   el('#loginScreen').classList.add('hidden');
   el('#app').classList.remove('hidden');
@@ -935,7 +845,6 @@ function enterApp(){
   else if (!navigator.onLine) setConnStatus('unavailable');
   else setConnStatus('synced');
 }
-
 async function logout(){
   if (session && session.token && isCloudConfigured()) {
     try { await Store.withStatus(() => Store.apiPost({ action: 'logout', token: session.token }), { silent: true }); } catch {}
@@ -947,7 +856,6 @@ async function logout(){
   el('#loginScreen').classList.remove('hidden');
   el('#profileMenu').classList.add('hidden');
 }
-
 function updateProfileUI(){
   if (!session) return;
   el('#profileName').textContent = session.name;
@@ -977,7 +885,7 @@ setInterval(tickClock, 1000);
 setInterval(() => { if (Store.data) { renderHubLists(); renderCalendar(); } }, 60000);
 
 /* ============================================================
-   PRIORITY + ROWS
+   PRIORITY + ASSIGNMENT ROWS
 ============================================================ */
 function priorityScore(a){
   const due = new Date(a.due).getTime();
@@ -987,7 +895,6 @@ function priorityScore(a){
   const typeBonus = a.type === 'summative' ? 0.08 : 0;
   return Math.round(clamp(weight * 0.6 + urgency * 0.4 + typeBonus, 0, 1) * 100);
 }
-
 function assignmentRow(a, showScore){
   const score = priorityScore(a);
   const diff = new Date(a.due).getTime() - Date.now();
@@ -997,7 +904,6 @@ function assignmentRow(a, showScore){
   const linkHtml = a.link ? `<a href="${escapeHtml(a.link)}" target="_blank" rel="noopener">Open link ↗</a>` : '';
   return `<div class="item"><div class="item-main"><div class="item-title">${escapeHtml(a.name)}${sectionPillHtml(a.sectionId)}<span class="pill ${a.type}">${a.type === 'summative' ? 'Summative' : 'Performance'}</span>${duePill}</div><div class="item-meta"><span>👤 ${escapeHtml(a.teacher || 'No teacher')}</span><span>📅 ${fmtDue(a.due)} · ${relativeDue(a.due)}</span><span>⚖️ ${escapeHtml(String(a.weight ?? 0))}%</span>${linkHtml}</div></div>${showScore ? `<div class="score-badge ${score < 35 ? 'low' : ''}">${score}</div>` : ''}</div>`;
 }
-
 function renderHubLists(){
   if (!Store.data) return;
   const upcoming = Store.data.assignments.filter(a => new Date(a.due).getTime() - Date.now() < 14 * 86400000).sort((a,b) => new Date(a.due) - new Date(b.due));
@@ -1007,20 +913,16 @@ function renderHubLists(){
 }
 
 /* ============================================================
-   CALENDAR
+   CALENDAR (with events)
 ============================================================ */
 let calViewDate = new Date();
 let calSelectedDate = null;
+let calEditingEventId = null;
+let calPickedEmoji = '📌';
 
 function initCalendar(){
-  el('#calPrev').addEventListener('click', () => {
-    calViewDate = new Date(calViewDate.getFullYear(), calViewDate.getMonth() - 1, 1);
-    renderCalendar();
-  });
-  el('#calNext').addEventListener('click', () => {
-    calViewDate = new Date(calViewDate.getFullYear(), calViewDate.getMonth() + 1, 1);
-    renderCalendar();
-  });
+  el('#calPrev').addEventListener('click', () => { calViewDate = new Date(calViewDate.getFullYear(), calViewDate.getMonth() - 1, 1); renderCalendar(); });
+  el('#calNext').addEventListener('click', () => { calViewDate = new Date(calViewDate.getFullYear(), calViewDate.getMonth() + 1, 1); renderCalendar(); });
 }
 
 function renderCalendar(){
@@ -1034,19 +936,23 @@ function renderCalendar(){
 
   el('#calMonthLabel').textContent = first.toLocaleDateString([], { month:'long', year:'numeric' });
 
-  // Build due map
+  // Index assignments by date
   const dueByDate = {};
   Store.data.assignments.forEach(a => {
     const key = isoDateKey(a.due);
     if (!dueByDate[key]) dueByDate[key] = [];
     dueByDate[key].push(a);
   });
+  // Index events by date
+  const eventsByDate = {};
+  (Store.data.events || []).forEach(ev => {
+    if (!eventsByDate[ev.date]) eventsByDate[ev.date] = [];
+    eventsByDate[ev.date].push(ev);
+  });
 
   const nowKey = isoDateKey(new Date().toISOString());
-
   const cells = [];
   ['S','M','T','W','T','F','S'].forEach(d => cells.push(`<div class="cal-wd">${d}</div>`));
-
   for (let i = 0; i < startWd; i++) cells.push('<div class="cal-cell blank"></div>');
 
   for (let d = 1; d <= daysInMonth; d++) {
@@ -1055,29 +961,31 @@ function renderCalendar(){
     if (key === nowKey) cls.push('today');
     if (key === calSelectedDate) cls.push('selected');
     const items = dueByDate[key];
+    const evs = eventsByDate[key];
     if (items && items.length) cls.push('has-items');
     if (items && items.length > 1) cls.push('multi');
-    cells.push(`<div class="${cls.join(' ')}" data-date="${key}">${d}${items ? '<span class="cal-dot"></span>' : ''}</div>`);
+    let emojiHtml = '';
+    if (evs && evs.length) {
+      cls.push('has-events');
+      if (evs.length > 1) cls.push('multi-events');
+      emojiHtml = `<span class="cal-emoji-badge">${evs.length > 1 ? evs[0].emoji + '+' + evs.length : evs[0].emoji}</span>`;
+    }
+    cells.push(`<div class="${cls.join(' ')}" data-date="${key}">${d}${emojiHtml}${items ? '<span class="cal-dot"></span>' : ''}</div>`);
   }
-
   const total = startWd + daysInMonth;
   const trail = (7 - (total % 7)) % 7;
   for (let i = 0; i < trail; i++) cells.push('<div class="cal-cell blank"></div>');
 
   el('#calGrid').innerHTML = cells.join('');
 
-  // Wire up click handlers
   els('#calGrid [data-date]').forEach(c => {
-    c.addEventListener('click', () => {
-      calSelectedDate = c.dataset.date;
-      renderCalendar();
-    });
+    c.addEventListener('click', () => { calSelectedDate = c.dataset.date; calEditingEventId = null; renderCalendar(); });
   });
 
-  renderCalDayPanel(dueByDate);
+  renderCalDayPanel(dueByDate, eventsByDate);
 }
 
-function renderCalDayPanel(dueByDate){
+function renderCalDayPanel(dueByDate, eventsByDate){
   const panel = el('#calDayPanel');
   if (!panel) return;
 
@@ -1087,16 +995,20 @@ function renderCalDayPanel(dueByDate){
   }
 
   const items = dueByDate[calSelectedDate] || [];
+  const evs = eventsByDate[calSelectedDate] || [];
   const dateObj = new Date(calSelectedDate + 'T12:00:00');
   const label = dateObj.toLocaleDateString([], { weekday:'long', month:'short', day:'numeric' });
 
-  if (!items.length) {
-    panel.innerHTML = `<div class="cal-day-title">${escapeHtml(label)}</div><div class="cal-day-empty">Nothing due this day</div>`;
-    return;
-  }
+  const totalCount = items.length + evs.length;
+  const header = `<div class="cal-day-title">
+    <span>${escapeHtml(label)}${totalCount ? ' · ' + totalCount + ' item' + (totalCount === 1 ? '' : 's') : ''}</span>
+    <button class="day-add-btn" data-add-event="1">+ Event</button>
+  </div>`;
 
-  panel.innerHTML = `<div class="cal-day-title">${escapeHtml(label)} · ${items.length} due</div>` +
-    items.map(a => {
+  let body = '';
+
+  if (items.length) {
+    body += items.map(a => {
       const sec = getSection(a.sectionId);
       const c = sec ? sectionColor(sec) : '#8b96bd';
       const d = new Date(a.due);
@@ -1108,10 +1020,98 @@ function renderCalDayPanel(dueByDate){
         ${timeStr ? `<span class="cal-time">${timeStr}</span>` : ''}
       </div>`;
     }).join('');
+  }
+
+  if (evs.length) {
+    body += evs.map(ev => `
+      <div class="cal-day-item">
+        <span class="cal-emoji">${ev.emoji || '📌'}</span>
+        <span class="cal-name">${escapeHtml(ev.name)}</span>
+        <button class="item-del" data-del-event="${ev.id}" title="Delete">✕</button>
+      </div>`).join('');
+  }
+
+  if (!body) body = '<div class="cal-day-empty">Nothing here yet</div>';
+
+  // Event form (shown when adding or editing)
+  let formHtml = '';
+  if (calEditingEventId === 'new' || (calEditingEventId && Store.data.events.find(e => e.id === calEditingEventId))) {
+    const editing = calEditingEventId !== 'new' ? Store.data.events.find(e => e.id === calEditingEventId) : null;
+    const currentEmoji = editing ? editing.emoji : calPickedEmoji;
+    const currentName  = editing ? editing.name  : '';
+    formHtml = `<div class="event-form" id="eventForm">
+      <div class="emoji-grid" id="emojiGrid">
+        ${EVENT_EMOJIS.map(e => `<button type="button" data-emoji="${e}" class="${e === currentEmoji ? 'picked' : ''}">${e}</button>`).join('')}
+      </div>
+      <div class="ev-row">
+        <input class="emoji-input" id="eventEmojiInput" type="text" maxlength="4" value="${escapeHtml(currentEmoji)}" title="Any emoji">
+        <input class="name-input" id="eventNameInput" type="text" placeholder="Event name..." value="${escapeHtml(currentName)}">
+      </div>
+      <div class="ev-actions">
+        <button class="btn mini ghost" id="eventCancel">Cancel</button>
+        <button class="btn mini" id="eventSave">${editing ? '✓ Save' : '+ Add'}</button>
+      </div>
+    </div>`;
+  }
+
+  panel.innerHTML = header + body + formHtml;
+
+  // Wire up
+  const addBtn = panel.querySelector('[data-add-event]');
+  if (addBtn) addBtn.addEventListener('click', () => {
+    if (!calSelectedDate) return;
+    calEditingEventId = 'new';
+    calPickedEmoji = '📌';
+    renderCalendar();
+    setTimeout(() => { const inp = el('#eventNameInput'); if (inp) inp.focus(); }, 30);
+  });
+
+  els('[data-del-event]').forEach(b => b.addEventListener('click', () => deleteEvent(b.dataset.delEvent)));
+
+  const grid = el('#emojiGrid');
+  if (grid) els('button', grid).forEach(b => b.addEventListener('click', () => {
+    calPickedEmoji = b.dataset.emoji;
+    el('#eventEmojiInput').value = calPickedEmoji;
+    els('button', grid).forEach(x => x.classList.toggle('picked', x.dataset.emoji === calPickedEmoji));
+  }));
+
+  const cancelBtn = el('#eventCancel');
+  if (cancelBtn) cancelBtn.addEventListener('click', () => { calEditingEventId = null; renderCalendar(); });
+
+  const saveBtn = el('#eventSave');
+  if (saveBtn) saveBtn.addEventListener('click', () => {
+    const name = (el('#eventNameInput').value || '').trim();
+    const emoji = (el('#eventEmojiInput').value || '📌').trim() || '📌';
+    if (!name) { toast('Please enter an event name.'); return; }
+
+    if (calEditingEventId === 'new') {
+      Store.data.events.push({
+        id: uid(), name, emoji, date: calSelectedDate,
+        createdBy: session.name, createdAt: Date.now()
+      });
+      commit('added', 'Event', `Created event "${name}" ${emoji} on ${calSelectedDate}`);
+    } else if (calEditingEventId) {
+      const ev = Store.data.events.find(x => x.id === calEditingEventId);
+      if (ev) {
+        ev.name = name; ev.emoji = emoji;
+        commit('edited', 'Event', `Updated event "${name}"`);
+      }
+    }
+    calEditingEventId = null;
+    renderCalendar();
+  });
+}
+
+function deleteEvent(id){
+  const ev = Store.data.events.find(x => x.id === id);
+  if (!ev) return;
+  if (!confirm(`Delete event "${ev.name}"?`)) return;
+  Store.data.events = Store.data.events.filter(x => x.id !== id);
+  commit('removed', 'Event', `Deleted event "${ev.name}"`);
 }
 
 /* ============================================================
-   TIMER / STOPWATCH MODE TOGGLE
+   TIMER / STOPWATCH MODE
 ============================================================ */
 function initModeToggle(){
   els('#modeToggle button').forEach(btn => {
@@ -1128,40 +1128,28 @@ function initModeToggle(){
    ASSIGNMENTS TAB
 ============================================================ */
 let editingId = null;
-
 function initAssignments(){
   el('#aSubmit').addEventListener('click', submitAssignment);
   el('#aCancel').addEventListener('click', cancelEdit);
   el('#addSectionBtn').addEventListener('click', promptAddSection);
   el('#sectionFilter').addEventListener('change', renderAssignments);
 }
-
 function refreshSectionDropdown(){
-  const sel = el('#aSection');
-  if (!sel) return;
+  const sel = el('#aSection'); if (!sel) return;
   const current = sel.value;
-  sel.innerHTML = ['<option value="">— No section —</option>']
-    .concat(Store.data.sections.map(s => `<option value="${s.id}">${escapeHtml(s.name)}</option>`))
-    .join('');
+  sel.innerHTML = ['<option value="">— No section —</option>'].concat(Store.data.sections.map(s => `<option value="${s.id}">${escapeHtml(s.name)}</option>`)).join('');
   if (Array.from(sel.options).some(o => o.value === current)) sel.value = current;
-
   const filter = el('#sectionFilter');
   if (filter) {
     const curFilter = filter.value;
-    filter.innerHTML = ['<option value="all">All sections</option>', '<option value="none">No section</option>']
-      .concat(Store.data.sections.map(s => `<option value="${s.id}">${escapeHtml(s.name)}</option>`))
-      .join('');
+    filter.innerHTML = ['<option value="all">All sections</option>','<option value="none">No section</option>'].concat(Store.data.sections.map(s => `<option value="${s.id}">${escapeHtml(s.name)}</option>`)).join('');
     if (Array.from(filter.options).some(o => o.value === curFilter)) filter.value = curFilter;
   }
 }
-
 function promptAddSection(){
   const name = (prompt('Name your section / class (e.g. "Math", "English"):') || '').trim();
   if (!name) return;
-  if (Store.data.sections.some(s => s.name.toLowerCase() === name.toLowerCase())) {
-    toast('A section with that name already exists.');
-    return;
-  }
+  if (Store.data.sections.some(s => s.name.toLowerCase() === name.toLowerCase())) { toast('A section with that name already exists.'); return; }
   const colorIndex = Store.data.sections.length % SECTION_COLORS.length;
   const section = { id: uid(), name, colorIndex };
   Store.data.sections.push(section);
@@ -1169,45 +1157,27 @@ function promptAddSection(){
   refreshSectionDropdown();
   el('#aSection').value = section.id;
 }
-
 function renameSection(id){
-  const s = getSection(id);
-  if (!s) return;
+  const s = getSection(id); if (!s) return;
   const name = (prompt('Rename section:', s.name) || '').trim();
   if (!name || name === s.name) return;
-  if (Store.data.sections.some(x => x.id !== id && x.name.toLowerCase() === name.toLowerCase())) {
-    toast('A section with that name already exists.');
-    return;
-  }
+  if (Store.data.sections.some(x => x.id !== id && x.name.toLowerCase() === name.toLowerCase())) { toast('A section with that name already exists.'); return; }
   s.name = name;
   commit('edited', 'Section', `Renamed section to "${name}"`);
 }
-
 function deleteSection(id){
-  const s = getSection(id);
-  if (!s) return;
+  const s = getSection(id); if (!s) return;
   const count = Store.data.assignments.filter(a => a.sectionId === id).length;
-  const msg = count
-    ? `Delete section "${s.name}"? ${count} assignment${count === 1 ? '' : 's'} will become "No section".`
-    : `Delete section "${s.name}"?`;
+  const msg = count ? `Delete section "${s.name}"? ${count} assignment${count === 1 ? '' : 's'} will become "No section".` : `Delete section "${s.name}"?`;
   if (!confirm(msg)) return;
-
   Store.data.sections = Store.data.sections.filter(x => x.id !== id);
   Store.data.assignments.forEach(a => { if (a.sectionId === id) a.sectionId = ''; });
   commit('removed', 'Section', `Deleted section "${s.name}"`);
 }
-
 function renderSectionsUI(){
   refreshSectionDropdown();
-
-  const mgr = el('#sectionsManager');
-  if (!mgr) return;
-
-  if (!Store.data.sections.length) {
-    mgr.innerHTML = '<div style="font-size:11.5px;color:var(--muted);text-align:center;padding:6px">No sections yet. Click ＋ above to create one.</div>';
-    return;
-  }
-
+  const mgr = el('#sectionsManager'); if (!mgr) return;
+  if (!Store.data.sections.length) { mgr.innerHTML = '<div style="font-size:11.5px;color:var(--muted);text-align:center;padding:6px">No sections yet. Click ＋ above to create one.</div>'; return; }
   mgr.innerHTML = Store.data.sections.map(s => {
     const c = sectionColor(s);
     const count = Store.data.assignments.filter(a => a.sectionId === s.id).length;
@@ -1221,11 +1191,9 @@ function renderSectionsUI(){
       </span>
     </div>`;
   }).join('');
-
   els('[data-rename]').forEach(b => b.addEventListener('click', () => renameSection(b.dataset.rename)));
   els('[data-delsec]').forEach(b => b.addEventListener('click', () => deleteSection(b.dataset.delsec)));
 }
-
 function submitAssignment(){
   const name = el('#aName').value.trim();
   const sectionId = el('#aSection').value;
@@ -1235,53 +1203,33 @@ function submitAssignment(){
   const dueTime = el('#aDueTime').value;
   const weight = el('#aWeight').value;
   const type = el('#aType').value;
-
   if (!name) { toast('Please enter an assignment name.'); return; }
   if (!dueDate) { toast('Please pick a due date.'); return; }
-
   const dueISO = combineDueDate(dueDate, dueTime);
-
   if (editingId) {
     const a = Store.data.assignments.find(x => x.id === editingId);
-    if (a) {
-      Object.assign(a, { name, sectionId, teacher, link, due: dueISO, weight: Number(weight) || 0, type });
-      commit('edited', 'Assignment', `Updated "${name}"`);
-    }
+    if (a) { Object.assign(a, { name, sectionId, teacher, link, due: dueISO, weight: Number(weight) || 0, type }); commit('edited', 'Assignment', `Updated "${name}"`); }
     cancelEdit();
   } else {
-    Store.data.assignments.push({
-      id: uid(), name, sectionId, teacher, link, due: dueISO,
-      weight: Number(weight) || 0, type,
-      createdBy: session.name, createdAt: Date.now()
-    });
+    Store.data.assignments.push({ id: uid(), name, sectionId, teacher, link, due: dueISO, weight: Number(weight) || 0, type, createdBy: session.name, createdAt: Date.now() });
     const secName = sectionId ? ` [${getSection(sectionId)?.name || ''}]` : '';
     commit('added', 'Assignment', `Created "${name}"${secName} (${type}, ${Number(weight) || 0}%)`);
   }
   clearAssignmentForm();
 }
-
 function clearAssignmentForm(){
-  el('#aName').value = '';
-  el('#aTeacher').value = '';
-  el('#aLink').value = '';
-  el('#aDue').value = '';
-  el('#aDueTime').value = '';
-  el('#aWeight').value = '';
-  el('#aType').value = 'summative';
-  el('#aSection').value = '';
+  el('#aName').value = ''; el('#aTeacher').value = ''; el('#aLink').value = '';
+  el('#aDue').value = ''; el('#aDueTime').value = ''; el('#aWeight').value = '';
+  el('#aType').value = 'summative'; el('#aSection').value = '';
 }
-
 function cancelEdit(){
-  editingId = null;
-  clearAssignmentForm();
+  editingId = null; clearAssignmentForm();
   el('#assignFormTitle').textContent = 'Add Assignment';
   el('#aSubmit').textContent = '+ Add Assignment';
   el('#aCancel').classList.add('hidden');
 }
-
 function editAssignment(id){
-  const a = Store.data.assignments.find(x => x.id === id);
-  if (!a) return;
+  const a = Store.data.assignments.find(x => x.id === id); if (!a) return;
   editingId = id;
   el('#aName').value = a.name;
   el('#aTeacher').value = a.teacher || '';
@@ -1289,53 +1237,37 @@ function editAssignment(id){
   el('#aWeight').value = a.weight ?? '';
   el('#aType').value = a.type;
   el('#aSection').value = a.sectionId || '';
-
   const { date, time } = splitDue(a.due);
   el('#aDue').value = date;
   el('#aDueTime').value = time;
-
   el('#assignFormTitle').textContent = 'Edit Assignment';
   el('#aSubmit').textContent = '✓ Save Changes';
   el('#aCancel').classList.remove('hidden');
   el('#aName').focus();
   switchTab('assignments');
 }
-
 function deleteAssignment(id){
-  const a = Store.data.assignments.find(x => x.id === id);
-  if (!a) return;
+  const a = Store.data.assignments.find(x => x.id === id); if (!a) return;
   if (!confirm(`Delete assignment "${a.name}"?`)) return;
   Store.data.assignments = Store.data.assignments.filter(x => x.id !== id);
   commit('removed', 'Assignment', `Deleted "${a.name}"`);
 }
-
 function renderAssignments(){
   if (!Store.data) return;
-
   const filterVal = el('#sectionFilter') ? el('#sectionFilter').value : 'all';
   let items = Store.data.assignments.slice();
   if (filterVal === 'none') items = items.filter(a => !a.sectionId);
   else if (filterVal !== 'all') items = items.filter(a => a.sectionId === filterVal);
-
   items.sort((a, b) => new Date(a.due) - new Date(b.due));
-
   el('#assignCount').textContent = items.length;
-
   if (!items.length) {
-    el('#assignList').innerHTML = Store.data.assignments.length
-      ? '<div class="empty">No assignments in this section.</div>'
-      : '<div class="empty">No assignments yet. Add one on the left.</div>';
+    el('#assignList').innerHTML = Store.data.assignments.length ? '<div class="empty">No assignments in this section.</div>' : '<div class="empty">No assignments yet. Add one on the left.</div>';
     return;
   }
-
   el('#assignList').innerHTML = items.map(a => `
     <div class="item">
       <div class="item-main">
-        <div class="item-title">
-          ${escapeHtml(a.name)}
-          ${sectionPillHtml(a.sectionId)}
-          <span class="pill ${a.type}">${a.type}</span>
-        </div>
+        <div class="item-title">${escapeHtml(a.name)}${sectionPillHtml(a.sectionId)}<span class="pill ${a.type}">${a.type}</span></div>
         <div class="item-meta">
           <span>👤 ${escapeHtml(a.teacher || '—')}</span>
           <span>📅 ${fmtDue(a.due)} · ${relativeDue(a.due)}</span>
@@ -1349,7 +1281,6 @@ function renderAssignments(){
         <button class="mini del" data-del="${a.id}" title="Delete">🗑</button>
       </div>
     </div>`).join('');
-
   els('[data-edit]').forEach(b => b.addEventListener('click', () => editAssignment(b.dataset.edit)));
   els('[data-del]').forEach(b => b.addEventListener('click', () => deleteAssignment(b.dataset.del)));
 }
@@ -1422,12 +1353,19 @@ function renderAudit(){
    SETTINGS
 ============================================================ */
 const THEMES = [
-  { id:'aurora', name:'Aurora', dots:['#6c8cff','#39d4c8','#0b1020'] },
+  { id:'aurora',   name:'Aurora',   dots:['#6c8cff','#39d4c8','#0b1020'] },
   { id:'midnight', name:'Midnight', dots:['#2f81f7','#39d353','#05070d'] },
-  { id:'light', name:'Daylight', dots:['#3b5bfd','#0d9b9b','#f2f5fc'] },
-  { id:'solar', name:'Solar', dots:['#e08a1e','#c2410c','#fdf6e9'] },
-  { id:'neon', name:'Neon', dots:['#ff2fd0','#b6ff3a','#050505'] },
-  { id:'forest', name:'Forest', dots:['#34d399','#a3e635','#08130f'] }
+  { id:'light',    name:'Daylight', dots:['#3b5bfd','#0d9b9b','#f2f5fc'] },
+  { id:'solar',    name:'Solar',    dots:['#e08a1e','#c2410c','#fdf6e9'] },
+  { id:'neon',     name:'Neon',     dots:['#ff2fd0','#b6ff3a','#050505'] },
+  { id:'forest',   name:'Forest',   dots:['#34d399','#a3e635','#08130f'] },
+  { id:'ocean',    name:'Ocean',    dots:['#22b8ff','#00f0d4','#061428'] },
+  { id:'sunset',   name:'Sunset',   dots:['#ff7b47','#ff4d8d','#1a0b22'] },
+  { id:'cherry',   name:'Cherry',   dots:['#ff4d8d','#ff85b3','#1a0810'] },
+  { id:'terminal', name:'Terminal', dots:['#33ff33','#1f7a1f','#000000'] },
+  { id:'lavender', name:'Lavender', dots:['#8b5cf6','#d946ef','#f3f0ff'] },
+  { id:'crimson',  name:'Crimson',  dots:['#dc2626','#f97316','#0a0305'] },
+  { id:'mono',     name:'Mono',     dots:['#eaeaea','#8a8a8a','#0a0a0a'] }
 ];
 
 function initSettings(){
@@ -1446,10 +1384,8 @@ function initSettings(){
     const np = el('#newPass').value;
     if (np.length < 4) { toast('Password must be at least 4 characters.'); return; }
     if (!isCloudConfigured()) { toast('Backend not configured.'); return; }
-    try {
-      await Store.withStatus(() => Store.apiPost({ action: 'changePassword', token: session.token, newPassword: np }));
-      toast('Password updated ✓'); el('#newPass').value = '';
-    } catch (err) { toast('Failed: ' + err.message); }
+    try { await Store.withStatus(() => Store.apiPost({ action: 'changePassword', token: session.token, newPassword: np })); toast('Password updated ✓'); el('#newPass').value = ''; }
+    catch (err) { toast('Failed: ' + err.message); }
   });
   el('#manualSync').addEventListener('click', async () => {
     if (!isCloudConfigured()) { toast('Backend not configured.'); return; }
@@ -1473,10 +1409,8 @@ function renderSettingsUI(){
   el('#setTimerAnim').checked = !!s.timerAnim; el('#setClock24').checked = !!s.clock24;
   el('#setSound').checked = !!s.sound;
 }
-
 function updateSyncBadge(){
-  const badge = el('#syncBadge');
-  const text  = el('#syncText');
+  const badge = el('#syncBadge'), text = el('#syncText');
   if (!badge || !text) return;
   badge.classList.remove('local','error','unavailable');
   if (!isCloudConfigured()) { badge.classList.add('local'); text.textContent = 'Backend not configured'; return; }
@@ -1489,7 +1423,6 @@ function updateSyncBadge(){
     default: text.textContent = 'Cloud sync configured';
   }
 }
-
 function initProfileMenu(){
   el('#profileBtn').addEventListener('click', e => { e.stopPropagation(); el('#profileMenu').classList.toggle('hidden'); });
   document.addEventListener('click', () => el('#profileMenu').classList.add('hidden'));
@@ -1573,32 +1506,107 @@ function updateSWUI(){
 }
 
 /* ============================================================
-   CURSOR
+   CURSOR EFFECTS
 ============================================================ */
-let lastTrail = 0;
+let lastCursorEvent = 0;
+
 function initCursor(){
   const glow = el('#cursorGlow');
+
   document.addEventListener('mousemove', e => {
     if (!Store.data) return;
     const effect = Store.data.settings.cursor;
     if (effect === 'none') return;
-    if (effect === 'glow') { glow.style.left = e.clientX + 'px'; glow.style.top = e.clientY + 'px'; glow.style.opacity = '1'; return; }
+
+    if (effect === 'glow') {
+      glow.style.left = e.clientX + 'px'; glow.style.top = e.clientY + 'px'; glow.style.opacity = '1';
+      return;
+    }
+
     const now = Date.now();
-    if (effect === 'trail') {
-      if (now - lastTrail < 32) return; lastTrail = now;
-      const dot = document.createElement('div'); dot.className = 'cursor-dot';
-      dot.style.left = e.clientX + 'px'; dot.style.top = e.clientY + 'px';
-      dot.style.background = Math.random() > .5 ? 'var(--accent)' : 'var(--accent2)';
-      document.body.appendChild(dot); setTimeout(() => dot.remove(), 700);
-    } else if (effect === 'sparkle') {
-      if (now - lastTrail < 55) return; lastTrail = now;
-      const sp = document.createElement('div'); sp.className = 'cursor-spark';
-      sp.textContent = ['✦','✧','⋆','✶'][Math.floor(Math.random()*4)];
-      sp.style.left = (e.clientX + (Math.random()*22-11)) + 'px';
-      sp.style.top  = (e.clientY + (Math.random()*22-11)) + 'px';
-      document.body.appendChild(sp); setTimeout(() => sp.remove(), 900);
+    const rate = { trail:32, sparkle:55, ripple:45, comet:20, stars:80, hearts:180, snow:90, ink:60, flame:60 }[effect] || 50;
+    if (now - lastCursorEvent < rate) return;
+    lastCursorEvent = now;
+
+    switch (effect) {
+      case 'trail': {
+        const dot = document.createElement('div');
+        dot.className = 'cursor-dot';
+        dot.style.left = e.clientX + 'px'; dot.style.top = e.clientY + 'px';
+        dot.style.background = Math.random() > .5 ? 'var(--accent)' : 'var(--accent2)';
+        document.body.appendChild(dot); setTimeout(() => dot.remove(), 700);
+        break;
+      }
+      case 'sparkle': {
+        const sp = document.createElement('div');
+        sp.className = 'cursor-spark';
+        sp.textContent = ['✦','✧','⋆','✶'][Math.floor(Math.random()*4)];
+        sp.style.left = (e.clientX + (Math.random()*22-11)) + 'px';
+        sp.style.top  = (e.clientY + (Math.random()*22-11)) + 'px';
+        document.body.appendChild(sp); setTimeout(() => sp.remove(), 900);
+        break;
+      }
+      case 'ripple': {
+        const r = document.createElement('div');
+        r.className = 'cursor-ripple';
+        r.style.left = e.clientX + 'px'; r.style.top = e.clientY + 'px';
+        document.body.appendChild(r); setTimeout(() => r.remove(), 950);
+        break;
+      }
+      case 'comet': {
+        const c = document.createElement('div');
+        c.className = 'cursor-comet';
+        c.style.left = (e.clientX + (Math.random()*6-3)) + 'px';
+        c.style.top  = (e.clientY + (Math.random()*6-3)) + 'px';
+        document.body.appendChild(c); setTimeout(() => c.remove(), 750);
+        break;
+      }
+      case 'stars': {
+        const s = document.createElement('div');
+        s.className = 'cursor-star';
+        s.textContent = ['✦','✧','⋆','✶','★'][Math.floor(Math.random()*5)];
+        s.style.left = e.clientX + 'px'; s.style.top = e.clientY + 'px';
+        document.body.appendChild(s); setTimeout(() => s.remove(), 1500);
+        break;
+      }
+      case 'hearts': {
+        const h = document.createElement('div');
+        h.className = 'cursor-heart';
+        h.textContent = ['❤️','💖','💕','💗','♥️'][Math.floor(Math.random()*5)];
+        h.style.left = (e.clientX + (Math.random()*20-10)) + 'px';
+        h.style.top  = (e.clientY + (Math.random()*8-4)) + 'px';
+        document.body.appendChild(h); setTimeout(() => h.remove(), 1250);
+        break;
+      }
+      case 'snow': {
+        const sn = document.createElement('div');
+        sn.className = 'cursor-snow';
+        sn.textContent = ['❄','❅','❆','•','·'][Math.floor(Math.random()*5)];
+        sn.style.left = (e.clientX + (Math.random()*24-12)) + 'px';
+        sn.style.top  = (e.clientY + (Math.random()*8-4)) + 'px';
+        document.body.appendChild(sn); setTimeout(() => sn.remove(), 1700);
+        break;
+      }
+      case 'ink': {
+        const ink = document.createElement('div');
+        ink.className = 'cursor-ink';
+        ink.style.left = e.clientX + 'px'; ink.style.top = e.clientY + 'px';
+        ink.style.background = Math.random() > .5 ? 'var(--accent)' : 'var(--accent2)';
+        document.body.appendChild(ink); setTimeout(() => ink.remove(), 850);
+        break;
+      }
+      case 'flame': {
+        const f = document.createElement('div');
+        f.className = 'cursor-flame';
+        f.textContent = ['🔥','✦','•','✧'][Math.floor(Math.random()*4)];
+        f.style.left = (e.clientX + (Math.random()*12-6)) + 'px';
+        f.style.top  = (e.clientY + (Math.random()*6-3)) + 'px';
+        document.body.appendChild(f); setTimeout(() => f.remove(), 750);
+        break;
+      }
     }
   });
+
   document.addEventListener('mouseleave', () => { glow.style.opacity = '0'; });
 }
 
