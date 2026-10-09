@@ -39,19 +39,7 @@ button{cursor:pointer;border:none;background:none}
 ::-webkit-scrollbar-thumb{background:var(--border);border-radius:8px}
 ::-webkit-scrollbar-thumb:hover{background:var(--accent)}
 
-/* ============================================================
-   BUTTONS — bulletproof sizing, no clipped text
-============================================================ */
-.btn,
-.ctrl-btn,
-.mini,
-.cal-nav,
-.icon-btn,
-button {
-  box-sizing: border-box;
-  -webkit-appearance: none;
-  appearance: none;
-}
+.btn,.ctrl-btn,.mini,.cal-nav,.icon-btn,button{box-sizing:border-box;-webkit-appearance:none;appearance:none}
 
 .login-screen{position:fixed;inset:0;z-index:500;display:grid;place-items:center;background:var(--bg);padding:20px}
 .login-card{width:min(420px,100%);background:var(--surface);border:1px solid var(--border);border-radius:22px;padding:34px 30px;box-shadow:var(--shadow);animation:cardIn .5s cubic-bezier(.2,.9,.25,1) both}
@@ -69,23 +57,7 @@ button {
 .field input,.field select,.field textarea{width:100%;padding:11px 13px;border-radius:11px;border:1px solid var(--border);background:var(--surface2);outline:none;transition:border .2s,box-shadow .2s}
 .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 22%,transparent)}
 
-.btn{
-  padding:12px 20px;
-  border-radius:11px;
-  background:var(--accent);
-  color:#fff;
-  font-weight:600;
-  transition:transform .16s ease,filter .2s ease,box-shadow .2s ease;
-  white-space:nowrap;
-  flex-shrink:0;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:6px;
-  min-height:40px;
-  min-width:max-content;
-  line-height:1.2;
-}
+.btn{padding:12px 20px;border-radius:11px;background:var(--accent);color:#fff;font-weight:600;transition:transform .16s ease,filter .2s ease,box-shadow .2s ease;white-space:nowrap;flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:40px;min-width:max-content;line-height:1.2}
 html[data-elanim="on"] .btn:hover{transform:translateY(-2px);filter:brightness(1.08);box-shadow:0 8px 20px color-mix(in srgb,var(--accent) 40%,transparent)}
 .btn:active{transform:translateY(0) scale(.98)}
 .btn:disabled{opacity:.6;cursor:wait;transform:none !important}
@@ -94,7 +66,6 @@ html[data-elanim="on"] .btn:hover{transform:translateY(-2px);filter:brightness(1
 .btn.danger{background:var(--danger);color:#fff}
 .btn.full{width:100%;padding:13px}
 .btn.mini{padding:8px 14px;font-size:12.5px;border-radius:9px;min-height:34px}
-
 .login-error{color:var(--danger);font-size:13px;margin-top:12px;min-height:18px;text-align:center}
 .login-hint{margin-top:18px;text-align:center;font-size:11.5px;color:var(--muted);line-height:1.6}
 
@@ -102,7 +73,7 @@ html[data-elanim="on"] .btn:hover{transform:translateY(-2px);filter:brightness(1
 .brand{display:flex;align-items:center;gap:9px;font-weight:800;letter-spacing:-.4px;font-size:17px;white-space:nowrap}
 .brand .logo{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font-size:15px;color:#fff;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 5px 16px color-mix(in srgb,var(--accent) 45%,transparent)}
 .tabs{display:flex;gap:5px;background:var(--surface);border:1px solid var(--border);padding:5px;border-radius:13px;flex-wrap:wrap}
-.tab-btn{padding:9px 16px;border-radius:9px;font-size:13px;font-weight:600;color:var(--muted);transition:all .25s cubic-bezier(.2,.8,.2,1);position:relative;white-space:nowrap}
+.tab-btn{padding:9px 16px;border-radius:9px;font-size:13px;font-weight:600;color:var(--muted);transition:all .25s cubic-bezier(.2,.8,.2,1);position:relative;white-space:nowrap;display:inline-flex;align-items:center;gap:6px}
 .tab-btn:hover{color:var(--text)}
 .tab-btn.active{background:linear-gradient(135deg,var(--accent),color-mix(in srgb,var(--accent2) 55%,var(--accent)));color:#fff;box-shadow:0 5px 16px color-mix(in srgb,var(--accent) 42%,transparent)}
 .top-right{margin-left:auto;display:flex;align-items:center;gap:10px;position:relative}
@@ -191,7 +162,6 @@ html[data-timeranim="on"] .ring-wrap.running .ring-fg{animation:ringPulse 1.7s e
 .sw-ring .ring-fg{stroke:var(--accent2);stroke-dasharray:60 280;transition:none}
 html[data-timeranim="on"] .ring-wrap.running .sw-ring .ring-fg{animation:spinRing 1.4s linear infinite}
 @keyframes spinRing{to{stroke-dashoffset:-340}}
-
 .timer-context{text-align:center;font-size:11px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--muted);min-height:14px;margin:-6px 0 10px;transition:color .25s}
 .timer-context.work{color:var(--accent)}
 .timer-context.break{color:var(--accent2)}
@@ -199,24 +169,7 @@ html[data-timeranim="on"] .ring-wrap.running .sw-ring .ring-fg{animation:spinRin
 .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:center}
 .row input[type=number]{width:64px;padding:8px 10px;border-radius:9px;border:1px solid var(--border);background:var(--surface2);text-align:center;outline:none}
 .row .lbl{font-size:12px;color:var(--muted)}
-.ctrl-btn{
-  padding:10px 16px;
-  border-radius:10px;
-  background:var(--surface2);
-  border:1px solid var(--border);
-  font-size:12.5px;
-  font-weight:600;
-  transition:all .2s ease;
-  white-space:nowrap;
-  flex-shrink:0;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:5px;
-  min-height:38px;
-  min-width:max-content;
-  line-height:1.2;
-}
+.ctrl-btn{padding:10px 16px;border-radius:10px;background:var(--surface2);border:1px solid var(--border);font-size:12.5px;font-weight:600;transition:all .2s ease;white-space:nowrap;flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;gap:5px;min-height:38px;min-width:max-content;line-height:1.2}
 .ctrl-btn.primary{background:var(--accent);color:#fff;border-color:transparent}
 .ctrl-btn.sw-primary{background:var(--accent2);color:#06121c;border-color:transparent}
 
@@ -243,7 +196,6 @@ html[data-timeranim="on"] .ring-wrap.running .sw-ring .ring-fg{animation:spinRin
 .cal-cell .cal-gdot{position:absolute;top:3px;left:3px;width:5px;height:5px;border-radius:50%;background:#4285f4;box-shadow:0 0 5px #4285f4}
 .cal-cell.selected .cal-gdot{background:#fff;box-shadow:0 0 5px #fff}
 
-/* Google Calendar import panel */
 .gcal-panel{margin-top:12px;padding:12px;border-radius:11px;background:var(--surface2);border:1px solid var(--border);animation:paneIn .22s ease both}
 .gcal-panel .gp-title{font-size:11px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;display:flex;align-items:center;gap:6px}
 .gcal-panel .gp-title .gc-logo{width:14px;height:14px;border-radius:3px;background:linear-gradient(135deg,#4285f4,#34a853,#fbbc04,#ea4335);display:inline-block;flex-shrink:0}
@@ -288,6 +240,142 @@ html[data-timeranim="on"] .ring-wrap.running .sw-ring .ring-fg{animation:spinRin
 .event-form .ev-row .name-input{flex:1;min-width:120px}
 .event-form .ev-actions{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;margin-top:4px}
 
+/* ============ CHAT ============ */
+.chat-wrap{
+  display:flex;flex-direction:column;
+  height:calc(100vh - 180px);min-height:500px;max-height:900px;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;
+}
+.chat-header{
+  display:flex;align-items:center;gap:10px;padding:12px 16px;
+  border-bottom:1px solid var(--border);background:var(--surface);
+  flex-wrap:wrap;
+}
+.chat-header .chat-title{font-weight:800;font-size:14px;display:flex;align-items:center;gap:8px;white-space:nowrap}
+.chat-header .chat-title .chat-dot{width:8px;height:8px;border-radius:50%;background:var(--success);box-shadow:0 0 8px var(--success)}
+.chat-header .chat-status{font-size:11px;color:var(--muted);white-space:nowrap}
+.chat-search{flex:1;min-width:180px;position:relative;display:flex;align-items:center}
+.chat-search input{width:100%;padding:9px 12px 9px 34px;border-radius:10px;border:1px solid var(--border);background:var(--surface2);outline:none;font-size:12.5px;transition:border .2s}
+.chat-search input:focus{border-color:var(--accent)}
+.chat-search::before{content:'🔍';position:absolute;left:11px;top:50%;transform:translateY(-50%);font-size:12px;opacity:.55;pointer-events:none}
+.chat-search .search-clear{position:absolute;right:8px;top:50%;transform:translateY(-50%);width:24px;height:24px;border-radius:6px;display:grid;place-items:center;font-size:12px;color:var(--muted);background:transparent;border:1px solid transparent;padding:0}
+.chat-search .search-clear:hover{color:var(--danger);border-color:var(--danger)}
+.chat-actions{display:flex;gap:6px;align-items:center;flex-shrink:0}
+.chat-action-btn{
+  padding:8px 12px;border-radius:9px;background:var(--surface2);
+  border:1px solid var(--border);font-size:11.5px;font-weight:700;
+  color:var(--muted);transition:all .18s;white-space:nowrap;
+  min-height:34px;display:inline-flex;align-items:center;gap:5px;
+  flex-shrink:0;
+}
+.chat-action-btn:hover{border-color:var(--accent);color:var(--accent)}
+.chat-action-btn.on{border-color:var(--success);color:var(--success)}
+.chat-action-btn .badge{background:var(--danger);color:#fff;font-size:9.5px;font-weight:900;padding:1px 5px;border-radius:20px;min-width:16px;text-align:center}
+.chat-messages{
+  flex:1;overflow-y:auto;padding:16px;
+  display:flex;flex-direction:column;gap:2px;
+  scroll-behavior:smooth;
+}
+.chat-empty{text-align:center;color:var(--muted);font-size:13px;font-style:italic;padding:60px 20px}
+.chat-day-divider{display:flex;align-items:center;gap:12px;margin:18px 0 10px;width:100%}
+.chat-day-divider .line{flex:1;height:1px;background:var(--border)}
+.chat-day-divider .label{
+  font-size:10.5px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;
+  color:var(--muted);background:var(--surface2);padding:4px 12px;
+  border-radius:20px;border:1px solid var(--border);white-space:nowrap;
+}
+.chat-msg{display:flex;gap:10px;max-width:78%;align-items:flex-end;margin-bottom:6px}
+.chat-msg.own{align-self:flex-end;flex-direction:row-reverse}
+.chat-msg.other{align-self:flex-start}
+.chat-avatar{
+  width:34px;height:34px;min-width:34px;min-height:34px;border-radius:50%;
+  display:grid;place-items:center;font-weight:800;font-size:12px;color:#fff;
+  flex-shrink:0;box-shadow:0 2px 6px rgba(0,0,0,.15);
+}
+.chat-msg.own .chat-avatar{background:linear-gradient(135deg,var(--accent),var(--accent2))}
+.chat-msg.other .chat-avatar{background:linear-gradient(135deg,var(--warn),var(--danger))}
+.chat-body{display:flex;flex-direction:column;gap:2px;min-width:0;max-width:100%}
+.chat-msg.own .chat-body{align-items:flex-end}
+.chat-sender{font-size:10.5px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;color:var(--muted);padding:0 6px 2px}
+.chat-msg.own .chat-sender{display:none}
+.chat-bubble{
+  padding:9px 13px;border-radius:14px;font-size:13.5px;line-height:1.45;
+  word-wrap:break-word;overflow-wrap:break-word;white-space:pre-wrap;
+  max-width:100%;
+}
+.chat-msg.own .chat-bubble{
+  background:linear-gradient(135deg,var(--accent),color-mix(in srgb,var(--accent2) 55%,var(--accent)));
+  color:#fff;border-bottom-right-radius:4px;
+}
+.chat-msg.other .chat-bubble{
+  background:var(--surface2);border:1px solid var(--border);
+  border-bottom-left-radius:4px;
+}
+.chat-meta{font-size:10px;color:var(--muted);padding:2px 6px 0;font-variant-numeric:tabular-nums}
+.chat-attach-wrap{margin-top:6px;display:flex;flex-direction:column;gap:6px}
+.chat-img{
+  max-width:260px;max-height:260px;border-radius:10px;
+  cursor:pointer;display:block;border:1px solid var(--border);
+  transition:transform .18s ease;
+}
+.chat-img:hover{transform:scale(1.02)}
+.chat-file{
+  display:inline-flex;align-items:center;gap:8px;padding:8px 12px;
+  border-radius:9px;background:var(--surface);border:1px solid var(--border);
+  color:var(--text);text-decoration:none;font-size:12px;
+  max-width:100%;
+}
+.chat-file:hover{border-color:var(--accent);color:var(--accent)}
+.chat-file .fname{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:180px;font-weight:600}
+.chat-file .fsize{color:var(--muted);font-size:10px;flex-shrink:0}
+.chat-attach-preview{
+  padding:10px 16px;background:var(--surface2);border-top:1px solid var(--border);
+  display:flex;gap:6px;flex-wrap:wrap;
+}
+.chat-attach-chip{
+  display:inline-flex;align-items:center;gap:6px;padding:5px 10px;
+  border-radius:9px;background:var(--surface);border:1px solid var(--border);
+  font-size:11.5px;max-width:220px;
+}
+.chat-attach-chip .name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.chat-attach-chip button{color:var(--muted);font-size:13px;padding:0 2px;line-height:1}
+.chat-attach-chip button:hover{color:var(--danger)}
+.chat-input-bar{
+  display:flex;gap:8px;padding:12px 16px;border-top:1px solid var(--border);
+  background:var(--surface);align-items:flex-end;
+}
+.chat-input-bar textarea{
+  flex:1;min-height:42px;max-height:140px;resize:none;
+  padding:11px 14px;border-radius:12px;border:1px solid var(--border);
+  background:var(--surface2);outline:none;font-family:inherit;font-size:13.5px;
+  line-height:1.4;transition:border .2s;overflow-y:auto;
+}
+.chat-input-bar textarea:focus{border-color:var(--accent)}
+.chat-icon-btn{
+  width:42px;height:42px;min-width:42px;min-height:42px;border-radius:12px;
+  display:grid;place-items:center;font-size:17px;
+  background:var(--surface2);border:1px solid var(--border);
+  transition:all .18s;flex-shrink:0;padding:0;line-height:1;
+}
+.chat-icon-btn:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-1px)}
+.chat-send-btn{background:var(--accent);border-color:transparent;color:#fff}
+.chat-send-btn:hover{filter:brightness(1.1);transform:translateY(-1px);color:#fff}
+.highlight{background:var(--warn);color:#000;padding:1px 3px;border-radius:3px;font-weight:700}
+.chat-unread{
+  background:var(--danger);color:#fff;font-size:9.5px;font-weight:900;
+  padding:1px 5px;border-radius:20px;min-width:16px;text-align:center;
+  line-height:1.4;
+}
+@media(max-width:640px){
+  .chat-wrap{height:calc(100vh - 200px);min-height:400px}
+  .chat-msg{max-width:88%}
+  .chat-img{max-width:200px;max-height:200px}
+  .chat-header{padding:10px 12px}
+  .chat-messages{padding:12px}
+  .chat-input-bar{padding:10px 12px}
+}
+
 .list{display:flex;flex-direction:column;gap:9px;max-height:330px;overflow-y:auto;padding-right:4px}
 .item{display:flex;align-items:center;gap:12px;padding:12px 13px;border-radius:12px;background:var(--surface2);border:1px solid transparent;transition:all .22s ease}
 .item-main{flex:1;min-width:0}
@@ -297,9 +385,7 @@ html[data-timeranim="on"] .ring-wrap.running .sw-ring .ring-fg{animation:spinRin
 .item-meta a:hover{text-decoration:underline}
 .item.completed{opacity:.65}
 .item.completed .item-title{text-decoration:line-through;text-decoration-thickness:2px}
-.item.completed .item-title .pill,
-.item.completed .item-title .section-pill{text-decoration:none}
-
+.item.completed .item-title .pill,.item.completed .item-title .section-pill{text-decoration:none}
 .complete-check{width:24px;height:24px;border-radius:7px;border:2px solid var(--border);background:var(--surface);flex-shrink:0;display:grid;place-items:center;transition:all .18s ease;cursor:pointer}
 .complete-check:hover{border-color:var(--accent)}
 .complete-check.checked{background:var(--success);border-color:var(--success)}
@@ -327,43 +413,11 @@ html[data-timeranim="on"] .ring-wrap.running .sw-ring .ring-fg{animation:spinRin
 .link-row{display:grid;grid-template-columns:110px 1fr 32px;gap:6px;margin-bottom:6px;align-items:center}
 .link-row input{padding:8px 10px;font-size:12.5px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);outline:none;min-width:0}
 .link-row input:focus{border-color:var(--accent)}
-.link-remove{
-  width:32px;
-  height:32px;
-  min-width:32px;
-  min-height:32px;
-  border-radius:8px;
-  background:var(--surface2);
-  border:1px solid var(--border);
-  color:var(--muted);
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  transition:all .15s;
-  flex-shrink:0;
-  padding:0;
-  line-height:1;
-}
+.link-remove{width:32px;height:32px;min-width:32px;min-height:32px;border-radius:8px;background:var(--surface2);border:1px solid var(--border);color:var(--muted);display:inline-flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0;padding:0;line-height:1}
 .link-remove:hover{border-color:var(--danger);color:var(--danger)}
 
 .mini-actions{display:flex;gap:6px;flex-shrink:0}
-.mini{
-  width:32px;
-  height:32px;
-  min-width:32px;
-  min-height:32px;
-  padding:0;
-  border-radius:9px;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  font-size:14px;
-  background:var(--surface);
-  border:1px solid var(--border);
-  transition:all .18s ease;
-  flex-shrink:0;
-  line-height:1;
-}
+.mini{width:32px;height:32px;min-width:32px;min-height:32px;padding:0;border-radius:9px;display:inline-flex;align-items:center;justify-content:center;font-size:14px;background:var(--surface);border:1px solid var(--border);transition:all .18s ease;flex-shrink:0;line-height:1}
 .mini:hover{border-color:var(--accent);color:var(--accent);transform:scale(1.08)}
 .mini.del:hover{border-color:var(--danger);color:var(--danger)}
 .empty{color:var(--muted);font-size:13px;text-align:center;padding:24px 10px;font-style:italic}
@@ -500,6 +554,7 @@ select{width:100%;padding:10px 12px;border-radius:11px;border:1px solid var(--bo
     <div class="brand"><span class="logo">◆</span> StudyDesk</div>
     <nav class="tabs" id="tabNav">
       <button class="tab-btn active" data-tab="hub">Main Hub</button>
+      <button class="tab-btn" data-tab="chat">Chatroom<span class="chat-unread hidden" id="chatTabUnread"></span></button>
       <button class="tab-btn" data-tab="assignments">Assignments</button>
       <button class="tab-btn" data-tab="notes">Notes</button>
       <button class="tab-btn" data-tab="code">Code Storage</button>
@@ -575,7 +630,6 @@ select{width:100%;padding:10px 12px;border-radius:11px;border:1px solid var(--bo
             <button class="cal-nav" id="calImportToggle" title="Import Google Calendar">📅</button>
             <button class="cal-nav" id="calNext" title="Next month">›</button>
           </div>
-
           <div id="calImportPanel" class="gcal-panel hidden">
             <div class="gp-title"><span class="gc-logo"></span> Google Calendar Import</div>
             <div class="gp-status" id="gcalStatus">Paste your calendar's ICS URL below.</div>
@@ -596,7 +650,6 @@ select{width:100%;padding:10px 12px;border-radius:11px;border:1px solid var(--bo
               <em>Your manual events are never touched by imports.</em>
             </div>
           </div>
-
           <div class="cal-grid" id="calGrid"></div>
           <div class="cal-day-panel" id="calDayPanel">
             <div class="cal-day-empty">Tap a day to see what's due</div>
@@ -608,11 +661,42 @@ select{width:100%;padding:10px 12px;border-radius:11px;border:1px solid var(--bo
       </div>
     </section>
 
+    <!-- ============= CHATROOM ============= -->
+    <section class="tab-panel" id="tab-chat">
+      <div class="chat-wrap">
+        <div class="chat-header">
+          <div class="chat-title"><span class="chat-dot"></span> Chatroom</div>
+          <div class="chat-status" id="chatStatus">Live conversation</div>
+          <div class="chat-search">
+            <input id="chatSearchInput" type="text" placeholder="Search messages, dates (YYYY-MM-DD), or times (HH:MM)…">
+            <button class="search-clear hidden" id="chatClearSearch" title="Clear search">✕</button>
+          </div>
+          <div class="chat-actions">
+            <button class="chat-action-btn" id="chatNotifyBtn" title="Toggle notifications">
+              🔔 <span id="chatNotifyLabel">Off</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="chat-messages" id="chatMessages">
+          <div class="chat-empty">No messages yet. Say hi! 👋</div>
+        </div>
+
+        <div class="chat-attach-preview hidden" id="chatAttachPreview"></div>
+
+        <div class="chat-input-bar">
+          <button class="chat-icon-btn" id="chatAttachBtn" title="Attach file or image">📎</button>
+          <input type="file" id="chatFileInput" multiple class="hidden" accept="image/*,.pdf,.txt,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.zip,.csv">
+          <textarea id="chatInput" rows="1" placeholder="Type a message… (Shift+Enter for new line)"></textarea>
+          <button class="chat-icon-btn chat-send-btn" id="chatSendBtn" title="Send">➤</button>
+        </div>
+      </div>
+    </section>
+
     <section class="tab-panel" id="tab-assignments">
       <div class="two-col">
         <div class="card">
           <h3 id="assignFormTitle">Add Item</h3>
-
           <div class="field">
             <label>Category</label>
             <select id="aCategory">
@@ -620,7 +704,6 @@ select{width:100%;padding:10px 12px;border-radius:11px;border:1px solid var(--bo
               <option value="other">📌 Other (task / reminder)</option>
             </select>
           </div>
-
           <div id="assignmentFields">
             <div class="form-grid">
               <div class="field span2"><label>Assignment name</label><input id="aName" type="text" placeholder="e.g. Unit 4 Calculus Test"></div>
@@ -651,7 +734,6 @@ select{width:100%;padding:10px 12px;border-radius:11px;border:1px solid var(--bo
               </div>
             </div>
           </div>
-
           <div id="otherFields" class="hidden">
             <div class="form-grid">
               <div class="field span2"><label>Title</label><input id="aOtherTitle" type="text" placeholder="e.g. Read chapter 5"></div>
@@ -659,22 +741,18 @@ select{width:100%;padding:10px 12px;border-radius:11px;border:1px solid var(--bo
               <div class="field span2"><label>Grade <span class="opt">optional</span></label><select id="aOtherGrade"></select></div>
             </div>
           </div>
-
           <div class="field" style="margin-top:6px">
             <label style="display:flex;align-items:center;gap:8px;cursor:pointer;color:var(--text);font-size:13px;font-weight:600">
               <input type="checkbox" id="aCompleted" style="width:auto;accent-color:var(--accent)">
               <span>Mark as completed</span>
             </label>
           </div>
-
           <div class="row" style="justify-content:flex-start;margin-top:6px">
             <button class="btn" id="aSubmit">+ Add Item</button>
             <button class="btn ghost hidden" id="aCancel">Cancel</button>
           </div>
-
           <div class="sections-manager" id="sectionsManager"></div>
         </div>
-
         <div class="card">
           <div class="list-header">
             <h3>All Items (<span id="assignCount">0</span>)</h3>
@@ -711,10 +789,7 @@ select{width:100%;padding:10px 12px;border-radius:11px;border:1px solid var(--bo
                 <option value="manual">📝 Manual note</option>
               </select>
             </div>
-            <div class="field span2" id="nUrlField">
-              <label>URL</label>
-              <input id="nUrl" type="url" placeholder="https://...">
-            </div>
+            <div class="field span2" id="nUrlField"><label>URL</label><input id="nUrl" type="url" placeholder="https://..."></div>
             <div class="field span2 hidden" id="nContentField">
               <label>Content</label>
               <textarea id="nContent" rows="6" placeholder="Type your note here..." style="resize:vertical;font-family:inherit"></textarea>
@@ -725,7 +800,6 @@ select{width:100%;padding:10px 12px;border-radius:11px;border:1px solid var(--bo
             <button class="btn ghost hidden" id="nCancel">Cancel</button>
           </div>
         </div>
-
         <div class="card">
           <div class="list-header">
             <h3>All Notes (<span id="noteCount">0</span>)</h3>
@@ -802,17 +876,10 @@ select{width:100%;padding:10px 12px;border-radius:11px;border:1px solid var(--bo
     <div class="setting-group">
       <label class="title">Cursor Effect</label>
       <select id="setCursor">
-        <option value="none">None</option>
-        <option value="glow">Glow Aura</option>
-        <option value="trail">Fading Trail</option>
-        <option value="sparkle">Sparkles</option>
-        <option value="ripple">Ripple Rings</option>
-        <option value="comet">Comet Tail</option>
-        <option value="stars">Twinkling Stars</option>
-        <option value="hearts">Floating Hearts</option>
-        <option value="snow">Falling Snow</option>
-        <option value="ink">Ink Blots</option>
-        <option value="flame">Embers</option>
+        <option value="none">None</option><option value="glow">Glow Aura</option><option value="trail">Fading Trail</option>
+        <option value="sparkle">Sparkles</option><option value="ripple">Ripple Rings</option><option value="comet">Comet Tail</option>
+        <option value="stars">Twinkling Stars</option><option value="hearts">Floating Hearts</option><option value="snow">Falling Snow</option>
+        <option value="ink">Ink Blots</option><option value="flame">Embers</option>
       </select>
     </div>
     <div class="divider"></div>
@@ -989,7 +1056,12 @@ function DEFAULT_DATA(){
   return {
     assignments: [], sections: [], events: [], googleEvents: [], googleCalUrl: '',
     notes: [], projects: [], audit: [],
-    settings: { theme:'aurora', cursor:'glow', tabAnim:true, tabAnimStyle:'slide', elementAnim:true, timerAnim:true, clock24:true, sound:true, autoSync:true },
+    messages: [], chatLastRead: 0,
+    settings: {
+      theme:'aurora', cursor:'glow', tabAnim:true, tabAnimStyle:'slide',
+      elementAnim:true, timerAnim:true, clock24:true, sound:true, autoSync:true,
+      chatNotifications: true
+    },
     updatedAt: Date.now()
   };
 }
@@ -1022,9 +1094,11 @@ const Store = {
   },
 
   normalize(){
-    ['sections','events','googleEvents','notes','projects','audit'].forEach(k => { if (!Array.isArray(this.data[k])) this.data[k] = []; });
+    ['sections','events','googleEvents','notes','projects','audit','messages'].forEach(k => { if (!Array.isArray(this.data[k])) this.data[k] = []; });
     if (typeof this.data.googleCalUrl !== 'string') this.data.googleCalUrl = '';
+    if (typeof this.data.chatLastRead !== 'number') this.data.chatLastRead = 0;
     if (this.data.settings.autoSync === undefined) this.data.settings.autoSync = true;
+    if (this.data.settings.chatNotifications === undefined) this.data.settings.chatNotifications = true;
   },
 
   async apiPost(payload){
@@ -1132,6 +1206,10 @@ function applyAll(){
   renderAudit();
   renderSettingsUI();
   updateSyncBadge();
+  checkForNewMessages();
+  renderChat();
+  updateChatUnreadBadge();
+  updateChatNotifyLabel();
 }
 function applySettings(){
   const s = Store.data.settings;
@@ -1194,6 +1272,10 @@ function enterApp(){
   if (!isCloudConfigured()) setConnStatus('local');
   else if (!navigator.onLine) setConnStatus('unavailable');
   else setConnStatus('synced');
+  if ('Notification' in window && Notification.permission === 'default') {
+    // Defer asking until first user interaction
+  }
+  updateChatNotifyLabel();
 }
 async function logout(){
   if (session && session.token && isCloudConfigured()) {
@@ -1221,6 +1303,10 @@ function switchTab(name){
   currentTab = name;
   els('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === name));
   els('.tab-panel').forEach(p => p.classList.toggle('active', p.id === 'tab-' + name));
+  if (name === 'chat') {
+    markChatRead();
+    setTimeout(scrollChatToBottom, 50);
+  }
 }
 
 function tickClock(){
@@ -1295,25 +1381,21 @@ function renderHubLists(){
   });
 }
 
+/* ============ CALENDAR ============ */
 let calViewDate = new Date();
 let calSelectedDate = null;
 let calEditingEventId = null;
 let calPickedEmoji = '📌';
-
 function initCalendar(){
   el('#calPrev').addEventListener('click', () => { calViewDate = new Date(calViewDate.getFullYear(), calViewDate.getMonth() - 1, 1); renderCalendar(); });
   el('#calNext').addEventListener('click', () => { calViewDate = new Date(calViewDate.getFullYear(), calViewDate.getMonth() + 1, 1); renderCalendar(); });
-
   el('#calImportToggle').addEventListener('click', () => {
     const panel = el('#calImportPanel');
     const showing = !panel.classList.contains('hidden');
     panel.classList.toggle('hidden', showing);
     el('#calImportToggle').classList.toggle('active', !showing);
   });
-  el('#gcalCloseBtn').addEventListener('click', () => {
-    el('#calImportPanel').classList.add('hidden');
-    el('#calImportToggle').classList.remove('active');
-  });
+  el('#gcalCloseBtn').addEventListener('click', () => { el('#calImportPanel').classList.add('hidden'); el('#calImportToggle').classList.remove('active'); });
   el('#gcalToggleText').addEventListener('click', () => {
     const ta = el('#gcalText');
     const shown = ta.classList.toggle('visible');
@@ -1322,34 +1404,21 @@ function initCalendar(){
   el('#gcalImportBtn').addEventListener('click', doGcalImport);
   el('#gcalClearBtn').addEventListener('click', clearGcalEvents);
 }
-
 async function doGcalImport(){
   const url = el('#gcalUrl').value.trim();
   const text = el('#gcalText').value.trim();
   const status = el('#gcalStatus');
   status.className = 'gp-status';
-
-  if (!url && !text) {
-    status.textContent = '⚠ Enter an ICS URL or paste ICS text.';
-    status.classList.add('err');
-    return;
-  }
-
+  if (!url && !text) { status.textContent = '⚠ Enter an ICS URL or paste ICS text.'; status.classList.add('err'); return; }
   let icsText = '';
-  if (text) {
-    icsText = text;
-  } else {
+  if (text) { icsText = text; }
+  else {
     status.textContent = '⤓ Fetching from URL…';
     try {
       if (isCloudConfigured() && session && session.token) {
-        const res = await Store.withStatus(() =>
-          Store.apiPost({ action: 'fetchIcal', token: session.token, url })
-        );
-        if (res && res.ok) {
-          icsText = res.text || '';
-        } else {
-          throw new Error(res && res.error ? res.error : 'Fetch failed');
-        }
+        const res = await Store.withStatus(() => Store.apiPost({ action: 'fetchIcal', token: session.token, url }));
+        if (res && res.ok) icsText = res.text || '';
+        else throw new Error(res && res.error ? res.error : 'Fetch failed');
       } else {
         const r = await fetch(url, { redirect: 'follow' });
         if (!r.ok) throw new Error('HTTP ' + r.status);
@@ -1361,45 +1430,27 @@ async function doGcalImport(){
       return;
     }
   }
-
   const parsed = parseIcs(icsText);
-  if (!parsed.length) {
-    status.textContent = '⚠ No events found in that calendar.';
-    status.classList.add('err');
-    return;
-  }
-
+  if (!parsed.length) { status.textContent = '⚠ No events found in that calendar.'; status.classList.add('err'); return; }
   const newEvents = [];
   for (const ev of parsed) {
     const start = icsDateToLocal(ev.dtstart);
     if (!start) continue;
     newEvents.push({
-      id: uid(),
-      uid: ev.uid || '',
-      name: (ev.summary || '(Untitled event)').trim(),
-      emoji: '📅',
-      date: start.date,
-      time: start.time || '',
-      source: 'google',
-      importedAt: Date.now()
+      id: uid(), uid: ev.uid || '', name: (ev.summary || '(Untitled event)').trim(),
+      emoji: '📅', date: start.date, time: start.time || '',
+      source: 'google', importedAt: Date.now()
     });
   }
-
   Store.data.googleEvents = newEvents;
   if (url) Store.data.googleCalUrl = url;
-
   commit('added', 'Google Calendar', `Imported ${newEvents.length} event${newEvents.length === 1 ? '' : 's'} from Google Calendar`);
-
   status.textContent = `✓ Imported ${newEvents.length} event${newEvents.length === 1 ? '' : 's'}. Your manual events are untouched.`;
   status.classList.add('ok');
   toast(`Imported ${newEvents.length} Google events`);
 }
-
 function clearGcalEvents(){
-  if (!Store.data.googleEvents.length && !Store.data.googleCalUrl) {
-    toast('Nothing to clear.');
-    return;
-  }
+  if (!Store.data.googleEvents.length && !Store.data.googleCalUrl) { toast('Nothing to clear.'); return; }
   if (!confirm('Remove all imported Google Calendar events? Your manual events will stay.')) return;
   const count = Store.data.googleEvents.length;
   Store.data.googleEvents = [];
@@ -1412,7 +1463,6 @@ function clearGcalEvents(){
   el('#gcalText').value = '';
   toast('Cleared imported events');
 }
-
 function renderCalendar(){
   if (!Store.data || !el('#calGrid')) return;
   const year = calViewDate.getFullYear();
@@ -1421,7 +1471,6 @@ function renderCalendar(){
   const startWd = first.getDay();
   const daysInMonth = new Date(year, month + 1, 0).getDate();
   el('#calMonthLabel').textContent = first.toLocaleDateString([], { month:'long', year:'numeric' });
-
   const dueByDate = {};
   Store.data.assignments.forEach(a => {
     if (!a.due) return;
@@ -1438,12 +1487,10 @@ function renderCalendar(){
     if (!eventsByDate[ev.date]) eventsByDate[ev.date] = [];
     eventsByDate[ev.date].push(ev);
   });
-
   const nowKey = isoDateKey(new Date().toISOString());
   const cells = [];
   ['S','M','T','W','T','F','S'].forEach(d => cells.push(`<div class="cal-wd">${d}</div>`));
   for (let i = 0; i < startWd; i++) cells.push('<div class="cal-cell blank"></div>');
-
   for (let d = 1; d <= daysInMonth; d++) {
     const key = dateKey(year, month, d);
     const cls = ['cal-cell'];
@@ -1453,10 +1500,8 @@ function renderCalendar(){
     const evs = eventsByDate[key];
     const manualEvs = evs ? evs.filter(e => e.source !== 'google') : [];
     const googleEvs = evs ? evs.filter(e => e.source === 'google') : [];
-
     if (items && items.length) cls.push('has-items');
     if (items && items.length > 1) cls.push('multi');
-
     let emojiHtml = '';
     if (manualEvs.length) {
       cls.push('has-events');
@@ -1464,7 +1509,6 @@ function renderCalendar(){
       emojiHtml = `<span class="cal-emoji-badge">${manualEvs.length > 1 ? manualEvs[0].emoji + '+' + manualEvs.length : manualEvs[0].emoji}</span>`;
     }
     const gDot = googleEvs.length ? '<span class="cal-gdot"></span>' : '';
-
     cells.push(`<div class="${cls.join(' ')}" data-date="${key}">${d}${gDot}${emojiHtml}${items ? '<span class="cal-dot"></span>' : ''}</div>`);
   }
   const total = startWd + daysInMonth;
@@ -1483,12 +1527,10 @@ function renderCalDayPanel(dueByDate, eventsByDate){
   const allEvs = eventsByDate[calSelectedDate] || [];
   const manualEvs = allEvs.filter(e => e.source !== 'google');
   const googleEvs = allEvs.filter(e => e.source === 'google');
-
   const dateObj = new Date(calSelectedDate + 'T12:00:00');
   const label = dateObj.toLocaleDateString([], { weekday:'long', month:'short', day:'numeric' });
   const totalCount = items.length + manualEvs.length + googleEvs.length;
   const header = `<div class="cal-day-title"><span>${escapeHtml(label)}${totalCount ? ' · ' + totalCount + ' item' + (totalCount === 1 ? '' : 's') : ''}</span><button class="day-add-btn" data-add-event="1">+ Event</button></div>`;
-
   let body = '';
   if (items.length) body += items.map(a => {
     const sec = getSection(a.sectionId);
@@ -1498,7 +1540,6 @@ function renderCalDayPanel(dueByDate, eventsByDate){
     const timeStr = showTime ? d.toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' }) : '';
     return `<div class="cal-day-item"><span class="cal-dot-sm" style="background:${c};box-shadow:0 0 5px ${c}88"></span><span class="cal-name">${escapeHtml(a.name)}</span>${timeStr ? `<span class="cal-time">${timeStr}</span>` : ''}</div>`;
   }).join('');
-
   if (manualEvs.length) body += manualEvs.map(ev => `
     <div class="cal-day-item">
       <span class="cal-emoji">${ev.emoji || '📌'}</span>
@@ -1506,16 +1547,13 @@ function renderCalDayPanel(dueByDate, eventsByDate){
       ${ev.time ? `<span class="cal-time">${ev.time}</span>` : ''}
       <button class="item-del" data-del-event="${ev.id}" title="Delete">✕</button>
     </div>`).join('');
-
   if (googleEvs.length) body += googleEvs.map(ev => `
     <div class="cal-day-item gcal" title="Imported from Google Calendar">
       <span class="cal-gbadge">GCAL</span>
       <span class="cal-name">${escapeHtml(ev.name)}</span>
       ${ev.time ? `<span class="cal-time">${ev.time}</span>` : ''}
     </div>`).join('');
-
   if (!body) body = '<div class="cal-day-empty">Nothing here yet</div>';
-
   let formHtml = '';
   if (calEditingEventId === 'new' || (calEditingEventId && Store.data.events.find(e => e.id === calEditingEventId))) {
     const editing = calEditingEventId !== 'new' ? Store.data.events.find(e => e.id === calEditingEventId) : null;
@@ -1528,7 +1566,6 @@ function renderCalDayPanel(dueByDate, eventsByDate){
     </div>`;
   }
   panel.innerHTML = header + body + formHtml;
-
   const addBtn = panel.querySelector('[data-add-event]');
   if (addBtn) addBtn.addEventListener('click', () => { if (!calSelectedDate) return; calEditingEventId = 'new'; calPickedEmoji = '📌'; renderCalendar(); setTimeout(() => { const inp = el('#eventNameInput'); if (inp) inp.focus(); }, 30); });
   els('[data-del-event]').forEach(b => b.addEventListener('click', () => deleteEvent(b.dataset.delEvent)));
@@ -1559,6 +1596,431 @@ function deleteEvent(id){
   commit('removed', 'Event', `Deleted event "${ev.name}"`);
 }
 
+/* ============================================================
+   CHATROOM
+============================================================ */
+let chatAttachments = []; // pending attachments
+let chatSearchQuery = '';
+let lastSeenMessageId = null;
+let chatInitialized = false;
+
+function initChat(){
+  if (chatInitialized) return;
+  chatInitialized = true;
+
+  const sendBtn = el('#chatSendBtn');
+  const input = el('#chatInput');
+  const attachBtn = el('#chatAttachBtn');
+  const fileInput = el('#chatFileInput');
+  const searchInput = el('#chatSearchInput');
+  const clearBtn = el('#chatClearSearch');
+
+  sendBtn.addEventListener('click', sendChatMessage);
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendChatMessage(); }
+  });
+  input.addEventListener('input', () => {
+    input.style.height = 'auto';
+    input.style.height = Math.min(input.scrollHeight, 140) + 'px';
+    const cv = clearBtn;
+    if (cv) cv.classList.toggle('hidden', !searchInput.value);
+  });
+
+  attachBtn.addEventListener('click', () => fileInput.click());
+  fileInput.addEventListener('change', handleFileSelect);
+
+  searchInput.addEventListener('input', e => {
+    chatSearchQuery = e.target.value.trim();
+    clearBtn.classList.toggle('hidden', !chatSearchQuery);
+    renderChat();
+  });
+  clearBtn.addEventListener('click', () => {
+    searchInput.value = '';
+    chatSearchQuery = '';
+    clearBtn.classList.add('hidden');
+    renderChat();
+  });
+
+  el('#chatNotifyBtn').addEventListener('click', toggleChatNotifications);
+
+  window.addEventListener('focus', () => {
+    if (currentTab === 'chat') markChatRead();
+    updateChatUnreadBadge();
+  });
+
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden && currentTab === 'chat') markChatRead();
+  });
+}
+
+function getChatMessages(){
+  if (!Array.isArray(Store.data.messages)) Store.data.messages = [];
+  return Store.data.messages;
+}
+
+async function handleFileSelect(e){
+  const files = Array.from(e.target.files || []);
+  for (const file of files) {
+    try {
+      const att = await processFile(file);
+      if (att) chatAttachments.push(att);
+    } catch (err) {
+      toast('Could not attach ' + file.name + ': ' + err.message);
+    }
+  }
+  e.target.value = '';
+  renderAttachPreview();
+}
+
+function processFile(file){
+  return new Promise((resolve, reject) => {
+    const isImage = file.type.startsWith('image/');
+    const MAX_RAW = 500 * 1024;
+
+    if (isImage) {
+      const reader = new FileReader();
+      reader.onload = e => {
+        const img = new Image();
+        img.onload = () => {
+          try {
+            const canvas = document.createElement('canvas');
+            const maxDim = 800;
+            let w = img.width, h = img.height;
+            if (w > maxDim || h > maxDim) {
+              const ratio = Math.min(maxDim/w, maxDim/h);
+              w = Math.round(w * ratio);
+              h = Math.round(h * ratio);
+            }
+            canvas.width = w; canvas.height = h;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, w, h);
+            let dataUrl = canvas.toDataURL('image/jpeg', 0.78);
+            // If still too big, compress harder
+            if (dataUrl.length > 200000) dataUrl = canvas.toDataURL('image/jpeg', 0.55);
+            if (dataUrl.length > 300000) {
+              reject(new Error('image too large even after compression'));
+              return;
+            }
+            resolve({
+              name: file.name || 'image.jpg',
+              type: 'image/jpeg',
+              size: dataUrl.length,
+              dataUrl,
+              isImage: true
+            });
+          } catch (err) { reject(err); }
+        };
+        img.onerror = () => reject(new Error('invalid image'));
+        img.src = e.target.result;
+      };
+      reader.onerror = () => reject(new Error('read failed'));
+      reader.readAsDataURL(file);
+    } else {
+      if (file.size > MAX_RAW) { reject(new Error('file too large (max 500 KB)')); return; }
+      const reader = new FileReader();
+      reader.onload = ev => resolve({
+        name: file.name,
+        type: file.type || 'application/octet-stream',
+        size: file.size,
+        dataUrl: ev.target.result,
+        isImage: false
+      });
+      reader.onerror = () => reject(new Error('read failed'));
+      reader.readAsDataURL(file);
+    }
+  });
+}
+
+function renderAttachPreview(){
+  const wrap = el('#chatAttachPreview');
+  if (!wrap) return;
+  if (!chatAttachments.length) {
+    wrap.classList.add('hidden');
+    wrap.innerHTML = '';
+    return;
+  }
+  wrap.classList.remove('hidden');
+  wrap.innerHTML = chatAttachments.map((a, i) => `
+    <span class="chat-attach-chip">
+      ${a.isImage ? '🖼️' : '📎'}
+      <span class="name">${escapeHtml(a.name)}</span>
+      <button data-remove-attach="${i}" title="Remove">✕</button>
+    </span>
+  `).join('');
+  els('[data-remove-attach]').forEach(b => b.addEventListener('click', () => {
+    chatAttachments.splice(Number(b.dataset.removeAttach), 1);
+    renderAttachPreview();
+  }));
+}
+
+function sendChatMessage(){
+  if (!session) return;
+  const input = el('#chatInput');
+  const text = input.value.trim();
+  if (!text && !chatAttachments.length) return;
+
+  const msg = {
+    id: uid(),
+    sender: session.role,
+    senderName: session.name,
+    text,
+    attachments: chatAttachments.slice(),
+    time: Date.now()
+  };
+
+  if (!Array.isArray(Store.data.messages)) Store.data.messages = [];
+  Store.data.messages.push(msg);
+
+  // Trim if getting too large — cap at 200 messages AND ~45KB total
+  const MAX_MESSAGES = 200;
+  const MAX_CHARS = 40000;
+  while (Store.data.messages.length > MAX_MESSAGES) Store.data.messages.shift();
+  while (Store.data.messages.length > 10 && JSON.stringify(Store.data.messages).length > MAX_CHARS) {
+    Store.data.messages.shift();
+  }
+
+  input.value = '';
+  input.style.height = 'auto';
+  chatAttachments = [];
+  renderAttachPreview();
+
+  // Mark as read since it's our own message
+  Store.data.chatLastRead = Date.now();
+
+  commit('added', 'Chat', text ? text.slice(0, 60) : (msg.attachments.length + ' attachment' + (msg.attachments.length === 1 ? '' : 's')));
+
+  lastSeenMessageId = msg.id;
+  renderChat();
+  scrollChatToBottom();
+  markChatRead();
+}
+
+function markChatRead(){
+  if (!session) return;
+  Store.data.chatLastRead = Date.now();
+  updateChatUnreadBadge();
+  Store.persist();
+}
+
+function getUnreadCount(){
+  if (currentTab === 'chat' && !document.hidden) return 0;
+  const lastRead = Store.data.chatLastRead || 0;
+  return (Store.data.messages || []).filter(m => m.time > lastRead && m.sender !== (session ? session.role : '')).length;
+}
+
+function updateChatUnreadBadge(){
+  const count = getUnreadCount();
+  const tabBadge = el('#chatTabUnread');
+  if (tabBadge) {
+    if (count > 0) {
+      tabBadge.textContent = count > 99 ? '99+' : count;
+      tabBadge.classList.remove('hidden');
+    } else {
+      tabBadge.classList.add('hidden');
+    }
+  }
+}
+
+function updateChatNotifyLabel(){
+  const label = el('#chatNotifyLabel');
+  const btn = el('#chatNotifyBtn');
+  if (!label || !btn) return;
+  const enabled = Store.data.settings.chatNotifications !== false
+    && 'Notification' in window
+    && Notification.permission === 'granted';
+  label.textContent = enabled ? 'On' : 'Off';
+  btn.classList.toggle('on', enabled);
+}
+
+function toggleChatNotifications(){
+  if (!('Notification' in window)) {
+    toast('Notifications not supported in this browser.');
+    return;
+  }
+  if (Notification.permission === 'granted') {
+    const current = Store.data.settings.chatNotifications !== false;
+    Store.data.settings.chatNotifications = !current;
+    commit('edited', 'Settings', `Chat notifications ${!current ? 'on' : 'off'}`);
+    toast(`Notifications ${!current ? 'enabled' : 'disabled'}`);
+    updateChatNotifyLabel();
+  } else if (Notification.permission === 'denied') {
+    toast('Notifications blocked. Enable them in your browser settings.');
+  } else {
+    Notification.requestPermission().then(p => {
+      if (p === 'granted') {
+        Store.data.settings.chatNotifications = true;
+        commit('edited', 'Settings', 'Chat notifications enabled');
+        toast('Notifications enabled ✓');
+        updateChatNotifyLabel();
+      } else {
+        toast('Notifications permission denied.');
+      }
+    });
+  }
+}
+
+function showChatNotification(msg){
+  if (Store.data.settings.chatNotifications === false) return;
+  if (!('Notification' in window) || Notification.permission !== 'granted') return;
+  const title = '💬 ' + (msg.senderName || 'New message');
+  const body = msg.text ? msg.text.slice(0, 120) : (msg.attachments && msg.attachments.length ? '📎 ' + msg.attachments.length + ' attachment' + (msg.attachments.length === 1 ? '' : 's') : '');
+  try {
+    const n = new Notification(title, { body, tag: 'studydesk-chat', icon: undefined });
+    setTimeout(() => n.close(), 8000);
+    n.onclick = () => { window.focus(); switchTab('chat'); n.close(); };
+  } catch {}
+}
+
+// Called from applyAll — detects new messages from the other user
+function checkForNewMessages(){
+  if (!session) return;
+  const msgs = Store.data.messages || [];
+  const last = msgs[msgs.length - 1];
+  if (!last) { lastSeenMessageId = null; return; }
+  if (last.id === lastSeenMessageId) return;
+  const wasInitial = lastSeenMessageId === null;
+  lastSeenMessageId = last.id;
+  if (wasInitial) return;
+  if (last.sender === session.role) return;
+
+  // New message from the other party
+  showChatNotification(last);
+  if (currentTab !== 'chat' || document.hidden) {
+    toast('💬 New message from ' + last.senderName);
+  } else {
+    // On chat tab and focused → mark read
+    markChatRead();
+  }
+  updateChatUnreadBadge();
+}
+
+/* -------- Chat rendering -------- */
+function formatChatTime(ts){
+  return new Date(ts).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+}
+function formatChatDay(ts){
+  const d = new Date(ts);
+  const today = new Date();
+  const y = new Date(); y.setDate(y.getDate() - 1);
+  const sameDay = (a, b) => a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
+  if (sameDay(d, today)) return 'Today · ' + d.toLocaleDateString([], { month: 'short', day: 'numeric', year: 'numeric' });
+  if (sameDay(d, y)) return 'Yesterday · ' + d.toLocaleDateString([], { month: 'short', day: 'numeric', year: 'numeric' });
+  return d.toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+}
+function dayKeyOf(ts){
+  const d = new Date(ts);
+  return d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate();
+}
+function formatBytes(b){
+  if (b < 1024) return b + ' B';
+  if (b < 1024 * 1024) return (b / 1024).toFixed(1) + ' KB';
+  return (b / (1024 * 1024)).toFixed(1) + ' MB';
+}
+
+function renderChat(){
+  const list = el('#chatMessages');
+  if (!list) return;
+
+  const messages = (Store.data.messages || []).slice();
+  const query = chatSearchQuery.toLowerCase();
+
+  let filtered = messages;
+  let isSearch = false;
+  let highlightRegex = null;
+
+  if (query) {
+    isSearch = true;
+    filtered = messages.filter(m => {
+      if (m.text && m.text.toLowerCase().includes(query)) return true;
+      if (m.senderName && m.senderName.toLowerCase().includes(query)) return true;
+      const d = new Date(m.time);
+      const dateStr = d.toLocaleDateString().toLowerCase();
+      const isoDate = d.toISOString().slice(0,10);
+      const timeStr = formatChatTime(m.time).toLowerCase();
+      const dayStr = formatChatDay(m.time).toLowerCase();
+      const fullStr = d.toString().toLowerCase();
+      return dateStr.includes(query) || isoDate.includes(query) || timeStr.includes(query) || dayStr.includes(query) || fullStr.includes(query);
+    });
+    const safeQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    try { highlightRegex = new RegExp('(' + safeQuery + ')', 'gi'); } catch { highlightRegex = null; }
+  }
+
+  if (!filtered.length) {
+    list.innerHTML = messages.length
+      ? '<div class="chat-empty">No messages match your search.</div>'
+      : '<div class="chat-empty">No messages yet. Say hi! 👋</div>';
+    return;
+  }
+
+  const nearBottom = list.scrollHeight - list.scrollTop - list.clientHeight < 100;
+
+  let html = '';
+  let lastDay = null;
+  for (const m of filtered) {
+    const key = dayKeyOf(m.time);
+    if (key !== lastDay) {
+      html += `<div class="chat-day-divider"><span class="line"></span><span class="label">${escapeHtml(formatChatDay(m.time))}</span><span class="line"></span></div>`;
+      lastDay = key;
+    }
+    html += renderChatMessageHtml(m, highlightRegex);
+  }
+  list.innerHTML = html;
+
+  // Click images to open full view
+  els('#chatMessages .chat-img').forEach(img => {
+    img.addEventListener('click', () => window.open(img.src, '_blank'));
+  });
+
+  if (!isSearch && nearBottom) {
+    list.scrollTop = list.scrollHeight;
+  }
+}
+
+function renderChatMessageHtml(m, highlightRegex){
+  const own = session && m.sender === session.role;
+  const initial = (m.senderName || '?').charAt(0).toUpperCase();
+  const time = formatChatTime(m.time);
+
+  let textHtml = escapeHtml(m.text || '');
+  if (highlightRegex && textHtml) {
+    try { textHtml = textHtml.replace(highlightRegex, '<span class="highlight">$1</span>'); } catch {}
+  }
+
+  let attachHtml = '';
+  for (const a of (m.attachments || [])) {
+    if (a.isImage && a.dataUrl) {
+      attachHtml += `<img class="chat-img" src="${a.dataUrl}" alt="${escapeHtml(a.name)}">`;
+    } else if (a.dataUrl) {
+      attachHtml += `<a class="chat-file" href="${a.dataUrl}" download="${escapeHtml(a.name)}">
+        📎 <span class="fname">${escapeHtml(a.name)}</span>
+        <span class="fsize">${formatBytes(a.size)}</span>
+      </a>`;
+    } else {
+      attachHtml += `<span class="chat-file" style="cursor:default">📎 <span class="fname">${escapeHtml(a.name)}</span></span>`;
+    }
+  }
+
+  const senderLine = own ? '' : `<div class="chat-sender">${escapeHtml(m.senderName)}</div>`;
+
+  return `<div class="chat-msg ${own ? 'own' : 'other'}">
+    <div class="chat-avatar">${initial}</div>
+    <div class="chat-body">
+      ${senderLine}
+      ${textHtml ? `<div class="chat-bubble">${textHtml}</div>` : ''}
+      ${attachHtml ? `<div class="chat-attach-wrap">${attachHtml}</div>` : ''}
+      <div class="chat-meta">${time}</div>
+    </div>
+  </div>`;
+}
+
+function scrollChatToBottom(){
+  const list = el('#chatMessages');
+  if (list) list.scrollTop = list.scrollHeight;
+}
+
+/* ============================================================
+   MODE TOGGLE
+============================================================ */
 function initModeToggle(){
   els('#modeToggle button').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -1570,6 +2032,7 @@ function initModeToggle(){
   });
 }
 
+/* ============ ASSIGNMENTS ============ */
 let editingId = null;
 function initAssignments(){
   el('#aSubmit').addEventListener('click', submitAssignment);
@@ -1694,7 +2157,6 @@ function submitAssignment(){
     clearAssignmentForm();
     return;
   }
-
   const name = el('#aName').value.trim();
   const sectionId = el('#aSection').value;
   const teacher = el('#aTeacher').value.trim();
@@ -1705,12 +2167,9 @@ function submitAssignment(){
   const grade = el('#aGrade').value;
   const completed = el('#aCompleted').checked;
   const links = collectLinks();
-
   if (!name) { toast('Please enter an assignment name.'); return; }
   if (!dueDate) { toast('Please pick a due date.'); return; }
-
   const dueISO = combineDueDate(dueDate, dueTime);
-
   if (editingId) {
     const a = Store.data.assignments.find(x => x.id === editingId);
     if (a) {
@@ -1795,13 +2254,11 @@ function renderAssignments(){
   if (!Store.data) return;
   const filterVal = el('#sectionFilter') ? el('#sectionFilter').value : 'all';
   const statusVal = el('#statusFilter') ? el('#statusFilter').value : 'all';
-
   let items = Store.data.assignments.slice();
   if (filterVal === 'none') items = items.filter(a => !a.sectionId);
   else if (filterVal !== 'all') items = items.filter(a => a.sectionId === filterVal);
   if (statusVal === 'active') items = items.filter(a => !a.completed);
   else if (statusVal === 'completed') items = items.filter(a => a.completed);
-
   items.sort((a, b) => {
     if (a.completed !== b.completed) return a.completed ? 1 : -1;
     if (!a.due && !b.due) return 0;
@@ -1809,13 +2266,11 @@ function renderAssignments(){
     if (!b.due) return -1;
     return new Date(a.due) - new Date(b.due);
   });
-
   el('#assignCount').textContent = items.length;
   if (!items.length) {
     el('#assignList').innerHTML = Store.data.assignments.length ? '<div class="empty">No items in this filter.</div>' : '<div class="empty">No items yet. Add one on the left.</div>';
     return;
   }
-
   el('#assignList').innerHTML = items.map(a => {
     const links = linksHtml(a);
     const metaParts = [];
@@ -1838,12 +2293,12 @@ function renderAssignments(){
       </div>
     </div>`;
   }).join('');
-
   els('#assignList [data-edit]').forEach(b => b.addEventListener('click', () => editAssignment(b.dataset.edit)));
   els('#assignList [data-del]').forEach(b => b.addEventListener('click', () => deleteAssignment(b.dataset.del)));
   els('#assignList [data-toggle-complete]').forEach(c => c.addEventListener('click', () => toggleComplete(c.dataset.toggleComplete)));
 }
 
+/* ============ NOTES ============ */
 let editingNoteId = null;
 function initNotes(){
   el('#nSubmit').addEventListener('click', submitNote);
@@ -1866,7 +2321,6 @@ function submitNote(){
   if (!title) { toast('Please enter a title.'); return; }
   if (type === 'manual' && !content.trim()) { toast('Please add some content.'); return; }
   if (type !== 'manual' && !url) { toast('Please enter a URL.'); return; }
-
   if (editingNoteId) {
     const n = Store.data.notes.find(x => x.id === editingNoteId);
     if (n) {
@@ -1959,6 +2413,7 @@ function renderNotes(){
   els('[data-del-note]').forEach(b => b.addEventListener('click', () => deleteNote(b.dataset.delNote)));
 }
 
+/* ============ CODE ============ */
 let currentProjectId = null, previewTimer = null;
 function initCode(){
   el('#pSave').addEventListener('click', saveProject);
@@ -1999,6 +2454,7 @@ function renderProjects(){
   els('[data-pdel]').forEach(btn => btn.addEventListener('click', e => { e.stopPropagation(); deleteProject(btn.dataset.pdel); }));
 }
 
+/* ============ AUDIT ============ */
 function initAudit(){
   el('#auditFilter').addEventListener('change', renderAudit);
   el('#clearAudit').addEventListener('click', () => {
@@ -2017,6 +2473,7 @@ function renderAudit(){
   el('#auditBody').innerHTML = rows.length ? rows.map(r => `<tr><td class="muted" style="white-space:nowrap">${fmtDateTime(r.time)}</td><td><span class="pill ${r.role}">${escapeHtml(r.role)}</span> <span style="margin-left:6px">${escapeHtml(r.user)}</span></td><td><span class="action-tag ${r.action}">${escapeHtml(r.action)}</span></td><td>${escapeHtml(r.item)}</td><td class="muted">${escapeHtml(r.details || '')}</td></tr>`).join('') : '<tr><td colspan="5" class="empty">No activity recorded yet.</td></tr>';
 }
 
+/* ============ SETTINGS ============ */
 const THEMES = [
   { id:'aurora', name:'Aurora', dots:['#6c8cff','#39d4c8','#0b1020'] },
   { id:'midnight', name:'Midnight', dots:['#2f81f7','#39d353','#05070d'] },
@@ -2102,6 +2559,7 @@ function initProfileMenu(){
   el('#menuSettings').addEventListener('click', openSettings);
 }
 
+/* ============ TIMER ============ */
 const RING_C = 2 * Math.PI * 54;
 let timerState = { total:1500, remaining:1500, running:false, endAt:0, id:null };
 function initTimer(){
@@ -2179,6 +2637,7 @@ function updateSWUI(){
   el('#swDisplay').textContent = `${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}.${tenths}`;
 }
 
+/* ============ CURSOR ============ */
 let lastCursorEvent = 0;
 function initCursor(){
   const glow = el('#cursorGlow');
@@ -2210,7 +2669,7 @@ let toastTimer = null;
 function toast(msg){ const t = el('#toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('show'), 2400); }
 
 function boot(){
-  initLogin(); initTabs(); initAssignments(); initNotes(); initCode(); initAudit(); initSettings();
+  initLogin(); initTabs(); initChat(); initAssignments(); initNotes(); initCode(); initAudit(); initSettings();
   initProfileMenu(); initTimer(); initStopwatch(); initModeToggle(); initCalendar(); initCursor();
   Store.init();
   loadSession();
