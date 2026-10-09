@@ -88,17 +88,26 @@ html[data-elanim="on"] .profile-btn:hover{border-color:var(--accent);transform:t
 .menu button:hover{background:var(--surface2)}
 .menu .sep{height:1px;background:var(--border);margin:5px 4px}
 
-.conn-status{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;align-items:center;gap:8px;padding:6px 14px;border-radius:20px;background:var(--surface);border:1px solid var(--border);font-size:12px;font-weight:600;letter-spacing:.2px;transition:border-color .3s ease,color .3s ease;z-index:130;pointer-events:none;white-space:nowrap;box-shadow:0 4px 14px rgba(0,0,0,.18)}
+/* ================= SYNC STATUS (now inside top-right) ================= */
+.conn-status{
+  display:flex;align-items:center;gap:7px;padding:6px 12px;border-radius:20px;
+  background:var(--surface);border:1px solid var(--border);
+  font-size:11.5px;font-weight:700;letter-spacing:.2px;
+  transition:border-color .3s ease,color .3s ease,background .3s ease;
+  white-space:nowrap;flex-shrink:0;
+  box-shadow:0 2px 8px rgba(0,0,0,.12);
+  cursor:default;user-select:none;
+}
 .conn-status.hidden{display:none}
 .conn-status .dot{width:8px;height:8px;border-radius:50%;background:var(--muted);flex-shrink:0;transition:background .3s ease,box-shadow .3s ease}
-.conn-status.synced{border-color:color-mix(in srgb,#3ddc97 50%,var(--border));color:#3ddc97}
+.conn-status.synced{border-color:color-mix(in srgb,#3ddc97 50%,var(--border));color:#3ddc97;background:color-mix(in srgb,#3ddc97 8%,var(--surface))}
 .conn-status.synced .dot{background:#3ddc97;box-shadow:0 0 10px #3ddc97}
-.conn-status.syncing{border-color:color-mix(in srgb,var(--accent) 55%,var(--border));color:var(--accent)}
+.conn-status.syncing{border-color:color-mix(in srgb,var(--accent) 55%,var(--border));color:var(--accent);background:color-mix(in srgb,var(--accent) 8%,var(--surface))}
 .conn-status.syncing .dot{background:var(--accent);box-shadow:0 0 10px var(--accent);animation:syncingPulse .9s ease-in-out infinite}
 @keyframes syncingPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.5);opacity:.4}}
-.conn-status.unavailable{border-color:color-mix(in srgb,#ff5f7e 50%,var(--border));color:#ff5f7e}
+.conn-status.unavailable{border-color:color-mix(in srgb,#ff5f7e 50%,var(--border));color:#ff5f7e;background:color-mix(in srgb,#ff5f7e 8%,var(--surface))}
 .conn-status.unavailable .dot{background:#ff5f7e;box-shadow:0 0 10px #ff5f7e}
-.conn-status.error{border-color:color-mix(in srgb,#ffc857 55%,var(--border));color:#ffc857}
+.conn-status.error{border-color:color-mix(in srgb,#ffc857 55%,var(--border));color:#ffc857;background:color-mix(in srgb,#ffc857 8%,var(--surface))}
 .conn-status.error .dot{background:#ffc857;box-shadow:0 0 10px #ffc857;animation:errorBlink 1.4s ease-in-out infinite}
 @keyframes errorBlink{0%,100%{opacity:1}50%{opacity:.35}}
 .conn-status.local{border-color:var(--border);color:var(--muted)}
@@ -126,7 +135,16 @@ html[data-elanim="on"] .card:hover{transform:translateY(-3px);border-color:color
 .due-card{grid-column:span 6}
 .priority-card{grid-column:span 6}
 @media(max-width:1080px){.clock-card,.timer-card,.calendar-card,.due-card,.priority-card{grid-column:span 12}}
-@media(max-width:640px){main{padding:14px}.topbar{padding:10px 14px;gap:10px}.tabs{order:3;width:100%;justify-content:center}.conn-status{position:fixed;top:10px;left:50%;transform:translateX(-50%);z-index:400;padding:5px 10px}}
+@media(max-width:640px){
+  main{padding:14px}
+  .topbar{padding:10px 12px;gap:10px}
+  .tabs{order:3;width:100%;justify-content:center;overflow-x:auto}
+  .conn-status{padding:5px 8px;font-size:10.5px}
+  .conn-status .text{display:none}
+  .brand{font-size:15px}
+  .profile-meta{display:none}
+  .profile-btn{padding:6px}
+}
 
 .clock-time{font-size:clamp(34px,5.4vw,50px);font-weight:800;letter-spacing:-2px;line-height:1;background:linear-gradient(120deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-variant-numeric:tabular-nums}
 .clock-date{color:var(--muted);font-size:13.5px;margin-top:10px;font-weight:600}
@@ -151,12 +169,7 @@ html[data-timeranim="on"] .ring-wrap.running .ring-fg{animation:ringPulse 1.7s e
 html[data-timeranim="on"] .ring-wrap.running .sw-ring .ring-fg{animation:spinRing 1.4s linear infinite}
 @keyframes spinRing{to{stroke-dashoffset:-340}}
 
-/* Timer context message */
-.timer-context{
-  text-align:center;font-size:11px;font-weight:800;letter-spacing:1.4px;
-  text-transform:uppercase;color:var(--muted);min-height:14px;
-  margin:-6px 0 10px;transition:color .25s;
-}
+.timer-context{text-align:center;font-size:11px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;color:var(--muted);min-height:14px;margin:-6px 0 10px;transition:color .25s}
 .timer-context.work{color:var(--accent)}
 .timer-context.break{color:var(--accent2)}
 
@@ -224,12 +237,7 @@ html[data-timeranim="on"] .ring-wrap.running .sw-ring .ring-fg{animation:spinRin
 .item.completed .item-title .pill,
 .item.completed .item-title .section-pill{text-decoration:none}
 
-/* Completion checkbox */
-.complete-check{
-  width:24px;height:24px;border-radius:7px;border:2px solid var(--border);
-  background:var(--surface);flex-shrink:0;display:grid;place-items:center;
-  transition:all .18s ease;cursor:pointer;
-}
+.complete-check{width:24px;height:24px;border-radius:7px;border:2px solid var(--border);background:var(--surface);flex-shrink:0;display:grid;place-items:center;transition:all .18s ease;cursor:pointer}
 .complete-check:hover{border-color:var(--accent)}
 .complete-check.checked{background:var(--success);border-color:var(--success)}
 .complete-check.checked::after{content:'✓';color:#fff;font-size:14px;font-weight:900;line-height:1}
@@ -245,13 +253,7 @@ html[data-timeranim="on"] .ring-wrap.running .sw-ring .ring-fg{animation:spinRin
 .pill.soon{color:var(--warn);border-color:color-mix(in srgb,var(--warn) 45%,transparent);background:color-mix(in srgb,var(--warn) 14%,transparent)}
 .section-pill{font-size:10px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;padding:3px 9px;border-radius:20px;border:1px solid;white-space:nowrap}
 
-/* Grade badges */
-.grade-badge{
-  min-width:42px;height:42px;border-radius:11px;display:grid;place-items:center;
-  font-weight:900;font-size:15px;flex-shrink:0;color:#fff;
-  font-variant-numeric:tabular-nums;letter-spacing:-.5px;
-  box-shadow:0 4px 12px rgba(0,0,0,.15);
-}
+.grade-badge{min-width:42px;height:42px;border-radius:11px;display:grid;place-items:center;font-weight:900;font-size:15px;flex-shrink:0;color:#fff;font-variant-numeric:tabular-nums;letter-spacing:-.5px;box-shadow:0 4px 12px rgba(0,0,0,.15)}
 .grade-badge.grade-a{background:linear-gradient(135deg,#10b981,#059669)}
 .grade-badge.grade-b{background:linear-gradient(135deg,#3b82f6,#2563eb)}
 .grade-badge.grade-c{background:linear-gradient(135deg,#f59e0b,#d97706)}
@@ -259,7 +261,6 @@ html[data-timeranim="on"] .ring-wrap.running .sw-ring .ring-fg{animation:spinRin
 .grade-badge.grade-fail{background:linear-gradient(135deg,#7f1d1d,#991b1b)}
 .grade-badge.grade-zero{background:linear-gradient(135deg,#4b5563,#374151)}
 
-/* Link list in form */
 .link-row{display:grid;grid-template-columns:110px 1fr 32px;gap:6px;margin-bottom:6px;align-items:center}
 .link-row input{padding:8px 10px;font-size:12.5px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);outline:none;min-width:0}
 .link-row input:focus{border-color:var(--accent)}
@@ -294,7 +295,6 @@ html[data-timeranim="on"] .ring-wrap.running .sw-ring .ring-fg{animation:spinRin
 .sections-manager .sec-actions button:hover{border-color:var(--accent);color:var(--accent)}
 .sections-manager .sec-actions button.del:hover{border-color:var(--danger);color:var(--danger)}
 
-/* ============ NOTES ============ */
 .note-item{display:flex;align-items:flex-start;gap:12px;padding:14px;border-radius:12px;background:var(--surface2);border:1px solid transparent;transition:all .22s ease;margin-bottom:9px}
 .note-item:hover{border-color:color-mix(in srgb,var(--accent) 40%,transparent)}
 .note-icon{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;font-size:16px;background:var(--surface);border:1px solid var(--border);flex-shrink:0}
@@ -305,7 +305,6 @@ html[data-timeranim="on"] .ring-wrap.running .sw-ring .ring-fg{animation:spinRin
 .note-url{font-size:11.5px;color:var(--accent2);text-decoration:none;word-break:break-all}
 .note-url:hover{text-decoration:underline}
 .note-content{font-size:12.5px;line-height:1.65;color:var(--text);margin-top:8px;padding:10px 12px;background:var(--surface);border-radius:9px;border:1px solid var(--border);white-space:pre-wrap;word-wrap:break-word;max-height:220px;overflow-y:auto}
-.note-expand{display:flex;gap:6px;margin-top:8px}
 
 .code-layout{display:grid;grid-template-columns:250px 1fr 1fr;gap:16px;align-items:start}
 @media(max-width:1200px){.code-layout{grid-template-columns:230px 1fr}.preview-card{grid-column:span 2}}
@@ -411,11 +410,11 @@ select{width:100%;padding:10px 12px;border-radius:11px;border:1px solid var(--bo
       <button class="tab-btn" data-tab="code">Code Storage</button>
       <button class="tab-btn" data-tab="audit">Audit Log</button>
     </nav>
-    <div class="conn-status hidden" id="connStatus">
-      <span class="dot"></span>
-      <span class="text">Synced</span>
-    </div>
     <div class="top-right">
+      <div class="conn-status hidden" id="connStatus" title="Sync status">
+        <span class="dot"></span>
+        <span class="text">Synced</span>
+      </div>
       <button class="icon-btn" id="settingsBtn" title="Settings">⚙</button>
       <button class="profile-btn" id="profileBtn">
         <span class="avatar" id="avatarInitial">S</span>
@@ -430,7 +429,6 @@ select{width:100%;padding:10px 12px;border-radius:11px;border:1px solid var(--bo
   </header>
 
   <main>
-    <!-- ================= MAIN HUB ================= -->
     <section class="tab-panel active" id="tab-hub">
       <div class="hub-grid">
         <div class="card clock-card">
@@ -492,7 +490,6 @@ select{width:100%;padding:10px 12px;border-radius:11px;border:1px solid var(--bo
       </div>
     </section>
 
-    <!-- ================= ASSIGNMENTS ================= -->
     <section class="tab-panel" id="tab-assignments">
       <div class="two-col">
         <div class="card">
@@ -506,7 +503,6 @@ select{width:100%;padding:10px 12px;border-radius:11px;border:1px solid var(--bo
             </select>
           </div>
 
-          <!-- ASSIGNMENT FIELDS -->
           <div id="assignmentFields">
             <div class="form-grid">
               <div class="field span2"><label>Assignment name</label><input id="aName" type="text" placeholder="e.g. Unit 4 Calculus Test"></div>
@@ -538,7 +534,6 @@ select{width:100%;padding:10px 12px;border-radius:11px;border:1px solid var(--bo
             </div>
           </div>
 
-          <!-- OTHER FIELDS -->
           <div id="otherFields" class="hidden">
             <div class="form-grid">
               <div class="field span2"><label>Title</label><input id="aOtherTitle" type="text" placeholder="e.g. Read chapter 5"></div>
@@ -579,16 +574,12 @@ select{width:100%;padding:10px 12px;border-radius:11px;border:1px solid var(--bo
       </div>
     </section>
 
-    <!-- ================= NOTES ================= -->
     <section class="tab-panel" id="tab-notes">
       <div class="two-col">
         <div class="card">
           <h3 id="noteFormTitle">Add Note</h3>
           <div class="form-grid">
-            <div class="field span2">
-              <label>Title</label>
-              <input id="nTitle" type="text" placeholder="e.g. Chapter 5 summary">
-            </div>
+            <div class="field span2"><label>Title</label><input id="nTitle" type="text" placeholder="e.g. Chapter 5 summary"></div>
             <div class="field span2">
               <label>Class</label>
               <input id="nClass" list="noteClassList" type="text" placeholder="e.g. Math">
@@ -629,7 +620,6 @@ select{width:100%;padding:10px 12px;border-radius:11px;border:1px solid var(--bo
       </div>
     </section>
 
-    <!-- ================= CODE STORAGE ================= -->
     <section class="tab-panel" id="tab-code">
       <div class="code-layout">
         <div class="card">
@@ -662,7 +652,6 @@ select{width:100%;padding:10px 12px;border-radius:11px;border:1px solid var(--bo
       </div>
     </section>
 
-    <!-- ================= AUDIT ================= -->
     <section class="tab-panel" id="tab-audit">
       <div class="card" style="margin-bottom:16px">
         <div class="row" style="justify-content:space-between">
@@ -721,6 +710,7 @@ select{width:100%;padding:10px 12px;border-radius:11px;border:1px solid var(--bo
       <div class="toggle-row"><span>Timer ring animation<small>Pulsing glow while running</small></span><label class="switch"><input type="checkbox" id="setTimerAnim"><span class="slider"></span></label></div>
       <div class="toggle-row"><span>24-hour clock<small>Off = 12-hour AM/PM</small></span><label class="switch"><input type="checkbox" id="setClock24"><span class="slider"></span></label></div>
       <div class="toggle-row"><span>Timer sound<small>Beep when countdown ends</small></span><label class="switch"><input type="checkbox" id="setSound"><span class="slider"></span></label></div>
+      <div class="toggle-row"><span>Background sync<small>Auto-refresh data from other devices every 15s</small></span><label class="switch"><input type="checkbox" id="setAutoSync"><span class="slider"></span></label></div>
     </div>
     <div class="divider"></div>
     <div class="setting-group">
@@ -740,7 +730,8 @@ select{width:100%;padding:10px 12px;border-radius:11px;border:1px solid var(--bo
 
 <script>
 const CLOUD_CONFIG = {
-  url: 'https://script.google.com/macros/s/AKfycbycUyYQkmHCch9j71XJU6wyXQWEaYJwydaRDDNOKlJed8utBu2EI7hOF_sgQGKYZCsN2w/exec'
+  url: 'https://script.google.com/macros/s/AKfycbycUyYQkmHCch9j71XJU6wyXQWEaYJwydaRDDNOKlJed8utBu2EI7hOF_sgQGKYZCsN2w/exec',
+  pollMs: 7000
 };
 
 const el  = (s, r = document) => r.querySelector(s);
@@ -751,7 +742,6 @@ const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
 const SECTION_COLORS = ['#6c8cff','#39d4c8','#f59e0b','#ec4899','#8b5cf6','#10b981','#ef4444','#06b6d4'];
 const EVENT_EMOJIS = ['📌','📚','🎉','🎂','✏️','📝','🎯','⚽','🎵','🎨','🧪','💻','📅','⏰','⭐','❗','🔥','💡','🎓','🏆','🍕','🚀','❤️','☕','🎮','🛒','🎬','🎤','🏀','🧠'];
 
-/* Grade options — A=4, B=3, C=2, F=1, plus special values */
 const GRADE_OPTIONS = [
   { v: '',    l: '— No grade —' },
   { v: 'A',   l: 'A · 4/100' },
@@ -768,7 +758,6 @@ function gradeClass(g){
   return { 'A':'grade-a','B':'grade-b','C':'grade-c','F':'grade-f','0.1':'grade-fail','0':'grade-zero' }[g] || '';
 }
 
-/* Default weights per type */
 const TYPE_WEIGHT = { formative: 20, performance: 60, summative: 60 };
 
 function escapeHtml(s){
@@ -815,9 +804,9 @@ function isoDateKey(iso){
 }
 function dateKey(y, m, d){ return y + '-' + (m+1) + '-' + d; }
 
-/* Connection status */
+/* ============ CONNECTION STATUS ============ */
 let connState = 'hidden';
-const CONN_LABELS = { synced:'Synced', syncing:'Syncing…', unavailable:'Unavailable', error:'Sync error', local:'Local mode', hidden:'Hidden' };
+const CONN_LABELS = { synced:'Synced', syncing:'Syncing…', unavailable:'Offline', error:'Sync error', local:'Local mode', hidden:'Hidden' };
 function setConnStatus(state){
   connState = state;
   const pill = el('#connStatus');
@@ -837,27 +826,39 @@ function classifyError(err){
 function DEFAULT_DATA(){
   return {
     assignments: [], sections: [], events: [], notes: [], projects: [], audit: [],
-    settings: { theme:'aurora', cursor:'glow', tabAnim:true, tabAnimStyle:'slide', elementAnim:true, timerAnim:true, clock24:true, sound:true },
+    settings: { theme:'aurora', cursor:'glow', tabAnim:true, tabAnimStyle:'slide', elementAnim:true, timerAnim:true, clock24:true, sound:true, autoSync:true },
     updatedAt: Date.now()
   };
 }
 
 const LS_KEY = 'studydesk_v1';
 const Store = {
-  data: null, pushTimer: null,
+  data: null,
+  pushTimer: null,
+  pollId: null,
+
   init(){
     let localData = null;
     const raw = localStorage.getItem(LS_KEY);
     if (raw) { try { localData = JSON.parse(raw); } catch {} }
     window.addEventListener('storage', e => {
       if (e.key === LS_KEY && e.newValue) {
-        try { const incoming = JSON.parse(e.newValue); if (!this.data || (incoming.updatedAt || 0) > (this.data.updatedAt || 0)) { this.data = incoming; applyAll(); } } catch {}
+        try {
+          const incoming = JSON.parse(e.newValue);
+          if (!this.data || (incoming.updatedAt || 0) > (this.data.updatedAt || 0)) {
+            this.data = incoming;
+            ['sections','events','notes'].forEach(k => { if (!Array.isArray(this.data[k])) this.data[k] = []; });
+            applyAll();
+          }
+        } catch {}
       }
     });
     this.data = localData || DEFAULT_DATA();
     ['sections','events','notes'].forEach(k => { if (!Array.isArray(this.data[k])) this.data[k] = []; });
+    if (this.data.settings.autoSync === undefined) this.data.settings.autoSync = true;
     applyAll();
   },
+
   async apiPost(payload){
     const res = await fetch(CLOUD_CONFIG.url, { method: 'POST', redirect: 'follow', body: JSON.stringify(payload) });
     if (!res.ok) throw new Error('HTTP ' + res.status);
@@ -865,6 +866,7 @@ const Store = {
     if (data && data.ok === false) throw new Error(data.error || 'Unauthorized');
     return data;
   },
+
   async withStatus(fn, { silent = false } = {}){
     if (!isCloudConfigured()) return fn();
     if (!navigator.onLine) { if (!silent) setConnStatus('unavailable'); return fn(); }
@@ -872,6 +874,7 @@ const Store = {
     try { const result = await fn(); if (!silent) setConnStatus('synced'); return result; }
     catch (err) { if (!silent) setConnStatus(classifyError(err)); throw err; }
   },
+
   async loadCloudData(){
     if (!isCloudConfigured()) { setConnStatus('local'); return; }
     try {
@@ -879,15 +882,50 @@ const Store = {
       if (data && data.data && typeof data.data === 'object') {
         this.data = data.data;
         ['sections','events','notes'].forEach(k => { if (!Array.isArray(this.data[k])) this.data[k] = []; });
+        if (this.data.settings.autoSync === undefined) this.data.settings.autoSync = true;
         localStorage.setItem(LS_KEY, JSON.stringify(this.data));
         applyAll();
       }
     } catch (e) { console.warn('[StudyDesk] Initial fetch failed:', e.message); }
+    this.startPolling();
   },
+
   async pushCloud(){
     if (!isCloudConfigured() || !session) return;
     await this.withStatus(() => this.apiPost({ action: 'save', token: session.token, data: this.data }));
   },
+
+  // Silent polling — pulls changes from other devices without flashing "Syncing…"
+  startPolling(){
+    clearInterval(this.pollId);
+    if (!Store.data.settings.autoSync) return;
+    const ms = (CLOUD_CONFIG && CLOUD_CONFIG.pollMs) || 15000;
+    this.pollId = setInterval(async () => {
+      if (!isCloudConfigured() || !session || !session.token) return;
+      if (!navigator.onLine) { setConnStatus('unavailable'); return; }
+      if (connState === 'syncing') return; // user action in flight — don't interrupt
+      try {
+        const data = await this.apiPost({ action: 'read', token: session.token });
+        // Successful read → mark as synced
+        if (connState !== 'error') setConnStatus('synced');
+        if (data && data.data && (data.data.updatedAt || 0) > (this.data.updatedAt || 0)) {
+          this.data = data.data;
+          ['sections','events','notes'].forEach(k => { if (!Array.isArray(this.data[k])) this.data[k] = []; });
+          if (this.data.settings.autoSync === undefined) this.data.settings.autoSync = true;
+          localStorage.setItem(LS_KEY, JSON.stringify(this.data));
+          applyAll();
+        }
+      } catch (err) {
+        if (connState !== 'syncing') setConnStatus(classifyError(err));
+      }
+    }, ms);
+  },
+
+  stopPolling(){
+    clearInterval(this.pollId);
+    this.pollId = null;
+  },
+
   persist(){
     localStorage.setItem(LS_KEY, JSON.stringify(this.data));
     if (isCloudConfigured() && session && session.token) {
@@ -906,7 +944,6 @@ function commit(action, item, details){
   applyAll();
 }
 
-/* Sections */
 function getSection(id){ if (!id) return null; return Store.data.sections.find(s => s.id === id) || null; }
 function sectionColor(section){ if (!section) return null; return SECTION_COLORS[(section.colorIndex || 0) % SECTION_COLORS.length]; }
 function sectionPillHtml(sectionId){
@@ -1003,6 +1040,7 @@ async function logout(){
   }
   session = null;
   saveSession();
+  Store.stopPolling();
   setConnStatus('hidden');
   el('#app').classList.add('hidden');
   el('#loginScreen').classList.remove('hidden');
@@ -1036,7 +1074,6 @@ function tickClock(){
 setInterval(tickClock, 1000);
 setInterval(() => { if (Store.data) { renderHubLists(); renderCalendar(); } }, 60000);
 
-/* Priority + assignment row */
 function priorityScore(a){
   const due = new Date(a.due).getTime();
   const days = (due - Date.now()) / 86400000;
@@ -1047,9 +1084,7 @@ function priorityScore(a){
 }
 function gradeBadgeHtml(g){
   if (!g) return '';
-  const cls = gradeClass(g);
-  const label = g === '0.1' || g === '0' ? g : g;
-  return `<div class="grade-badge ${cls}">${escapeHtml(label)}</div>`;
+  return `<div class="grade-badge ${gradeClass(g)}">${escapeHtml(g)}</div>`;
 }
 function typePillHtml(t){
   const labels = { formative:'Formative', performance:'Performance', summative:'Summative', other:'Other' };
@@ -1090,22 +1125,20 @@ function assignmentRow(a, showScore){
 function renderHubLists(){
   if (!Store.data) return;
   const upcoming = Store.data.assignments
-    .filter(a => a.category !== 'other' && !a.completed && new Date(a.due).getTime() - Date.now() < 14 * 86400000)
+    .filter(a => a.category !== 'other' && !a.completed && a.due && new Date(a.due).getTime() - Date.now() < 14 * 86400000)
     .sort((a,b) => new Date(a.due) - new Date(b.due));
   el('#dueList').innerHTML = upcoming.length ? upcoming.map(a => assignmentRow(a,false)).join('') : '<div class="empty">Nothing due in the next two weeks 🎉</div>';
   const ranked = Store.data.assignments
-    .filter(a => a.category !== 'other' && !a.completed)
+    .filter(a => a.category !== 'other' && !a.completed && a.due)
     .slice()
     .sort((a,b) => { const d = priorityScore(b) - priorityScore(a); return d !== 0 ? d : new Date(a.due) - new Date(b.due); })
     .slice(0, 8);
   el('#priorityList').innerHTML = ranked.length ? ranked.map(a => assignmentRow(a,true)).join('') : '<div class="empty">Add assignments to build your priority list.</div>';
-  // wire completion toggles in hub lists
   els('#dueList [data-toggle-complete], #priorityList [data-toggle-complete]').forEach(c => {
     c.addEventListener('click', () => toggleComplete(c.dataset.toggleComplete));
   });
 }
 
-/* Calendar */
 let calViewDate = new Date();
 let calSelectedDate = null;
 let calEditingEventId = null;
@@ -1226,7 +1259,6 @@ function deleteEvent(id){
   commit('removed', 'Event', `Deleted event "${ev.name}"`);
 }
 
-/* Timer / stopwatch mode toggle */
 function initModeToggle(){
   els('#modeToggle button').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -1238,39 +1270,29 @@ function initModeToggle(){
   });
 }
 
-/* ============== ASSIGNMENTS TAB ============== */
 let editingId = null;
-
 function initAssignments(){
   el('#aSubmit').addEventListener('click', submitAssignment);
   el('#aCancel').addEventListener('click', cancelEdit);
   el('#addSectionBtn').addEventListener('click', promptAddSection);
   el('#sectionFilter').addEventListener('change', renderAssignments);
   el('#statusFilter').addEventListener('change', renderAssignments);
-
   el('#aCategory').addEventListener('change', toggleCategoryFields);
   el('#aType').addEventListener('change', () => {
-    // auto-fill weight based on type (only if user hasn't manually overridden)
     const t = el('#aType').value;
     if (TYPE_WEIGHT[t] !== undefined) el('#aWeight').value = TYPE_WEIGHT[t];
   });
   el('#addLinkBtn').addEventListener('click', () => addLinkRow());
-
-  // Initialize both grade dropdowns
   el('#aGrade').innerHTML = gradeOptionsHtml('');
   el('#aOtherGrade').innerHTML = gradeOptionsHtml('');
-
-  // Start with one empty link row
   addLinkRow();
 }
-
 function toggleCategoryFields(){
   const cat = el('#aCategory').value;
   el('#assignmentFields').classList.toggle('hidden', cat !== 'assignment');
   el('#otherFields').classList.toggle('hidden', cat !== 'other');
   el('#aSubmit').textContent = editingId ? '✓ Save Changes' : (cat === 'other' ? '+ Add Item' : '+ Add Assignment');
 }
-
 function addLinkRow(url = '', label = ''){
   const list = el('#aLinkList');
   const row = document.createElement('div');
@@ -1289,7 +1311,6 @@ function collectLinks(){
     label: row.querySelector('.link-label').value.trim()
   })).filter(l => l.url);
 }
-
 function refreshSectionDropdown(){
   const sel = el('#aSection'); if (!sel) return;
   const current = sel.value;
@@ -1301,10 +1322,8 @@ function refreshSectionDropdown(){
     filter.innerHTML = ['<option value="all">All sections</option>','<option value="none">No section</option>'].concat(Store.data.sections.map(s => `<option value="${s.id}">${escapeHtml(s.name)}</option>`)).join('');
     if (Array.from(filter.options).some(o => o.value === curFilter)) filter.value = curFilter;
   }
-  // Update notes datalist
   const dl = el('#noteClassList');
   if (dl) dl.innerHTML = Store.data.sections.map(s => `<option value="${escapeHtml(s.name)}">`).join('');
-  // Update notes class filter
   const ncf = el('#noteClassFilter');
   if (ncf) {
     const cur = ncf.value;
@@ -1312,7 +1331,6 @@ function refreshSectionDropdown(){
     if (Array.from(ncf.options).some(o => o.value === cur)) ncf.value = cur;
   }
 }
-
 function promptAddSection(){
   const name = (prompt('Name your section / class (e.g. "Math", "English"):') || '').trim();
   if (!name) return;
@@ -1353,23 +1371,17 @@ function renderSectionsUI(){
   els('[data-rename]').forEach(b => b.addEventListener('click', () => renameSection(b.dataset.rename)));
   els('[data-delsec]').forEach(b => b.addEventListener('click', () => deleteSection(b.dataset.delsec)));
 }
-
 function submitAssignment(){
   const cat = el('#aCategory').value;
-
   if (cat === 'other') {
     const title = el('#aOtherTitle').value.trim();
     const link  = el('#aOtherLink').value.trim();
     const grade = el('#aOtherGrade').value;
     const completed = el('#aCompleted').checked;
     if (!title) { toast('Please enter a title.'); return; }
-
     if (editingId) {
       const a = Store.data.assignments.find(x => x.id === editingId);
-      if (a) {
-        Object.assign(a, { category:'other', name:title, link, links:[], grade, completed, type:'other', due:null });
-        commit('edited', 'Item', `Updated "${title}"`);
-      }
+      if (a) { Object.assign(a, { category:'other', name:title, link, links:[], grade, completed, type:'other', due:null }); commit('edited', 'Item', `Updated "${title}"`); }
       cancelEdit();
     } else {
       Store.data.assignments.push({
@@ -1383,7 +1395,6 @@ function submitAssignment(){
     return;
   }
 
-  // ---- Assignment ----
   const name = el('#aName').value.trim();
   const sectionId = el('#aSection').value;
   const teacher = el('#aTeacher').value.trim();
@@ -1418,18 +1429,13 @@ function submitAssignment(){
   }
   clearAssignmentForm();
 }
-
 function clearAssignmentForm(){
-  // Reset assignment fields
   el('#aName').value = ''; el('#aTeacher').value = ''; el('#aDue').value = '';
   el('#aDueTime').value = ''; el('#aWeight').value = ''; el('#aType').value = 'formative';
   el('#aSection').value = ''; el('#aGrade').value = '';
   el('#aLinkList').innerHTML = ''; addLinkRow();
-  // Reset other fields
   el('#aOtherTitle').value = ''; el('#aOtherLink').value = ''; el('#aOtherGrade').value = '';
-  // Completion
   el('#aCompleted').checked = false;
-  // Reset category
   el('#aCategory').value = 'assignment';
   toggleCategoryFields();
 }
@@ -1443,7 +1449,6 @@ function editAssignment(id){
   const a = Store.data.assignments.find(x => x.id === id); if (!a) return;
   editingId = id;
   el('#aCancel').classList.remove('hidden');
-
   if (a.category === 'other') {
     el('#aCategory').value = 'other';
     toggleCategoryFields();
@@ -1464,14 +1469,12 @@ function editAssignment(id){
     const { date, time } = splitDue(a.due);
     el('#aDue').value = date;
     el('#aDueTime').value = time;
-    // Links
     el('#aLinkList').innerHTML = '';
     const links = Array.isArray(a.links) ? a.links.filter(l => l && l.url) : [];
     if (a.link && !links.length) links.push({ url: a.link, label: '' });
     if (links.length) links.forEach(l => addLinkRow(l.url, l.label));
     else addLinkRow();
   }
-
   el('#assignFormTitle').textContent = 'Edit Item';
   el('#aSubmit').textContent = '✓ Save Changes';
   el('#aName').focus();
@@ -1488,7 +1491,6 @@ function toggleComplete(id){
   a.completed = !a.completed;
   commit('edited', a.category === 'other' ? 'Item' : 'Assignment', `${a.completed ? 'Completed' : 'Uncompleted'} "${a.name}"`);
 }
-
 function renderAssignments(){
   if (!Store.data) return;
   const filterVal = el('#sectionFilter') ? el('#sectionFilter').value : 'all';
@@ -1500,7 +1502,6 @@ function renderAssignments(){
   if (statusVal === 'active') items = items.filter(a => !a.completed);
   else if (statusVal === 'completed') items = items.filter(a => a.completed);
 
-  // Completed at the bottom, then by due date
   items.sort((a, b) => {
     if (a.completed !== b.completed) return a.completed ? 1 : -1;
     if (!a.due && !b.due) return 0;
@@ -1524,19 +1525,11 @@ function renderAssignments(){
       metaParts.push(`<span>⚖️ ${escapeHtml(String(a.weight ?? 0))}%</span>`);
     }
     metaParts.push(`<span>Added by ${escapeHtml(a.createdBy || '—')}</span>`);
-
     return `<div class="item ${a.completed ? 'completed' : ''}">
       <div class="complete-check ${a.completed ? 'checked' : ''}" data-toggle-complete="${a.id}" title="Toggle complete"></div>
       <div class="item-main">
-        <div class="item-title">
-          ${escapeHtml(a.name)}
-          ${sectionPillHtml(a.sectionId)}
-          ${typePillHtml(a.type)}
-        </div>
-        <div class="item-meta">
-          ${metaParts.join('')}
-          ${links}
-        </div>
+        <div class="item-title">${escapeHtml(a.name)}${sectionPillHtml(a.sectionId)}${typePillHtml(a.type)}</div>
+        <div class="item-meta">${metaParts.join('')}${links}</div>
       </div>
       ${a.grade ? gradeBadgeHtml(a.grade) : ''}
       <div class="mini-actions">
@@ -1551,9 +1544,7 @@ function renderAssignments(){
   els('#assignList [data-toggle-complete]').forEach(c => c.addEventListener('click', () => toggleComplete(c.dataset.toggleComplete)));
 }
 
-/* ============== NOTES TAB ============== */
 let editingNoteId = null;
-
 function initNotes(){
   el('#nSubmit').addEventListener('click', submitNote);
   el('#nCancel').addEventListener('click', cancelNoteEdit);
@@ -1561,20 +1552,17 @@ function initNotes(){
   el('#noteClassFilter').addEventListener('change', renderNotes);
   toggleNoteTypeFields();
 }
-
 function toggleNoteTypeFields(){
   const t = el('#nType').value;
   el('#nUrlField').classList.toggle('hidden', t === 'manual');
   el('#nContentField').classList.toggle('hidden', t !== 'manual');
 }
-
 function submitNote(){
   const title = el('#nTitle').value.trim();
   const className = el('#nClass').value.trim();
   const type = el('#nType').value;
   const url = el('#nUrl').value.trim();
   const content = el('#nContent').value;
-
   if (!title) { toast('Please enter a title.'); return; }
   if (type === 'manual' && !content.trim()) { toast('Please add some content.'); return; }
   if (type !== 'manual' && !url) { toast('Please enter a URL.'); return; }
@@ -1597,12 +1585,9 @@ function submitNote(){
     clearNoteForm();
   }
 }
-
 function clearNoteForm(){
-  el('#nTitle').value = '';
-  el('#nClass').value = '';
-  el('#nUrl').value = '';
-  el('#nContent').value = '';
+  el('#nTitle').value = ''; el('#nClass').value = '';
+  el('#nUrl').value = ''; el('#nContent').value = '';
   el('#nType').value = 'site';
   toggleNoteTypeFields();
 }
@@ -1636,21 +1621,13 @@ function deleteNote(id){
 }
 function renderNotes(){
   if (!Store.data) return;
-  const list = el('#noteList');
-  if (!list) return;
-
+  const list = el('#noteList'); if (!list) return;
   const filter = el('#noteClassFilter') ? el('#noteClassFilter').value : 'all';
   let notes = (Store.data.notes || []).slice();
   if (filter !== 'all') notes = notes.filter(n => (n.className || '') === filter);
   notes.sort((a, b) => (b.updatedAt || b.createdAt || 0) - (a.updatedAt || a.createdAt || 0));
-
   el('#noteCount').textContent = notes.length;
-
-  if (!notes.length) {
-    list.innerHTML = '<div class="empty">No notes yet. Add one on the left.</div>';
-    return;
-  }
-
+  if (!notes.length) { list.innerHTML = '<div class="empty">No notes yet. Add one on the left.</div>'; return; }
   list.innerHTML = notes.map(n => {
     const icons = { site:'🌐', doc:'📄', manual:'📝' };
     const icon = icons[n.type] || '📝';
@@ -1662,14 +1639,9 @@ function renderNotes(){
     if (n.type === 'doc') meta.push('<span>📄 Document</span>');
     if (n.type === 'manual') meta.push('<span>📝 Manual note</span>');
     meta.push(`<span>Added ${new Date(n.createdAt || Date.now()).toLocaleDateString()}</span>`);
-
     let body = '';
-    if (n.type === 'manual') {
-      body = `<div class="note-content">${escapeHtml(n.content || '')}</div>`;
-    } else if (n.url) {
-      body = `<a class="note-url" href="${escapeHtml(n.url)}" target="_blank" rel="noopener">${escapeHtml(n.url)} ↗</a>`;
-    }
-
+    if (n.type === 'manual') body = `<div class="note-content">${escapeHtml(n.content || '')}</div>`;
+    else if (n.url) body = `<a class="note-url" href="${escapeHtml(n.url)}" target="_blank" rel="noopener">${escapeHtml(n.url)} ↗</a>`;
     return `<div class="note-item">
       <div class="note-icon">${icon}</div>
       <div class="note-main">
@@ -1683,12 +1655,10 @@ function renderNotes(){
       </div>
     </div>`;
   }).join('');
-
   els('[data-edit-note]').forEach(b => b.addEventListener('click', () => editNote(b.dataset.editNote)));
   els('[data-del-note]').forEach(b => b.addEventListener('click', () => deleteNote(b.dataset.delNote)));
 }
 
-/* ============== CODE STORAGE ============== */
 let currentProjectId = null, previewTimer = null;
 function initCode(){
   el('#pSave').addEventListener('click', saveProject);
@@ -1729,7 +1699,6 @@ function renderProjects(){
   els('[data-pdel]').forEach(btn => btn.addEventListener('click', e => { e.stopPropagation(); deleteProject(btn.dataset.pdel); }));
 }
 
-/* ============== AUDIT ============== */
 function initAudit(){
   el('#auditFilter').addEventListener('change', renderAudit);
   el('#clearAudit').addEventListener('click', () => {
@@ -1748,21 +1717,20 @@ function renderAudit(){
   el('#auditBody').innerHTML = rows.length ? rows.map(r => `<tr><td class="muted" style="white-space:nowrap">${fmtDateTime(r.time)}</td><td><span class="pill ${r.role}">${escapeHtml(r.role)}</span> <span style="margin-left:6px">${escapeHtml(r.user)}</span></td><td><span class="action-tag ${r.action}">${escapeHtml(r.action)}</span></td><td>${escapeHtml(r.item)}</td><td class="muted">${escapeHtml(r.details || '')}</td></tr>`).join('') : '<tr><td colspan="5" class="empty">No activity recorded yet.</td></tr>';
 }
 
-/* ============== SETTINGS ============== */
 const THEMES = [
-  { id:'aurora',   name:'Aurora',   dots:['#6c8cff','#39d4c8','#0b1020'] },
+  { id:'aurora', name:'Aurora', dots:['#6c8cff','#39d4c8','#0b1020'] },
   { id:'midnight', name:'Midnight', dots:['#2f81f7','#39d353','#05070d'] },
-  { id:'light',    name:'Daylight', dots:['#3b5bfd','#0d9b9b','#f2f5fc'] },
-  { id:'solar',    name:'Solar',    dots:['#e08a1e','#c2410c','#fdf6e9'] },
-  { id:'neon',     name:'Neon',     dots:['#ff2fd0','#b6ff3a','#050505'] },
-  { id:'forest',   name:'Forest',   dots:['#34d399','#a3e635','#08130f'] },
-  { id:'ocean',    name:'Ocean',    dots:['#22b8ff','#00f0d4','#061428'] },
-  { id:'sunset',   name:'Sunset',   dots:['#ff7b47','#ff4d8d','#1a0b22'] },
-  { id:'cherry',   name:'Cherry',   dots:['#ff4d8d','#ff85b3','#1a0810'] },
+  { id:'light', name:'Daylight', dots:['#3b5bfd','#0d9b9b','#f2f5fc'] },
+  { id:'solar', name:'Solar', dots:['#e08a1e','#c2410c','#fdf6e9'] },
+  { id:'neon', name:'Neon', dots:['#ff2fd0','#b6ff3a','#050505'] },
+  { id:'forest', name:'Forest', dots:['#34d399','#a3e635','#08130f'] },
+  { id:'ocean', name:'Ocean', dots:['#22b8ff','#00f0d4','#061428'] },
+  { id:'sunset', name:'Sunset', dots:['#ff7b47','#ff4d8d','#1a0b22'] },
+  { id:'cherry', name:'Cherry', dots:['#ff4d8d','#ff85b3','#1a0810'] },
   { id:'terminal', name:'Terminal', dots:['#33ff33','#1f7a1f','#000000'] },
   { id:'lavender', name:'Lavender', dots:['#8b5cf6','#d946ef','#f3f0ff'] },
-  { id:'crimson',  name:'Crimson',  dots:['#dc2626','#f97316','#0a0305'] },
-  { id:'mono',     name:'Mono',     dots:['#eaeaea','#8a8a8a','#0a0a0a'] }
+  { id:'crimson', name:'Crimson', dots:['#dc2626','#f97316','#0a0305'] },
+  { id:'mono', name:'Mono', dots:['#eaeaea','#8a8a8a','#0a0a0a'] }
 ];
 
 function initSettings(){
@@ -1777,6 +1745,11 @@ function initSettings(){
   el('#setTimerAnim').addEventListener('change', e => { Store.data.settings.timerAnim = e.target.checked; commit('edited','Settings',`Timer anim ${e.target.checked?'on':'off'}`); });
   el('#setClock24').addEventListener('change', e => { Store.data.settings.clock24 = e.target.checked; commit('edited','Settings',`Clock → ${e.target.checked?'24h':'12h'}`); tickClock(); });
   el('#setSound').addEventListener('change', e => { Store.data.settings.sound = e.target.checked; commit('edited','Settings',`Sound ${e.target.checked?'on':'off'}`); });
+  el('#setAutoSync').addEventListener('change', e => {
+    Store.data.settings.autoSync = e.target.checked;
+    if (e.target.checked) Store.startPolling(); else Store.stopPolling();
+    commit('edited','Settings',`Background sync ${e.target.checked?'on':'off'}`);
+  });
   el('#savePass').addEventListener('click', async () => {
     const np = el('#newPass').value;
     if (np.length < 4) { toast('Password must be at least 4 characters.'); return; }
@@ -1805,6 +1778,7 @@ function renderSettingsUI(){
   el('#setTabAnim').checked = !!s.tabAnim; el('#setElAnim').checked = !!s.elementAnim;
   el('#setTimerAnim').checked = !!s.timerAnim; el('#setClock24').checked = !!s.clock24;
   el('#setSound').checked = !!s.sound;
+  el('#setAutoSync').checked = s.autoSync !== false;
 }
 function updateSyncBadge(){
   const badge = el('#syncBadge'), text = el('#syncText');
@@ -1814,7 +1788,7 @@ function updateSyncBadge(){
   switch (connState) {
     case 'synced': text.textContent = 'Synced with Google Sheets'; break;
     case 'syncing': text.textContent = 'Syncing…'; break;
-    case 'unavailable': badge.classList.add('unavailable'); text.textContent = 'Unavailable — changes saved locally'; break;
+    case 'unavailable': badge.classList.add('unavailable'); text.textContent = 'Offline — changes saved locally'; break;
     case 'error': badge.classList.add('error'); text.textContent = 'Sync error — check the console'; break;
     case 'local': badge.classList.add('local'); text.textContent = 'Local mode'; break;
     default: text.textContent = 'Cloud sync configured';
@@ -1828,7 +1802,6 @@ function initProfileMenu(){
   el('#menuSettings').addEventListener('click', openSettings);
 }
 
-/* ============== TIMER ============== */
 const RING_C = 2 * Math.PI * 54;
 let timerState = { total:1500, remaining:1500, running:false, endAt:0, id:null };
 function initTimer(){
@@ -1891,7 +1864,6 @@ function beep(){
   } catch {}
 }
 
-/* ============== STOPWATCH ============== */
 let swState = { elapsed:0, running:false, startAt:0, id:null };
 function initStopwatch(){
   el('#swStart').addEventListener('click', startSW);
@@ -1907,7 +1879,6 @@ function updateSWUI(){
   el('#swDisplay').textContent = `${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}.${tenths}`;
 }
 
-/* ============== CURSOR ============== */
 let lastCursorEvent = 0;
 function initCursor(){
   const glow = el('#cursorGlow');
@@ -1921,72 +1892,15 @@ function initCursor(){
     if (now - lastCursorEvent < rate) return;
     lastCursorEvent = now;
     switch (effect) {
-      case 'trail': {
-        const dot = document.createElement('div'); dot.className = 'cursor-dot';
-        dot.style.left = e.clientX + 'px'; dot.style.top = e.clientY + 'px';
-        dot.style.background = Math.random() > .5 ? 'var(--accent)' : 'var(--accent2)';
-        document.body.appendChild(dot); setTimeout(() => dot.remove(), 700);
-        break;
-      }
-      case 'sparkle': {
-        const sp = document.createElement('div'); sp.className = 'cursor-spark';
-        sp.textContent = ['✦','✧','⋆','✶'][Math.floor(Math.random()*4)];
-        sp.style.left = (e.clientX + (Math.random()*22-11)) + 'px';
-        sp.style.top  = (e.clientY + (Math.random()*22-11)) + 'px';
-        document.body.appendChild(sp); setTimeout(() => sp.remove(), 900);
-        break;
-      }
-      case 'ripple': {
-        const r = document.createElement('div'); r.className = 'cursor-ripple';
-        r.style.left = e.clientX + 'px'; r.style.top = e.clientY + 'px';
-        document.body.appendChild(r); setTimeout(() => r.remove(), 950);
-        break;
-      }
-      case 'comet': {
-        const c = document.createElement('div'); c.className = 'cursor-comet';
-        c.style.left = (e.clientX + (Math.random()*6-3)) + 'px';
-        c.style.top  = (e.clientY + (Math.random()*6-3)) + 'px';
-        document.body.appendChild(c); setTimeout(() => c.remove(), 750);
-        break;
-      }
-      case 'stars': {
-        const s = document.createElement('div'); s.className = 'cursor-star';
-        s.textContent = ['✦','✧','⋆','✶','★'][Math.floor(Math.random()*5)];
-        s.style.left = e.clientX + 'px'; s.style.top = e.clientY + 'px';
-        document.body.appendChild(s); setTimeout(() => s.remove(), 1500);
-        break;
-      }
-      case 'hearts': {
-        const h = document.createElement('div'); h.className = 'cursor-heart';
-        h.textContent = ['❤️','💖','💕','💗','♥️'][Math.floor(Math.random()*5)];
-        h.style.left = (e.clientX + (Math.random()*20-10)) + 'px';
-        h.style.top  = (e.clientY + (Math.random()*8-4)) + 'px';
-        document.body.appendChild(h); setTimeout(() => h.remove(), 1250);
-        break;
-      }
-      case 'snow': {
-        const sn = document.createElement('div'); sn.className = 'cursor-snow';
-        sn.textContent = ['❄','❅','❆','•','·'][Math.floor(Math.random()*5)];
-        sn.style.left = (e.clientX + (Math.random()*24-12)) + 'px';
-        sn.style.top  = (e.clientY + (Math.random()*8-4)) + 'px';
-        document.body.appendChild(sn); setTimeout(() => sn.remove(), 1700);
-        break;
-      }
-      case 'ink': {
-        const ink = document.createElement('div'); ink.className = 'cursor-ink';
-        ink.style.left = e.clientX + 'px'; ink.style.top = e.clientY + 'px';
-        ink.style.background = Math.random() > .5 ? 'var(--accent)' : 'var(--accent2)';
-        document.body.appendChild(ink); setTimeout(() => ink.remove(), 850);
-        break;
-      }
-      case 'flame': {
-        const f = document.createElement('div'); f.className = 'cursor-flame';
-        f.textContent = ['🔥','✦','•','✧'][Math.floor(Math.random()*4)];
-        f.style.left = (e.clientX + (Math.random()*12-6)) + 'px';
-        f.style.top  = (e.clientY + (Math.random()*6-3)) + 'px';
-        document.body.appendChild(f); setTimeout(() => f.remove(), 750);
-        break;
-      }
+      case 'trail': { const d = document.createElement('div'); d.className='cursor-dot'; d.style.left=e.clientX+'px'; d.style.top=e.clientY+'px'; d.style.background = Math.random()>.5?'var(--accent)':'var(--accent2)'; document.body.appendChild(d); setTimeout(()=>d.remove(),700); break; }
+      case 'sparkle': { const s = document.createElement('div'); s.className='cursor-spark'; s.textContent=['✦','✧','⋆','✶'][Math.floor(Math.random()*4)]; s.style.left=(e.clientX+(Math.random()*22-11))+'px'; s.style.top=(e.clientY+(Math.random()*22-11))+'px'; document.body.appendChild(s); setTimeout(()=>s.remove(),900); break; }
+      case 'ripple': { const r = document.createElement('div'); r.className='cursor-ripple'; r.style.left=e.clientX+'px'; r.style.top=e.clientY+'px'; document.body.appendChild(r); setTimeout(()=>r.remove(),950); break; }
+      case 'comet': { const c = document.createElement('div'); c.className='cursor-comet'; c.style.left=(e.clientX+(Math.random()*6-3))+'px'; c.style.top=(e.clientY+(Math.random()*6-3))+'px'; document.body.appendChild(c); setTimeout(()=>c.remove(),750); break; }
+      case 'stars': { const s = document.createElement('div'); s.className='cursor-star'; s.textContent=['✦','✧','⋆','✶','★'][Math.floor(Math.random()*5)]; s.style.left=e.clientX+'px'; s.style.top=e.clientY+'px'; document.body.appendChild(s); setTimeout(()=>s.remove(),1500); break; }
+      case 'hearts': { const h = document.createElement('div'); h.className='cursor-heart'; h.textContent=['❤️','💖','💕','💗','♥️'][Math.floor(Math.random()*5)]; h.style.left=(e.clientX+(Math.random()*20-10))+'px'; h.style.top=(e.clientY+(Math.random()*8-4))+'px'; document.body.appendChild(h); setTimeout(()=>h.remove(),1250); break; }
+      case 'snow': { const sn = document.createElement('div'); sn.className='cursor-snow'; sn.textContent=['❄','❅','❆','•','·'][Math.floor(Math.random()*5)]; sn.style.left=(e.clientX+(Math.random()*24-12))+'px'; sn.style.top=(e.clientY+(Math.random()*8-4))+'px'; document.body.appendChild(sn); setTimeout(()=>sn.remove(),1700); break; }
+      case 'ink': { const i = document.createElement('div'); i.className='cursor-ink'; i.style.left=e.clientX+'px'; i.style.top=e.clientY+'px'; i.style.background = Math.random()>.5?'var(--accent)':'var(--accent2)'; document.body.appendChild(i); setTimeout(()=>i.remove(),850); break; }
+      case 'flame': { const f = document.createElement('div'); f.className='cursor-flame'; f.textContent=['🔥','✦','•','✧'][Math.floor(Math.random()*4)]; f.style.left=(e.clientX+(Math.random()*12-6))+'px'; f.style.top=(e.clientY+(Math.random()*6-3))+'px'; document.body.appendChild(f); setTimeout(()=>f.remove(),750); break; }
     }
   });
   document.addEventListener('mouseleave', () => { glow.style.opacity = '0'; });
