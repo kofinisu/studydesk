@@ -54,7 +54,14 @@ button{cursor:pointer;border:none;background:none}
 .field label .opt{color:var(--muted);font-weight:400;font-size:10.5px;letter-spacing:.4px;text-transform:uppercase;margin-left:6px}
 .field input,.field select,.field textarea{width:100%;padding:11px 13px;border-radius:11px;border:1px solid var(--border);background:var(--surface2);outline:none;transition:border .2s,box-shadow .2s}
 .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 22%,transparent)}
-.btn{padding:11px 16px;border-radius:11px;background:var(--accent);color:#fff;font-weight:600;transition:transform .16s ease,filter .2s ease,box-shadow .2s ease}
+
+/* ============ BUTTONS (fixed wrapping) ============ */
+.btn{
+  padding:11px 16px;border-radius:11px;background:var(--accent);color:#fff;font-weight:600;
+  transition:transform .16s ease,filter .2s ease,box-shadow .2s ease;
+  white-space:nowrap;flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;gap:5px;
+  min-height:38px;line-height:1;
+}
 html[data-elanim="on"] .btn:hover{transform:translateY(-2px);filter:brightness(1.08);box-shadow:0 8px 20px color-mix(in srgb,var(--accent) 40%,transparent)}
 .btn:active{transform:translateY(0) scale(.98)}
 .btn:disabled{opacity:.6;cursor:wait;transform:none !important}
@@ -62,7 +69,16 @@ html[data-elanim="on"] .btn:hover{transform:translateY(-2px);filter:brightness(1
 .btn.ghost:hover{box-shadow:none;border-color:var(--accent)}
 .btn.danger{background:var(--danger);color:#fff}
 .btn.full{width:100%;padding:13px}
-.btn.mini{padding:6px 10px;font-size:12px;border-radius:8px}
+.btn.mini{padding:6px 12px;font-size:12px;border-radius:8px;min-height:30px}
+
+/* Icon-only small buttons (the ✕, ✎, 🗑) — fixed size, no wrapping */
+.mini{
+  width:30px;height:30px;border-radius:9px;display:inline-grid;place-items:center;
+  font-size:13px;background:var(--surface);border:1px solid var(--border);
+  transition:all .18s ease;flex-shrink:0;padding:0;line-height:1;
+  white-space:nowrap;overflow:hidden;
+}
+
 .login-error{color:var(--danger);font-size:13px;margin-top:12px;min-height:18px;text-align:center}
 .login-hint{margin-top:18px;text-align:center;font-size:11.5px;color:var(--muted);line-height:1.6}
 
@@ -74,30 +90,21 @@ html[data-elanim="on"] .btn:hover{transform:translateY(-2px);filter:brightness(1
 .tab-btn:hover{color:var(--text)}
 .tab-btn.active{background:linear-gradient(135deg,var(--accent),color-mix(in srgb,var(--accent2) 55%,var(--accent)));color:#fff;box-shadow:0 5px 16px color-mix(in srgb,var(--accent) 42%,transparent)}
 .top-right{margin-left:auto;display:flex;align-items:center;gap:10px;position:relative}
-.icon-btn{width:40px;height:40px;border-radius:12px;background:var(--surface);border:1px solid var(--border);display:grid;place-items:center;font-size:17px;transition:all .22s ease}
+.icon-btn{width:40px;height:40px;border-radius:12px;background:var(--surface);border:1px solid var(--border);display:grid;place-items:center;font-size:17px;transition:all .22s ease;flex-shrink:0}
 html[data-elanim="on"] .icon-btn:hover{transform:translateY(-2px) rotate(22deg);border-color:var(--accent);color:var(--accent)}
-.profile-btn{display:flex;align-items:center;gap:10px;padding:6px 13px 6px 7px;border-radius:13px;background:var(--surface);border:1px solid var(--border);transition:all .22s ease}
+.profile-btn{display:flex;align-items:center;gap:10px;padding:6px 13px 6px 7px;border-radius:13px;background:var(--surface);border:1px solid var(--border);transition:all .22s ease;white-space:nowrap;flex-shrink:0}
 html[data-elanim="on"] .profile-btn:hover{border-color:var(--accent);transform:translateY(-1px)}
-.avatar{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font-weight:700;font-size:13px;color:#fff;background:linear-gradient(135deg,var(--accent),var(--accent2))}
+.avatar{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font-weight:700;font-size:13px;color:#fff;background:linear-gradient(135deg,var(--accent),var(--accent2));flex-shrink:0}
 .profile-meta{display:flex;flex-direction:column;align-items:flex-start;line-height:1.15}
 .profile-meta strong{font-size:12.5px}
 .profile-meta small{font-size:10.5px;color:var(--muted);text-transform:capitalize;letter-spacing:.4px}
 .menu{position:absolute;top:52px;right:0;background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:6px;min-width:170px;box-shadow:var(--shadow);z-index:200;animation:menuIn .18s ease both}
 @keyframes menuIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
-.menu button{display:block;width:100%;text-align:left;padding:10px 12px;border-radius:9px;font-size:13px;transition:background .15s}
+.menu button{display:block;width:100%;text-align:left;padding:10px 12px;border-radius:9px;font-size:13px;transition:background .15s;white-space:nowrap}
 .menu button:hover{background:var(--surface2)}
 .menu .sep{height:1px;background:var(--border);margin:5px 4px}
 
-/* ================= SYNC STATUS (now inside top-right) ================= */
-.conn-status{
-  display:flex;align-items:center;gap:7px;padding:6px 12px;border-radius:20px;
-  background:var(--surface);border:1px solid var(--border);
-  font-size:11.5px;font-weight:700;letter-spacing:.2px;
-  transition:border-color .3s ease,color .3s ease,background .3s ease;
-  white-space:nowrap;flex-shrink:0;
-  box-shadow:0 2px 8px rgba(0,0,0,.12);
-  cursor:default;user-select:none;
-}
+.conn-status{display:flex;align-items:center;gap:7px;padding:6px 12px;border-radius:20px;background:var(--surface);border:1px solid var(--border);font-size:11.5px;font-weight:700;letter-spacing:.2px;transition:border-color .3s ease,color .3s ease,background .3s ease;white-space:nowrap;flex-shrink:0;box-shadow:0 2px 8px rgba(0,0,0,.12);cursor:default;user-select:none}
 .conn-status.hidden{display:none}
 .conn-status .dot{width:8px;height:8px;border-radius:50%;background:var(--muted);flex-shrink:0;transition:background .3s ease,box-shadow .3s ease}
 .conn-status.synced{border-color:color-mix(in srgb,#3ddc97 50%,var(--border));color:#3ddc97;background:color-mix(in srgb,#3ddc97 8%,var(--surface))}
@@ -176,14 +183,16 @@ html[data-timeranim="on"] .ring-wrap.running .sw-ring .ring-fg{animation:spinRin
 .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:center}
 .row input[type=number]{width:64px;padding:8px 10px;border-radius:9px;border:1px solid var(--border);background:var(--surface2);text-align:center;outline:none}
 .row .lbl{font-size:12px;color:var(--muted)}
-.ctrl-btn{padding:9px 15px;border-radius:10px;background:var(--surface2);border:1px solid var(--border);font-size:12.5px;font-weight:600;transition:all .2s ease}
+.ctrl-btn{padding:9px 15px;border-radius:10px;background:var(--surface2);border:1px solid var(--border);font-size:12.5px;font-weight:600;transition:all .2s ease;white-space:nowrap;flex-shrink:0;display:inline-flex;align-items:center;gap:5px;justify-content:center;min-height:36px}
 .ctrl-btn.primary{background:var(--accent);color:#fff;border-color:transparent}
 .ctrl-btn.sw-primary{background:var(--accent2);color:#06121c;border-color:transparent}
 
+/* ============ CALENDAR ============ */
 .cal-header{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px}
-.cal-label{font-size:14px;font-weight:800;letter-spacing:-.2px}
-.cal-nav{width:30px;height:30px;border-radius:9px;background:var(--surface2);border:1px solid var(--border);display:grid;place-items:center;font-size:15px;transition:all .18s ease;color:var(--muted)}
+.cal-label{font-size:14px;font-weight:800;letter-spacing:-.2px;flex:1;text-align:center}
+.cal-nav{width:30px;height:30px;border-radius:9px;background:var(--surface2);border:1px solid var(--border);display:grid;place-items:center;font-size:15px;transition:all .18s ease;color:var(--muted);flex-shrink:0}
 .cal-nav:hover{border-color:var(--accent);color:var(--accent)}
+.cal-nav.active{border-color:var(--accent);color:var(--accent);background:color-mix(in srgb,var(--accent) 15%,var(--surface2))}
 .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
 .cal-wd{text-align:center;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);padding:4px 0 8px}
 .cal-cell{position:relative;aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;border-radius:9px;font-size:12.5px;font-weight:600;cursor:pointer;transition:all .15s ease;border:1px solid transparent;user-select:none}
@@ -198,16 +207,45 @@ html[data-timeranim="on"] .ring-wrap.running .sw-ring .ring-fg{animation:spinRin
 .cal-cell.multi .cal-dot{width:16px;height:3px;border-radius:2px}
 .cal-cell .cal-emoji-badge{position:absolute;top:1px;right:2px;font-size:10px;line-height:1;pointer-events:none;filter:drop-shadow(0 1px 2px rgba(0,0,0,.4))}
 .cal-cell.multi-events .cal-emoji-badge{font-size:9px}
+/* Google event indicator */
+.cal-cell .cal-gdot{position:absolute;top:3px;left:3px;width:5px;height:5px;border-radius:50%;background:#4285f4;box-shadow:0 0 5px #4285f4}
+.cal-cell.selected .cal-gdot{background:#fff;box-shadow:0 0 5px #fff}
+
+/* ============ GOOGLE CALENDAR IMPORT PANEL ============ */
+.gcal-panel{margin-top:12px;padding:12px;border-radius:11px;background:var(--surface2);border:1px solid var(--border);animation:paneIn .22s ease both}
+.gcal-panel .gp-title{font-size:11px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.gcal-panel .gp-title .gc-logo{width:14px;height:14px;border-radius:3px;background:linear-gradient(135deg,#4285f4,#34a853,#fbbc04,#ea4335);display:inline-block}
+.gcal-panel .gp-status{font-size:11.5px;color:var(--muted);margin-bottom:10px;line-height:1.5}
+.gcal-panel .gp-status.ok{color:var(--success)}
+.gcal-panel .gp-status.err{color:var(--danger)}
+.gcal-panel input[type=url]{
+  width:100%;padding:9px 11px;font-size:12px;border-radius:9px;border:1px solid var(--border);
+  background:var(--surface);outline:none;margin-bottom:8px;
+}
+.gcal-panel input[type=url]:focus{border-color:var(--accent)}
+.gcal-panel textarea{
+  width:100%;padding:9px 11px;font-size:11.5px;border-radius:9px;border:1px solid var(--border);
+  background:var(--surface);outline:none;margin-bottom:8px;font-family:var(--mono);
+  min-height:100px;resize:vertical;display:none;
+}
+.gcal-panel textarea.visible{display:block}
+.gcal-panel textarea:focus{border-color:var(--accent)}
+.gcal-panel .gp-toggle{font-size:11px;color:var(--accent);cursor:pointer;text-decoration:underline;margin-bottom:10px;display:inline-block;background:none;padding:0}
+.gcal-panel .gp-actions{display:flex;gap:6px;flex-wrap:wrap}
+.gcal-panel .gp-help{font-size:10.5px;color:var(--muted);margin-top:8px;line-height:1.55;padding:8px;background:var(--surface);border-radius:7px;border:1px solid var(--border)}
+.gcal-panel .gp-help code{font-family:var(--mono);background:var(--bg);padding:1px 4px;border-radius:4px;font-size:10px}
 
 .cal-day-panel{margin-top:12px;padding-top:12px;border-top:1px solid var(--border);max-height:240px;overflow-y:auto}
 .cal-day-title{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:10.5px;text-transform:uppercase;letter-spacing:.9px;color:var(--muted);font-weight:800;margin-bottom:8px}
-.cal-day-title .day-add-btn{font-size:10px;padding:4px 8px;border-radius:6px;background:var(--surface2);border:1px solid var(--border);color:var(--text);font-weight:700;letter-spacing:.4px;text-transform:uppercase;cursor:pointer;transition:all .18s}
+.cal-day-title .day-add-btn{font-size:10px;padding:4px 8px;border-radius:6px;background:var(--surface2);border:1px solid var(--border);color:var(--text);font-weight:700;letter-spacing:.4px;text-transform:uppercase;cursor:pointer;transition:all .18s;white-space:nowrap;flex-shrink:0}
 .cal-day-title .day-add-btn:hover{border-color:var(--accent);color:var(--accent)}
 .cal-day-empty{font-size:12px;color:var(--muted);font-style:italic;text-align:center;padding:8px 0}
 .cal-day-item{display:flex;align-items:center;gap:7px;padding:6px 9px;border-radius:8px;font-size:11.5px;background:var(--surface2);margin-bottom:4px;border:1px solid transparent;transition:border-color .15s}
 .cal-day-item:hover{border-color:color-mix(in srgb,var(--accent) 40%,transparent)}
+.cal-day-item.gcal{border-left:3px solid #4285f4}
 .cal-day-item .cal-dot-sm{width:6px;height:6px;border-radius:50%;flex-shrink:0}
 .cal-day-item .cal-emoji{font-size:14px;line-height:1;flex-shrink:0}
+.cal-day-item .cal-gbadge{font-size:9px;font-weight:900;padding:2px 5px;border-radius:4px;background:#4285f4;color:#fff;letter-spacing:.5px;flex-shrink:0}
 .cal-day-item .cal-name{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600}
 .cal-day-item .cal-time{font-size:10px;color:var(--muted);flex-shrink:0}
 .cal-day-item .item-del{width:20px;height:20px;border-radius:5px;display:grid;place-items:center;font-size:10px;background:transparent;border:1px solid transparent;color:var(--muted);flex-shrink:0;transition:all .15s}
@@ -218,12 +256,12 @@ html[data-timeranim="on"] .ring-wrap.running .sw-ring .ring-fg{animation:spinRin
 .event-form .emoji-grid button{aspect-ratio:1/1;border-radius:6px;font-size:14px;display:grid;place-items:center;background:var(--surface);border:1px solid var(--border);transition:all .12s}
 .event-form .emoji-grid button:hover{border-color:var(--accent);transform:scale(1.1)}
 .event-form .emoji-grid button.picked{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 20%,transparent)}
-.event-form .ev-row{display:flex;gap:6px;margin-bottom:6px}
-.event-form .ev-row input{padding:7px 10px;font-size:12.5px;border-radius:8px;border:1px solid var(--border);background:var(--surface);outline:none;min-width:0}
+.event-form .ev-row{display:flex;gap:6px;margin-bottom:8px}
+.event-form .ev-row input{padding:8px 11px;font-size:12.5px;border-radius:8px;border:1px solid var(--border);background:var(--surface);outline:none;min-width:0}
 .event-form .ev-row input:focus{border-color:var(--accent)}
-.event-form .ev-row .emoji-input{width:48px;text-align:center;font-size:18px;padding:6px 4px}
-.event-form .ev-row .name-input{flex:1}
-.event-form .ev-actions{display:flex;gap:6px;justify-content:flex-end}
+.event-form .ev-row .emoji-input{width:52px;text-align:center;font-size:18px;padding:8px 4px;flex-shrink:0}
+.event-form .ev-row .name-input{flex:1;min-width:80px}
+.event-form .ev-actions{display:flex;gap:6px;justify-content:flex-end;flex-wrap:wrap}
 
 .list{display:flex;flex-direction:column;gap:9px;max-height:330px;overflow-y:auto;padding-right:4px}
 .item{display:flex;align-items:center;gap:12px;padding:12px 13px;border-radius:12px;background:var(--surface2);border:1px solid transparent;transition:all .22s ease}
@@ -264,11 +302,10 @@ html[data-timeranim="on"] .ring-wrap.running .sw-ring .ring-fg{animation:spinRin
 .link-row{display:grid;grid-template-columns:110px 1fr 32px;gap:6px;margin-bottom:6px;align-items:center}
 .link-row input{padding:8px 10px;font-size:12.5px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);outline:none;min-width:0}
 .link-row input:focus{border-color:var(--accent)}
-.link-remove{width:32px;height:32px;border-radius:8px;background:var(--surface2);border:1px solid var(--border);color:var(--muted);display:grid;place-items:center;transition:all .15s}
+.link-remove{width:32px;height:32px;border-radius:8px;background:var(--surface2);border:1px solid var(--border);color:var(--muted);display:grid;place-items:center;transition:all .15s;flex-shrink:0}
 .link-remove:hover{border-color:var(--danger);color:var(--danger)}
 
 .mini-actions{display:flex;gap:6px;flex-shrink:0}
-.mini{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font-size:13px;background:var(--surface);border:1px solid var(--border);transition:all .18s ease}
 .mini:hover{border-color:var(--accent);color:var(--accent);transform:scale(1.08)}
 .mini.del:hover{border-color:var(--danger);color:var(--danger)}
 .empty{color:var(--muted);font-size:13px;text-align:center;padding:24px 10px;font-style:italic}
@@ -280,7 +317,7 @@ html[data-timeranim="on"] .ring-wrap.running .sw-ring .ring-fg{animation:spinRin
 @media(max-width:520px){.form-grid{grid-template-columns:1fr}.form-grid .span2{grid-column:span 1}}
 .section-selector{display:flex;gap:8px;align-items:stretch}
 .section-selector select{flex:1}
-.section-selector .btn.mini{padding:0 12px;font-size:14px;font-weight:800;min-width:38px;display:grid;place-items:center}
+.section-selector .btn.mini{padding:0 12px;font-size:14px;font-weight:800;min-width:38px}
 .list-header{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px;flex-wrap:wrap}
 .list-header h3{margin-bottom:0 !important}
 .list-header .filters{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
@@ -291,7 +328,7 @@ html[data-timeranim="on"] .ring-wrap.running .sw-ring .ring-fg{animation:spinRin
 .sections-manager .sec-name{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .sections-manager .sec-count{font-size:10.5px;color:var(--muted)}
 .sections-manager .sec-actions{display:flex;gap:4px}
-.sections-manager .sec-actions button{width:24px;height:24px;border-radius:6px;font-size:11px;display:grid;place-items:center;background:var(--surface);border:1px solid var(--border);transition:all .15s}
+.sections-manager .sec-actions button{width:24px;height:24px;border-radius:6px;font-size:11px;display:grid;place-items:center;background:var(--surface);border:1px solid var(--border);transition:all .15s;flex-shrink:0}
 .sections-manager .sec-actions button:hover{border-color:var(--accent);color:var(--accent)}
 .sections-manager .sec-actions button.del:hover{border-color:var(--danger);color:var(--danger)}
 
@@ -375,7 +412,7 @@ select{width:100%;padding:10px 12px;border-radius:11px;border:1px solid var(--bo
 .cursor-flame{position:fixed;pointer-events:none;z-index:9997;font-size:13px;transform:translate(-50%,-50%);animation:flameRise .7s ease-out forwards}
 @keyframes flameRise{0%{opacity:1;transform:translate(-50%,-50%) scale(.7)}100%{opacity:0;transform:translate(-50%,-160%) scale(.3)}}
 
-#toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,120%);z-index:9999;background:var(--surface);border:1px solid var(--accent);color:var(--text);padding:12px 22px;border-radius:13px;font-size:13px;font-weight:600;box-shadow:var(--shadow);transition:transform .35s cubic-bezier(.2,.9,.3,1)}
+#toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,120%);z-index:9999;background:var(--surface);border:1px solid var(--accent);color:var(--text);padding:12px 22px;border-radius:13px;font-size:13px;font-weight:600;box-shadow:var(--shadow);transition:transform .35s cubic-bezier(.2,.9,.3,1);max-width:90vw;text-align:center}
 #toast.show{transform:translate(-50%,0)}
 </style>
 </head>
@@ -477,8 +514,31 @@ select{width:100%;padding:10px 12px;border-radius:11px;border:1px solid var(--bo
           <div class="cal-header">
             <button class="cal-nav" id="calPrev" title="Previous month">‹</button>
             <span class="cal-label" id="calMonthLabel">—</span>
+            <button class="cal-nav" id="calImportToggle" title="Import Google Calendar">📅</button>
             <button class="cal-nav" id="calNext" title="Next month">›</button>
           </div>
+
+          <div id="calImportPanel" class="gcal-panel hidden">
+            <div class="gp-title"><span class="gc-logo"></span> Google Calendar Import</div>
+            <div class="gp-status" id="gcalStatus">Paste your calendar's ICS URL below.</div>
+            <input type="url" id="gcalUrl" placeholder="https://calendar.google.com/calendar/ical/.../basic.ics">
+            <textarea id="gcalText" placeholder="…or paste the raw ICS text here" spellcheck="false"></textarea>
+            <button class="gp-toggle" id="gcalToggleText" type="button">Or paste ICS text instead</button>
+            <div class="gp-actions">
+              <button class="btn mini" id="gcalImportBtn">⤓ Import</button>
+              <button class="btn mini ghost" id="gcalClearBtn">Clear imported</button>
+              <button class="btn mini ghost" id="gcalCloseBtn">Close</button>
+            </div>
+            <div class="gp-help">
+              <strong>How to get the ICS URL:</strong><br>
+              1. Open Google Calendar on desktop<br>
+              2. Hover your calendar → <code>⋮</code> → Settings<br>
+              3. Scroll to "Secret address in iCal format"<br>
+              4. Copy that URL and paste it above<br>
+              <em>Your manual events are never touched by imports.</em>
+            </div>
+          </div>
+
           <div class="cal-grid" id="calGrid"></div>
           <div class="cal-day-panel" id="calDayPanel">
             <div class="cal-day-empty">Tap a day to see what's due</div>
@@ -730,7 +790,7 @@ select{width:100%;padding:10px 12px;border-radius:11px;border:1px solid var(--bo
 
 <script>
 const CLOUD_CONFIG = {
-  url: 'https://script.google.com/macros/s/AKfycbycUyYQkmHCch9j71XJU6wyXQWEaYJwydaRDDNOKlJed8utBu2EI7hOF_sgQGKYZCsN2w/exec',
+  url: 'https://script.google.com/macros/s/AKfycbwnSOUab4995K9MHLmF9XYp1dIjRvs3hVxCCpZL9qIyCUM2sPlE_3ofvC4XnN7U3Jf6Dw/exec',
   pollMs: 7000
 };
 
@@ -757,7 +817,6 @@ function gradeOptionsHtml(selected){
 function gradeClass(g){
   return { 'A':'grade-a','B':'grade-b','C':'grade-c','F':'grade-f','0.1':'grade-fail','0':'grade-zero' }[g] || '';
 }
-
 const TYPE_WEIGHT = { formative: 20, performance: 60, summative: 60 };
 
 function escapeHtml(s){
@@ -804,6 +863,55 @@ function isoDateKey(iso){
 }
 function dateKey(y, m, d){ return y + '-' + (m+1) + '-' + d; }
 
+/* ============ ICS PARSING (client-side) ============ */
+// Handles: 20241015 / 20241015T140000 / 20241015T140000Z
+function icsDateToLocal(val){
+  if (!val) return null;
+  const m = String(val).trim().match(/^(\d{4})(\d{2})(\d{2})(?:T(\d{2})(\d{2})(\d{2}))?(Z)?$/);
+  if (!m) return null;
+  const [, y, mo, d, hh, mm, ss, z] = m;
+  if (hh) {
+    let dt;
+    if (z) dt = new Date(Date.UTC(+y, +mo-1, +d, +hh, +mm, +ss));
+    else   dt = new Date(+y, +mo-1, +d, +hh, +mm, +ss);
+    return {
+      date: dt.getFullYear() + '-' + (dt.getMonth()+1) + '-' + dt.getDate(),
+      time: String(dt.getHours()).padStart(2,'0') + ':' + String(dt.getMinutes()).padStart(2,'0')
+    };
+  }
+  return { date: (+y) + '-' + (+mo) + '-' + (+d), time: '' };
+}
+function parseIcs(text){
+  const events = [];
+  if (!text) return events;
+  // Unfold continued lines
+  const unfolded = String(text).replace(/\r?\n[ \t]/g, '');
+  const lines = unfolded.split(/\r?\n/);
+  let current = null;
+  for (const raw of lines) {
+    const line = raw;
+    if (line === 'BEGIN:VEVENT') { current = {}; continue; }
+    if (line === 'END:VEVENT') { if (current) events.push(current); current = null; continue; }
+    if (!current) continue;
+    const idx = line.indexOf(':');
+    if (idx < 0) continue;
+    let key = line.substring(0, idx);
+    let val = line.substring(idx + 1);
+    // Strip params
+    const semi = key.indexOf(';');
+    if (semi >= 0) key = key.substring(0, semi);
+    switch (key) {
+      case 'SUMMARY':     current.summary     = val.replace(/\\,/g, ',').replace(/\\;/g, ';').replace(/\\n/gi, '\n'); break;
+      case 'DTSTART':     current.dtstart     = val; break;
+      case 'DTEND':       current.dtend       = val; break;
+      case 'DESCRIPTION': current.description = val; break;
+      case 'LOCATION':    current.location    = val; break;
+      case 'UID':         current.uid         = val; break;
+    }
+  }
+  return events;
+}
+
 /* ============ CONNECTION STATUS ============ */
 let connState = 'hidden';
 const CONN_LABELS = { synced:'Synced', syncing:'Syncing…', unavailable:'Offline', error:'Sync error', local:'Local mode', hidden:'Hidden' };
@@ -825,7 +933,8 @@ function classifyError(err){
 
 function DEFAULT_DATA(){
   return {
-    assignments: [], sections: [], events: [], notes: [], projects: [], audit: [],
+    assignments: [], sections: [], events: [], googleEvents: [], googleCalUrl: '',
+    notes: [], projects: [], audit: [],
     settings: { theme:'aurora', cursor:'glow', tabAnim:true, tabAnimStyle:'slide', elementAnim:true, timerAnim:true, clock24:true, sound:true, autoSync:true },
     updatedAt: Date.now()
   };
@@ -847,16 +956,21 @@ const Store = {
           const incoming = JSON.parse(e.newValue);
           if (!this.data || (incoming.updatedAt || 0) > (this.data.updatedAt || 0)) {
             this.data = incoming;
-            ['sections','events','notes'].forEach(k => { if (!Array.isArray(this.data[k])) this.data[k] = []; });
+            this.normalize();
             applyAll();
           }
         } catch {}
       }
     });
     this.data = localData || DEFAULT_DATA();
-    ['sections','events','notes'].forEach(k => { if (!Array.isArray(this.data[k])) this.data[k] = []; });
-    if (this.data.settings.autoSync === undefined) this.data.settings.autoSync = true;
+    this.normalize();
     applyAll();
+  },
+
+  normalize(){
+    ['sections','events','googleEvents','notes','projects','audit'].forEach(k => { if (!Array.isArray(this.data[k])) this.data[k] = []; });
+    if (typeof this.data.googleCalUrl !== 'string') this.data.googleCalUrl = '';
+    if (this.data.settings.autoSync === undefined) this.data.settings.autoSync = true;
   },
 
   async apiPost(payload){
@@ -881,8 +995,7 @@ const Store = {
       const data = await this.withStatus(() => this.apiPost({ action: 'read', token: session ? session.token : '' }));
       if (data && data.data && typeof data.data === 'object') {
         this.data = data.data;
-        ['sections','events','notes'].forEach(k => { if (!Array.isArray(this.data[k])) this.data[k] = []; });
-        if (this.data.settings.autoSync === undefined) this.data.settings.autoSync = true;
+        this.normalize();
         localStorage.setItem(LS_KEY, JSON.stringify(this.data));
         applyAll();
       }
@@ -895,7 +1008,6 @@ const Store = {
     await this.withStatus(() => this.apiPost({ action: 'save', token: session.token, data: this.data }));
   },
 
-  // Silent polling — pulls changes from other devices without flashing "Syncing…"
   startPolling(){
     clearInterval(this.pollId);
     if (!Store.data.settings.autoSync) return;
@@ -903,15 +1015,13 @@ const Store = {
     this.pollId = setInterval(async () => {
       if (!isCloudConfigured() || !session || !session.token) return;
       if (!navigator.onLine) { setConnStatus('unavailable'); return; }
-      if (connState === 'syncing') return; // user action in flight — don't interrupt
+      if (connState === 'syncing') return;
       try {
         const data = await this.apiPost({ action: 'read', token: session.token });
-        // Successful read → mark as synced
         if (connState !== 'error') setConnStatus('synced');
         if (data && data.data && (data.data.updatedAt || 0) > (this.data.updatedAt || 0)) {
           this.data = data.data;
-          ['sections','events','notes'].forEach(k => { if (!Array.isArray(this.data[k])) this.data[k] = []; });
-          if (this.data.settings.autoSync === undefined) this.data.settings.autoSync = true;
+          this.normalize();
           localStorage.setItem(LS_KEY, JSON.stringify(this.data));
           applyAll();
         }
@@ -921,10 +1031,7 @@ const Store = {
     }, ms);
   },
 
-  stopPolling(){
-    clearInterval(this.pollId);
-    this.pollId = null;
-  },
+  stopPolling(){ clearInterval(this.pollId); this.pollId = null; },
 
   persist(){
     localStorage.setItem(LS_KEY, JSON.stringify(this.data));
@@ -1106,12 +1213,7 @@ function assignmentRow(a, showScore){
   return `<div class="item ${a.completed ? 'completed' : ''}">
     <div class="complete-check ${a.completed ? 'checked' : ''}" data-toggle-complete="${a.id}" title="Toggle complete"></div>
     <div class="item-main">
-      <div class="item-title">
-        ${escapeHtml(a.name)}
-        ${sectionPillHtml(a.sectionId)}
-        ${typePillHtml(a.type)}
-        ${duePill}
-      </div>
+      <div class="item-title">${escapeHtml(a.name)}${sectionPillHtml(a.sectionId)}${typePillHtml(a.type)}${duePill}</div>
       <div class="item-meta">
         <span>👤 ${escapeHtml(a.teacher || 'No teacher')}</span>
         <span>📅 ${fmtDue(a.due)} · ${relativeDue(a.due)}</span>
@@ -1139,14 +1241,128 @@ function renderHubLists(){
   });
 }
 
+/* ============ CALENDAR ============ */
 let calViewDate = new Date();
 let calSelectedDate = null;
 let calEditingEventId = null;
 let calPickedEmoji = '📌';
+
 function initCalendar(){
   el('#calPrev').addEventListener('click', () => { calViewDate = new Date(calViewDate.getFullYear(), calViewDate.getMonth() - 1, 1); renderCalendar(); });
   el('#calNext').addEventListener('click', () => { calViewDate = new Date(calViewDate.getFullYear(), calViewDate.getMonth() + 1, 1); renderCalendar(); });
+
+  el('#calImportToggle').addEventListener('click', () => {
+    const panel = el('#calImportPanel');
+    const showing = !panel.classList.contains('hidden');
+    panel.classList.toggle('hidden', showing);
+    el('#calImportToggle').classList.toggle('active', !showing);
+  });
+  el('#gcalCloseBtn').addEventListener('click', () => {
+    el('#calImportPanel').classList.add('hidden');
+    el('#calImportToggle').classList.remove('active');
+  });
+  el('#gcalToggleText').addEventListener('click', () => {
+    const ta = el('#gcalText');
+    const shown = ta.classList.toggle('visible');
+    el('#gcalToggleText').textContent = shown ? 'Use ICS URL instead' : 'Or paste ICS text instead';
+  });
+  el('#gcalImportBtn').addEventListener('click', doGcalImport);
+  el('#gcalClearBtn').addEventListener('click', clearGcalEvents);
 }
+
+async function doGcalImport(){
+  const url = el('#gcalUrl').value.trim();
+  const text = el('#gcalText').value.trim();
+  const status = el('#gcalStatus');
+  status.className = 'gp-status';
+
+  if (!url && !text) {
+    status.textContent = '⚠ Enter an ICS URL or paste ICS text.';
+    status.classList.add('err');
+    return;
+  }
+
+  let icsText = '';
+  if (text) {
+    icsText = text;
+  } else {
+    status.textContent = '⤓ Fetching from URL…';
+    try {
+      // Try to fetch through the Apps Script proxy first (avoids CORS)
+      if (isCloudConfigured() && session && session.token) {
+        const res = await Store.withStatus(() =>
+          Store.apiPost({ action: 'fetchIcal', token: session.token, url })
+        );
+        if (res && res.ok) {
+          icsText = res.text || '';
+        } else {
+          throw new Error(res && res.error ? res.error : 'Fetch failed');
+        }
+      } else {
+        // Fallback: direct fetch (may hit CORS)
+        const r = await fetch(url, { redirect: 'follow' });
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        icsText = await r.text();
+      }
+    } catch (err) {
+      status.textContent = '⚠ ' + err.message + ' — try pasting the ICS text instead.';
+      status.classList.add('err');
+      return;
+    }
+  }
+
+  const parsed = parseIcs(icsText);
+  if (!parsed.length) {
+    status.textContent = '⚠ No events found in that calendar.';
+    status.classList.add('err');
+    return;
+  }
+
+  // Convert to our stored format
+  const newEvents = [];
+  for (const ev of parsed) {
+    const start = icsDateToLocal(ev.dtstart);
+    if (!start) continue;
+    newEvents.push({
+      id: uid(),
+      uid: ev.uid || '',
+      name: (ev.summary || '(Untitled event)').trim(),
+      emoji: '📅',
+      date: start.date,
+      time: start.time || '',
+      source: 'google',
+      importedAt: Date.now()
+    });
+  }
+
+  Store.data.googleEvents = newEvents;
+  if (url) Store.data.googleCalUrl = url;
+
+  commit('added', 'Google Calendar', `Imported ${newEvents.length} event${newEvents.length === 1 ? '' : 's'} from Google Calendar`);
+
+  status.textContent = `✓ Imported ${newEvents.length} event${newEvents.length === 1 ? '' : 's'}. Your manual events are untouched.`;
+  status.classList.add('ok');
+  toast(`Imported ${newEvents.length} Google events`);
+}
+
+function clearGcalEvents(){
+  if (!Store.data.googleEvents.length && !Store.data.googleCalUrl) {
+    toast('Nothing to clear.');
+    return;
+  }
+  if (!confirm('Remove all imported Google Calendar events? Your manual events will stay.')) return;
+  const count = Store.data.googleEvents.length;
+  Store.data.googleEvents = [];
+  Store.data.googleCalUrl = '';
+  commit('removed', 'Google Calendar', `Removed ${count} imported event${count === 1 ? '' : 's'}`);
+  const status = el('#gcalStatus');
+  status.className = 'gp-status';
+  status.textContent = 'Cleared imported events.';
+  el('#gcalUrl').value = '';
+  el('#gcalText').value = '';
+  toast('Cleared imported events');
+}
+
 function renderCalendar(){
   if (!Store.data || !el('#calGrid')) return;
   const year = calViewDate.getFullYear();
@@ -1156,6 +1372,7 @@ function renderCalendar(){
   const daysInMonth = new Date(year, month + 1, 0).getDate();
   el('#calMonthLabel').textContent = first.toLocaleDateString([], { month:'long', year:'numeric' });
 
+  // Index assignments
   const dueByDate = {};
   Store.data.assignments.forEach(a => {
     if (!a.due) return;
@@ -1163,8 +1380,14 @@ function renderCalendar(){
     if (!dueByDate[key]) dueByDate[key] = [];
     dueByDate[key].push(a);
   });
+  // Index manual events
   const eventsByDate = {};
   (Store.data.events || []).forEach(ev => {
+    if (!eventsByDate[ev.date]) eventsByDate[ev.date] = [];
+    eventsByDate[ev.date].push({ ...ev, source: 'manual' });
+  });
+  // Index Google events
+  (Store.data.googleEvents || []).forEach(ev => {
     if (!eventsByDate[ev.date]) eventsByDate[ev.date] = [];
     eventsByDate[ev.date].push(ev);
   });
@@ -1173,6 +1396,7 @@ function renderCalendar(){
   const cells = [];
   ['S','M','T','W','T','F','S'].forEach(d => cells.push(`<div class="cal-wd">${d}</div>`));
   for (let i = 0; i < startWd; i++) cells.push('<div class="cal-cell blank"></div>');
+
   for (let d = 1; d <= daysInMonth; d++) {
     const key = dateKey(year, month, d);
     const cls = ['cal-cell'];
@@ -1180,32 +1404,44 @@ function renderCalendar(){
     if (key === calSelectedDate) cls.push('selected');
     const items = dueByDate[key];
     const evs = eventsByDate[key];
+    const manualEvs = evs ? evs.filter(e => e.source !== 'google') : [];
+    const googleEvs = evs ? evs.filter(e => e.source === 'google') : [];
+
     if (items && items.length) cls.push('has-items');
     if (items && items.length > 1) cls.push('multi');
+
     let emojiHtml = '';
-    if (evs && evs.length) {
+    if (manualEvs.length) {
       cls.push('has-events');
-      if (evs.length > 1) cls.push('multi-events');
-      emojiHtml = `<span class="cal-emoji-badge">${evs.length > 1 ? evs[0].emoji + '+' + evs.length : evs[0].emoji}</span>`;
+      if (manualEvs.length > 1) cls.push('multi-events');
+      emojiHtml = `<span class="cal-emoji-badge">${manualEvs.length > 1 ? manualEvs[0].emoji + '+' + manualEvs.length : manualEvs[0].emoji}</span>`;
     }
-    cells.push(`<div class="${cls.join(' ')}" data-date="${key}">${d}${emojiHtml}${items ? '<span class="cal-dot"></span>' : ''}</div>`);
+    const gDot = googleEvs.length ? '<span class="cal-gdot"></span>' : '';
+
+    cells.push(`<div class="${cls.join(' ')}" data-date="${key}">${d}${gDot}${emojiHtml}${items ? '<span class="cal-dot"></span>' : ''}</div>`);
   }
   const total = startWd + daysInMonth;
   const trail = (7 - (total % 7)) % 7;
   for (let i = 0; i < trail; i++) cells.push('<div class="cal-cell blank"></div>');
   el('#calGrid').innerHTML = cells.join('');
-  els('#calGrid [data-date]').forEach(c => { c.addEventListener('click', () => { calSelectedDate = c.dataset.date; calEditingEventId = null; renderCalendar(); }); });
+  els('#calGrid [data-date]').forEach(c => {
+    c.addEventListener('click', () => { calSelectedDate = c.dataset.date; calEditingEventId = null; renderCalendar(); });
+  });
   renderCalDayPanel(dueByDate, eventsByDate);
 }
 function renderCalDayPanel(dueByDate, eventsByDate){
   const panel = el('#calDayPanel'); if (!panel) return;
   if (!calSelectedDate) { panel.innerHTML = '<div class="cal-day-empty">Tap a day to see what\'s due</div>'; return; }
   const items = dueByDate[calSelectedDate] || [];
-  const evs = eventsByDate[calSelectedDate] || [];
+  const allEvs = eventsByDate[calSelectedDate] || [];
+  const manualEvs = allEvs.filter(e => e.source !== 'google');
+  const googleEvs = allEvs.filter(e => e.source === 'google');
+
   const dateObj = new Date(calSelectedDate + 'T12:00:00');
   const label = dateObj.toLocaleDateString([], { weekday:'long', month:'short', day:'numeric' });
-  const totalCount = items.length + evs.length;
+  const totalCount = items.length + manualEvs.length + googleEvs.length;
   const header = `<div class="cal-day-title"><span>${escapeHtml(label)}${totalCount ? ' · ' + totalCount + ' item' + (totalCount === 1 ? '' : 's') : ''}</span><button class="day-add-btn" data-add-event="1">+ Event</button></div>`;
+
   let body = '';
   if (items.length) body += items.map(a => {
     const sec = getSection(a.sectionId);
@@ -1215,8 +1451,24 @@ function renderCalDayPanel(dueByDate, eventsByDate){
     const timeStr = showTime ? d.toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' }) : '';
     return `<div class="cal-day-item"><span class="cal-dot-sm" style="background:${c};box-shadow:0 0 5px ${c}88"></span><span class="cal-name">${escapeHtml(a.name)}</span>${timeStr ? `<span class="cal-time">${timeStr}</span>` : ''}</div>`;
   }).join('');
-  if (evs.length) body += evs.map(ev => `<div class="cal-day-item"><span class="cal-emoji">${ev.emoji || '📌'}</span><span class="cal-name">${escapeHtml(ev.name)}</span><button class="item-del" data-del-event="${ev.id}" title="Delete">✕</button></div>`).join('');
+
+  if (manualEvs.length) body += manualEvs.map(ev => `
+    <div class="cal-day-item">
+      <span class="cal-emoji">${ev.emoji || '📌'}</span>
+      <span class="cal-name">${escapeHtml(ev.name)}</span>
+      ${ev.time ? `<span class="cal-time">${ev.time}</span>` : ''}
+      <button class="item-del" data-del-event="${ev.id}" title="Delete">✕</button>
+    </div>`).join('');
+
+  if (googleEvs.length) body += googleEvs.map(ev => `
+    <div class="cal-day-item gcal" title="Imported from Google Calendar">
+      <span class="cal-gbadge">GCAL</span>
+      <span class="cal-name">${escapeHtml(ev.name)}</span>
+      ${ev.time ? `<span class="cal-time">${ev.time}</span>` : ''}
+    </div>`).join('');
+
   if (!body) body = '<div class="cal-day-empty">Nothing here yet</div>';
+
   let formHtml = '';
   if (calEditingEventId === 'new' || (calEditingEventId && Store.data.events.find(e => e.id === calEditingEventId))) {
     const editing = calEditingEventId !== 'new' ? Store.data.events.find(e => e.id === calEditingEventId) : null;
@@ -1229,6 +1481,7 @@ function renderCalDayPanel(dueByDate, eventsByDate){
     </div>`;
   }
   panel.innerHTML = header + body + formHtml;
+
   const addBtn = panel.querySelector('[data-add-event]');
   if (addBtn) addBtn.addEventListener('click', () => { if (!calSelectedDate) return; calEditingEventId = 'new'; calPickedEmoji = '📌'; renderCalendar(); setTimeout(() => { const inp = el('#eventNameInput'); if (inp) inp.focus(); }, 30); });
   els('[data-del-event]').forEach(b => b.addEventListener('click', () => deleteEvent(b.dataset.delEvent)));
