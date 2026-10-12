@@ -134,6 +134,12 @@ html[data-elanim="on"] .card:hover{transform:translateY(-3px);border-color:color
 .card h3{font-size:12px;text-transform:uppercase;letter-spacing:1.2px;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;gap:8px;font-weight:700}
 .card h3::before{content:'';width:3px;height:14px;border-radius:3px;background:var(--accent)}
 
+/* Calendar card needs to allow its panel to grow/shrink without clipping */
+.calendar-card,
+.calendar-card .gcal-panel{
+  overflow: visible;
+}
+
 .hub-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}
 .clock-card{grid-column:span 4}
 .timer-card{grid-column:span 4}
@@ -208,8 +214,22 @@ html[data-timeranim="on"] .ring-wrap.running .sw-ring .ring-fg{animation:spinRin
 .cal-cell .cal-gdot{position:absolute;top:3px;left:3px;width:5px;height:5px;border-radius:50%;background:#4285f4;box-shadow:0 0 5px #4285f4}
 .cal-cell.selected .cal-gdot{background:#fff;box-shadow:0 0 5px #fff}
 
-.gcal-panel{margin-top:12px;padding:12px;border-radius:11px;background:var(--surface2);border:1px solid var(--border);animation:paneIn .22s ease both;overflow:visible}
-.gcal-panel .gp-title{font-size:11px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+/* ─── Google Calendar panel — fixed button overlap ─── */
+.gcal-panel{
+  margin-top:12px;
+  padding:14px;
+  border-radius:11px;
+  background:var(--surface2);
+  border:1px solid var(--border);
+  animation:paneIn .22s ease both;
+  overflow: visible;
+  width: 100%;
+  max-width: 100%;
+}
+.gcal-panel .gp-title{
+  font-size:11px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;
+  color:var(--muted);margin-bottom:10px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+}
 .gcal-panel .gp-title .gc-logo{width:14px;height:14px;border-radius:3px;background:linear-gradient(135deg,#4285f4,#34a853,#fbbc04,#ea4335);display:inline-block;flex-shrink:0}
 .gcal-panel .gp-status{font-size:11.5px;color:var(--muted);margin-bottom:10px;line-height:1.5;word-break:break-word}
 .gcal-panel .gp-status.ok{color:var(--success)}
@@ -220,7 +240,26 @@ html[data-timeranim="on"] .ring-wrap.running .sw-ring .ring-fg{animation:spinRin
 .gcal-panel textarea.visible{display:block}
 .gcal-panel textarea:focus{border-color:var(--accent)}
 .gcal-panel .gp-toggle{font-size:11px;color:var(--accent);cursor:pointer;text-decoration:underline;margin-bottom:10px;display:inline-block;background:none;padding:0;border:none}
-.gcal-panel .gp-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center;overflow:visible}
+.gcal-panel .gp-actions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  align-items:center;
+  overflow:visible;
+}
+.gcal-panel .gp-actions > .btn{
+  flex: 0 0 auto;
+  min-width: max-content;
+  white-space: nowrap;
+  padding: 9px 16px;
+  font-size: 12.5px;
+  line-height: 1.2;
+}
+@media(min-width: 520px){
+  .gcal-panel .gp-actions > .btn:last-child{
+    margin-left: auto;
+  }
+}
 .gcal-panel .gp-help{font-size:10.5px;color:var(--muted);margin-top:8px;line-height:1.55;padding:8px;background:var(--surface);border-radius:7px;border:1px solid var(--border)}
 .gcal-panel .gp-help code{font-family:var(--mono);background:var(--bg);padding:1px 4px;border-radius:4px;font-size:10px}
 
@@ -420,9 +459,7 @@ html[data-timeranim="on"] .ring-wrap.running .sw-ring .ring-fg{animation:spinRin
 .sections-manager .sec-actions button:hover{border-color:var(--accent);color:var(--accent)}
 .sections-manager .sec-actions button.del:hover{border-color:var(--danger);color:var(--danger)}
 
-/* ============================================================
-   NOTES — matches the image
-============================================================ */
+/* NOTES */
 .notes-wrap{display:flex;flex-direction:column;gap:16px;max-width:900px;margin:0 auto}
 .notes-title-input{width:100%;padding:13px 15px;border-radius:9px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-size:14px;outline:none;margin-bottom:12px;transition:border .2s,box-shadow .2s}
 .notes-title-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 18%,transparent)}
@@ -452,9 +489,7 @@ html[data-timeranim="on"] .ring-wrap.running .sw-ring .ring-fg{animation:spinRin
 .note-row-actions{position:absolute;top:10px;right:10px;display:flex;gap:4px}
 .notes-empty{text-align:center;color:var(--muted);font-size:13px;font-style:italic;padding:20px 10px}
 
-/* ============================================================
-   CODE STORAGE
-============================================================ */
+/* CODE STORAGE */
 .code-wrap{display:flex;flex-direction:column;gap:16px;max-width:1100px;margin:0 auto}
 .snippet-row-2{display:grid;grid-template-columns:1fr 150px;gap:10px;margin-bottom:10px}
 @media(max-width:560px){.snippet-row-2{grid-template-columns:1fr}}
@@ -812,7 +847,7 @@ select{width:100%;padding:10px 12px;border-radius:11px;border:1px solid var(--bo
       </div>
     </section>
 
-    <!-- NOTES — new layout matching the image -->
+    <!-- NOTES -->
     <section class="tab-panel" id="tab-notes">
       <div class="notes-wrap">
         <div class="card">
@@ -914,7 +949,6 @@ select{width:100%;padding:10px 12px;border-radius:11px;border:1px solid var(--bo
   </main>
 </div>
 
-<!-- PREVIEW MODAL -->
 <div class="modal-overlay hidden" id="previewModal">
   <div class="modal-card">
     <div class="modal-head">
@@ -1054,51 +1088,32 @@ function isoDateKey(iso){
 }
 function dateKey(y, m, d){ return y + '-' + (m+1) + '-' + d; }
 
-/* Markdown renderer (used by Notes descriptions and Code snippet descriptions) */
 function renderMarkdown(text){
   if (!text) return '';
   let s = escapeHtml(text);
-
-  // Fenced code blocks first (protect from later inline rules)
   const codeBlocks = [];
   s = s.replace(/```([\s\S]*?)```/g, (m, code) => {
     codeBlocks.push(code.replace(/^\n+|\n+$/g, ''));
     return '\u0000CODE' + (codeBlocks.length - 1) + '\u0000';
   });
-
-  // Headers (line based)
   s = s.replace(/^### (.*)$/gm, '<h3>$1</h3>');
   s = s.replace(/^## (.*)$/gm, '<h2>$1</h2>');
   s = s.replace(/^# (.*)$/gm, '<h1>$1</h1>');
-
-  // Lists (consecutive lines starting with "- ")
   s = s.replace(/(?:^|\n)((?:- .+(?:\n|$))+)/g, (m, block) => {
-    const items = block.trim().split('\n')
-      .map(l => l.replace(/^-\s+/, ''))
-      .map(l => `<li>${l}</li>`).join('');
+    const items = block.trim().split('\n').map(l => l.replace(/^-\s+/, '')).map(l => `<li>${l}</li>`).join('');
     return '\n<ul>' + items + '</ul>';
   });
-
-  // Inline
   s = s.replace(/\*\*([^*\n]+)\*\*/g, '<strong>$1</strong>');
   s = s.replace(/\*([^*\n]+)\*/g, '<em>$1</em>');
   s = s.replace(/`([^`\n]+)`/g, '<code>$1</code>');
   s = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
-
-  // Restore code blocks
-  s = s.replace(/\u0000CODE(\d+)\u0000/g, (m, i) =>
-    `<pre>${codeBlocks[+i]}</pre>`
-  );
-
-  // Line breaks — keep after block elements
+  s = s.replace(/\u0000CODE(\d+)\u0000/g, (m, i) => `<pre>${codeBlocks[+i]}</pre>`);
   s = s.replace(/\n/g, '<br>');
   s = s.replace(/<\/(h1|h2|h3|ul|pre|li)><br>/g, '</$1>');
   s = s.replace(/<br>(<h1>|<h2>|<h3>|<ul>|<pre>)/g, '$1');
-
   return s;
 }
 
-/* ============ ICS PARSING ============ */
 function icsDateToLocal(val){
   if (!val) return null;
   const m = String(val).trim().match(/^(\d{4})(\d{2})(\d{2})(?:T(\d{2})(\d{2})(\d{2}))?(Z)?$/);
@@ -1108,10 +1123,7 @@ function icsDateToLocal(val){
     let dt;
     if (z) dt = new Date(Date.UTC(+y, +mo-1, +d, +hh, +mm, +ss));
     else   dt = new Date(+y, +mo-1, +d, +hh, +mm, +ss);
-    return {
-      date: dt.getFullYear() + '-' + (dt.getMonth()+1) + '-' + dt.getDate(),
-      time: String(dt.getHours()).padStart(2,'0') + ':' + String(dt.getMinutes()).padStart(2,'0')
-    };
+    return { date: dt.getFullYear() + '-' + (dt.getMonth()+1) + '-' + dt.getDate(), time: String(dt.getHours()).padStart(2,'0') + ':' + String(dt.getMinutes()).padStart(2,'0') };
   }
   return { date: (+y) + '-' + (+mo) + '-' + (+d), time: '' };
 }
@@ -1143,7 +1155,6 @@ function parseIcs(text){
   return events;
 }
 
-/* ============ CONNECTION STATUS ============ */
 let connState = 'hidden';
 const CONN_LABELS = { synced:'Synced', syncing:'Syncing…', unavailable:'Offline', error:'Sync error', local:'Local mode', hidden:'Hidden' };
 function setConnStatus(state){
@@ -1187,9 +1198,7 @@ const Store = {
       if (e.key === LS_KEY && e.newValue) {
         try {
           const incoming = JSON.parse(e.newValue);
-          if (!this.data || (incoming.updatedAt || 0) > (this.data.updatedAt || 0)) {
-            this.data = incoming; this.normalize(); applyAll();
-          }
+          if (!this.data || (incoming.updatedAt || 0) > (this.data.updatedAt || 0)) { this.data = incoming; this.normalize(); applyAll(); }
         } catch {}
       }
     });
@@ -1223,8 +1232,7 @@ const Store = {
     try {
       const data = await this.withStatus(() => this.apiPost({ action: 'read', token: session ? session.token : '' }));
       if (data && data.data && typeof data.data === 'object') {
-        this.data = data.data;
-        this.normalize();
+        this.data = data.data; this.normalize();
         localStorage.setItem(LS_KEY, JSON.stringify(this.data));
         applyAll();
       }
@@ -1247,14 +1255,11 @@ const Store = {
         const data = await this.apiPost({ action: 'read', token: session.token });
         if (connState !== 'error') setConnStatus('synced');
         if (data && data.data && (data.data.updatedAt || 0) > (this.data.updatedAt || 0)) {
-          this.data = data.data;
-          this.normalize();
+          this.data = data.data; this.normalize();
           localStorage.setItem(LS_KEY, JSON.stringify(this.data));
           applyAll();
         }
-      } catch (err) {
-        if (connState !== 'syncing') setConnStatus(classifyError(err));
-      }
+      } catch (err) { if (connState !== 'syncing') setConnStatus(classifyError(err)); }
     }, ms);
   },
   stopPolling(){ clearInterval(this.pollId); this.pollId = null; },
@@ -1470,7 +1475,6 @@ function renderHubLists(){
   });
 }
 
-/* CALENDAR */
 let calViewDate = new Date();
 let calSelectedDate = null;
 let calEditingEventId = null;
@@ -1525,11 +1529,7 @@ async function doGcalImport(){
   for (const ev of parsed) {
     const start = icsDateToLocal(ev.dtstart);
     if (!start) continue;
-    newEvents.push({
-      id: uid(), uid: ev.uid || '', name: (ev.summary || '(Untitled event)').trim(),
-      emoji: '📅', date: start.date, time: start.time || '',
-      source: 'google', importedAt: Date.now()
-    });
+    newEvents.push({ id: uid(), uid: ev.uid || '', name: (ev.summary || '(Untitled event)').trim(), emoji: '📅', date: start.date, time: start.time || '', source: 'google', importedAt: Date.now() });
   }
   Store.data.googleEvents = newEvents;
   if (url) Store.data.googleCalUrl = url;
@@ -1685,7 +1685,6 @@ function deleteEvent(id){
   commit('removed', 'Event', `Deleted event "${ev.name}"`);
 }
 
-/* CHATROOM */
 let chatAttachments = [];
 let chatSearchQuery = '';
 let lastSeenMessageId = null;
@@ -1768,13 +1767,7 @@ function snapshotAssignment(id){
   const a = Store.data.assignments.find(x => x.id === id);
   if (!a) return null;
   const sec = getSection(a.sectionId);
-  return {
-    id: a.id, name: a.name,
-    sectionId: a.sectionId || '', sectionName: sec ? sec.name : '',
-    type: a.type || '', weight: Number(a.weight) || 0,
-    grade: a.grade || '', due: a.due || null,
-    teacher: a.teacher || '', completed: !!a.completed
-  };
+  return { id: a.id, name: a.name, sectionId: a.sectionId || '', sectionName: sec ? sec.name : '', type: a.type || '', weight: Number(a.weight) || 0, grade: a.grade || '', due: a.due || null, teacher: a.teacher || '', completed: !!a.completed };
 }
 function snapshotNote(id){
   if (!id) return null;
@@ -1967,10 +1960,7 @@ function renderChat(){
       if (m.linkedAssignment && m.linkedAssignment.name && m.linkedAssignment.name.toLowerCase().includes(query)) return true;
       if (m.linkedNote && m.linkedNote.title && m.linkedNote.title.toLowerCase().includes(query)) return true;
       const d = new Date(m.time);
-      return d.toLocaleDateString().toLowerCase().includes(query) ||
-        d.toISOString().slice(0,10).includes(query) ||
-        formatChatTime(m.time).toLowerCase().includes(query) ||
-        formatChatDay(m.time).toLowerCase().includes(query);
+      return d.toLocaleDateString().toLowerCase().includes(query) || d.toISOString().slice(0,10).includes(query) || formatChatTime(m.time).toLowerCase().includes(query) || formatChatDay(m.time).toLowerCase().includes(query);
     });
     const safeQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     try { highlightRegex = new RegExp('(' + safeQuery + ')', 'gi'); } catch { highlightRegex = null; }
@@ -2048,7 +2038,6 @@ function renderChatMessageHtml(m, highlightRegex){
 }
 function scrollChatToBottom(){ const list = el('#chatMessages'); if (list) list.scrollTop = list.scrollHeight; }
 
-/* MODE TOGGLE */
 function initModeToggle(){
   els('#modeToggle button').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -2060,7 +2049,6 @@ function initModeToggle(){
   });
 }
 
-/* ASSIGNMENTS */
 let editingId = null;
 function initAssignments(){
   el('#aSubmit').addEventListener('click', submitAssignment);
@@ -2088,19 +2076,12 @@ function addLinkRow(url = '', label = ''){
   const list = el('#aLinkList');
   const row = document.createElement('div');
   row.className = 'link-row';
-  row.innerHTML = `
-    <input type="text" class="link-label" placeholder="Label" value="${escapeHtml(label)}">
-    <input type="url" class="link-url" placeholder="https://..." value="${escapeHtml(url)}">
-    <button type="button" class="link-remove" title="Remove">✕</button>
-  `;
+  row.innerHTML = `<input type="text" class="link-label" placeholder="Label" value="${escapeHtml(label)}"><input type="url" class="link-url" placeholder="https://..." value="${escapeHtml(url)}"><button type="button" class="link-remove" title="Remove">✕</button>`;
   row.querySelector('.link-remove').addEventListener('click', () => row.remove());
   list.appendChild(row);
 }
 function collectLinks(){
-  return els('#aLinkList .link-row').map(row => ({
-    url: row.querySelector('.link-url').value.trim(),
-    label: row.querySelector('.link-label').value.trim()
-  })).filter(l => l.url);
+  return els('#aLinkList .link-row').map(row => ({ url: row.querySelector('.link-url').value.trim(), label: row.querySelector('.link-label').value.trim() })).filter(l => l.url);
 }
 function refreshSectionDropdown(){
   const sel = el('#aSection'); if (!sel) return;
@@ -2304,11 +2285,7 @@ function renderAssignments(){
   els('#assignList [data-toggle-complete]').forEach(c => c.addEventListener('click', () => toggleComplete(c.dataset.toggleComplete)));
 }
 
-/* ============================================================
-   NOTES — new markdown-first layout
-============================================================ */
 let editingNoteId = null;
-
 function initNotes(){
   el('#nSubmit').addEventListener('click', submitNote);
   el('#nCancel').addEventListener('click', cancelNoteEdit);
@@ -2316,51 +2293,35 @@ function initNotes(){
   el('#nContent').addEventListener('input', () => setNoteStatus('Unsaved changes'));
   setNoteStatus('');
 }
-
 function setNoteStatus(msg){
   const s = el('#noteStatus');
   if (s) s.textContent = msg || '';
 }
-
 function submitNote(){
   const title = el('#nTitle').value.trim();
   const content = el('#nContent').value;
   if (!title) { toast('Please enter a document title.'); return; }
   if (!content.trim()) { toast('Please write some content.'); return; }
-
   if (editingNoteId) {
     const n = Store.data.notes.find(x => x.id === editingNoteId);
-    if (n) {
-      Object.assign(n, { title, content, updatedAt: Date.now() });
-      commit('edited', 'Note', `Updated "${title}"`);
-    }
+    if (n) { Object.assign(n, { title, content, updatedAt: Date.now() }); commit('edited', 'Note', `Updated "${title}"`); }
     cancelNoteEdit();
   } else {
-    Store.data.notes.push({
-      id: uid(), title, content,
-      createdBy: session.name, createdAt: Date.now(), updatedAt: Date.now()
-    });
+    Store.data.notes.push({ id: uid(), title, content, createdBy: session.name, createdAt: Date.now(), updatedAt: Date.now() });
     commit('added', 'Note', `Created "${title}"`);
     clearNoteForm();
   }
   setNoteStatus('Saved ✓');
 }
-
-function clearNoteForm(){
-  el('#nTitle').value = '';
-  el('#nContent').value = '';
-}
-
+function clearNoteForm(){ el('#nTitle').value = ''; el('#nContent').value = ''; }
 function cancelNoteEdit(){
-  editingNoteId = null;
-  clearNoteForm();
+  editingNoteId = null; clearNoteForm();
   el('#noteFormTitle').textContent = 'Text Documents / Notes (Markdown Enabled)';
   el('#nSubmit').textContent = 'Save Note';
   el('#nCancel').classList.add('hidden');
   setNoteStatus('');
   renderNotes();
 }
-
 function editNote(id){
   const n = Store.data.notes.find(x => x.id === id); if (!n) return;
   editingNoteId = id;
@@ -2373,7 +2334,6 @@ function editNote(id){
   renderNotes();
   el('#noteFormTitle').scrollIntoView({behavior:'smooth', block:'nearest'});
 }
-
 function deleteNote(id){
   const n = Store.data.notes.find(x => x.id === id); if (!n) return;
   if (!confirm(`Delete note "${n.title}"?`)) return;
@@ -2381,22 +2341,14 @@ function deleteNote(id){
   if (editingNoteId === id) cancelNoteEdit();
   commit('removed', 'Note', `Deleted "${n.title}"`);
 }
-
 function renderNotes(){
   if (!Store.data) return;
   const list = el('#noteList'); if (!list) return;
   const notes = (Store.data.notes || []).slice().sort((a, b) => (b.updatedAt || b.createdAt || 0) - (a.updatedAt || a.createdAt || 0));
-
-  if (!notes.length) {
-    list.innerHTML = '<div class="notes-empty">No saved notes.</div>';
-    return;
-  }
-
+  if (!notes.length) { list.innerHTML = '<div class="notes-empty">No saved notes.</div>'; return; }
   list.innerHTML = notes.map(n => {
     const body = renderMarkdown(n.content || '');
-    const updated = new Date(n.updatedAt || n.createdAt || Date.now()).toLocaleString([], {
-      month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit'
-    });
+    const updated = new Date(n.updatedAt || n.createdAt || Date.now()).toLocaleString([], { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' });
     return `<div class="note-row ${n.id === editingNoteId ? 'active' : ''}" data-open-note="${n.id}">
       <div class="note-row-actions">
         <button class="mini" data-edit-note="${n.id}" title="Edit">✎</button>
@@ -2407,64 +2359,43 @@ function renderNotes(){
       <div class="note-row-body">${body}</div>
     </div>`;
   }).join('');
-
-  els('#noteList [data-open-note]').forEach(node => {
-    node.addEventListener('click', e => {
-      if (e.target.closest('[data-edit-note]') || e.target.closest('[data-del-note]')) return;
-      editNote(node.dataset.openNote);
-    });
-  });
+  els('#noteList [data-open-note]').forEach(node => node.addEventListener('click', e => {
+    if (e.target.closest('[data-edit-note]') || e.target.closest('[data-del-note]')) return;
+    editNote(node.dataset.openNote);
+  }));
   els('#noteList [data-edit-note]').forEach(b => b.addEventListener('click', e => { e.stopPropagation(); editNote(b.dataset.editNote); }));
   els('#noteList [data-del-note]').forEach(b => b.addEventListener('click', e => { e.stopPropagation(); deleteNote(b.dataset.delNote); }));
 }
 
-/* ============================================================
-   CODE STORAGE
-============================================================ */
 let currentProjectId = null;
 let projSearchQuery = '';
 let projLangFilter = 'all';
-
 function initCode(){
   el('#pSave').addEventListener('click', saveProject);
   el('#pCancel').addEventListener('click', cancelProjectEdit);
   el('#pPreviewBtn').addEventListener('click', () => openPreview(null));
-
   const markDirty = () => setEditorStatus('Unsaved changes');
   el('#codeArea').addEventListener('input', markDirty);
   el('#pLang').addEventListener('change', markDirty);
   el('#pName').addEventListener('input', markDirty);
   el('#pDesc').addEventListener('input', markDirty);
-
   el('#projSearch').addEventListener('input', e => { projSearchQuery = e.target.value.trim(); renderProjects(); });
   el('#projLangFilter').addEventListener('change', e => { projLangFilter = e.target.value; renderProjects(); });
-
   el('#previewClose').addEventListener('click', closePreview);
   el('#previewModal').addEventListener('click', e => { if (e.target === el('#previewModal')) closePreview(); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && !el('#previewModal').classList.contains('hidden')) closePreview(); });
-
   setEditorStatus('Ready');
 }
-
-function setEditorStatus(msg){
-  const s = el('#editorStatus');
-  if (s) s.textContent = msg;
-}
-
+function setEditorStatus(msg){ const s = el('#editorStatus'); if (s) s.textContent = msg; }
 function saveProject(){
   const name = el('#pName').value.trim();
   const lang = el('#pLang').value;
   const desc = el('#pDesc').value.trim();
   const code = el('#codeArea').value;
   if (!name) { toast('Give your snippet a title first.'); return; }
-
   if (currentProjectId) {
     const p = Store.data.projects.find(x => x.id === currentProjectId);
-    if (p) {
-      const oldName = p.name;
-      Object.assign(p, { name, lang, description: desc, code, updatedBy: session.name, updatedAt: Date.now() });
-      commit('edited', 'Code Snippet', oldName === name ? `Updated "${name}" (${lang})` : `Renamed "${oldName}" → "${name}"`);
-    }
+    if (p) { const oldName = p.name; Object.assign(p, { name, lang, description: desc, code, updatedBy: session.name, updatedAt: Date.now() }); commit('edited', 'Code Snippet', oldName === name ? `Updated "${name}" (${lang})` : `Renamed "${oldName}" → "${name}"`); }
   } else {
     const proj = { id: uid(), name, lang, description: desc, code, updatedBy: session.name, updatedAt: Date.now(), createdBy: session.name, createdAt: Date.now() };
     Store.data.projects.push(proj);
@@ -2474,23 +2405,17 @@ function saveProject(){
   setEditorStatus('Saved ✓');
   toast('Snippet saved ✓');
 }
-
 function cancelProjectEdit(){
   currentProjectId = null;
-  el('#pName').value = '';
-  el('#pDesc').value = '';
-  el('#codeArea').value = '';
-  el('#pLang').value = 'html';
+  el('#pName').value = ''; el('#pDesc').value = ''; el('#codeArea').value = ''; el('#pLang').value = 'html';
   el('#snippetFormTitle').textContent = 'Save Code Snippet';
   el('#pSave').textContent = 'Save Code Snippet';
   el('#pCancel').classList.add('hidden');
   setEditorStatus('Ready');
   renderProjects();
 }
-
 function loadProject(id){
-  const p = Store.data.projects.find(x => x.id === id);
-  if (!p) return;
+  const p = Store.data.projects.find(x => x.id === id); if (!p) return;
   currentProjectId = id;
   el('#pName').value = p.name;
   el('#pLang').value = p.lang;
@@ -2503,7 +2428,6 @@ function loadProject(id){
   renderProjects();
   el('#snippetFormTitle').scrollIntoView({behavior:'smooth', block:'nearest'});
 }
-
 function deleteProject(id){
   const p = Store.data.projects.find(x => x.id === id); if (!p) return;
   if (!confirm(`Delete snippet "${p.name}"?`)) return;
@@ -2511,7 +2435,6 @@ function deleteProject(id){
   if (currentProjectId === id) cancelProjectEdit();
   commit('removed', 'Code Snippet', `Deleted "${p.name}"`);
 }
-
 function buildPreview(code, lang){
   if (lang === 'html') return code || '<p style="font-family:system-ui;color:#888;padding:20px">Nothing to preview yet.</p>';
   if (lang === 'css') return `<!doctype html><html><head><style>body{font-family:system-ui;padding:24px;background:#fff;color:#222}${code}</style></head><body><h1>Heading 1</h1><p>Sample paragraph text for styling.</p><button>Button</button></body></html>`;
@@ -2519,7 +2442,6 @@ function buildPreview(code, lang){
   if (lang === 'json') return `<!doctype html><html><body style="font-family:ui-monospace,monospace;background:#0b0e18;color:#9ae6b4;padding:16px;margin:0"><pre style="white-space:pre-wrap;font-size:13px">${escapeHtml(code)}</pre></body></html>`;
   return `<!doctype html><html><body style="font-family:ui-monospace,monospace;background:#0b0e18;color:#dbe4ff;padding:16px;margin:0"><pre style="white-space:pre-wrap;font-size:13px">${escapeHtml(code)}</pre></body></html>`;
 }
-
 function openPreview(projectId){
   let code, lang, title;
   if (projectId) {
@@ -2527,50 +2449,27 @@ function openPreview(projectId){
     if (!p) return;
     code = p.code; lang = p.lang; title = p.name;
   } else {
-    code = el('#codeArea').value;
-    lang = el('#pLang').value;
-    title = el('#pName').value.trim() || 'Untitled';
+    code = el('#codeArea').value; lang = el('#pLang').value; title = el('#pName').value.trim() || 'Untitled';
   }
   el('#previewTitle').textContent = 'Preview · ' + title;
   el('#previewFrame').srcdoc = buildPreview(code, lang);
   el('#previewModal').classList.remove('hidden');
   document.body.style.overflow = 'hidden';
 }
-
 function closePreview(){
   el('#previewModal').classList.add('hidden');
   el('#previewFrame').srcdoc = '';
   document.body.style.overflow = '';
 }
-
 function renderProjects(){
   if (!Store.data) return;
   const q = projSearchQuery.toLowerCase();
   let list = (Store.data.projects || []).slice().sort((a,b) => (b.updatedAt || 0) - (a.updatedAt || 0));
-
-  if (q) {
-    list = list.filter(p =>
-      (p.name || '').toLowerCase().includes(q) ||
-      (p.lang || '').toLowerCase().includes(q) ||
-      (p.description || '').toLowerCase().includes(q) ||
-      (p.code || '').toLowerCase().includes(q)
-    );
-  }
-  if (projLangFilter !== 'all') {
-    list = list.filter(p => p.lang === projLangFilter);
-  }
-
+  if (q) list = list.filter(p => (p.name || '').toLowerCase().includes(q) || (p.lang || '').toLowerCase().includes(q) || (p.description || '').toLowerCase().includes(q) || (p.code || '').toLowerCase().includes(q));
+  if (projLangFilter !== 'all') list = list.filter(p => p.lang === projLangFilter);
   const listEl = el('#projList');
-
-  if (!Store.data.projects.length) {
-    listEl.innerHTML = '<div class="empty">No code snippets saved yet. Add your first one above.</div>';
-    return;
-  }
-  if (!list.length) {
-    listEl.innerHTML = '<div class="empty">No code snippets found matching your filter.</div>';
-    return;
-  }
-
+  if (!Store.data.projects.length) { listEl.innerHTML = '<div class="empty">No code snippets saved yet. Add your first one above.</div>'; return; }
+  if (!list.length) { listEl.innerHTML = '<div class="empty">No code snippets found matching your filter.</div>'; return; }
   listEl.innerHTML = list.map(p => {
     const descHtml = p.description ? renderMarkdown(p.description) : '';
     const previewCode = (p.code || '').trim().split('\n').slice(0, 2).join('\n');
@@ -2578,10 +2477,7 @@ function renderProjects(){
       <div class="snippet-item-main">
         <div class="snippet-item-title">${escapeHtml(p.name)}<span class="snippet-lang-tag">${escapeHtml(p.lang)}</span></div>
         ${descHtml ? `<div class="snippet-item-desc">${descHtml}</div>` : ''}
-        <div class="snippet-item-meta">
-          <span>Updated ${new Date(p.updatedAt || Date.now()).toLocaleDateString()}</span>
-          ${p.updatedBy ? `<span>· ${escapeHtml(p.updatedBy)}</span>` : ''}
-        </div>
+        <div class="snippet-item-meta"><span>Updated ${new Date(p.updatedAt || Date.now()).toLocaleDateString()}</span>${p.updatedBy ? `<span>· ${escapeHtml(p.updatedBy)}</span>` : ''}</div>
         ${previewCode ? `<div class="snippet-item-preview">${escapeHtml(previewCode)}</div>` : ''}
       </div>
       <div class="mini-actions" style="flex-direction:column">
@@ -2590,7 +2486,6 @@ function renderProjects(){
       </div>
     </div>`;
   }).join('');
-
   els('#projList [data-open]').forEach(node => node.addEventListener('click', e => {
     if (e.target.closest('[data-pdel]') || e.target.closest('[data-preview]')) return;
     loadProject(node.dataset.open);
@@ -2599,7 +2494,6 @@ function renderProjects(){
   els('#projList [data-pdel]').forEach(btn => btn.addEventListener('click', e => { e.stopPropagation(); deleteProject(btn.dataset.pdel); }));
 }
 
-/* AUDIT */
 function initAudit(){
   el('#auditFilter').addEventListener('change', renderAudit);
   el('#clearAudit').addEventListener('click', () => {
@@ -2618,7 +2512,6 @@ function renderAudit(){
   el('#auditBody').innerHTML = rows.length ? rows.map(r => `<tr><td class="muted" style="white-space:nowrap">${fmtDateTime(r.time)}</td><td><span class="pill ${r.role}">${escapeHtml(r.role)}</span> <span style="margin-left:6px">${escapeHtml(r.user)}</span></td><td><span class="action-tag ${r.action}">${escapeHtml(r.action)}</span></td><td>${escapeHtml(r.item)}</td><td class="muted">${escapeHtml(r.details || '')}</td></tr>`).join('') : '<tr><td colspan="5" class="empty">No activity recorded yet.</td></tr>';
 }
 
-/* SETTINGS */
 const THEMES = [
   { id:'aurora', name:'Aurora', dots:['#6c8cff','#39d4c8','#0b1020'] },
   { id:'midnight', name:'Midnight', dots:['#2f81f7','#39d353','#05070d'] },
@@ -2704,7 +2597,6 @@ function initProfileMenu(){
   el('#menuSettings').addEventListener('click', openSettings);
 }
 
-/* TIMER */
 const RING_C = 2 * Math.PI * 54;
 let timerState = { total:1500, remaining:1500, running:false, endAt:0, id:null };
 function initTimer(){
@@ -2782,7 +2674,6 @@ function updateSWUI(){
   el('#swDisplay').textContent = `${String(mins).padStart(2,'0')}:${String(secs).padStart(2,'0')}.${tenths}`;
 }
 
-/* CURSOR */
 let lastCursorEvent = 0;
 function initCursor(){
   const glow = el('#cursorGlow');
