@@ -39,12 +39,10 @@ button{cursor:pointer;border:none;background:none}
 ::-webkit-scrollbar-thumb{background:var(--border);border-radius:8px}
 ::-webkit-scrollbar-thumb:hover{background:var(--accent)}
 
-/* ============================================================
-   BUTTONS — bulletproof layout, no overlap, no clipped text
-============================================================ */
 button, .btn, .ctrl-btn, .mini, .cal-nav, .icon-btn,
 .link-remove, .chat-action-btn, .chat-icon-btn, .day-add-btn,
-.mode-btn, .theme-swatch, .role-switch button, .menu button, .tab-btn {
+.mode-btn, .theme-swatch, .role-switch button, .menu button, .tab-btn,
+.chat-type-chip {
   box-sizing: border-box;
   font-family: inherit;
   -webkit-appearance: none;
@@ -301,7 +299,6 @@ html[data-timeranim="on"] .ring-wrap.running .sw-ring .ring-fg{animation:spinRin
 }
 .chat-action-btn:hover{border-color:var(--accent);color:var(--accent)}
 .chat-action-btn.on{border-color:var(--success);color:var(--success)}
-.chat-action-btn .badge{background:var(--danger);color:#fff;font-size:9.5px;font-weight:900;padding:1px 5px;border-radius:20px;min-width:16px;text-align:center;display:inline-block}
 .chat-messages{
   flex:1;overflow-y:auto;padding:16px;
   display:flex;flex-direction:column;gap:2px;
@@ -329,10 +326,23 @@ html[data-timeranim="on"] .ring-wrap.running .sw-ring .ring-fg{animation:spinRin
 .chat-msg.own .chat-body{align-items:flex-end}
 .chat-sender{font-size:10.5px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;color:var(--muted);padding:0 6px 2px}
 .chat-msg.own .chat-sender{display:none}
+
+/* Message type label above bubble */
+.chat-msg-label{
+  display:inline-flex;align-items:center;gap:4px;
+  font-size:9.5px;font-weight:900;letter-spacing:.8px;text-transform:uppercase;
+  padding:3px 8px;border-radius:6px;margin:0 6px 4px;
+}
+.chat-msg-label.type-important{background:color-mix(in srgb,#ff5f7e 20%,transparent);color:#ff5f7e;border:1px solid color-mix(in srgb,#ff5f7e 45%,transparent)}
+.chat-msg-label.type-question{background:color-mix(in srgb,#8b5cf6 20%,transparent);color:#a78bfa;border:1px solid color-mix(in srgb,#8b5cf6 45%,transparent)}
+.chat-msg-label.type-assignment{background:color-mix(in srgb,#10b981 20%,transparent);color:#34d399;border:1px solid color-mix(in srgb,#10b981 45%,transparent)}
+.chat-msg.own .chat-msg-label{margin-left:auto;margin-right:6px}
+
 .chat-bubble{
   padding:9px 13px;border-radius:14px;font-size:13.5px;line-height:1.45;
   word-wrap:break-word;overflow-wrap:break-word;white-space:pre-wrap;
   max-width:100%;
+  border:1px solid transparent;
 }
 .chat-msg.own .chat-bubble{
   background:linear-gradient(135deg,var(--accent),color-mix(in srgb,var(--accent2) 55%,var(--accent)));
@@ -342,6 +352,49 @@ html[data-timeranim="on"] .ring-wrap.running .sw-ring .ring-fg{animation:spinRin
   background:var(--surface2);border:1px solid var(--border);
   border-bottom-left-radius:4px;
 }
+
+/* Type accent borders */
+.chat-msg.type-important .chat-bubble{
+  border-color:#ff5f7e;
+  box-shadow:0 0 0 2px color-mix(in srgb,#ff5f7e 25%,transparent),0 4px 12px color-mix(in srgb,#ff5f7e 25%,transparent);
+}
+.chat-msg.own.type-important .chat-bubble{
+  background:linear-gradient(135deg,#ff5f7e,#ff8a6b);
+}
+.chat-msg.type-question .chat-bubble{
+  border-color:#8b5cf6;
+  box-shadow:0 0 0 2px color-mix(in srgb,#8b5cf6 22%,transparent);
+}
+.chat-msg.own.type-question .chat-bubble{
+  background:linear-gradient(135deg,#8b5cf6,#a78bfa);
+}
+.chat-msg.type-assignment .chat-bubble{
+  border-color:#10b981;
+  box-shadow:0 0 0 2px color-mix(in srgb,#10b981 22%,transparent);
+}
+.chat-msg.own.type-assignment .chat-bubble{
+  background:linear-gradient(135deg,#10b981,#34d399);
+}
+
+/* Linked cards inside messages */
+.chat-linked-card{
+  margin-top:8px;padding:9px 11px;border-radius:10px;
+  background:var(--surface);border:1px solid var(--border);
+  max-width:100%;cursor:pointer;transition:border-color .15s,transform .12s;
+}
+.chat-linked-card:hover{border-color:var(--accent);transform:translateY(-1px)}
+.chat-linked-card.assignment{border-left:3px solid #10b981}
+.chat-linked-card.note{border-left:3px solid var(--accent2)}
+.chat-linked-label{
+  font-size:9.5px;font-weight:900;letter-spacing:.7px;text-transform:uppercase;
+  color:var(--muted);margin-bottom:4px;
+}
+.chat-linked-card.assignment .chat-linked-label{color:#34d399}
+.chat-linked-card.note .chat-linked-label{color:var(--accent2)}
+.chat-linked-title{font-size:12.5px;font-weight:700;line-height:1.3;margin-bottom:3px;word-break:break-word}
+.chat-linked-meta{font-size:10.5px;color:var(--muted);display:flex;gap:8px;flex-wrap:wrap;line-height:1.4}
+.chat-linked-meta .dot-sep{opacity:.5}
+
 .chat-meta{font-size:10px;color:var(--muted);padding:2px 6px 0;font-variant-numeric:tabular-nums}
 .chat-attach-wrap{margin-top:6px;display:flex;flex-direction:column;gap:6px}
 .chat-img{
@@ -371,9 +424,48 @@ html[data-timeranim="on"] .ring-wrap.running .sw-ring .ring-fg{animation:spinRin
 .chat-attach-chip .name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .chat-attach-chip button{color:var(--muted);font-size:13px;padding:0 2px;line-height:1;background:none;border:none;cursor:pointer}
 .chat-attach-chip button:hover{color:var(--danger)}
+
+/* Type selector bar */
+.chat-type-bar{
+  padding:10px 16px 8px;border-top:1px solid var(--border);
+  background:var(--surface);display:flex;flex-direction:column;gap:8px;
+}
+.chat-type-chips{
+  display:flex;gap:6px;flex-wrap:wrap;align-items:center;
+}
+.chat-type-chip{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:7px 12px;border-radius:20px;
+  background:var(--surface2);border:1px solid var(--border);
+  font-size:11.5px;font-weight:700;color:var(--muted);
+  transition:all .18s;white-space:nowrap;line-height:1.2;
+}
+.chat-type-chip:hover{border-color:var(--accent);color:var(--text)}
+.chat-type-chip.active[data-type="normal"]{background:var(--accent);border-color:var(--accent);color:#fff}
+.chat-type-chip.active[data-type="important"]{background:#ff5f7e;border-color:#ff5f7e;color:#fff}
+.chat-type-chip.active[data-type="question"]{background:#8b5cf6;border-color:#8b5cf6;color:#fff}
+.chat-type-chip.active[data-type="assignment"]{background:#10b981;border-color:#10b981;color:#fff}
+
+.chat-type-extras{
+  display:flex;gap:8px;flex-wrap:wrap;align-items:center;
+  padding:8px 10px;border-radius:10px;
+  background:var(--surface2);border:1px dashed color-mix(in srgb,#10b981 45%,var(--border));
+  animation:paneIn .2s ease both;
+}
+.chat-type-extras label{
+  font-size:10.5px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;
+  color:var(--muted);
+}
+.chat-type-extras select{
+  width:auto;min-width:180px;flex:1;
+  padding:8px 11px;font-size:12px;border-radius:8px;
+  border:1px solid var(--border);background:var(--surface);outline:none;
+  cursor:pointer;
+}
+.chat-type-extras select:focus{border-color:#10b981}
+
 .chat-input-bar{
-  display:flex;gap:8px;padding:12px 16px;border-top:1px solid var(--border);
-  background:var(--surface);align-items:flex-end;
+  display:flex;gap:8px;padding:0 16px 12px;background:var(--surface);align-items:flex-end;
 }
 .chat-input-bar textarea{
   flex:1;min-height:42px;max-height:140px;resize:none;
@@ -403,7 +495,9 @@ html[data-timeranim="on"] .ring-wrap.running .sw-ring .ring-fg{animation:spinRin
   .chat-img{max-width:200px;max-height:200px}
   .chat-header{padding:10px 12px}
   .chat-messages{padding:12px}
-  .chat-input-bar{padding:10px 12px}
+  .chat-input-bar{padding:0 12px 12px}
+  .chat-type-bar{padding:10px 12px 8px}
+  .chat-type-extras select{min-width:120px}
 }
 
 .list{display:flex;flex-direction:column;gap:9px;max-height:330px;overflow-y:auto;padding-right:4px}
@@ -713,6 +807,20 @@ select{width:100%;padding:10px 12px;border-radius:11px;border:1px solid var(--bo
 
         <div class="chat-attach-preview hidden" id="chatAttachPreview"></div>
 
+        <div class="chat-type-bar">
+          <div class="chat-type-chips" id="chatTypeChips">
+            <button class="chat-type-chip active" data-type="normal">💬 Normal</button>
+            <button class="chat-type-chip" data-type="important">❗ Important</button>
+            <button class="chat-type-chip" data-type="question">❓ Question</button>
+            <button class="chat-type-chip" data-type="assignment">📚 Assignment</button>
+          </div>
+          <div class="chat-type-extras hidden" id="chatAssignmentExtras">
+            <label for="chatAssignmentPick">Link to:</label>
+            <select id="chatAssignmentPick"><option value="">— Select an assignment —</option></select>
+            <select id="chatNotePick"><option value="">— Link a note (optional) —</option></select>
+          </div>
+        </div>
+
         <div class="chat-input-bar">
           <button class="chat-icon-btn" id="chatAttachBtn" title="Attach file or image">📎</button>
           <input type="file" id="chatFileInput" multiple class="hidden" accept="image/*,.pdf,.txt,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.zip,.csv">
@@ -972,6 +1080,13 @@ function gradeClass(g){
   return { 'A':'grade-a','B':'grade-b','C':'grade-c','F':'grade-f','0.1':'grade-fail','0':'grade-zero' }[g] || '';
 }
 const TYPE_WEIGHT = { formative: 20, performance: 60, summative: 60 };
+
+const MSG_TYPE_LABELS = {
+  normal:     null,
+  important:  { icon: '❗', label: 'Important' },
+  question:   { icon: '❓', label: 'Question' },
+  assignment: { icon: '📚', label: 'Assignment' }
+};
 
 function escapeHtml(s){
   return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -1239,6 +1354,7 @@ function applyAll(){
   renderChat();
   updateChatUnreadBadge();
   updateChatNotifyLabel();
+  refreshChatLinkDropdowns();
 }
 function applySettings(){
   const s = Store.data.settings;
@@ -1629,6 +1745,9 @@ let chatAttachments = [];
 let chatSearchQuery = '';
 let lastSeenMessageId = null;
 let chatInitialized = false;
+let chatMessageType = 'normal';
+let chatLinkedAssignmentId = '';
+let chatLinkedNoteId = '';
 
 function initChat(){
   if (chatInitialized) return;
@@ -1639,14 +1758,17 @@ function initChat(){
   const fileInput = el('#chatFileInput');
   const searchInput = el('#chatSearchInput');
   const clearBtn = el('#chatClearSearch');
+
   sendBtn.addEventListener('click', sendChatMessage);
   input.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendChatMessage(); } });
   input.addEventListener('input', () => {
     input.style.height = 'auto';
     input.style.height = Math.min(input.scrollHeight, 140) + 'px';
   });
+
   attachBtn.addEventListener('click', () => fileInput.click());
   fileInput.addEventListener('change', handleFileSelect);
+
   searchInput.addEventListener('input', e => {
     chatSearchQuery = e.target.value.trim();
     clearBtn.classList.toggle('hidden', !chatSearchQuery);
@@ -1658,7 +1780,37 @@ function initChat(){
     clearBtn.classList.add('hidden');
     renderChat();
   });
+
   el('#chatNotifyBtn').addEventListener('click', toggleChatNotifications);
+
+  // Message type chips
+  els('#chatTypeChips .chat-type-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      chatMessageType = chip.dataset.type;
+      els('#chatTypeChips .chat-type-chip').forEach(c => c.classList.toggle('active', c.dataset.type === chatMessageType));
+      const extras = el('#chatAssignmentExtras');
+      if (chatMessageType === 'assignment') {
+        extras.classList.remove('hidden');
+        refreshChatLinkDropdowns();
+      } else {
+        extras.classList.add('hidden');
+        chatLinkedAssignmentId = '';
+        chatLinkedNoteId = '';
+      }
+    });
+  });
+
+  // Assignment picker
+  el('#chatAssignmentPick').addEventListener('change', e => {
+    chatLinkedAssignmentId = e.target.value;
+    chatLinkedNoteId = '';
+    refreshChatNoteDropdown();
+  });
+  // Note picker
+  el('#chatNotePick').addEventListener('change', e => {
+    chatLinkedNoteId = e.target.value;
+  });
+
   window.addEventListener('focus', () => {
     if (currentTab === 'chat') markChatRead();
     updateChatUnreadBadge();
@@ -1666,6 +1818,92 @@ function initChat(){
   document.addEventListener('visibilitychange', () => {
     if (!document.hidden && currentTab === 'chat') markChatRead();
   });
+}
+
+function refreshChatLinkDropdowns(){
+  const selA = el('#chatAssignmentPick');
+  const selN = el('#chatNotePick');
+  if (!selA || !selN) return;
+
+  // Assignments list (both categories, but prioritize active)
+  const items = (Store.data.assignments || []).slice().sort((a, b) => {
+    if (a.completed !== b.completed) return a.completed ? 1 : -1;
+    if (!a.due && !b.due) return 0;
+    if (!a.due) return 1;
+    if (!b.due) return -1;
+    return new Date(a.due) - new Date(b.due);
+  });
+
+  const curA = selA.value;
+  selA.innerHTML = '<option value="">— Select an assignment —</option>' +
+    items.map(a => {
+      const sec = getSection(a.sectionId);
+      const suffix = a.completed ? ' ✓' : (sec ? ' · ' + sec.name : '');
+      return `<option value="${a.id}">${escapeHtml(a.name)}${escapeHtml(suffix)}</option>`;
+    }).join('');
+  if (Array.from(selA.options).some(o => o.value === curA)) selA.value = curA;
+  else if (chatLinkedAssignmentId && !items.find(x => x.id === chatLinkedAssignmentId)) chatLinkedAssignmentId = '';
+
+  refreshChatNoteDropdown();
+}
+
+function refreshChatNoteDropdown(){
+  const selN = el('#chatNotePick');
+  if (!selN) return;
+
+  const linked = chatLinkedAssignmentId ? Store.data.assignments.find(a => a.id === chatLinkedAssignmentId) : null;
+  let notes = (Store.data.notes || []).slice();
+
+  // If an assignment is selected and it has a section, prioritize/filter notes with matching class name
+  if (linked) {
+    const sec = getSection(linked.sectionId);
+    if (sec) {
+      const matching = notes.filter(n => (n.className || '').toLowerCase() === sec.name.toLowerCase());
+      const others = notes.filter(n => (n.className || '').toLowerCase() !== sec.name.toLowerCase());
+      notes = matching.concat(others);
+    }
+  }
+
+  const cur = selN.value;
+  selN.innerHTML = '<option value="">— Link a note (optional) —</option>' +
+    notes.map(n => {
+      const cls = n.className ? ` · ${n.className}` : '';
+      return `<option value="${n.id}">${escapeHtml(n.title)}${escapeHtml(cls)}</option>`;
+    }).join('');
+  if (Array.from(selN.options).some(o => o.value === cur)) selN.value = cur;
+  else chatLinkedNoteId = '';
+}
+
+function snapshotAssignment(id){
+  if (!id) return null;
+  const a = Store.data.assignments.find(x => x.id === id);
+  if (!a) return null;
+  const sec = getSection(a.sectionId);
+  return {
+    id: a.id,
+    name: a.name,
+    sectionId: a.sectionId || '',
+    sectionName: sec ? sec.name : '',
+    type: a.type || '',
+    weight: Number(a.weight) || 0,
+    grade: a.grade || '',
+    due: a.due || null,
+    teacher: a.teacher || '',
+    completed: !!a.completed
+  };
+}
+function snapshotNote(id){
+  if (!id) return null;
+  const n = Store.data.notes.find(x => x.id === id);
+  if (!n) return null;
+  return {
+    id: n.id,
+    title: n.title,
+    className: n.className || '',
+    type: n.type,
+    url: n.url || '',
+    content: n.content || ''
+  };
 }
 
 function getChatMessages(){
@@ -1751,10 +1989,24 @@ function sendChatMessage(){
   if (!session) return;
   const input = el('#chatInput');
   const text = input.value.trim();
+
+  // For assignment type, require an assignment to be picked
+  if (chatMessageType === 'assignment' && !chatLinkedAssignmentId) {
+    toast('Please pick an assignment to link.');
+    return;
+  }
   if (!text && !chatAttachments.length) return;
+
   const msg = {
-    id: uid(), sender: session.role, senderName: session.name,
-    text, attachments: chatAttachments.slice(), time: Date.now()
+    id: uid(),
+    sender: session.role,
+    senderName: session.name,
+    text,
+    attachments: chatAttachments.slice(),
+    time: Date.now(),
+    type: chatMessageType,
+    linkedAssignment: chatMessageType === 'assignment' ? snapshotAssignment(chatLinkedAssignmentId) : null,
+    linkedNote: chatMessageType === 'assignment' ? snapshotNote(chatLinkedNoteId) : null
   };
   if (!Array.isArray(Store.data.messages)) Store.data.messages = [];
   Store.data.messages.push(msg);
@@ -1762,12 +2014,25 @@ function sendChatMessage(){
   const MAX_CHARS = 40000;
   while (Store.data.messages.length > MAX_MESSAGES) Store.data.messages.shift();
   while (Store.data.messages.length > 10 && JSON.stringify(Store.data.messages).length > MAX_CHARS) Store.data.messages.shift();
+
   input.value = '';
   input.style.height = 'auto';
   chatAttachments = [];
   renderAttachPreview();
+
+  // Reset type to normal after send
+  chatMessageType = 'normal';
+  chatLinkedAssignmentId = '';
+  chatLinkedNoteId = '';
+  els('#chatTypeChips .chat-type-chip').forEach(c => c.classList.toggle('active', c.dataset.type === 'normal'));
+  el('#chatAssignmentExtras').classList.add('hidden');
+  el('#chatAssignmentPick').value = '';
+  el('#chatNotePick').value = '';
+
   Store.data.chatLastRead = Date.now();
-  commit('added', 'Chat', text ? text.slice(0, 60) : (msg.attachments.length + ' attachment' + (msg.attachments.length === 1 ? '' : 's')));
+  const desc = text ? text.slice(0, 60) : (msg.attachments.length + ' attachment' + (msg.attachments.length === 1 ? '' : 's'));
+  commit('added', 'Chat', `[${msg.type}] ${desc}`);
+
   lastSeenMessageId = msg.id;
   renderChat();
   scrollChatToBottom();
@@ -1830,7 +2095,8 @@ function toggleChatNotifications(){
 function showChatNotification(msg){
   if (Store.data.settings.chatNotifications === false) return;
   if (!('Notification' in window) || Notification.permission !== 'granted') return;
-  const title = '💬 ' + (msg.senderName || 'New message');
+  const prefix = msg.type === 'important' ? '❗ ' : msg.type === 'question' ? '❓ ' : msg.type === 'assignment' ? '📚 ' : '💬 ';
+  const title = prefix + (msg.senderName || 'New message');
   const body = msg.text ? msg.text.slice(0, 120) : (msg.attachments && msg.attachments.length ? '📎 ' + msg.attachments.length + ' attachment' + (msg.attachments.length === 1 ? '' : 's') : '');
   try {
     const n = new Notification(title, { body, tag: 'studydesk-chat' });
@@ -1885,6 +2151,9 @@ function renderChat(){
     filtered = messages.filter(m => {
       if (m.text && m.text.toLowerCase().includes(query)) return true;
       if (m.senderName && m.senderName.toLowerCase().includes(query)) return true;
+      if (m.type && m.type.toLowerCase().includes(query)) return true;
+      if (m.linkedAssignment && m.linkedAssignment.name && m.linkedAssignment.name.toLowerCase().includes(query)) return true;
+      if (m.linkedNote && m.linkedNote.title && m.linkedNote.title.toLowerCase().includes(query)) return true;
       const d = new Date(m.time);
       const dateStr = d.toLocaleDateString().toLowerCase();
       const isoDate = d.toISOString().slice(0,10);
@@ -1915,6 +2184,13 @@ function renderChat(){
   }
   list.innerHTML = html;
   els('#chatMessages .chat-img').forEach(img => { img.addEventListener('click', () => window.open(img.src, '_blank')); });
+  // Wire linked card clicks to jump to relevant tabs
+  els('#chatMessages [data-jump-assign]').forEach(card => {
+    card.addEventListener('click', () => switchTab('assignments'));
+  });
+  els('#chatMessages [data-jump-note]').forEach(card => {
+    card.addEventListener('click', () => switchTab('notes'));
+  });
   if (!isSearch && nearBottom) list.scrollTop = list.scrollHeight;
 }
 
@@ -1922,21 +2198,61 @@ function renderChatMessageHtml(m, highlightRegex){
   const own = session && m.sender === session.role;
   const initial = (m.senderName || '?').charAt(0).toUpperCase();
   const time = formatChatTime(m.time);
+  const type = m.type || 'normal';
+  const typeLabelInfo = MSG_TYPE_LABELS[type];
+
   let textHtml = escapeHtml(m.text || '');
   if (highlightRegex && textHtml) { try { textHtml = textHtml.replace(highlightRegex, '<span class="highlight">$1</span>'); } catch {} }
+
   let attachHtml = '';
   for (const a of (m.attachments || [])) {
     if (a.isImage && a.dataUrl) attachHtml += `<img class="chat-img" src="${a.dataUrl}" alt="${escapeHtml(a.name)}">`;
     else if (a.dataUrl) attachHtml += `<a class="chat-file" href="${a.dataUrl}" download="${escapeHtml(a.name)}">📎 <span class="fname">${escapeHtml(a.name)}</span><span class="fsize">${formatBytes(a.size)}</span></a>`;
     else attachHtml += `<span class="chat-file" style="cursor:default">📎 <span class="fname">${escapeHtml(a.name)}</span></span>`;
   }
+
+  // Linked assignment card
+  let linkedHtml = '';
+  if (m.linkedAssignment) {
+    const la = m.linkedAssignment;
+    const metaParts = [];
+    if (la.sectionName) metaParts.push(escapeHtml(la.sectionName));
+    if (la.type) metaParts.push(escapeHtml(la.type.charAt(0).toUpperCase() + la.type.slice(1)));
+    if (la.weight) metaParts.push(la.weight + '%');
+    if (la.due) metaParts.push('Due ' + fmtDue(la.due));
+    if (la.grade) metaParts.push('Grade ' + la.grade);
+    if (la.completed) metaParts.push('✓ Completed');
+    linkedHtml += `<div class="chat-linked-card assignment" data-jump-assign="${escapeHtml(la.id)}">
+      <div class="chat-linked-label">📚 Linked assignment</div>
+      <div class="chat-linked-title">${escapeHtml(la.name)}</div>
+      ${metaParts.length ? `<div class="chat-linked-meta">${metaParts.join('<span class="dot-sep">·</span>')}</div>` : ''}
+    </div>`;
+  }
+  if (m.linkedNote) {
+    const ln = m.linkedNote;
+    const metaParts = [];
+    if (ln.className) metaParts.push(escapeHtml(ln.className));
+    if (ln.type) metaParts.push(escapeHtml({ site:'Website', doc:'Document', manual:'Manual' }[ln.type] || ln.type));
+    linkedHtml += `<div class="chat-linked-card note" data-jump-note="${escapeHtml(ln.id)}">
+      <div class="chat-linked-label">📝 Linked note</div>
+      <div class="chat-linked-title">${escapeHtml(ln.title)}</div>
+      ${metaParts.length ? `<div class="chat-linked-meta">${metaParts.join('<span class="dot-sep">·</span>')}</div>` : ''}
+    </div>`;
+  }
+
   const senderLine = own ? '' : `<div class="chat-sender">${escapeHtml(m.senderName)}</div>`;
-  return `<div class="chat-msg ${own ? 'own' : 'other'}">
+  const typeLabel = typeLabelInfo
+    ? `<div class="chat-msg-label type-${type}">${typeLabelInfo.icon} ${typeLabelInfo.label}</div>`
+    : '';
+
+  return `<div class="chat-msg ${own ? 'own' : 'other'} type-${type}">
     <div class="chat-avatar">${initial}</div>
     <div class="chat-body">
       ${senderLine}
+      ${typeLabel}
       ${textHtml ? `<div class="chat-bubble">${textHtml}</div>` : ''}
       ${attachHtml ? `<div class="chat-attach-wrap">${attachHtml}</div>` : ''}
+      ${linkedHtml}
       <div class="chat-meta">${time}</div>
     </div>
   </div>`;
