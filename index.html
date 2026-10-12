@@ -327,7 +327,6 @@ html[data-timeranim="on"] .ring-wrap.running .sw-ring .ring-fg{animation:spinRin
 .chat-sender{font-size:10.5px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;color:var(--muted);padding:0 6px 2px}
 .chat-msg.own .chat-sender{display:none}
 
-/* Message type label above bubble */
 .chat-msg-label{
   display:inline-flex;align-items:center;gap:4px;
   font-size:9.5px;font-weight:900;letter-spacing:.8px;text-transform:uppercase;
@@ -353,7 +352,6 @@ html[data-timeranim="on"] .ring-wrap.running .sw-ring .ring-fg{animation:spinRin
   border-bottom-left-radius:4px;
 }
 
-/* Type accent borders */
 .chat-msg.type-important .chat-bubble{
   border-color:#ff5f7e;
   box-shadow:0 0 0 2px color-mix(in srgb,#ff5f7e 25%,transparent),0 4px 12px color-mix(in srgb,#ff5f7e 25%,transparent);
@@ -376,7 +374,6 @@ html[data-timeranim="on"] .ring-wrap.running .sw-ring .ring-fg{animation:spinRin
   background:linear-gradient(135deg,#10b981,#34d399);
 }
 
-/* Linked cards inside messages */
 .chat-linked-card{
   margin-top:8px;padding:9px 11px;border-radius:10px;
   background:var(--surface);border:1px solid var(--border);
@@ -425,7 +422,6 @@ html[data-timeranim="on"] .ring-wrap.running .sw-ring .ring-fg{animation:spinRin
 .chat-attach-chip button{color:var(--muted);font-size:13px;padding:0 2px;line-height:1;background:none;border:none;cursor:pointer}
 .chat-attach-chip button:hover{color:var(--danger)}
 
-/* Type selector bar */
 .chat-type-bar{
   padding:10px 16px 8px;border-top:1px solid var(--border);
   background:var(--surface);display:flex;flex-direction:column;gap:8px;
@@ -579,16 +575,110 @@ html[data-timeranim="on"] .ring-wrap.running .sw-ring .ring-fg{animation:spinRin
 .note-url:hover{text-decoration:underline}
 .note-content{font-size:12.5px;line-height:1.65;color:var(--text);margin-top:8px;padding:10px 12px;background:var(--surface);border-radius:9px;border:1px solid var(--border);white-space:pre-wrap;word-wrap:break-word;max-height:220px;overflow-y:auto}
 
-.code-layout{display:grid;grid-template-columns:250px 1fr 1fr;gap:16px;align-items:start}
-@media(max-width:1200px){.code-layout{grid-template-columns:230px 1fr}.preview-card{grid-column:span 2}}
-@media(max-width:800px){.code-layout{grid-template-columns:1fr}.preview-card{grid-column:span 1}}
-.code-editor{width:100%;min-height:380px;padding:14px;border-radius:12px;border:1px solid var(--border);background:#0b0e18;color:#dbe4ff;font-family:var(--mono);font-size:13px;line-height:1.6;resize:vertical;outline:none;tab-size:2;white-space:pre;overflow:auto}
+/* ============================================================
+   CODE STORAGE
+============================================================ */
+.code-layout{display:flex;flex-direction:column;gap:16px}
+
+.preview-frame{
+  width:100%;height:380px;border-radius:12px;
+  border:1px solid var(--border);background:#fff;display:block;
+}
+
+/* Editor toolbar */
+.editor-toolbar{
+  display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap;margin-bottom:12px;
+}
+.editor-toolbar .field{margin-bottom:0}
+.editor-toolbar .tf-name{flex:1;min-width:200px}
+.editor-toolbar .tf-lang{min-width:170px}
+.editor-toolbar .tf-actions{
+  display:flex;gap:8px;align-items:center;flex-wrap:wrap;
+}
+
+.code-editor{
+  width:100%;min-height:340px;padding:14px;border-radius:12px;
+  border:1px solid var(--border);background:#0b0e18;color:#dbe4ff;
+  font-family:var(--mono);font-size:13px;line-height:1.6;
+  resize:vertical;outline:none;tab-size:2;white-space:pre;overflow:auto;
+}
 .code-editor:focus{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 20%,transparent)}
-.preview-frame{width:100%;height:380px;border-radius:12px;border:1px solid var(--border);background:#fff}
-.proj-item{display:flex;align-items:center;gap:9px;padding:10px 11px;border-radius:11px;background:var(--surface2);cursor:pointer;transition:all .2s ease;border:1px solid transparent}
-.proj-item.active{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 14%,var(--surface2))}
-.proj-item .lang-tag{font-size:9.5px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--accent2)}
-.proj-item .pname{font-size:12.5px;font-weight:600;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+.editor-footer{
+  display:flex;gap:14px;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;margin-top:10px;
+}
+.editor-footer .run-group{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.editor-footer label{
+  display:flex;align-items:center;gap:7px;font-size:12px;color:var(--muted);
+  cursor:pointer;
+}
+
+/* Library search */
+.search-input-wrap{position:relative;display:flex;align-items:center;min-width:200px}
+.search-input-wrap input{
+  width:100%;padding:8px 30px 8px 32px;border-radius:9px;
+  border:1px solid var(--border);background:var(--surface2);
+  outline:none;font-size:12.5px;transition:border .2s;
+}
+.search-input-wrap input:focus{border-color:var(--accent)}
+.search-input-wrap::before{
+  content:'🔍';position:absolute;left:10px;top:50%;
+  transform:translateY(-50%);font-size:12px;opacity:.55;pointer-events:none;
+}
+.search-input-wrap .search-clear{
+  position:absolute;right:6px;top:50%;transform:translateY(-50%);
+  width:22px;height:22px;border-radius:6px;display:inline-grid;place-items:center;
+  font-size:11px;color:var(--muted);background:transparent;
+  border:1px solid transparent;padding:0;line-height:1;
+}
+.search-input-wrap .search-clear:hover{color:var(--danger);border-color:var(--danger)}
+
+/* Project grid */
+.proj-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(220px, 1fr));
+  gap:10px;
+  max-height:420px;
+  overflow-y:auto;
+  padding-right:4px;
+}
+.proj-item{
+  display:flex;align-items:flex-start;gap:10px;padding:12px;
+  border-radius:11px;background:var(--surface2);
+  cursor:pointer;transition:all .2s ease;border:1px solid transparent;
+  position:relative;min-width:0;
+}
+html[data-elanim="on"] .proj-item:hover{transform:translateY(-2px);border-color:var(--accent)}
+.proj-item.active{
+  border-color:var(--accent);
+  background:color-mix(in srgb,var(--accent) 14%,var(--surface2));
+}
+.proj-item .proj-info{flex:1;min-width:0}
+.proj-item .pname{
+  font-size:12.5px;font-weight:700;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  margin-bottom:4px;
+}
+.proj-item .plang{
+  display:inline-block;font-size:9.5px;font-weight:800;
+  letter-spacing:.6px;text-transform:uppercase;
+  padding:2px 7px;border-radius:6px;
+  background:color-mix(in srgb,var(--accent2) 18%,transparent);
+  color:var(--accent2);margin-bottom:4px;
+}
+.proj-item .pdate{
+  font-size:10.5px;color:var(--muted);display:block;
+}
+.proj-item .proj-preview{
+  font-size:10.5px;color:var(--muted);margin-top:6px;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;
+  overflow:hidden;line-height:1.45;
+  font-family:var(--mono);
+}
+.proj-item .proj-del{
+  flex-shrink:0;
+}
 
 .table-wrap{overflow-x:auto;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface)}
 table{width:100%;border-collapse:collapse;font-size:12.5px;min-width:720px}
@@ -949,35 +1039,70 @@ select{width:100%;padding:10px 12px;border-radius:11px;border:1px solid var(--bo
       </div>
     </section>
 
+    <!-- ================= CODE STORAGE ================= -->
     <section class="tab-panel" id="tab-code">
       <div class="code-layout">
-        <div class="card">
-          <h3>Library</h3>
-          <div class="field"><label>Project name</label><input id="pName" type="text" placeholder="My Project"></div>
-          <div class="field"><label>Language</label>
-            <select id="pLang">
-              <option value="html">HTML</option><option value="css">CSS</option><option value="javascript">JavaScript</option>
-              <option value="typescript">TypeScript</option><option value="python">Python</option><option value="java">Java</option>
-              <option value="csharp">C#</option><option value="cpp">C++</option><option value="sql">SQL</option>
-              <option value="json">JSON</option><option value="markdown">Markdown</option><option value="other">Other</option>
-            </select>
-          </div>
-          <div class="row" style="justify-content:flex-start;margin-bottom:14px">
-            <button class="btn" id="pSave" style="padding:9px 14px;font-size:13px">💾 Save</button>
-            <button class="btn ghost" id="pNew" style="padding:9px 14px;font-size:13px">＋ New</button>
-          </div>
-          <div class="divider" style="margin-bottom:14px"></div>
-          <div class="list" id="projList" style="max-height:360px"></div>
+
+        <!-- Live Preview at the top -->
+        <div class="card preview-card">
+          <h3>Live Preview</h3>
+          <iframe class="preview-frame" id="previewFrame" sandbox="allow-scripts allow-modals"></iframe>
         </div>
+
+        <!-- Editor with save form -->
         <div class="card">
           <h3>Editor</h3>
+          <div class="editor-toolbar">
+            <div class="field tf-name">
+              <label>Project name</label>
+              <input id="pName" type="text" placeholder="e.g. My Website">
+            </div>
+            <div class="field tf-lang">
+              <label>Language</label>
+              <select id="pLang">
+                <option value="html">HTML</option>
+                <option value="css">CSS</option>
+                <option value="javascript">JavaScript</option>
+                <option value="typescript">TypeScript</option>
+                <option value="python">Python</option>
+                <option value="java">Java</option>
+                <option value="csharp">C#</option>
+                <option value="cpp">C++</option>
+                <option value="sql">SQL</option>
+                <option value="json">JSON</option>
+                <option value="markdown">Markdown</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="tf-actions">
+              <button class="btn" id="pSave">💾 Save</button>
+              <button class="btn ghost" id="pNew">＋ New</button>
+            </div>
+          </div>
           <textarea class="code-editor" id="codeArea" spellcheck="false" placeholder="// Start coding here..."></textarea>
-          <div class="row" style="justify-content:flex-start;margin-top:12px">
-            <button class="btn" id="runBtn" style="padding:9px 14px;font-size:13px">▶ Run Preview</button>
-            <label style="display:flex;align-items:center;gap:7px;font-size:12px;color:var(--muted)"><input type="checkbox" id="autoRun" checked> Auto preview</label>
+          <div class="editor-footer">
+            <div class="run-group">
+              <button class="btn" id="runBtn">▶ Run Preview</button>
+              <label><input type="checkbox" id="autoRun" checked> Auto preview</label>
+            </div>
+            <span class="muted" id="editorStatus" style="font-size:11.5px">Ready</span>
           </div>
         </div>
-        <div class="card preview-card"><h3>Live Preview</h3><iframe class="preview-frame" id="previewFrame" sandbox="allow-scripts allow-modals"></iframe></div>
+
+        <!-- Library at the bottom with search -->
+        <div class="card">
+          <div class="list-header">
+            <h3>Library (<span id="projCount">0</span>)</h3>
+            <div class="filters">
+              <div class="search-input-wrap">
+                <input id="projSearch" type="text" placeholder="Search projects…">
+                <button class="search-clear hidden" id="projSearchClear" title="Clear">✕</button>
+              </div>
+            </div>
+          </div>
+          <div class="proj-grid" id="projList"></div>
+        </div>
+
       </div>
     </section>
 
@@ -1449,6 +1574,9 @@ function switchTab(name){
     markChatRead();
     setTimeout(scrollChatToBottom, 50);
   }
+  if (name === 'code') {
+    setTimeout(runPreview, 30);
+  }
 }
 
 function tickClock(){
@@ -1783,7 +1911,6 @@ function initChat(){
 
   el('#chatNotifyBtn').addEventListener('click', toggleChatNotifications);
 
-  // Message type chips
   els('#chatTypeChips .chat-type-chip').forEach(chip => {
     chip.addEventListener('click', () => {
       chatMessageType = chip.dataset.type;
@@ -1800,13 +1927,11 @@ function initChat(){
     });
   });
 
-  // Assignment picker
   el('#chatAssignmentPick').addEventListener('change', e => {
     chatLinkedAssignmentId = e.target.value;
     chatLinkedNoteId = '';
     refreshChatNoteDropdown();
   });
-  // Note picker
   el('#chatNotePick').addEventListener('change', e => {
     chatLinkedNoteId = e.target.value;
   });
@@ -1824,8 +1949,6 @@ function refreshChatLinkDropdowns(){
   const selA = el('#chatAssignmentPick');
   const selN = el('#chatNotePick');
   if (!selA || !selN) return;
-
-  // Assignments list (both categories, but prioritize active)
   const items = (Store.data.assignments || []).slice().sort((a, b) => {
     if (a.completed !== b.completed) return a.completed ? 1 : -1;
     if (!a.due && !b.due) return 0;
@@ -1833,7 +1956,6 @@ function refreshChatLinkDropdowns(){
     if (!b.due) return -1;
     return new Date(a.due) - new Date(b.due);
   });
-
   const curA = selA.value;
   selA.innerHTML = '<option value="">— Select an assignment —</option>' +
     items.map(a => {
@@ -1843,18 +1965,14 @@ function refreshChatLinkDropdowns(){
     }).join('');
   if (Array.from(selA.options).some(o => o.value === curA)) selA.value = curA;
   else if (chatLinkedAssignmentId && !items.find(x => x.id === chatLinkedAssignmentId)) chatLinkedAssignmentId = '';
-
   refreshChatNoteDropdown();
 }
 
 function refreshChatNoteDropdown(){
   const selN = el('#chatNotePick');
   if (!selN) return;
-
   const linked = chatLinkedAssignmentId ? Store.data.assignments.find(a => a.id === chatLinkedAssignmentId) : null;
   let notes = (Store.data.notes || []).slice();
-
-  // If an assignment is selected and it has a section, prioritize/filter notes with matching class name
   if (linked) {
     const sec = getSection(linked.sectionId);
     if (sec) {
@@ -1863,7 +1981,6 @@ function refreshChatNoteDropdown(){
       notes = matching.concat(others);
     }
   }
-
   const cur = selN.value;
   selN.innerHTML = '<option value="">— Link a note (optional) —</option>' +
     notes.map(n => {
@@ -1990,7 +2107,6 @@ function sendChatMessage(){
   const input = el('#chatInput');
   const text = input.value.trim();
 
-  // For assignment type, require an assignment to be picked
   if (chatMessageType === 'assignment' && !chatLinkedAssignmentId) {
     toast('Please pick an assignment to link.');
     return;
@@ -2020,7 +2136,6 @@ function sendChatMessage(){
   chatAttachments = [];
   renderAttachPreview();
 
-  // Reset type to normal after send
   chatMessageType = 'normal';
   chatLinkedAssignmentId = '';
   chatLinkedNoteId = '';
@@ -2184,7 +2299,6 @@ function renderChat(){
   }
   list.innerHTML = html;
   els('#chatMessages .chat-img').forEach(img => { img.addEventListener('click', () => window.open(img.src, '_blank')); });
-  // Wire linked card clicks to jump to relevant tabs
   els('#chatMessages [data-jump-assign]').forEach(card => {
     card.addEventListener('click', () => switchTab('assignments'));
   });
@@ -2211,7 +2325,6 @@ function renderChatMessageHtml(m, highlightRegex){
     else attachHtml += `<span class="chat-file" style="cursor:default">📎 <span class="fname">${escapeHtml(a.name)}</span></span>`;
   }
 
-  // Linked assignment card
   let linkedHtml = '';
   if (m.linkedAssignment) {
     const la = m.linkedAssignment;
@@ -2656,31 +2769,101 @@ function renderNotes(){
   els('[data-del-note]').forEach(b => b.addEventListener('click', () => deleteNote(b.dataset.delNote)));
 }
 
-/* ============ CODE ============ */
+/* ============ CODE STORAGE ============ */
 let currentProjectId = null, previewTimer = null;
+let projSearchQuery = '';
+
 function initCode(){
   el('#pSave').addEventListener('click', saveProject);
   el('#pNew').addEventListener('click', newProject);
   el('#runBtn').addEventListener('click', runPreview);
-  el('#codeArea').addEventListener('input', () => { if (el('#autoRun').checked) { clearTimeout(previewTimer); previewTimer = setTimeout(runPreview, 600); } });
-  el('#pLang').addEventListener('change', () => { if (el('#autoRun').checked) runPreview(); });
+  el('#codeArea').addEventListener('input', () => {
+    setEditorStatus('Unsaved changes');
+    if (el('#autoRun').checked) { clearTimeout(previewTimer); previewTimer = setTimeout(runPreview, 600); }
+  });
+  el('#pLang').addEventListener('change', () => {
+    setEditorStatus('Unsaved changes');
+    if (el('#autoRun').checked) runPreview();
+  });
+  el('#pName').addEventListener('input', () => setEditorStatus('Unsaved changes'));
+
+  // Project search
+  const searchInput = el('#projSearch');
+  const clearBtn = el('#projSearchClear');
+  searchInput.addEventListener('input', e => {
+    projSearchQuery = e.target.value.trim();
+    clearBtn.classList.toggle('hidden', !projSearchQuery);
+    renderProjects();
+  });
+  clearBtn.addEventListener('click', () => {
+    searchInput.value = '';
+    projSearchQuery = '';
+    clearBtn.classList.add('hidden');
+    renderProjects();
+  });
+
   runPreview();
+  setEditorStatus('Ready');
 }
+
+function setEditorStatus(msg){
+  const s = el('#editorStatus');
+  if (s) s.textContent = msg;
+}
+
 function saveProject(){
-  const name = el('#pName').value.trim(), lang = el('#pLang').value, code = el('#codeArea').value;
+  const name = el('#pName').value.trim();
+  const lang = el('#pLang').value;
+  const code = el('#codeArea').value;
   if (!name) { toast('Give your project a name first.'); return; }
   if (currentProjectId) {
     const p = Store.data.projects.find(x => x.id === currentProjectId);
-    if (p) { const oldName = p.name; Object.assign(p, { name, lang, code, updatedBy: session.name, updatedAt: Date.now() }); commit('edited','Code Project', oldName === name ? `Updated "${name}" (${lang})` : `Renamed "${oldName}" → "${name}"`); }
+    if (p) {
+      const oldName = p.name;
+      Object.assign(p, { name, lang, code, updatedBy: session.name, updatedAt: Date.now() });
+      commit('edited','Code Project', oldName === name ? `Updated "${name}" (${lang})` : `Renamed "${oldName}" → "${name}"`);
+    }
   } else {
     const proj = { id: uid(), name, lang, code, updatedBy: session.name, updatedAt: Date.now() };
-    Store.data.projects.push(proj); currentProjectId = proj.id; commit('added','Code Project',`Created "${name}" (${lang})`);
+    Store.data.projects.push(proj);
+    currentProjectId = proj.id;
+    commit('added','Code Project',`Created "${name}" (${lang})`);
   }
+  setEditorStatus('Saved ✓');
   toast('Project saved ✓');
 }
-function newProject(){ currentProjectId = null; el('#pName').value=''; el('#pLang').value='html'; el('#codeArea').value=''; el('#projList').querySelectorAll('.proj-item').forEach(n=>n.classList.remove('active')); runPreview(); el('#pName').focus(); }
-function loadProject(id){ const p = Store.data.projects.find(x => x.id === id); if (!p) return; currentProjectId = id; el('#pName').value = p.name; el('#pLang').value = p.lang; el('#codeArea').value = p.code || ''; renderProjects(); runPreview(); }
-function deleteProject(id){ const p = Store.data.projects.find(x => x.id === id); if (!p) return; if (!confirm(`Delete project "${p.name}"?`)) return; Store.data.projects = Store.data.projects.filter(x => x.id !== id); if (currentProjectId === id) newProject(); commit('removed','Code Project',`Deleted "${p.name}"`); }
+
+function newProject(){
+  currentProjectId = null;
+  el('#pName').value = '';
+  el('#pLang').value = 'html';
+  el('#codeArea').value = '';
+  els('#projList .proj-item').forEach(n => n.classList.remove('active'));
+  setEditorStatus('Ready');
+  runPreview();
+  el('#pName').focus();
+}
+
+function loadProject(id){
+  const p = Store.data.projects.find(x => x.id === id);
+  if (!p) return;
+  currentProjectId = id;
+  el('#pName').value = p.name;
+  el('#pLang').value = p.lang;
+  el('#codeArea').value = p.code || '';
+  renderProjects();
+  setEditorStatus(`Loaded "${p.name}"`);
+  runPreview();
+}
+
+function deleteProject(id){
+  const p = Store.data.projects.find(x => x.id === id); if (!p) return;
+  if (!confirm(`Delete project "${p.name}"?`)) return;
+  Store.data.projects = Store.data.projects.filter(x => x.id !== id);
+  if (currentProjectId === id) newProject();
+  commit('removed','Code Project',`Deleted "${p.name}"`);
+}
+
 function buildPreview(code, lang){
   if (lang === 'html') return code || '<p style="font-family:system-ui;color:#888;padding:20px">Nothing to preview yet.</p>';
   if (lang === 'css') return `<!doctype html><html><head><style>body{font-family:system-ui;padding:24px;background:#fff;color:#222}${code}</style></head><body><h1>Heading 1</h1><p>Sample paragraph text for styling.</p><button>Button</button></body></html>`;
@@ -2688,13 +2871,58 @@ function buildPreview(code, lang){
   if (lang === 'json') return `<!doctype html><html><body style="font-family:ui-monospace,monospace;background:#0b0e18;color:#9ae6b4;padding:16px;margin:0"><pre style="white-space:pre-wrap;font-size:13px">${escapeHtml(code)}</pre></body></html>`;
   return `<!doctype html><html><body style="font-family:ui-monospace,monospace;background:#0b0e18;color:#dbe4ff;padding:16px;margin:0"><pre style="white-space:pre-wrap;font-size:13px">${escapeHtml(code)}</pre></body></html>`;
 }
-function runPreview(){ el('#previewFrame').srcdoc = buildPreview(el('#codeArea').value, el('#pLang').value); }
+
+function runPreview(){
+  el('#previewFrame').srcdoc = buildPreview(el('#codeArea').value, el('#pLang').value);
+}
+
 function renderProjects(){
   if (!Store.data) return;
-  const list = Store.data.projects.slice().sort((a,b) => (b.updatedAt || 0) - (a.updatedAt || 0));
-  el('#projList').innerHTML = list.length ? list.map(p => `<div class="proj-item ${p.id === currentProjectId ? 'active' : ''}" data-open="${p.id}"><div style="flex:1;min-width:0"><div class="pname">${escapeHtml(p.name)}</div><div class="lang-tag">${escapeHtml(p.lang)} · ${new Date(p.updatedAt || Date.now()).toLocaleDateString()}</div></div><button class="mini del" data-pdel="${p.id}" title="Delete">🗑</button></div>`).join('') : '<div class="empty">No saved projects yet.</div>';
-  els('[data-open]').forEach(node => node.addEventListener('click', e => { if (e.target.closest('[data-pdel]')) return; loadProject(node.dataset.open); }));
-  els('[data-pdel]').forEach(btn => btn.addEventListener('click', e => { e.stopPropagation(); deleteProject(btn.dataset.pdel); }));
+  const q = projSearchQuery.toLowerCase();
+
+  let list = (Store.data.projects || []).slice().sort((a,b) => (b.updatedAt || 0) - (a.updatedAt || 0));
+
+  if (q) {
+    list = list.filter(p =>
+      (p.name || '').toLowerCase().includes(q) ||
+      (p.lang || '').toLowerCase().includes(q) ||
+      (p.code || '').toLowerCase().includes(q)
+    );
+  }
+
+  el('#projCount').textContent = list.length;
+
+  if (!Store.data.projects.length) {
+    el('#projList').innerHTML = '<div class="empty" style="grid-column:1/-1">No saved projects yet. Click ＋ New above to start one.</div>';
+    return;
+  }
+
+  if (!list.length) {
+    el('#projList').innerHTML = '<div class="empty" style="grid-column:1/-1">No projects match your search.</div>';
+    return;
+  }
+
+  el('#projList').innerHTML = list.map(p => {
+    const preview = (p.code || '').trim().slice(0, 120);
+    return `<div class="proj-item ${p.id === currentProjectId ? 'active' : ''}" data-open="${p.id}">
+      <div class="proj-info">
+        <div class="pname">${escapeHtml(p.name)}</div>
+        <span class="plang">${escapeHtml(p.lang)}</span>
+        <span class="pdate">${new Date(p.updatedAt || Date.now()).toLocaleDateString()}</span>
+        ${preview ? `<div class="proj-preview">${escapeHtml(preview)}</div>` : ''}
+      </div>
+      <button class="mini del proj-del" data-pdel="${p.id}" title="Delete">🗑</button>
+    </div>`;
+  }).join('');
+
+  els('#projList [data-open]').forEach(node => node.addEventListener('click', e => {
+    if (e.target.closest('[data-pdel]')) return;
+    loadProject(node.dataset.open);
+  }));
+  els('#projList [data-pdel]').forEach(btn => btn.addEventListener('click', e => {
+    e.stopPropagation();
+    deleteProject(btn.dataset.pdel);
+  }));
 }
 
 /* ============ AUDIT ============ */
