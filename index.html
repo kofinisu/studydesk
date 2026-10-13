@@ -452,6 +452,35 @@ body.focus-mode main{padding-top:40px}
 .journal-entry .j-body{flex:1;min-width:0}
 .journal-entry .j-date{font-size:10px;color:var(--muted);margin-bottom:3px}
 .journal-entry .j-text{line-height:1.45;word-wrap:break-word;white-space:pre-wrap}
+
+/* ============ FIX: prevent buttons from collapsing in flex rows ============ */
+.btn,
+.btn.mini,
+.ctrl-btn,
+.chat-action-btn,
+.cal-nav,
+.day-add-btn,
+.mini,
+.sec-actions button {
+  flex-shrink: 0;
+  min-width: max-content;
+}
+/* Keep button action rows tidy when they wrap */
+.row > .btn,
+.row > .btn.mini,
+.row > .ctrl-btn,
+.journal-actions > .btn,
+.notes-actions > .btn,
+.snippet-actions > .btn,
+.fc-buttons > .btn {
+  flex-shrink: 0;
+}
+/* Fallback for inline flex wrappers (calendar import, etc.) */
+div[style*="display:flex"][style*="gap:8px"] > .btn,
+div[style*="display:flex"][style*="gap:8px"] > .btn.mini {
+  flex-shrink: 0;
+  min-width: max-content;
+}
 </style>
 </head>
 <body>
@@ -768,7 +797,7 @@ body.focus-mode main{padding-top:40px}
   </div>
 </section>
 
-<!-- ANALYTICS (NEW) -->
+<!-- ANALYTICS -->
 <section class="tab-panel" id="tab-analytics">
   <div class="analytics-grid">
     <div class="card">
@@ -817,8 +846,8 @@ body.focus-mode main{padding-top:40px}
         </div>
         <div class="row" style="justify-content:flex-start;margin-top:6px">
           <button class="btn mini" id="fcAddCard" disabled>+ Add Card</button>
-          <button class="btn mini ghost" id="fcResetCards" disabled>Reset all progress</button>
-          <button class="btn mini danger" id="fcDeleteDeck" disabled>Delete Deck</button>
+          <button class="btn mini ghost" id="fcResetCards" disabled>Reset progress</button>
+          <button class="btn mini danger" id="fcDeleteDeck" disabled>🗑 Delete Deck</button>
         </div>
         <div class="divider" style="margin:14px 0"></div>
         <div id="fcCardList" style="max-height:280px;overflow-y:auto"></div>
@@ -1165,7 +1194,7 @@ function DEFAULT_DATA(){
   return {
     assignments: [], sections: [], events: [], notes: [], projects: [],
     messages: [], audit: [], sessions: [], decks: [], flashcards: [],
-    journal: [],              /* NEW */
+    journal: [],
     settings: {
       theme:'aurora', cursor:'glow', tabAnim:true, tabAnimStyle:'slide',
       elementAnim:true, timerAnim:true, clock24:true, sound:true, autoSync:true,
@@ -1238,7 +1267,6 @@ function serializeForSheets(data) {
     reviews:Number(f.reviews)||0, lastReview:Number(f.lastReview)||0,
     createdAt:f.createdAt||Date.now()
   }));
-  /* NEW */
   s.journal = (data.journal || []).map(j => ({
     id: j.id, date: j.date, mood: j.mood || 'good',
     text: j.text || '', createdAt: j.createdAt || Date.now(),
@@ -1311,7 +1339,6 @@ function deserializeFromSheets(raw) {
     reviews:num(r.reviews, 0), lastReview:num(r.lastReview, 0),
     createdAt:num(r.createdAt, Date.now())
   }));
-  /* NEW */
   d.journal = (raw.journal || []).map(r => ({
     id:str(r.id), date:str(r.date), mood:str(r.mood) || 'good',
     text:str(r.text), createdAt:num(r.createdAt, Date.now()), createdBy:str(r.createdBy)
@@ -1344,7 +1371,7 @@ const Store = {
     });
     this.data = localData || DEFAULT_DATA();
     if (!this.data.settings) this.data.settings = DEFAULT_DATA().settings;
-    if (!this.data.journal) this.data.journal = [];   /* NEW */
+    if (!this.data.journal) this.data.journal = [];
     applyAll();
   },
 
@@ -1505,10 +1532,10 @@ function applyAll(){
   renderCalendar();
   renderStudyWidget();
   renderIntent();
-  renderJournal();                                   /* NEW */
+  renderJournal();
   renderSectionsUI();
   renderAssignments();
-  if (assignmentsView === 'kanban') renderKanban();  /* NEW */
+  if (assignmentsView === 'kanban') renderKanban();
   renderGrades();
   renderDecks();
   renderFlashcards();
@@ -1523,7 +1550,7 @@ function applyAll(){
   updateChatNotifyLabel();
   refreshChatLinkDropdowns();
   refreshWhatIfDropdowns();
-  if (currentTab === 'analytics') renderAnalytics(); /* NEW */
+  if (currentTab === 'analytics') renderAnalytics();
 }
 function applySettings(){
   const s = Store.data.settings;
@@ -1620,8 +1647,8 @@ function switchTab(name){
   els('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === name));
   els('.tab-panel').forEach(p => p.classList.toggle('active', p.id === 'tab-' + name));
   if (name === 'chat') { markChatRead(); setTimeout(scrollChatToBottom, 50); }
-  if (name === 'analytics') setTimeout(renderAnalytics, 80);       /* NEW */
-  if (name === 'assignments' && assignmentsView === 'kanban') renderKanban(); /* NEW */
+  if (name === 'analytics') setTimeout(renderAnalytics, 80);
+  if (name === 'assignments' && assignmentsView === 'kanban') renderKanban();
 }
 
 /* ============================================================
@@ -1765,7 +1792,7 @@ function renderIntent(){
 }
 
 /* ============================================================
-   JOURNAL / MOOD  (NEW)
+   JOURNAL / MOOD
 ============================================================ */
 const MOODS = [
   { id:'great', emoji:'😄', label:'Great' },
@@ -1835,7 +1862,7 @@ function renderJournal(){
 }
 
 /* ============================================================
-   ANALYTICS  (NEW)
+   ANALYTICS
 ============================================================ */
 let analyticsResizeTimer = null;
 function initAnalytics(){
@@ -2778,7 +2805,7 @@ function deleteAssignment(id){
 function toggleComplete(id){
   const a = Store.data.assignments.find(x => x.id === id); if (!a) return;
   a.completed = !a.completed;
-  if (a.completed) a.inProgress = false;  /* NEW: clear progress when done */
+  if (a.completed) a.inProgress = false;
   commit('edited', 'Assignment', `${a.completed ? 'Completed' : 'Reopened'} "${a.name}"`);
   if (a.completed && a.recurrence === 'weekly' && a.due) {
     const next = new Date(a.due);
@@ -2848,7 +2875,7 @@ function renderAssignments(){
 }
 
 /* ============================================================
-   KANBAN VIEW  (NEW)
+   KANBAN VIEW
 ============================================================ */
 let assignmentsView = 'list';
 function initKanbanToggle(){
@@ -4001,9 +4028,9 @@ function boot(){
   initChat();
   initAssignments();
   initGrades();
-  initAnalytics();       /* NEW */
-  initKanbanToggle();    /* NEW */
-  initJournal();         /* NEW */
+  initAnalytics();
+  initKanbanToggle();
+  initJournal();
   initFlashcards();
   initNotes();
   initCode();
