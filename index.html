@@ -510,6 +510,44 @@ html[data-timeranim="on"] .ring-wrap.running .sw-ring .ring-fg{animation:spinRin
 .snippet-lang-tag{font-size:9.5px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;padding:3px 8px;border-radius:6px;background:color-mix(in srgb,var(--accent2) 18%,transparent);color:var(--accent2)}
 .snippet-item-preview{font-family:var(--mono);font-size:10.5px;color:var(--muted);background:var(--surface);padding:6px 9px;border-radius:6px;margin-top:8px;white-space:pre;overflow:hidden;text-overflow:ellipsis;max-height:44px;line-height:1.4}
 
+/* ─── EXPANDABLE CODE DROPDOWN ─── */
+.snippet-full-code{
+  display:none;
+  margin-top:10px;
+  padding:12px 14px;
+  border-radius:8px;
+  background:#0b0e18;
+  color:#dbe4ff;
+  font-family:var(--mono);
+  font-size:12px;
+  line-height:1.55;
+  max-height:420px;
+  overflow:auto;
+  white-space:pre;
+  border:1px solid var(--border);
+  tab-size:2;
+  cursor:text;
+}
+.snippet-item.expanded .snippet-item-preview{display:none}
+.snippet-item.expanded .snippet-full-code{
+  display:block;
+  animation:codeExpand .26s cubic-bezier(.2,.9,.3,1) both;
+}
+@keyframes codeExpand{
+  from{opacity:0;transform:translateY(-6px)}
+  to{opacity:1;transform:none}
+}
+.snippet-expand-btn{
+  transition:transform .28s cubic-bezier(.2,.9,.3,1), border-color .18s ease, color .18s ease;
+}
+.snippet-item.expanded .snippet-expand-btn{
+  transform:rotate(180deg);
+}
+.snippet-expand-btn.active{
+  border-color:var(--accent);
+  color:var(--accent);
+}
+
 .modal-overlay{position:fixed;inset:0;z-index:400;background:rgba(0,0,0,.65);backdrop-filter:blur(6px);display:grid;place-items:center;padding:20px;animation:modalIn .2s ease both}
 @keyframes modalIn{from{opacity:0}to{opacity:1}}
 .modal-card{width:min(900px,100%);max-height:86vh;background:var(--surface);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);display:flex;flex-direction:column;overflow:hidden;animation:modalCardIn .28s cubic-bezier(.2,.9,.25,1) both}
@@ -577,7 +615,6 @@ select{width:100%;padding:10px 12px;border-radius:11px;border:1px solid var(--bo
 .cursor-flame{position:fixed;pointer-events:none;z-index:9997;font-size:13px;transform:translate(-50%,-50%);animation:flameRise .7s ease-out forwards}
 @keyframes flameRise{0%{opacity:1;transform:translate(-50%,-50%) scale(.7)}100%{opacity:0;transform:translate(-50%,-160%) scale(.3)}}
 
-/* ─── TOAST (fixed) ─── */
 #toast{
   position:fixed;
   bottom:24px;
@@ -2388,6 +2425,8 @@ function renderNotes(){
 let currentProjectId = null;
 let projSearchQuery = '';
 let projLangFilter = 'all';
+const expandedProjects = new Set();
+
 function initCode(){
   el('#pSave').addEventListener('click', saveProject);
   el('#pCancel').addEventListener('click', cancelProjectEdit);
@@ -2450,6 +2489,7 @@ function deleteProject(id){
   const p = Store.data.projects.find(x => x.id === id); if (!p) return;
   if (!confirm(`Delete snippet "${p.name}"?`)) return;
   Store.data.projects = Store.data.projects.filter(x => x.id !== id);
+  expandedProjects.delete(id);
   if (currentProjectId === id) cancelProjectEdit();
   commit('removed', 'Code Snippet', `Deleted "${p.name}"`);
 }
@@ -2491,25 +2531,39 @@ function renderProjects(){
   listEl.innerHTML = list.map(p => {
     const descHtml = p.description ? renderMarkdown(p.description) : '';
     const previewCode = (p.code || '').trim().split('\n').slice(0, 2).join('\n');
-    return `<div class="snippet-item ${p.id === currentProjectId ? 'active' : ''}" data-open="${p.id}">
+    const isExpanded = expandedProjects.has(p.id);
+    return `<div class="snippet-item ${p.id === currentProjectId ? 'active' : ''} ${isExpanded ? 'expanded' : ''}" data-open="${p.id}">
       <div class="snippet-item-main">
         <div class="snippet-item-title">${escapeHtml(p.name)}<span class="snippet-lang-tag">${escapeHtml(p.lang)}</span></div>
         ${descHtml ? `<div class="snippet-item-desc">${descHtml}</div>` : ''}
         <div class="snippet-item-meta"><span>Updated ${new Date(p.updatedAt || Date.now()).toLocaleDateString()}</span>${p.updatedBy ? `<span>· ${escapeHtml(p.updatedBy)}</span>` : ''}</div>
-        ${previewCode ? `<div class="snippet-item-preview">${escapeHtml(previewCode)}</div>` : ''}
+        ${previewCode ? `<div class="snippet-item-preview">${escapeHtml(previewCode)}${(p.code || '').split('\n').length > 2 ? '\\n…' : ''}</div>` : ''}
+        <pre class="snippet-full-code">${escapeHtml(p.code || '')}</pre>
       </div>
       <div class="mini-actions" style="flex-direction:column">
-        <button class="mini" data-preview="${p.id}" title="Preview">▶</button>
+        <button class="mini snippet-expand-btn ${isExpanded ? 'active' : ''}" data-expand="${p.id}" title="${isExpanded ? 'Collapse code' : 'Expand code'}">▾</button>
+        <button class="mini" data-preview="${p.id}" title="Preview in new window">▶</button>
         <button class="mini del" data-pdel="${p.id}" title="Delete">🗑</button>
       </div>
     </div>`;
   }).join('');
   els('#projList [data-open]').forEach(node => node.addEventListener('click', e => {
-    if (e.target.closest('[data-pdel]') || e.target.closest('[data-preview]')) return;
+    if (e.target.closest('[data-pdel]') || e.target.closest('[data-preview]') || e.target.closest('[data-expand]')) return;
     loadProject(node.dataset.open);
   }));
   els('#projList [data-preview]').forEach(btn => btn.addEventListener('click', e => { e.stopPropagation(); openPreview(btn.dataset.preview); }));
   els('#projList [data-pdel]').forEach(btn => btn.addEventListener('click', e => { e.stopPropagation(); deleteProject(btn.dataset.pdel); }));
+  els('#projList [data-expand]').forEach(btn => btn.addEventListener('click', e => {
+    e.stopPropagation();
+    const id = btn.dataset.expand;
+    const item = btn.closest('.snippet-item');
+    if (!item) return;
+    const nowExpanded = item.classList.toggle('expanded');
+    btn.classList.toggle('active', nowExpanded);
+    btn.setAttribute('title', nowExpanded ? 'Collapse code' : 'Expand code');
+    if (nowExpanded) expandedProjects.add(id);
+    else expandedProjects.delete(id);
+  }));
 }
 
 function initAudit(){
@@ -2719,7 +2773,6 @@ function initCursor(){
   document.addEventListener('mouseleave', () => { glow.style.opacity = '0'; });
 }
 
-/* ─── TOAST (fixed) ─── */
 let toastTimer = null;
 
 function toast(msg, type){
