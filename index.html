@@ -410,7 +410,7 @@ body.focus-mode main{padding-top:40px}
   .profile-btn{padding:6px}
 }
 
-/* ============ NEW: ANALYTICS ============ */
+/* ============ ANALYTICS ============ */
 .analytics-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .analytics-span2{grid-column:span 2}
 @media(max-width:900px){.analytics-grid{grid-template-columns:1fr}.analytics-span2{grid-column:span 1}}
@@ -418,7 +418,7 @@ body.focus-mode main{padding-top:40px}
 .chart-wrap.tall{height:230px}
 .chart-wrap canvas{width:100%;height:100%;display:block}
 
-/* ============ NEW: KANBAN ============ */
+/* ============ KANBAN ============ */
 .view-toggle{display:inline-flex;background:var(--surface2);border:1px solid var(--border);border-radius:9px;padding:3px;gap:2px}
 .view-toggle button{padding:6px 10px;border-radius:6px;font-size:12px;font-weight:700;color:var(--muted);white-space:nowrap}
 .view-toggle button.active{background:var(--accent);color:#fff}
@@ -438,7 +438,7 @@ body.focus-mode main{padding-top:40px}
 .kanban-card .k-move button{width:22px;height:22px;border-radius:6px;background:var(--surface2);border:1px solid var(--border);font-size:11px;color:var(--muted)}
 .kanban-card .k-move button:hover{color:var(--accent);border-color:var(--accent)}
 
-/* ============ NEW: JOURNAL ============ */
+/* ============ JOURNAL ============ */
 .mood-row{display:flex;gap:6px;margin-bottom:10px}
 .mood-btn{flex:1;padding:10px 4px 8px;border-radius:10px;background:var(--surface2);border:1px solid var(--border);font-size:22px;transition:transform .15s,border-color .2s}
 .mood-btn:hover{transform:translateY(-2px)}
@@ -453,34 +453,37 @@ body.focus-mode main{padding-top:40px}
 .journal-entry .j-date{font-size:10px;color:var(--muted);margin-bottom:3px}
 .journal-entry .j-text{line-height:1.45;word-wrap:break-word;white-space:pre-wrap}
 
-/* ============ FIX: prevent buttons from collapsing in flex rows ============ */
-.btn,
-.btn.mini,
-.ctrl-btn,
-.chat-action-btn,
-.cal-nav,
-.day-add-btn,
-.mini,
-.sec-actions button {
-  flex-shrink: 0;
-  min-width: max-content;
-}
-/* Keep button action rows tidy when they wrap */
-.row > .btn,
-.row > .btn.mini,
-.row > .ctrl-btn,
-.journal-actions > .btn,
-.notes-actions > .btn,
-.snippet-actions > .btn,
-.fc-buttons > .btn {
-  flex-shrink: 0;
-}
-/* Fallback for inline flex wrappers (calendar import, etc.) */
-div[style*="display:flex"][style*="gap:8px"] > .btn,
-div[style*="display:flex"][style*="gap:8px"] > .btn.mini {
-  flex-shrink: 0;
-  min-width: max-content;
-}
+/* ============ BUTTON FLEX FIX ============ */
+.btn,.btn.mini,.ctrl-btn,.chat-action-btn,.cal-nav,.day-add-btn,.mini,.sec-actions button{flex-shrink:0;min-width:max-content}
+.row > .btn,.row > .btn.mini,.row > .ctrl-btn,.journal-actions > .btn,.notes-actions > .btn,.snippet-actions > .btn,.fc-buttons > .btn{flex-shrink:0}
+div[style*="display:flex"][style*="gap:8px"] > .btn,div[style*="display:flex"][style*="gap:8px"] > .btn.mini{flex-shrink:0;min-width:max-content}
+
+/* ============ NEW: COLLAPSIBLE FORM ============ */
+.form-card-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
+.form-card-head h3{margin-bottom:0!important;flex:1}
+.collapse-btn{width:32px;height:32px;border-radius:8px;background:var(--surface2);border:1px solid var(--border);display:grid;place-items:center;font-size:14px;color:var(--muted);transition:transform .25s,color .2s,border-color .2s;flex-shrink:0}
+.collapse-btn:hover{color:var(--accent);border-color:var(--accent)}
+.two-col.form-collapsed{grid-template-columns:1fr}
+.two-col.form-collapsed #assignFormCard{padding:10px 14px}
+.two-col.form-collapsed #assignFormCard .form-card-head{margin-bottom:0}
+.two-col.form-collapsed #assignFormCard #assignFormBody{display:none}
+.two-col.form-collapsed .collapse-btn{transform:rotate(-90deg)}
+
+/* ============ NEW: MULTI-INTENT ============ */
+.intent-input-row{display:flex;gap:6px;margin-bottom:10px}
+.intent-input-row input{flex:1;min-width:0;padding:11px 13px;border-radius:9px;border:1px solid var(--border);background:var(--surface2);outline:none;font-size:13px}
+.intent-list{display:flex;flex-direction:column;gap:6px;max-height:200px;overflow-y:auto}
+.intent-item{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:9px;background:var(--surface2);font-size:13px}
+.intent-item input[type=checkbox]{width:auto;accent-color:var(--accent);flex-shrink:0;cursor:pointer}
+.intent-item .intent-text{flex:1;min-width:0;word-wrap:break-word;line-height:1.35}
+.intent-item.done .intent-text{text-decoration:line-through;opacity:.55}
+.intent-item .intent-del{width:24px;height:24px;border-radius:6px;color:var(--muted);display:grid;place-items:center;font-size:12px;flex-shrink:0}
+.intent-item .intent-del:hover{color:var(--danger)}
+
+/* ============ NEW: TIMER LOG TOGGLE ============ */
+.timer-toggle-row{display:flex;justify-content:center;margin-top:10px}
+.timer-toggle-row label{display:flex;align-items:center;gap:8px;cursor:pointer;font-size:12px;color:var(--muted);user-select:none}
+.timer-toggle-row input[type=checkbox]{width:auto;accent-color:var(--accent);cursor:pointer}
 </style>
 </head>
 <body>
@@ -567,6 +570,12 @@ div[style*="display:flex"][style*="gap:8px"] > .btn.mini {
           <button class="ctrl-btn" id="timerPause">⏸ Pause</button>
           <button class="ctrl-btn" id="timerReset">⟲ Reset</button>
         </div>
+        <div class="timer-toggle-row">
+          <label title="Uncheck to run a timer without adding to study time">
+            <input type="checkbox" id="timerLogStudy" checked>
+            Log as study time
+          </label>
+        </div>
       </div>
       <div id="pane-stopwatch" class="hidden">
         <div class="ring-wrap" id="swRingWrap">
@@ -615,9 +624,11 @@ div[style*="display:flex"][style*="gap:8px"] > .btn.mini {
     </div>
     <div class="card intent-card">
       <h3>Today's Focus</h3>
-      <input id="intentInput" type="text" placeholder="What's your top priority today?" style="width:100%;padding:11px 13px;border-radius:9px;border:1px solid var(--border);background:var(--surface2);outline:none;font-size:13px;margin-bottom:10px">
-      <div style="font-size:11px;color:var(--muted);margin-bottom:10px" id="intentStatus">Not set</div>
-      <button class="btn mini" id="intentSave">Save Intention</button>
+      <div class="intent-input-row">
+        <input id="intentInput" type="text" placeholder="Add a focus for today…">
+        <button class="btn mini" id="intentAdd" title="Add focus">＋</button>
+      </div>
+      <div class="intent-list" id="intentList"></div>
     </div>
     <div class="card journal-card">
       <h3>Today's Journal</h3>
@@ -671,67 +682,72 @@ div[style*="display:flex"][style*="gap:8px"] > .btn.mini {
 
 <!-- ASSIGNMENTS -->
 <section class="tab-panel" id="tab-assignments">
-  <div class="two-col">
-    <div class="card">
-      <h3 id="assignFormTitle">Add Item</h3>
-      <div class="field"><label>Category</label>
-        <select id="aCategory">
-          <option value="assignment">📚 Assignment</option>
-          <option value="other">📌 Other (task / reminder)</option>
-        </select>
+  <div class="two-col" id="assignTwoCol">
+    <div class="card" id="assignFormCard">
+      <div class="form-card-head">
+        <h3 id="assignFormTitle">Add Item</h3>
+        <button class="collapse-btn" id="assignFormCollapse" title="Minimize">▾</button>
       </div>
-      <div id="assignmentFields">
-        <div class="form-grid">
-          <div class="field span2"><label>Assignment name</label><input id="aName" type="text" placeholder="e.g. Unit 4 Calculus Test"></div>
-          <div class="field span2">
-            <label>Class / Section</label>
-            <div class="section-selector">
-              <select id="aSection"><option value="">— No section —</option></select>
-              <button class="btn mini" id="addSectionBtn">＋</button>
+      <div id="assignFormBody">
+        <div class="field"><label>Category</label>
+          <select id="aCategory">
+            <option value="assignment">📚 Assignment</option>
+            <option value="other">📌 Other (task / reminder)</option>
+          </select>
+        </div>
+        <div id="assignmentFields">
+          <div class="form-grid">
+            <div class="field span2"><label>Assignment name</label><input id="aName" type="text" placeholder="e.g. Unit 4 Calculus Test"></div>
+            <div class="field span2">
+              <label>Class / Section</label>
+              <div class="section-selector">
+                <select id="aSection"><option value="">— No section —</option></select>
+                <button class="btn mini" id="addSectionBtn">＋</button>
+              </div>
+            </div>
+            <div class="field"><label>Teacher</label><input id="aTeacher" type="text" placeholder="Ms. Rivera"></div>
+            <div class="field"><label>Type</label>
+              <select id="aType">
+                <option value="formative">Formative / Practice</option>
+                <option value="performance">Performance</option>
+                <option value="summative">Summative</option>
+              </select>
+            </div>
+            <div class="field"><label>Weight (%)</label><input id="aWeight" type="number" min="0" max="100" placeholder="20"></div>
+            <div class="field"><label>Grade</label><select id="aGrade"></select></div>
+            <div class="field"><label>Due date</label><input id="aDue" type="date"></div>
+            <div class="field"><label>Time (optional)</label><input id="aDueTime" type="time"></div>
+            <div class="field span2"><label>Tags (comma separated)</label><input id="aTags" type="text" placeholder="e.g. essay, group-project"></div>
+            <div class="field span2"><label>Links</label><div id="aLinkList"></div>
+              <button type="button" class="btn mini ghost" id="addLinkBtn" style="margin-top:6px">+ Add link</button>
             </div>
           </div>
-          <div class="field"><label>Teacher</label><input id="aTeacher" type="text" placeholder="Ms. Rivera"></div>
-          <div class="field"><label>Type</label>
-            <select id="aType">
-              <option value="formative">Formative / Practice</option>
-              <option value="performance">Performance</option>
-              <option value="summative">Summative</option>
-            </select>
-          </div>
-          <div class="field"><label>Weight (%)</label><input id="aWeight" type="number" min="0" max="100" placeholder="20"></div>
-          <div class="field"><label>Grade</label><select id="aGrade"></select></div>
-          <div class="field"><label>Due date</label><input id="aDue" type="date"></div>
-          <div class="field"><label>Time (optional)</label><input id="aDueTime" type="time"></div>
-          <div class="field span2"><label>Tags (comma separated)</label><input id="aTags" type="text" placeholder="e.g. essay, group-project"></div>
-          <div class="field span2"><label>Links</label><div id="aLinkList"></div>
-            <button type="button" class="btn mini ghost" id="addLinkBtn" style="margin-top:6px">+ Add link</button>
+        </div>
+        <div id="otherFields" class="hidden">
+          <div class="form-grid">
+            <div class="field span2"><label>Title</label><input id="aOtherTitle" type="text"></div>
+            <div class="field span2"><label>Link (optional)</label><input id="aOtherLink" type="url"></div>
+            <div class="field span2"><label>Grade (optional)</label><select id="aOtherGrade"></select></div>
           </div>
         </div>
-      </div>
-      <div id="otherFields" class="hidden">
-        <div class="form-grid">
-          <div class="field span2"><label>Title</label><input id="aOtherTitle" type="text"></div>
-          <div class="field span2"><label>Link (optional)</label><input id="aOtherLink" type="url"></div>
-          <div class="field span2"><label>Grade (optional)</label><select id="aOtherGrade"></select></div>
+        <div class="field" style="margin-top:6px">
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;font-weight:600">
+            <input type="checkbox" id="aRecurring" style="width:auto;accent-color:var(--accent)">
+            <span>Repeats weekly (regenerates when completed)</span>
+          </label>
         </div>
+        <div class="field">
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;font-weight:600">
+            <input type="checkbox" id="aCompleted" style="width:auto;accent-color:var(--accent)">
+            <span>Mark as completed</span>
+          </label>
+        </div>
+        <div class="row" style="justify-content:flex-start;margin-top:6px">
+          <button class="btn" id="aSubmit">+ Add Item</button>
+          <button class="btn ghost hidden" id="aCancel">Cancel</button>
+        </div>
+        <div class="sections-manager" id="sectionsManager"></div>
       </div>
-      <div class="field" style="margin-top:6px">
-        <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;font-weight:600">
-          <input type="checkbox" id="aRecurring" style="width:auto;accent-color:var(--accent)">
-          <span>Repeats weekly (regenerates when completed)</span>
-        </label>
-      </div>
-      <div class="field">
-        <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;font-weight:600">
-          <input type="checkbox" id="aCompleted" style="width:auto;accent-color:var(--accent)">
-          <span>Mark as completed</span>
-        </label>
-      </div>
-      <div class="row" style="justify-content:flex-start;margin-top:6px">
-        <button class="btn" id="aSubmit">+ Add Item</button>
-        <button class="btn ghost hidden" id="aCancel">Cancel</button>
-      </div>
-      <div class="sections-manager" id="sectionsManager"></div>
     </div>
     <div class="card">
       <div class="list-header">
@@ -1198,7 +1214,7 @@ function DEFAULT_DATA(){
     settings: {
       theme:'aurora', cursor:'glow', tabAnim:true, tabAnimStyle:'slide',
       elementAnim:true, timerAnim:true, clock24:true, sound:true, autoSync:true,
-      chatNotifications: true, breakReminder: true, todayIntent: '', todayIntentDate: ''
+      chatNotifications: true, breakReminder: true, todayIntent: [], todayIntentDate: ''
     },
     chatLastRead: 0,
     updatedAt: Date.now()
@@ -1206,26 +1222,17 @@ function DEFAULT_DATA(){
 }
 
 /* ============================================================
-   SERIALIZER — flat sheet rows ↔ nested in-memory objects
+   SERIALIZER
 ============================================================ */
 function serializeForSheets(data) {
   const s = {};
   s.assignments = (data.assignments || []).map(a => ({
-    id: a.id,
-    name: a.name,
-    sectionId: a.sectionId || '',
-    teacher: a.teacher || '',
-    due: a.due || '',
-    weight: Number(a.weight) || 0,
-    type: a.type || 'formative',
-    grade: a.grade || '',
-    completed: a.completed ? 'TRUE' : 'FALSE',
-    inProgress: a.inProgress ? 'TRUE' : 'FALSE',
-    recurrence: a.recurrence || '',
-    tags: JSON.stringify(a.tags || []),
-    links: JSON.stringify(a.links || []),
-    createdAt: a.createdAt || Date.now(),
-    createdBy: a.createdBy || ''
+    id: a.id, name: a.name, sectionId: a.sectionId || '', teacher: a.teacher || '',
+    due: a.due || '', weight: Number(a.weight) || 0, type: a.type || 'formative',
+    grade: a.grade || '', completed: a.completed ? 'TRUE' : 'FALSE',
+    inProgress: a.inProgress ? 'TRUE' : 'FALSE', recurrence: a.recurrence || '',
+    tags: JSON.stringify(a.tags || []), links: JSON.stringify(a.links || []),
+    createdAt: a.createdAt || Date.now(), createdBy: a.createdBy || ''
   }));
   s.sections = (data.sections || []).map(x => ({ id:x.id, name:x.name, colorIndex:x.colorIndex||0 }));
   s.events = (data.events || []).map(e => ({
@@ -1234,8 +1241,7 @@ function serializeForSheets(data) {
   }));
   s.notes = (data.notes || []).map(n => ({
     id:n.id, title:n.title, content:n.content||'',
-    createdAt:n.createdAt||Date.now(), updatedAt:n.updatedAt||Date.now(),
-    createdBy:n.createdBy||''
+    createdAt:n.createdAt||Date.now(), updatedAt:n.updatedAt||Date.now(), createdBy:n.createdBy||''
   }));
   s.projects = (data.projects || []).map(p => ({
     id:p.id, name:p.name, lang:p.lang||'html', description:p.description||'', code:p.code||'',
@@ -1247,8 +1253,7 @@ function serializeForSheets(data) {
     type:m.type||'normal',
     linkedAssignmentId:(m.linkedAssignment&&m.linkedAssignment.id)||'',
     linkedNoteId:(m.linkedNote&&m.linkedNote.id)||'',
-    attachments: JSON.stringify(m.attachments||[]),
-    time:m.time||Date.now()
+    attachments: JSON.stringify(m.attachments||[]), time:m.time||Date.now()
   }));
   s.audit = (data.audit || []).map(a => ({
     id:a.id, user:a.user||'', role:a.role||'', action:a.action||'', item:a.item||'',
@@ -1264,13 +1269,11 @@ function serializeForSheets(data) {
   s.flashcards = (data.flashcards || []).map(f => ({
     id:f.id, deckId:f.deckId, front:f.front||'', back:f.back||'',
     ease:Number(f.ease)||2.5, interval:Number(f.interval)||0, due:Number(f.due)||Date.now(),
-    reviews:Number(f.reviews)||0, lastReview:Number(f.lastReview)||0,
-    createdAt:f.createdAt||Date.now()
+    reviews:Number(f.reviews)||0, lastReview:Number(f.lastReview)||0, createdAt:f.createdAt||Date.now()
   }));
   s.journal = (data.journal || []).map(j => ({
     id: j.id, date: j.date, mood: j.mood || 'good',
-    text: j.text || '', createdAt: j.createdAt || Date.now(),
-    createdBy: j.createdBy || ''
+    text: j.text || '', createdAt: j.createdAt || Date.now(), createdBy: j.createdBy || ''
   }));
   return s;
 }
@@ -1290,22 +1293,18 @@ function deserializeFromSheets(raw) {
     id: str(r.id), name: str(r.name),
     sectionId: str(r.sectionId), teacher: str(r.teacher), due: str(r.due),
     weight: num(r.weight, 0), type: str(r.type) || 'formative', grade: str(r.grade),
-    completed: bool(r.completed), inProgress: bool(r.inProgress),
-    recurrence: str(r.recurrence),
-    tags: parseJSONSafe(r.tags, []),
-    links: parseJSONSafe(r.links, []),
+    completed: bool(r.completed), inProgress: bool(r.inProgress), recurrence: str(r.recurrence),
+    tags: parseJSONSafe(r.tags, []), links: parseJSONSafe(r.links, []),
     createdAt: num(r.createdAt, Date.now()), createdBy: str(r.createdBy)
   }));
   d.sections = (raw.sections || []).map(r => ({ id:str(r.id), name:str(r.name), colorIndex:num(r.colorIndex,0) }));
   d.events = (raw.events || []).map(r => ({
     id:str(r.id), name:str(r.name), emoji:str(r.emoji)||'📌',
-    date:str(r.date), time:str(r.time), source:str(r.source)||'manual',
-    importedAt:r.importedAt||''
+    date:str(r.date), time:str(r.time), source:str(r.source)||'manual', importedAt:r.importedAt||''
   }));
   d.notes = (raw.notes || []).map(r => ({
     id:str(r.id), title:str(r.title), content:str(r.content),
-    createdAt:num(r.createdAt, Date.now()), updatedAt:num(r.updatedAt, Date.now()),
-    createdBy:str(r.createdBy)
+    createdAt:num(r.createdAt, Date.now()), updatedAt:num(r.updatedAt, Date.now()), createdBy:str(r.createdBy)
   }));
   d.projects = (raw.projects || []).map(r => ({
     id:str(r.id), name:str(r.name), lang:str(r.lang)||'html',
@@ -1316,10 +1315,8 @@ function deserializeFromSheets(raw) {
   d.messages = (raw.messages || []).map(r => ({
     id:str(r.id), sender:str(r.sender), senderName:str(r.senderName),
     text:str(r.text), type:str(r.type)||'normal',
-    linkedAssignmentId: str(r.linkedAssignmentId),
-    linkedNoteId: str(r.linkedNoteId),
-    attachments: parseJSONSafe(r.attachments, []),
-    time:num(r.time, Date.now())
+    linkedAssignmentId: str(r.linkedAssignmentId), linkedNoteId: str(r.linkedNoteId),
+    attachments: parseJSONSafe(r.attachments, []), time:num(r.time, Date.now())
   }));
   d.audit = (raw.audit || []).map(r => ({
     id:str(r.id), user:str(r.user), role:str(r.role), action:str(r.action),
@@ -1330,14 +1327,12 @@ function deserializeFromSheets(raw) {
     startedAt:num(r.startedAt,0), endedAt:num(r.endedAt,0), seconds:num(r.seconds,0)
   }));
   d.decks = (raw.decks || []).map(r => ({
-    id:str(r.id), name:str(r.name), color:str(r.color)||'#6c8cff',
-    createdAt:num(r.createdAt, Date.now())
+    id:str(r.id), name:str(r.name), color:str(r.color)||'#6c8cff', createdAt:num(r.createdAt, Date.now())
   }));
   d.flashcards = (raw.flashcards || []).map(r => ({
     id:str(r.id), deckId:str(r.deckId), front:str(r.front), back:str(r.back),
     ease:num(r.ease, 2.5), interval:num(r.interval, 0), due:num(r.due, Date.now()),
-    reviews:num(r.reviews, 0), lastReview:num(r.lastReview, 0),
-    createdAt:num(r.createdAt, Date.now())
+    reviews:num(r.reviews, 0), lastReview:num(r.lastReview, 0), createdAt:num(r.createdAt, Date.now())
   }));
   d.journal = (raw.journal || []).map(r => ({
     id:str(r.id), date:str(r.date), mood:str(r.mood) || 'good',
@@ -1351,9 +1346,7 @@ function deserializeFromSheets(raw) {
 ============================================================ */
 const LS_KEY = 'studydesk_v2';
 const Store = {
-  data: null,
-  pushTimer: null,
-  pollId: null,
+  data: null, pushTimer: null, pollId: null,
 
   init(){
     let localData = null;
@@ -1372,14 +1365,12 @@ const Store = {
     this.data = localData || DEFAULT_DATA();
     if (!this.data.settings) this.data.settings = DEFAULT_DATA().settings;
     if (!this.data.journal) this.data.journal = [];
+    migrateIntentFormat(this.data);
     applyAll();
   },
 
   async apiPost(payload){
-    const res = await fetch(CLOUD_CONFIG.url, {
-      method: 'POST', redirect: 'follow',
-      body: JSON.stringify(payload)
-    });
+    const res = await fetch(CLOUD_CONFIG.url, { method: 'POST', redirect: 'follow', body: JSON.stringify(payload) });
     if (!res.ok) throw new Error('HTTP ' + res.status);
     const data = await res.json();
     if (data && data.ok === false) throw new Error(data.error || 'Unauthorized');
@@ -1402,6 +1393,7 @@ const Store = {
         const fresh = deserializeFromSheets(resp.data);
         fresh.settings = Object.assign({}, fresh.settings, this.data.settings || {});
         fresh.chatLastRead = this.data.chatLastRead || 0;
+        migrateIntentFormat(fresh);
         this.data = fresh;
         localStorage.setItem(LS_KEY, JSON.stringify(this.data));
         applyAll();
@@ -1414,9 +1406,7 @@ const Store = {
     if (!isCloudConfigured() || !session) return;
     const payload = serializeForSheets(this.data);
     payload.settings = [];
-    await this.withStatus(() => this.apiPost({
-      action: 'save', token: session.token, data: payload
-    }));
+    await this.withStatus(() => this.apiPost({ action: 'save', token: session.token, data: payload }));
   },
 
   startPolling(){
@@ -1434,6 +1424,7 @@ const Store = {
           const fresh = deserializeFromSheets(resp.data);
           fresh.settings = Object.assign({}, fresh.settings, this.data.settings || {});
           fresh.chatLastRead = this.data.chatLastRead || 0;
+          migrateIntentFormat(fresh);
           if ((fresh.updatedAt || 0) !== (this.data.updatedAt || 0) || JSON.stringify(fresh.assignments) !== JSON.stringify(this.data.assignments)) {
             this.data = fresh;
             localStorage.setItem(LS_KEY, JSON.stringify(this.data));
@@ -1457,6 +1448,17 @@ const Store = {
     }
   }
 };
+
+/* Migrate old single-string todayIntent to new array format */
+function migrateIntentFormat(data){
+  if (!data || !data.settings) return;
+  const raw = data.settings.todayIntent;
+  if (typeof raw === 'string') {
+    data.settings.todayIntent = raw ? [{ id: uid(), text: raw, done: false }] : [];
+  } else if (!Array.isArray(raw)) {
+    data.settings.todayIntent = [];
+  }
+}
 
 /* ============================================================
    UNDO / TRASH
@@ -1664,7 +1666,7 @@ function tickClock(){
   el('#greeting').textContent = `${greet}, ${session ? session.name : 'there'} — let's get things done.`;
 }
 setInterval(tickClock, 1000);
-setInterval(() => { if (Store.data) { renderHubLists(); renderCalendar(); renderStudyWidget(); renderJournal(); } }, 60000);
+setInterval(() => { if (Store.data) { renderHubLists(); renderCalendar(); renderStudyWidget(); renderJournal(); renderIntent(); } }, 60000);
 
 /* ============================================================
    PRIORITY
@@ -1779,16 +1781,55 @@ function renderStudyWidget(){
 }
 
 /* ============================================================
-   DAILY INTENTION
+   DAILY INTENTS (multi)
 ============================================================ */
+function getTodayIntents(){
+  const today = new Date().toDateString();
+  if (Store.data.settings.todayIntentDate !== today) return [];
+  const raw = Store.data.settings.todayIntent;
+  return Array.isArray(raw) ? raw : [];
+}
+function saveIntents(items){
+  Store.data.settings.todayIntent = items;
+  Store.data.settings.todayIntentDate = new Date().toDateString();
+  Store.persist();
+  renderIntent();
+}
+function addIntent(){
+  const text = el('#intentInput').value.trim();
+  if (!text) { toast('Type a focus first.'); return; }
+  const items = getTodayIntents();
+  items.push({ id: uid(), text, done: false });
+  saveIntents(items);
+  el('#intentInput').value = '';
+  toast('Focus added');
+}
+function toggleIntent(id){
+  const items = getTodayIntents();
+  const it = items.find(x => x.id === id);
+  if (it) { it.done = !it.done; saveIntents(items); }
+}
+function deleteIntent(id){
+  const items = getTodayIntents().filter(x => x.id !== id);
+  saveIntents(items);
+}
 function renderIntent(){
   if (!Store.data) return;
-  const today = new Date().toDateString();
-  const setToday = Store.data.settings.todayIntentDate === today;
-  el('#intentInput').value = setToday ? (Store.data.settings.todayIntent || '') : '';
-  el('#intentStatus').textContent = setToday
-    ? (Store.data.settings.todayIntent ? 'Set for today' : 'Not set')
-    : 'Not set — set a focus for today';
+  const items = getTodayIntents();
+  const list = el('#intentList');
+  if (!list) return;
+  if (!items.length) {
+    list.innerHTML = '<div class="empty" style="padding:10px;font-size:12px">No focus set for today</div>';
+    return;
+  }
+  list.innerHTML = items.map(it => `
+    <div class="intent-item ${it.done ? 'done' : ''}" data-intent-id="${it.id}">
+      <input type="checkbox" ${it.done ? 'checked' : ''} data-intent-toggle="${it.id}">
+      <span class="intent-text">${escapeHtml(it.text)}</span>
+      <button class="intent-del" data-intent-del="${it.id}" title="Remove">✕</button>
+    </div>`).join('');
+  els('#intentList [data-intent-toggle]').forEach(cb => cb.addEventListener('change', () => toggleIntent(cb.dataset.intentToggle)));
+  els('#intentList [data-intent-del]').forEach(b => b.addEventListener('click', () => deleteIntent(b.dataset.intentDel)));
 }
 
 /* ============================================================
@@ -2098,10 +2139,7 @@ let calPickedEmoji = '📌';
 function initCalendar(){
   el('#calPrev').addEventListener('click', () => { calViewDate = new Date(calViewDate.getFullYear(), calViewDate.getMonth() - 1, 1); renderCalendar(); });
   el('#calNext').addEventListener('click', () => { calViewDate = new Date(calViewDate.getFullYear(), calViewDate.getMonth() + 1, 1); renderCalendar(); });
-  el('#calImportToggle').addEventListener('click', () => {
-    const panel = el('#calImportPanel');
-    panel.classList.toggle('hidden');
-  });
+  el('#calImportToggle').addEventListener('click', () => { el('#calImportPanel').classList.toggle('hidden'); });
   el('#gcalCloseBtn').addEventListener('click', () => el('#calImportPanel').classList.add('hidden'));
   el('#gcalToggleText').addEventListener('click', () => {
     const ta = el('#gcalText');
@@ -2592,6 +2630,7 @@ function scrollChatToBottom(){ const l = el('#chatMessages'); if (l) l.scrollTop
    ASSIGNMENTS
 ============================================================ */
 let editingId = null;
+let assignFormCollapsed = false;
 function initAssignments(){
   el('#aSubmit').addEventListener('click', submitAssignment);
   el('#aCancel').addEventListener('click', cancelEdit);
@@ -2608,6 +2647,14 @@ function initAssignments(){
   el('#aGrade').innerHTML = gradeOptionsHtml('');
   el('#aOtherGrade').innerHTML = gradeOptionsHtml('');
   addLinkRow();
+
+  // Collapse toggle
+  el('#assignFormCollapse').addEventListener('click', () => {
+    assignFormCollapsed = !assignFormCollapsed;
+    el('#assignTwoCol').classList.toggle('form-collapsed', assignFormCollapsed);
+    el('#assignFormCollapse').title = assignFormCollapsed ? 'Expand' : 'Minimize';
+    if (!assignFormCollapsed) setTimeout(() => el('#aName')?.focus(), 100);
+  });
 }
 function toggleCategoryFields(){
   const cat = el('#aCategory').value;
@@ -2788,6 +2835,12 @@ function editAssignment(id){
   }
   el('#assignFormTitle').textContent = 'Edit Item';
   el('#aSubmit').textContent = '✓ Save Changes';
+  // Auto-expand the form if collapsed
+  if (assignFormCollapsed) {
+    assignFormCollapsed = false;
+    el('#assignTwoCol').classList.remove('form-collapsed');
+    el('#assignFormCollapse').title = 'Minimize';
+  }
   el('#aName').focus();
   switchTab('assignments');
 }
@@ -2941,9 +2994,7 @@ function moveKanbanCard(id, to){
    GRADES
 ============================================================ */
 function computeClassGrade(sectionId){
-  const items = Store.data.assignments.filter(a =>
-    !a.deleted && a.category !== 'other' && a.grade && a.sectionId === sectionId
-  );
+  const items = Store.data.assignments.filter(a => !a.deleted && a.category !== 'other' && a.grade && a.sectionId === sectionId);
   if (!items.length) return null;
   let totalWeight = 0, totalPoints = 0;
   items.forEach(a => {
@@ -3625,6 +3676,7 @@ function importData(e){
       const fresh = deserializeFromSheets(raw);
       if (Array.isArray(raw.settings) && raw.settings[0]) fresh.settings = raw.settings[0];
       fresh.chatLastRead = Store.data.chatLastRead || 0;
+      migrateIntentFormat(fresh);
       Store.data = fresh;
       Store.persist();
       applyAll();
@@ -3677,7 +3729,7 @@ function initProfileMenu(){
    TIMER
 ============================================================ */
 const RING_C = 2 * Math.PI * 54;
-let timerState = { total:1500, remaining:1500, running:false, endAt:0, id:null, startedAt:0, sectionId:'', label:'' };
+let timerState = { total:1500, remaining:1500, running:false, endAt:0, id:null, startedAt:0, sectionId:'', label:'', logStudy:true, prompted:false };
 let breakReminderShownAt = 0;
 
 function initTimer(){
@@ -3693,8 +3745,10 @@ function initTimer(){
 function updateTimerContext(){
   const ctx = el('#timerContext'); if (!ctx) return;
   const m = clamp(Number(el('#timerMin').value) || 0, 0, 180);
+  const logStudy = el('#timerLogStudy')?.checked !== false;
   ctx.classList.remove('work','break');
-  if (m === 20) { ctx.textContent = 'Work / Study'; ctx.classList.add('work'); }
+  if (!logStudy) { ctx.textContent = 'Break — not logged'; ctx.classList.add('break'); }
+  else if (m === 20) { ctx.textContent = 'Work / Study'; ctx.classList.add('work'); }
   else if (m === 10 || m === 5) { ctx.textContent = 'Break / Free time'; ctx.classList.add('break'); }
   else { ctx.textContent = ''; }
 }
@@ -3710,9 +3764,14 @@ function applyTimerInputs(){
 function startTimer(){
   if (timerState.running) return;
   if (timerState.remaining <= 0) { applyTimerInputs(); if (timerState.remaining <= 0) return; }
-  if (!timerState.startedAt) {
+
+  // Read the "Log as study time" checkbox at the moment the timer starts
+  timerState.logStudy = el('#timerLogStudy')?.checked !== false;
+
+  // Prompt for section only on the first start of a session (until Reset)
+  if (!timerState.prompted) {
     const sections = Store.data.sections;
-    if (sections.length) {
+    if (timerState.logStudy && sections.length) {
       const sel = prompt("What are you studying?\n" + sections.map((s,i) => (i+1) + '. ' + s.name).join('\n') + '\n0. General (no class)');
       const idx = Number(sel);
       if (!isNaN(idx) && idx > 0 && sections[idx-1]) {
@@ -3722,13 +3781,19 @@ function startTimer(){
         timerState.sectionId = '';
         timerState.label = 'General';
       }
+    } else if (!timerState.logStudy) {
+      timerState.sectionId = '';
+      timerState.label = 'Break';
     } else {
+      timerState.sectionId = '';
       timerState.label = 'General';
     }
+    timerState.prompted = true;
   }
+
   timerState.running = true;
   timerState.endAt = Date.now() + timerState.remaining * 1000;
-  if (!timerState.startedAt) timerState.startedAt = Date.now();
+  timerState.startedAt = Date.now();
   el('#timerRingWrap').classList.add('running');
   timerState.id = setInterval(() => {
     timerState.remaining = Math.max(0, (timerState.endAt - Date.now()) / 1000);
@@ -3740,6 +3805,11 @@ function startTimer(){
         pauseTimer();
         el('#timerMin').value = 5;
         el('#timerSec').value = 0;
+        el('#timerLogStudy').checked = false;
+        timerState.logStudy = false;
+        timerState.sectionId = '';
+        timerState.label = 'Break';
+        timerState.prompted = true;
         applyTimerInputs();
         startTimer();
       }
@@ -3751,11 +3821,12 @@ function pauseTimer(){
   timerState.running = false;
   clearInterval(timerState.id);
   el('#timerRingWrap').classList.remove('running');
-  logStudySession();
+  if (timerState.logStudy) logStudySession();
   timerState.startedAt = 0;
 }
 function logStudySession(){
   if (!timerState.startedAt) return;
+  if (!timerState.logStudy) return;
   const seconds = Math.floor((Date.now() - timerState.startedAt) / 1000);
   if (seconds < 10) return;
   Store.data.sessions.push({
@@ -3768,7 +3839,16 @@ function logStudySession(){
   });
   Store.persist();
 }
-function resetTimer(){ pauseTimer(); applyTimerInputs(); }
+function resetTimer(){
+  pauseTimer();
+  applyTimerInputs();
+  timerState.prompted = false;
+  timerState.logStudy = true;
+  timerState.sectionId = '';
+  timerState.label = '';
+  if (el('#timerLogStudy')) el('#timerLogStudy').checked = true;
+  updateTimerContext();
+}
 function updateTimerUI(){
   const total = timerState.total || 1;
   el('#timerRing').style.strokeDashoffset = RING_C * (1 - clamp(timerState.remaining / total, 0, 1));
@@ -3780,7 +3860,6 @@ function timerFinished(){
   el('#timerRing').style.strokeDashoffset = RING_C;
   toast('⏰ Time is up!');
   if (Store.data.settings.sound) beep();
-  logStudySession();
   timerState.startedAt = 0;
   renderStudyWidget();
 }
@@ -3846,6 +3925,7 @@ const COMMANDS = [
   { id:'tab-audit',       icon:'📋', label:'Go to Audit Log',         hint:'Tab',   run:() => switchTab('audit') },
   { id:'new-assign',      icon:'＋', label:'New Assignment',          hint:'N',     run:() => { switchTab('assignments'); setTimeout(() => el('#aName').focus(), 100); } },
   { id:'kanban',          icon:'▦',  label:'Toggle Kanban view',      hint:'',      run:() => { switchTab('assignments'); setTimeout(() => el('[data-view="kanban"]')?.click(), 120); } },
+  { id:'collapse-form',   icon:'▾',  label:'Toggle Add Item panel',   hint:'',      run:() => { switchTab('assignments'); setTimeout(() => el('#assignFormCollapse')?.click(), 120); } },
   { id:'new-note',        icon:'＋', label:'New Note',                hint:'',      run:() => { switchTab('notes'); setTimeout(() => el('#nTitle').focus(), 100); } },
   { id:'new-snippet',     icon:'＋', label:'New Code Snippet',        hint:'',      run:() => { switchTab('code'); setTimeout(() => el('#pName').focus(), 100); } },
   { id:'start-timer',     icon:'▶',  label:'Start Timer',             hint:'T',     run:() => startTimer() },
@@ -4005,7 +4085,7 @@ function toast(msg, type){
   if (!t) return;
   if (!type) {
     const m = String(msg || '').toLowerCase();
-    if (m.includes('saved') || m.includes('updated') || m.includes('enabled') || m.includes('imported') || m.includes('✓') || m.includes('completed') || m.includes('refreshed')) type = 'success';
+    if (m.includes('saved') || m.includes('updated') || m.includes('enabled') || m.includes('imported') || m.includes('✓') || m.includes('completed') || m.includes('refreshed') || m.includes('added')) type = 'success';
     else if (m.includes('fail') || m.includes('error') || m.includes('cannot') || m.includes('denied')) type = 'error';
     else if (m.includes('please') || m.includes('must') || m.includes('pick') || m.includes('enter') || m.includes('give')) type = 'warning';
     else type = 'info';
@@ -4045,13 +4125,14 @@ function boot(){
   initCommandPalette();
   initKeyboardShortcuts();
 
-  el('#intentSave').addEventListener('click', () => {
-    Store.data.settings.todayIntent = el('#intentInput').value.trim();
-    Store.data.settings.todayIntentDate = new Date().toDateString();
-    Store.persist();
-    applyAll();
-    toast('Intention saved');
+  // Multi-focus: add button + Enter key
+  el('#intentAdd').addEventListener('click', addIntent);
+  el('#intentInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter') { e.preventDefault(); addIntent(); }
   });
+
+  // Recompute the "Break — not logged" hint whenever the checkbox changes
+  el('#timerLogStudy').addEventListener('change', updateTimerContext);
 
   Store.init();
   loadSession();
