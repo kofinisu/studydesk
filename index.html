@@ -275,7 +275,7 @@ html[data-timeranim="on"] .ring-wrap.running .sw-ring .ring-fg{animation:spinRin
   cursor:pointer;transition:.15s}
 .complete-check:hover{border-color:var(--accent)}
 .complete-check.checked{background:var(--success);border-color:var(--success)}
-.complete-check.checked::after{content:'âœ“';color:#fff;font-size:13px;font-weight:900}
+.complete-check.checked::after{content:'\2713';color:#fff;font-size:13px;font-weight:900}
 
 .pill{font-size:10px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;
   padding:3px 8px;border-radius:20px;border:1px solid}
@@ -481,7 +481,7 @@ html[data-timeranim="on"] .ring-wrap.running .sw-ring .ring-fg{animation:spinRin
 .chat-search{flex:1;min-width:180px;position:relative}
 .chat-search input{width:100%;padding:9px 34px;border-radius:10px;border:1px solid var(--border);
   background:var(--surface2);outline:none;font-size:12.5px}
-.chat-search::before{content:'ðŸ”';position:absolute;left:11px;top:50%;transform:translateY(-50%);
+.chat-search::before{content:"\1F50D";position:absolute;left:11px;top:50%;transform:translateY(-50%);
   font-size:12px;opacity:.55}
 .chat-search .search-clear{position:absolute;right:8px;top:50%;transform:translateY(-50%);
   width:24px;height:24px;border-radius:6px;color:var(--muted)}
@@ -617,7 +617,7 @@ html[data-timeranim="on"] .ring-wrap.running .sw-ring .ring-fg{animation:spinRin
 .snippet-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .library-search-row{display:grid;grid-template-columns:1fr 220px;gap:10px;margin-bottom:14px}
 .search-wrap{position:relative}
-.search-wrap::before{content:'ðŸ”';position:absolute;left:12px;top:50%;transform:translateY(-50%);
+.search-wrap::before{content:"\1F50D";position:absolute;left:12px;top:50%;transform:translateY(-50%);
   font-size:13px;opacity:.55}
 .library-search-row input{width:100%;padding:11px 13px 11px 36px;border-radius:9px;
   border:1px solid var(--border);background:var(--surface2);outline:none;font-size:13px}
@@ -918,14 +918,14 @@ html[data-custom-density="spacious"] .list{gap:12px}
 <!-- APP -->
 <div id="app" class="hidden">
   <aside class="sidebar">
-    <div class="brand"><span class="logo">â—†</span> StudyDesk</div>
+    <div class="brand"><span class="logo">&#x25C6;</span> StudyDesk</div>
     <nav class="side-nav" id="tabNav">
-      <button class="tab-btn active" data-tab="hub"><span class="tab-icon">ðŸ </span><span>Hub</span></button>
-      <button class="tab-btn" data-tab="chat"><span class="tab-icon">ðŸ’¬</span><span>Chat</span><span class="chat-unread hidden" id="chatTabUnread"></span></button>
-      <button class="tab-btn" data-tab="assignments"><span class="tab-icon">ðŸ“š</span><span>Assignments</span></button>
-      <button class="tab-btn" data-tab="notes"><span class="tab-icon">ðŸ“</span><span>Notes</span></button>
-      <button class="tab-btn" data-tab="code"><span class="tab-icon">ðŸ’»</span><span>Code</span></button>
-      <button class="tab-btn" data-tab="audit"><span class="tab-icon">ðŸ“‹</span><span>Audit</span></button>
+      <button class="tab-btn active" data-tab="hub"><span class="tab-icon">&#x1F3E0;</span><span>Hub</span></button>
+      <button class="tab-btn" data-tab="chat"><span class="tab-icon">&#x1F4AC;</span><span>Chat</span><span class="chat-unread hidden" id="chatTabUnread"></span></button>
+      <button class="tab-btn" data-tab="assignments"><span class="tab-icon">&#x1F4DA;</span><span>Assignments</span></button>
+      <button class="tab-btn" data-tab="notes"><span class="tab-icon">&#x1F4DD;</span><span>Notes</span></button>
+      <button class="tab-btn" data-tab="code"><span class="tab-icon">&#x1F4BB;</span><span>Code</span></button>
+      <button class="tab-btn" data-tab="audit"><span class="tab-icon">&#x1F4CB;</span><span>Audit</span></button>
     </nav>
     <div class="side-bottom">
       <button class="profile-btn" id="profileBtn">
@@ -933,11 +933,11 @@ html[data-custom-density="spacious"] .list{gap:12px}
         <span class="profile-meta"><strong id="profileName">Student</strong><small id="profileRole">student</small></span>
       </button>
       <div class="menu hidden" id="profileMenu">
-        <button id="menuCmd">âŒ˜ Command palette (Ctrl+K)</button>
-        <button id="menuFocus">ðŸŽ¯ Focus mode (F)</button>
-        <button id="menuSettings">âš™ Settings</button>
+        <button id="menuCmd">&#x2318; Command palette (Ctrl+K)</button>
+        <button id="menuFocus">&#x1F3AF; Focus mode (F)</button>
+        <button id="menuSettings">&#x2699; Settings</button>
         <div class="sep"></div>
-        <button id="logoutBtn">âŽ‹ Sign out</button>
+        <button id="logoutBtn">&#x238B; Sign out</button>
       </div>
     </div>
   </aside>
@@ -947,7 +947,7 @@ html[data-custom-density="spacious"] .list{gap:12px}
       <div class="topbar-title" id="topbarTitle">Hub</div>
       <div class="top-right">
         <div class="conn-status hidden" id="connStatus"><span class="dot"></span><span class="text">Synced</span></div>
-        <button class="icon-btn" id="settingsBtn" title="Settings">âš™</button>
+        <button class="icon-btn" id="settingsBtn" title="Settings">&#x2699;</button>
       </div>
     </header>
 
@@ -958,7 +958,7 @@ html[data-custom-density="spacious"] .list{gap:12px}
         <div class="card clock-card">
           <h3>Time of Day</h3>
           <div class="clock-time" id="clockTime">--:--:--</div>
-          <div class="clock-date" id="clockDate">â€”</div>
+          <div class="clock-date" id="clockDate">&mdash;</div>
           <div class="greeting" id="greeting">Welcome back!</div>
         </div>
         <div class="card timer-card">
@@ -977,9 +977,9 @@ html[data-custom-density="spacious"] .list{gap:12px}
               <input type="number" id="timerSec" value="0" min="0" max="59"><span class="lbl">sec</span>
             </div>
             <div class="row">
-              <button class="ctrl-btn primary" id="timerStart">â–¶ Start</button>
-              <button class="ctrl-btn" id="timerPause">â¸ Pause</button>
-              <button class="ctrl-btn" id="timerReset">âŸ² Reset</button>
+              <button class="ctrl-btn primary" id="timerStart">&#x25B6; Start</button>
+              <button class="ctrl-btn" id="timerPause">&#x23F8; Pause</button>
+              <button class="ctrl-btn" id="timerReset">&#x27F2; Reset</button>
             </div>
             <div class="timer-toggle-row">
               <label title="Uncheck to run a timer without adding to study time">
@@ -994,28 +994,28 @@ html[data-custom-density="spacious"] .list{gap:12px}
               <div class="ring-label" id="swDisplay">00:00.0</div>
             </div>
             <div class="row" style="margin-top:56px">
-              <button class="ctrl-btn sw-primary" id="swStart">â–¶ Start</button>
-              <button class="ctrl-btn" id="swStop">â¸ Stop</button>
-              <button class="ctrl-btn" id="swReset">âŸ² Reset</button>
+              <button class="ctrl-btn sw-primary" id="swStart">&#x25B6; Start</button>
+              <button class="ctrl-btn" id="swStop">&#x23F8; Stop</button>
+              <button class="ctrl-btn" id="swReset">&#x27F2; Reset</button>
             </div>
           </div>
         </div>
         <div class="card calendar-card">
           <h3>Calendar</h3>
           <div class="cal-header">
-            <button class="cal-nav" id="calPrev">â€¹</button>
-            <span class="cal-label" id="calMonthLabel">â€”</span>
-            <button class="cal-nav" id="calImportToggle">ðŸ“…</button>
-            <button class="cal-nav" id="calNext">â€º</button>
+            <button class="cal-nav" id="calPrev">&#x2039;</button>
+            <span class="cal-label" id="calMonthLabel">&mdash;</span>
+            <button class="cal-nav" id="calImportToggle">&#x1F4C5;</button>
+            <button class="cal-nav" id="calNext">&#x203A;</button>
           </div>
           <div id="calImportPanel" class="hidden" style="margin-bottom:10px;padding:12px;border-radius:11px;background:var(--surface2);border:1px solid var(--border)">
             <div style="font-size:11px;font-weight:800;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Google Calendar Import</div>
             <div id="gcalStatus" style="font-size:11.5px;color:var(--muted);margin-bottom:8px">Paste your calendar's ICS URL below.</div>
             <input type="url" id="gcalUrl" placeholder="https://calendar.google.com/calendar/ical/.../basic.ics" style="width:100%;padding:9px;border-radius:8px;border:1px solid var(--border);background:var(--surface);outline:none;font-size:12px;margin-bottom:8px">
-            <textarea id="gcalText" placeholder="â€¦or paste ICS text" style="display:none;width:100%;padding:9px;border-radius:8px;border:1px solid var(--border);background:var(--surface);outline:none;font-size:11px;margin-bottom:8px;min-height:80px"></textarea>
+            <textarea id="gcalText" placeholder="&hellip;or paste ICS text" style="display:none;width:100%;padding:9px;border-radius:8px;border:1px solid var(--border);background:var(--surface);outline:none;font-size:11px;margin-bottom:8px;min-height:80px"></textarea>
             <button id="gcalToggleText" style="font-size:11px;color:var(--accent);background:none;padding:0;margin-bottom:8px;text-decoration:underline">Or paste ICS text instead</button>
             <div style="display:flex;gap:8px;flex-wrap:wrap">
-              <button class="btn mini" id="gcalImportBtn">â¤“ Import</button>
+              <button class="btn mini" id="gcalImportBtn">&#x2913; Import</button>
               <button class="btn mini ghost" id="gcalClearBtn">Clear imported</button>
               <button class="btn mini ghost" id="gcalCloseBtn">Close</button>
             </div>
@@ -1037,8 +1037,8 @@ html[data-custom-density="spacious"] .list{gap:12px}
         <div class="card intent-card">
           <h3>Today's Focus</h3>
           <div class="intent-input-row">
-            <input id="intentInput" type="text" placeholder="Add a focus for todayâ€¦">
-            <button class="btn mini" id="intentAdd" title="Add focus">ï¼‹</button>
+            <input id="intentInput" type="text" placeholder="Add a focus for today&hellip;">
+            <button class="btn mini" id="intentAdd" title="Add focus">&#xFF0B;</button>
           </div>
           <div class="intent-list" id="intentList"></div>
         </div>
@@ -1057,8 +1057,8 @@ html[data-custom-density="spacious"] .list{gap:12px}
           <div class="prio-head-row">
             <h3>Priority List</h3>
             <div class="prio-mode-toggle" id="prioModeToggle">
-              <button data-mode="auto" class="active">âš¡ Auto</button>
-              <button data-mode="manual">âœ‹ Manual</button>
+              <button data-mode="auto" class="active">&#x26A1; Auto</button>
+              <button data-mode="manual">&#x270B; Manual</button>
             </div>
           </div>
           <div id="priorityList"></div>
@@ -1072,32 +1072,32 @@ html[data-custom-density="spacious"] .list{gap:12px}
         <div class="chat-header">
           <div class="chat-title"><span class="chat-dot"></span> Chatroom</div>
           <div class="chat-search">
-            <input id="chatSearchInput" type="text" placeholder="Search messages, dates, timesâ€¦">
-            <button class="search-clear hidden" id="chatClearSearch">âœ•</button>
+            <input id="chatSearchInput" type="text" placeholder="Search messages, dates, times&hellip;">
+            <button class="search-clear hidden" id="chatClearSearch">&#x2715;</button>
           </div>
-          <button class="chat-action-btn" id="chatNotifyBtn">ðŸ”” <span id="chatNotifyLabel">Off</span></button>
+          <button class="chat-action-btn" id="chatNotifyBtn">&#x1F514; <span id="chatNotifyLabel">Off</span></button>
         </div>
-        <div class="chat-messages" id="chatMessages"><div class="chat-empty">No messages yet. Say hi! ðŸ‘‹</div></div>
-        <button class="chat-scroll-btn hidden" id="chatScrollBtn" title="Scroll to latest">â†“</button>
+        <div class="chat-messages" id="chatMessages"><div class="chat-empty">No messages yet. Say hi! &#x1F44B;</div></div>
+        <button class="chat-scroll-btn hidden" id="chatScrollBtn" title="Scroll to latest">&#x2193;</button>
         <div class="chat-attach-preview hidden" id="chatAttachPreview"></div>
         <div class="chat-type-bar">
           <div class="chat-type-chips" id="chatTypeChips">
-            <button class="chat-type-chip active" data-type="normal">ðŸ’¬ Normal</button>
-            <button class="chat-type-chip" data-type="important">â— Important</button>
-            <button class="chat-type-chip" data-type="question">â“ Question</button>
-            <button class="chat-type-chip" data-type="assignment">ðŸ“š Assignment</button>
+            <button class="chat-type-chip active" data-type="normal">&#x1F4AC; Normal</button>
+            <button class="chat-type-chip" data-type="important">&#x2757; Important</button>
+            <button class="chat-type-chip" data-type="question">&#x2753; Question</button>
+            <button class="chat-type-chip" data-type="assignment">&#x1F4DA; Assignment</button>
           </div>
           <div class="chat-type-extras hidden" id="chatAssignmentExtras">
             <label>Link:</label>
-            <select id="chatAssignmentPick"><option value="">â€” Select an assignment â€”</option></select>
-            <select id="chatNotePick"><option value="">â€” Link a note â€”</option></select>
+            <select id="chatAssignmentPick"><option value="">&mdash; Select an assignment &mdash;</option></select>
+            <select id="chatNotePick"><option value="">&mdash; Link a note &mdash;</option></select>
           </div>
         </div>
         <div class="chat-input-bar">
-          <button class="chat-icon-btn" id="chatAttachBtn">ðŸ“Ž</button>
+          <button class="chat-icon-btn" id="chatAttachBtn">&#x1F4CE;</button>
           <input type="file" id="chatFileInput" multiple class="hidden" accept="image/*,.pdf,.txt,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.zip,.csv">
-          <textarea id="chatInput" rows="1" placeholder="Type a messageâ€¦ (Shift+Enter for new line)"></textarea>
-          <button class="chat-icon-btn chat-send-btn" id="chatSendBtn">âž¤</button>
+          <textarea id="chatInput" rows="1" placeholder="Type a message&hellip; (Shift+Enter for new line)"></textarea>
+          <button class="chat-icon-btn chat-send-btn" id="chatSendBtn">&#x27A4;</button>
         </div>
       </div>
     </section>
@@ -1108,13 +1108,13 @@ html[data-custom-density="spacious"] .list{gap:12px}
         <div class="card" id="assignFormCard">
           <div class="form-card-head">
             <h3 id="assignFormTitle">Add Item</h3>
-            <button class="collapse-btn" id="assignFormCollapse" title="Minimize">â–¾</button>
+            <button class="collapse-btn" id="assignFormCollapse" title="Minimize">&#x25BE;</button>
           </div>
           <div id="assignFormBody">
             <div class="field"><label>Category</label>
               <select id="aCategory">
-                <option value="assignment">ðŸ“š Assignment</option>
-                <option value="other">ðŸ“Œ Other (task / reminder)</option>
+                <option value="assignment">&#x1F4DA; Assignment</option>
+                <option value="other">&#x1F4CC; Other (task / reminder)</option>
               </select>
             </div>
             <div id="assignmentFields">
@@ -1123,8 +1123,8 @@ html[data-custom-density="spacious"] .list{gap:12px}
                 <div class="field span2">
                   <label>Class / Section</label>
                   <div class="section-selector">
-                    <select id="aSection"><option value="">â€” No section â€”</option></select>
-                    <button class="btn mini" id="addSectionBtn">ï¼‹</button>
+                    <select id="aSection"><option value="">&mdash; No section &mdash;</option></select>
+                    <button class="btn mini" id="addSectionBtn">&#xFF0B;</button>
                   </div>
                 </div>
                 <div class="field"><label>Teacher</label><input id="aTeacher" type="text" placeholder="Ms. Rivera"></div>
@@ -1176,15 +1176,15 @@ html[data-custom-density="spacious"] .list{gap:12px}
             <h3>All Items (<span id="assignCount">0</span>)</h3>
             <div class="filters">
               <div class="view-toggle" id="assignViewToggle">
-                <button class="active" data-view="list">â˜° List</button>
-                <button data-view="kanban">â–¦ Kanban</button>
+                <button class="active" data-view="list">&#x2630; List</button>
+                <button data-view="kanban">&#x25A6; Kanban</button>
               </div>
               <select id="sectionFilter"><option value="all">All sections</option><option value="none">No section</option></select>
               <select id="statusFilter">
                 <option value="all">All</option>
                 <option value="active">Active</option>
                 <option value="completed">Completed</option>
-                <option value="trash">ðŸ—‘ Trash</option>
+                <option value="trash">&#x1F5D1; Trash</option>
               </select>
               <select id="tagFilter"><option value="all">All tags</option></select>
             </div>
@@ -1245,7 +1245,7 @@ html[data-custom-density="spacious"] .list{gap:12px}
           <div class="snippet-actions">
             <button class="btn" id="pSave">Save Code Snippet</button>
             <button class="btn ghost hidden" id="pCancel">Cancel</button>
-            <button class="btn ghost" id="pPreviewBtn">â–¶ Preview</button>
+            <button class="btn ghost" id="pPreviewBtn">&#x25B6; Preview</button>
             <span class="muted" id="editorStatus" style="font-size:11.5px;margin-left:auto">Ready</span>
           </div>
         </div>
@@ -1295,7 +1295,7 @@ html[data-custom-density="spacious"] .list{gap:12px}
   <div class="modal-card">
     <div class="modal-head">
       <h3 id="previewTitle">Preview</h3>
-      <button class="icon-btn" id="previewClose" style="width:32px;height:32px;font-size:14px">âœ•</button>
+      <button class="icon-btn" id="previewClose" style="width:32px;height:32px;font-size:14px">&#x2715;</button>
     </div>
     <div class="modal-body"><iframe id="previewFrame" sandbox="allow-scripts allow-modals"></iframe></div>
   </div>
@@ -1304,14 +1304,14 @@ html[data-custom-density="spacious"] .list{gap:12px}
 <!-- COMMAND PALETTE -->
 <div class="cmd-overlay hidden" id="cmdOverlay">
   <div class="cmd-box">
-    <input class="cmd-input" id="cmdInput" placeholder="Type a commandâ€¦ (assignments, notes, theme, focus, backup)">
+    <input class="cmd-input" id="cmdInput" placeholder="Type a command&hellip; (assignments, notes, theme, focus, backup)">
     <div class="cmd-list" id="cmdList"></div>
   </div>
 </div>
 
 <!-- SETTINGS DRAWER -->
 <aside class="drawer" id="settingsDrawer">
-  <div class="drawer-head"><h3>âš™ Settings</h3><button class="icon-btn" id="closeSettings" style="width:34px;height:34px">âœ•</button></div>
+  <div class="drawer-head"><h3>&#x2699; Settings</h3><button class="icon-btn" id="closeSettings" style="width:34px;height:34px">&#x2715;</button></div>
   <div class="drawer-body">
     <div class="setting-group"><label class="title">Theme</label><div class="theme-grid" id="themeGrid"></div></div>
     <div class="divider"></div>
@@ -1383,11 +1383,11 @@ html[data-custom-density="spacious"] .list{gap:12px}
       <div class="conn-status" id="syncBadge" style="margin-bottom:12px">
         <span class="dot"></span><span id="syncText">Cloud sync configured</span>
       </div>
-      <button class="btn ghost full" id="manualSync" style="margin-bottom:8px">â†» Pull latest from cloud</button>
-      <button class="btn ghost full" id="exportBtn" style="margin-bottom:8px">â¬‡ Export data (.json)</button>
-      <button class="btn ghost full" id="importBtn" style="margin-bottom:8px">â¬† Import data (.json)</button>
+      <button class="btn ghost full" id="manualSync" style="margin-bottom:8px">&#x21BB; Pull latest from cloud</button>
+      <button class="btn ghost full" id="exportBtn" style="margin-bottom:8px">&#x2B07; Export data (.json)</button>
+      <button class="btn ghost full" id="importBtn" style="margin-bottom:8px">&#x2B06; Import data (.json)</button>
       <input type="file" id="importFile" accept=".json" class="hidden">
-      <button class="btn ghost full" id="printBtn" style="margin-bottom:8px">ðŸ–¨ Print / Save PDF</button>
+      <button class="btn ghost full" id="printBtn" style="margin-bottom:8px">&#x1F5A8; Print / Save PDF</button>
       <button class="btn danger full" id="resetData">Reset All Data</button>
     </div>
   </div>
@@ -1408,23 +1408,23 @@ const uid = () => Math.random().toString(36).slice(2, 9) + Date.now().toString(3
 const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
 
 const SECTION_COLORS = ['#6c8cff','#39d4c8','#f59e0b','#ec4899','#8b5cf6','#10b981','#ef4444','#06b6d4'];
-const EVENT_EMOJIS = ['ðŸ“Œ','ðŸ“š','ðŸŽ‰','ðŸŽ‚','âœï¸','ðŸ“','ðŸŽ¯','âš½','ðŸŽµ','ðŸŽ¨','ðŸ§ª','ðŸ’»','ðŸ“…','â°','â­','â—','ðŸ”¥','ðŸ’¡','ðŸŽ“','ðŸ†','ðŸ•','ðŸš€','â¤ï¸','â˜•','ðŸŽ®','ðŸ›’','ðŸŽ¬','ðŸŽ¤','ðŸ€','ðŸ§ '];
+const EVENT_EMOJIS = ['\u{1F4CC}','\u{1F4DA}','\u{1F389}','\u{1F382}','\u{270F}','\u{1F4DD}','\u{1F3AF}','\u{26BD}','\u{1F3B5}','\u{1F3A8}','\u{1F9EA}','\u{1F4BB}','\u{1F4C5}','\u{23F0}','\u{2B50}','\u{2757}','\u{1F525}','\u{1F4A1}','\u{1F393}','\u{1F3C6}','\u{1F355}','\u{1F680}','\u{2764}','\u{2615}','\u{1F3AE}','\u{1F6D2}','\u{1F3AC}','\u{1F3A4}','\u{1F3C0}','\u{1F9E0}'];
 
 const GRADE_OPTIONS = [
-  { v: '',    l: 'â€” No grade â€”' },
-  { v: 'A',   l: 'A Â· 4/100' },
-  { v: 'B',   l: 'B Â· 3/100' },
-  { v: 'C',   l: 'C Â· 2/100' },
-  { v: 'F',   l: 'F Â· 1/100' },
+  { v: '',    l: '\u2014 No grade \u2014' },
+  { v: 'A',   l: 'A \u00B7 4/100' },
+  { v: 'B',   l: 'B \u00B7 3/100' },
+  { v: 'C',   l: 'C \u00B7 2/100' },
+  { v: 'F',   l: 'F \u00B7 1/100' },
   { v: '0.1', l: '0.1/100' },
   { v: '0',   l: '0/100' }
 ];
 const TYPE_WEIGHT = { formative: 20, performance: 60, summative: 60 };
 const MSG_TYPE_LABELS = {
   normal: null,
-  important: { icon: 'â—', label: 'Important' },
-  question:  { icon: 'â“', label: 'Question' },
-  assignment:{ icon: 'ðŸ“š', label: 'Assignment' }
+  important: { icon: '\u2757', label: 'Important' },
+  question:  { icon: '\u2753', label: 'Question' },
+  assignment:{ icon: '\u{1F4DA}', label: 'Assignment' }
 };
 
 const CHUNK_SIZE = 45000;
@@ -1450,7 +1450,7 @@ function gradeOptionsHtml(selected){
 function escapeHtml(s){
   return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
-function fmtDateTime(ts){ if (!ts) return 'â€”'; return new Date(Number(ts)).toLocaleString([],{year:'numeric',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}); }
+function fmtDateTime(ts){ if (!ts) return '\u2014'; return new Date(Number(ts)).toLocaleString([],{year:'numeric',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}); }
 function fmtDue(ts){
   if (!ts) return 'No date';
   const d = new Date(ts);
@@ -1577,7 +1577,7 @@ function parseIcs(text){
    CONNECTION STATUS
 ============================================================ */
 let connState = 'hidden';
-const CONN_LABELS = { synced:'Synced', syncing:'Syncingâ€¦', unavailable:'Offline', error:'Sync error', local:'Local mode', hidden:'Hidden' };
+const CONN_LABELS = { synced:'Synced', syncing:'Syncing\u2026', unavailable:'Offline', error:'Sync error', local:'Local mode', hidden:'Hidden' };
 function setConnStatus(state){
   connState = state;
   const pill = el('#connStatus');
@@ -1630,7 +1630,7 @@ function serializeForSheets(data) {
   }));
   s.sections = (data.sections || []).map(x => ({ id:x.id, name:x.name, colorIndex:x.colorIndex||0 }));
   s.events = (data.events || []).map(e => ({
-    id:e.id, name:e.name, emoji:e.emoji||'ðŸ“Œ', date:e.date||'', time:e.time||'',
+    id:e.id, name:e.name, emoji:e.emoji||'\u{1F4CC}', date:e.date||'', time:e.time||'',
     source:e.source||'manual', importedAt: e.importedAt || ''
   }));
   s.notes = (data.notes || []).map(n => {
@@ -1702,7 +1702,7 @@ function deserializeFromSheets(raw) {
   }));
   d.sections = (raw.sections || []).map(r => ({ id:str(r.id), name:str(r.name), colorIndex:num(r.colorIndex,0) }));
   d.events = (raw.events || []).map(r => ({
-    id:str(r.id), name:str(r.name), emoji:str(r.emoji)||'ðŸ“Œ',
+    id:str(r.id), name:str(r.name), emoji:str(r.emoji)||'\u{1F4CC}',
     date:str(r.date), time:str(r.time), source:str(r.source)||'manual', importedAt:r.importedAt||''
   }));
   d.notes = (raw.notes || []).map(r => ({
@@ -1893,7 +1893,7 @@ function stashForUndo(label, undoFn) {
 function showUndoToast(label) {
   const t = el('#toast');
   if (!t) return;
-  t.innerHTML = `<span class="toast-icon">â†©</span><span>${escapeHtml(label)}</span>
+  t.innerHTML = `<span class="toast-icon">\u21A9</span><span>${escapeHtml(label)}</span>
     <button id="undoAction" style="margin-left:12px;padding:4px 10px;border-radius:6px;background:var(--accent);color:#fff;font-weight:700;font-size:11px;border:none;cursor:pointer">UNDO</button>`;
   t.classList.remove('type-success','type-error','type-warning','type-info');
   t.classList.add('type-info','show');
@@ -2022,10 +2022,10 @@ async function doLogin(){
   const user = el('#loginUser').value.trim().toLowerCase();
   const pass = el('#loginPass').value;
   if (!user || !pass) { el('#loginError').textContent = 'Enter username and password.'; return; }
-  if (user !== loginRole) { el('#loginError').textContent = `That account is a ${user} account â€” switch the role toggle.`; return; }
+  if (user !== loginRole) { el('#loginError').textContent = `That account is a ${user} account \u2014 switch the role toggle.`; return; }
   if (!isCloudConfigured()) { el('#loginError').textContent = 'Backend not configured.'; return; }
   const btn = el('#loginBtn');
-  el('#loginError').textContent = 'Signing inâ€¦';
+  el('#loginError').textContent = 'Signing in\u2026';
   btn.disabled = true;
   try {
     const data = await Store.apiPost({ action: 'login', username: user, password: pass });
@@ -2101,7 +2101,7 @@ function tickClock(){
   el('#clockDate').textContent = now.toLocaleDateString([], { weekday:'long', year:'numeric', month:'long', day:'numeric' });
   const h = now.getHours();
   const greet = h < 12 ? 'Good morning' : h < 18 ? 'Good afternoon' : 'Good evening';
-  el('#greeting').textContent = `${greet}, ${session ? session.name : 'there'} â€” let's get things done.`;
+  el('#greeting').textContent = `${greet}, ${session ? session.name : 'there'} \u2014 let's get things done.`;
 }
 setInterval(tickClock, 1000);
 setInterval(() => { if (Store.data) { renderHubLists(); renderCalendar(); renderStudyWidget(); renderJournal(); renderIntent(); } }, 60000);
@@ -2136,7 +2136,7 @@ function tagPillsHtml(tags){
 function linksHtml(a){
   const links = Array.isArray(a.links) ? a.links.filter(l => l && l.url) : [];
   if (!links.length) return '';
-  return links.map((l, i) => `<a href="${escapeHtml(l.url)}" target="_blank" rel="noopener">${escapeHtml(l.label || ('Link ' + (i+1)))} â†—</a>`).join('');
+  return links.map((l, i) => `<a href="${escapeHtml(l.url)}" target="_blank" rel="noopener">${escapeHtml(l.label || ('Link ' + (i+1)))} \u2197</a>`).join('');
 }
 function assignmentRow(a, showScore){
   const score = priorityScore(a);
@@ -2146,15 +2146,15 @@ function assignmentRow(a, showScore){
   else if (a.due && diff < 2 * 86400000) duePill = '<span class="pill soon">Soon</span>';
   const links = linksHtml(a);
   const tags = tagPillsHtml(a.tags);
-  const recur = a.recurrence ? '<span class="pill" style="color:var(--accent);border-color:var(--accent)">â†»</span>' : '';
+  const recur = a.recurrence ? '<span class="pill" style="color:var(--accent);border-color:var(--accent)">\u21BB</span>' : '';
   return `<div class="item ${a.completed ? 'completed' : ''}">
     <div class="complete-check ${a.completed ? 'checked' : ''}" data-toggle-complete="${a.id}" title="Toggle complete"></div>
     <div class="item-main">
       <div class="item-title">${escapeHtml(a.name)}${sectionPillHtml(a.sectionId)}${typePillHtml(a.type)}${recur}${duePill}${tags}</div>
       <div class="item-meta">
-        <span>ðŸ‘¤ ${escapeHtml(a.teacher || 'No teacher')}</span>
-        <span>ðŸ“… ${fmtDue(a.due)} Â· ${relativeDue(a.due)}</span>
-        <span>âš–ï¸ ${escapeHtml(String(a.weight ?? 0))}%</span>
+        <span>\u{1F464} ${escapeHtml(a.teacher || 'No teacher')}</span>
+        <span>\u{1F4C5} ${fmtDue(a.due)} \u00B7 ${relativeDue(a.due)}</span>
+        <span>\u{2696}\u{FE0F} ${escapeHtml(String(a.weight ?? 0))}%</span>
         ${links}
       </div>
     </div>
@@ -2167,7 +2167,7 @@ function renderHubLists(){
   const upcoming = Store.data.assignments
     .filter(a => !a.deleted && a.category !== 'other' && !a.completed && a.due && new Date(a.due).getTime() - Date.now() < 14 * 86400000)
     .sort((a,b) => new Date(a.due) - new Date(b.due));
-  el('#dueList').innerHTML = upcoming.length ? upcoming.map(a => assignmentRow(a,false)).join('') : '<div class="empty">Nothing due in the next two weeks ðŸŽ‰</div>';
+  el('#dueList').innerHTML = upcoming.length ? upcoming.map(a => assignmentRow(a,false)).join('') : '<div class="empty">Nothing due in the next two weeks \u{1F389}</div>';
   renderPriority();
   els('#dueList [data-toggle-complete]').forEach(c => {
     c.addEventListener('click', () => toggleComplete(c.dataset.toggleComplete));
@@ -2209,10 +2209,10 @@ function renderPriority(){
   groups.later = groups.later.slice(0, 5);
 
   const labels = {
-    overdue: { icon: 'ðŸ”¥', text: 'Overdue' },
-    today:   { icon: 'ðŸ“…', text: 'Today' },
-    week:    { icon: 'ðŸ—“', text: 'This Week' },
-    later:   { icon: 'ðŸ“†', text: 'Later' }
+    overdue: { icon: '\u{1F525}', text: 'Overdue' },
+    today:   { icon: '\u{1F4C5}', text: 'Today' },
+    week:    { icon: '\u{1F5D3}', text: 'This Week' },
+    later:   { icon: '\u{1F4C6}', text: 'Later' }
   };
 
   let html = '';
@@ -2229,7 +2229,7 @@ function renderPriority(){
   }
 
   if (!html) {
-    container.innerHTML = '<div class="empty-cta"><div class="icon">ðŸŽ‰</div><div>All caught up â€” nothing pending.</div></div>';
+    container.innerHTML = '<div class="empty-cta"><div class="icon">\u{1F389}</div><div>All caught up \u2014 nothing pending.</div></div>';
   } else {
     container.innerHTML = html;
   }
@@ -2269,16 +2269,16 @@ function priorityItemHtml(a, showMove){
     <div class="prio-body">
       <div class="prio-name">${escapeHtml(a.name)}${sectionPillHtml(a.sectionId)}</div>
       <div class="prio-meta">
-        <span>ðŸ“… ${dueLabel}</span>
-        ${a.weight ? `<span>âš–ï¸ ${a.weight}%</span>` : ''}
-        ${a.teacher ? `<span>ðŸ‘¤ ${escapeHtml(a.teacher)}</span>` : ''}
+        <span>\u{1F4C5} ${dueLabel}</span>
+        ${a.weight ? `<span>\u{2696}\u{FE0F} ${a.weight}%</span>` : ''}
+        ${a.teacher ? `<span>\u{1F464} ${escapeHtml(a.teacher)}</span>` : ''}
       </div>
     </div>
     <div class="prio-actions">
-      ${showMove ? `<button class="mini" data-prio-up="${a.id}" title="Move up">â–²</button>
-                    <button class="mini" data-prio-down="${a.id}" title="Move down">â–¼</button>` : ''}
-      <button class="mini" data-prio-focus="${a.id}" title="Start focus timer">â±</button>
-      <button class="mini" data-prio-complete="${a.id}" title="Mark complete">âœ“</button>
+      ${showMove ? `<button class="mini" data-prio-up="${a.id}" title="Move up">\u{25B2}</button>
+                    <button class="mini" data-prio-down="${a.id}" title="Move down">\u{25BC}</button>` : ''}
+      <button class="mini" data-prio-focus="${a.id}" title="Start focus timer">\u{23F1}</button>
+      <button class="mini" data-prio-complete="${a.id}" title="Mark complete">\u{2713}</button>
     </div>
   </div>`;
 }
@@ -2366,7 +2366,7 @@ function renderStudyWidget(){
   if (!Store.data) return;
   el('#studyTotalToday').textContent = fmtSeconds(getTodaySeconds());
   const streak = computeStreak();
-  el('#studyStreak').textContent = streak > 0 ? `ðŸ”¥ ${streak}-day streak` : 'Start a timer to build a streak';
+  el('#studyStreak').textContent = streak > 0 ? `\u{1F525} ${streak}-day streak` : 'Start a timer to build a streak';
   const bySec = getWeekSecondsBySection();
   const entries = Object.entries(bySec).sort((a,b) => b[1] - a[1]).slice(0, 5);
   const total = entries.reduce((s, [,v]) => s + v, 0);
@@ -2433,7 +2433,7 @@ function renderIntent(){
     <div class="intent-item ${it.done ? 'done' : ''}" data-intent-id="${it.id}">
       <input type="checkbox" ${it.done ? 'checked' : ''} data-intent-toggle="${it.id}">
       <span class="intent-text">${escapeHtml(it.text)}</span>
-      <button class="intent-del" data-intent-del="${it.id}" title="Remove">âœ•</button>
+      <button class="intent-del" data-intent-del="${it.id}" title="Remove">\u2715</button>
     </div>`).join('');
   els('#intentList [data-intent-toggle]').forEach(cb => cb.addEventListener('change', () => toggleIntent(cb.dataset.intentToggle)));
   els('#intentList [data-intent-del]').forEach(b => b.addEventListener('click', () => deleteIntent(b.dataset.intentDel)));
@@ -2443,11 +2443,11 @@ function renderIntent(){
    JOURNAL
 ============================================================ */
 const MOODS = [
-  { id:'great', emoji:'ðŸ˜„', label:'Great' },
-  { id:'good',  emoji:'ðŸ™‚', label:'Good'  },
-  { id:'okay',  emoji:'ðŸ˜', label:'Okay'  },
-  { id:'low',   emoji:'ðŸ˜”', label:'Low'   },
-  { id:'bad',   emoji:'ðŸ˜¢', label:'Rough' }
+  { id:'great', emoji:'\u{1F604}', label:'Great' },
+  { id:'good',  emoji:'\u{1F642}', label:'Good'  },
+  { id:'okay',  emoji:'\u{1F610}', label:'Okay'  },
+  { id:'low',   emoji:'\u{1F614}', label:'Low'   },
+  { id:'bad',   emoji:'\u{1F622}', label:'Rough' }
 ];
 let selectedMood = 'good';
 function todayKey(){
@@ -2481,7 +2481,7 @@ function saveJournalEntry(){
     commit('added', 'Journal', `Entry ${date}`);
   }
   el('#journalText').value = '';
-  toast('Journal saved âœ“');
+  toast('Journal saved \u2713');
   renderJournal();
 }
 function renderJournal(){
@@ -2501,7 +2501,7 @@ function renderJournal(){
     return `<div class="journal-entry">
       <div class="j-emoji">${m.emoji}</div>
       <div class="j-body">
-        <div class="j-date">${escapeHtml(e.date)}${e.createdBy ? ' Â· ' + escapeHtml(e.createdBy) : ''}</div>
+        <div class="j-date">${escapeHtml(e.date)}${e.createdBy ? ' \u00B7 ' + escapeHtml(e.createdBy) : ''}</div>
         <div class="j-text">${escapeHtml(e.text)}</div>
       </div>
     </div>`;
@@ -2514,7 +2514,7 @@ function renderJournal(){
 let calViewDate = new Date();
 let calSelectedDate = null;
 let calEditingEventId = null;
-let calPickedEmoji = 'ðŸ“Œ';
+let calPickedEmoji = '\u{1F4CC}';
 function initCalendar(){
   el('#calPrev').addEventListener('click', () => { calViewDate = new Date(calViewDate.getFullYear(), calViewDate.getMonth() - 1, 1); renderCalendar(); });
   el('#calNext').addEventListener('click', () => { calViewDate = new Date(calViewDate.getFullYear(), calViewDate.getMonth() + 1, 1); renderCalendar(); });
@@ -2533,37 +2533,37 @@ async function doGcalImport(){
   const url = el('#gcalUrl').value.trim();
   const text = el('#gcalText').value.trim();
   const status = el('#gcalStatus');
-  if (!url && !text) { status.textContent = 'âš  Enter an ICS URL or paste ICS text.'; status.style.color = 'var(--danger)'; return; }
+  if (!url && !text) { status.textContent = '\u26A0 Enter an ICS URL or paste ICS text.'; status.style.color = 'var(--danger)'; return; }
   let icsText = '';
   if (text) { icsText = text; }
   else {
-    status.textContent = 'â¤“ Fetchingâ€¦';
+    status.textContent = '\u2913 Fetching\u2026';
     status.style.color = 'var(--muted)';
     try {
       const res = await Store.withStatus(() => Store.apiPost({ action: 'fetchIcal', token: session.token, url }));
       if (res && res.ok) icsText = res.text || '';
       else throw new Error(res && res.error ? res.error : 'Fetch failed');
     } catch (err) {
-      status.textContent = 'âš  ' + err.message;
+      status.textContent = '\u26A0 ' + err.message;
       status.style.color = 'var(--danger)';
       return;
     }
   }
   const parsed = parseIcs(icsText);
-  if (!parsed.length) { status.textContent = 'âš  No events found.'; status.style.color = 'var(--danger)'; return; }
+  if (!parsed.length) { status.textContent = '\u26A0 No events found.'; status.style.color = 'var(--danger)'; return; }
   const newEvents = [];
   for (const ev of parsed) {
     const start = icsDateToLocal(ev.dtstart);
     if (!start) continue;
     newEvents.push({
       id: uid(), name: (ev.summary || '(Untitled event)').trim(),
-      emoji: 'ðŸ“…', date: start.date, time: start.time || '',
+      emoji: '\u{1F4C5}', date: start.date, time: start.time || '',
       source: 'google', importedAt: Date.now()
     });
   }
   Store.data.events = newEvents;
   commit('added', 'Google Calendar', `Imported ${newEvents.length} events`);
-  status.textContent = `âœ“ Imported ${newEvents.length} events`;
+  status.textContent = `\u2713 Imported ${newEvents.length} events`;
   status.style.color = 'var(--success)';
   toast(`Imported ${newEvents.length} Google events`);
 }
@@ -2613,7 +2613,7 @@ function renderCalendar(){
     const evs = eventsByDate[key];
     if (items && items.length) cls.push('has-items');
     let emojiHtml = '';
-    if (evs && evs.length) emojiHtml = `<span class="cal-emoji-badge">${evs[0].emoji || 'ðŸ“Œ'}</span>`;
+    if (evs && evs.length) emojiHtml = `<span class="cal-emoji-badge">${evs[0].emoji || '\u{1F4CC}'}</span>`;
     const gDot = evs && evs.some(e => e.source === 'google') ? '<span class="cal-gdot"></span>' : '';
     cells.push(`<div class="${cls.join(' ')}" data-date="${key}">${d}${gDot}${emojiHtml}${items ? '<span class="cal-dot"></span>' : ''}</div>`);
   }
@@ -2634,7 +2634,7 @@ function renderCalDayPanel(dueByDate, eventsByDate){
   const dateObj = new Date(calSelectedDate + 'T12:00:00');
   const label = dateObj.toLocaleDateString([], { weekday:'long', month:'short', day:'numeric' });
   const totalCount = items.length + evs.length;
-  const header = `<div class="cal-day-title"><span>${escapeHtml(label)}${totalCount ? ' Â· ' + totalCount + ' item' + (totalCount === 1 ? '' : 's') : ''}</span><button class="day-add-btn" data-add-event="1">+ Event</button></div>`;
+  const header = `<div class="cal-day-title"><span>${escapeHtml(label)}${totalCount ? ' \u00B7 ' + totalCount + ' item' + (totalCount === 1 ? '' : 's') : ''}</span><button class="day-add-btn" data-add-event="1">+ Event</button></div>`;
   let body = '';
   if (items.length) body += items.map(a => {
     const sec = getSection(a.sectionId);
@@ -2643,10 +2643,10 @@ function renderCalDayPanel(dueByDate, eventsByDate){
   }).join('');
   if (evs.length) body += evs.map(ev => `
     <div class="cal-day-item ${ev.source === 'google' ? 'gcal' : ''}">
-      ${ev.source === 'google' ? '<span class="cal-gbadge">GCAL</span>' : `<span class="cal-emoji">${ev.emoji || 'ðŸ“Œ'}</span>`}
+      ${ev.source === 'google' ? '<span class="cal-gbadge">GCAL</span>' : `<span class="cal-emoji">${ev.emoji || '\u{1F4CC}'}</span>`}
       <span class="cal-name">${escapeHtml(ev.name)}</span>
       ${ev.time ? `<span class="cal-time">${ev.time}</span>` : ''}
-      ${ev.source !== 'google' ? `<button class="item-del" data-del-event="${ev.id}">âœ•</button>` : ''}
+      ${ev.source !== 'google' ? `<button class="item-del" data-del-event="${ev.id}">\u2715</button>` : ''}
     </div>`).join('');
   if (!body) body = '<div class="empty">Nothing here yet</div>';
   let formHtml = '';
@@ -2662,13 +2662,13 @@ function renderCalDayPanel(dueByDate, eventsByDate){
       </div>
       <div class="ev-actions">
         <button class="btn mini ghost" id="eventCancel">Cancel</button>
-        <button class="btn mini" id="eventSave">${editing ? 'âœ“ Save' : '+ Add'}</button>
+        <button class="btn mini" id="eventSave">${editing ? '\u2713 Save' : '+ Add'}</button>
       </div>
     </div>`;
   }
   panel.innerHTML = header + body + formHtml;
   const addBtn = panel.querySelector('[data-add-event]');
-  if (addBtn) addBtn.addEventListener('click', () => { calEditingEventId = 'new'; calPickedEmoji = 'ðŸ“Œ'; renderCalendar(); setTimeout(() => el('#eventNameInput')?.focus(), 30); });
+  if (addBtn) addBtn.addEventListener('click', () => { calEditingEventId = 'new'; calPickedEmoji = '\u{1F4CC}'; renderCalendar(); setTimeout(() => el('#eventNameInput')?.focus(), 30); });
   els('[data-del-event]').forEach(b => b.addEventListener('click', () => deleteEvent(b.dataset.delEvent)));
   const grid = panel.querySelector('.emoji-grid');
   if (grid) els('button', grid).forEach(b => b.addEventListener('click', () => {
@@ -2679,7 +2679,7 @@ function renderCalDayPanel(dueByDate, eventsByDate){
   el('#eventCancel')?.addEventListener('click', () => { calEditingEventId = null; renderCalendar(); });
   el('#eventSave')?.addEventListener('click', () => {
     const name = (el('#eventNameInput').value || '').trim();
-    const emoji = (el('#eventEmojiInput').value || 'ðŸ“Œ').trim() || 'ðŸ“Œ';
+    const emoji = (el('#eventEmojiInput').value || '\u{1F4CC}').trim() || '\u{1F4CC}';
     if (!name) { toast('Please enter an event name.'); return; }
     if (calEditingEventId === 'new') {
       Store.data.events.push({ id: uid(), name, emoji, date: calSelectedDate, source: 'manual', importedAt: Date.now() });
@@ -2756,12 +2756,12 @@ function refreshChatLinkDropdowns(){
   const selN = el('#chatNotePick');
   if (!selA || !selN) return;
   const curA = selA.value;
-  selA.innerHTML = '<option value="">â€” Select an assignment â€”</option>' +
+  selA.innerHTML = '<option value="">\u2014 Select an assignment \u2014</option>' +
     (Store.data.assignments || []).filter(a => !a.deleted).map(a => `<option value="${a.id}">${escapeHtml(a.name)}</option>`).join('');
   if (curA && Array.from(selA.options).some(o => o.value === curA)) selA.value = curA;
   else if (chatLinkedAssignmentId) chatLinkedAssignmentId = '';
   const curN = selN.value;
-  selN.innerHTML = '<option value="">â€” Link a note â€”</option>' +
+  selN.innerHTML = '<option value="">\u2014 Link a note \u2014</option>' +
     (Store.data.notes || []).map(n => `<option value="${n.id}">${escapeHtml(n.title)}</option>`).join('');
   if (curN && Array.from(selN.options).some(o => o.value === curN)) selN.value = curN;
   else if (chatLinkedNoteId) chatLinkedNoteId = '';
@@ -2844,7 +2844,7 @@ function renderAttachPreview(){
   const wrap = el('#chatAttachPreview'); if (!wrap) return;
   if (!chatAttachments.length) { wrap.classList.add('hidden'); wrap.innerHTML = ''; return; }
   wrap.classList.remove('hidden');
-  wrap.innerHTML = chatAttachments.map((a, i) => `<span class="chat-attach-chip">${a.isImage?'ðŸ–¼ï¸':'ðŸ“Ž'} <span>${escapeHtml(a.name)}</span><button data-remove-attach="${i}">âœ•</button></span>`).join('');
+  wrap.innerHTML = chatAttachments.map((a, i) => `<span class="chat-attach-chip">${a.isImage?'\u{1F5BC}':'\u{1F4CE}'} <span>${escapeHtml(a.name)}</span><button data-remove-attach="${i}">\u2715</button></span>`).join('');
   els('[data-remove-attach]').forEach(b => b.addEventListener('click', () => { chatAttachments.splice(Number(b.dataset.removeAttach), 1); renderAttachPreview(); }));
 }
 function sendChatMessage(){
@@ -2918,8 +2918,8 @@ function toggleChatNotifications(){
 function showChatNotification(msg){
   if (Store.data.settings.chatNotifications === false) return;
   if (!('Notification' in window) || Notification.permission !== 'granted') return;
-  const prefix = msg.type === 'important' ? 'â— ' : msg.type === 'question' ? 'â“ ' : msg.type === 'assignment' ? 'ðŸ“š ' : 'ðŸ’¬ ';
-  const body = msg.text ? msg.text.slice(0, 120) : 'ðŸ“Ž attachment';
+  const prefix = msg.type === 'important' ? '[!] ' : msg.type === 'question' ? '[?] ' : msg.type === 'assignment' ? '[Assignment] ' : '[Chat] ';
+  const body = msg.text ? msg.text.slice(0, 120) : '[Attachment]';
   try {
     const n = new Notification(prefix + (msg.senderName || 'New message'), { body, tag: 'studydesk-chat' });
     setTimeout(() => n.close(), 8000);
@@ -2936,7 +2936,7 @@ function checkForNewMessages(){
   if (wasInitial) return;
   if (last.sender === session.role) return;
   showChatNotification(last);
-  if (currentTab !== 'chat' || document.hidden) toast('ðŸ’¬ New message from ' + last.senderName);
+  if (currentTab !== 'chat' || document.hidden) toast('\u{1F4AC} New message from ' + last.senderName);
   else markChatRead();
   updateChatUnreadBadge();
 }
@@ -2946,8 +2946,8 @@ function formatChatDay(ts){
   const today = new Date();
   const y = new Date(); y.setDate(y.getDate() - 1);
   const same = (a, b) => a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
-  if (same(d, today)) return 'Today Â· ' + d.toLocaleDateString([], { month:'short', day:'numeric', year:'numeric' });
-  if (same(d, y)) return 'Yesterday Â· ' + d.toLocaleDateString([], { month:'short', day:'numeric', year:'numeric' });
+  if (same(d, today)) return 'Today \u00B7 ' + d.toLocaleDateString([], { month:'short', day:'numeric', year:'numeric' });
+  if (same(d, y)) return 'Yesterday \u00B7 ' + d.toLocaleDateString([], { month:'short', day:'numeric', year:'numeric' });
   return d.toLocaleDateString([], { weekday:'short', month:'short', day:'numeric', year:'numeric' });
 }
 function dayKeyOf(ts){ const d = new Date(ts); return d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate(); }
@@ -2976,7 +2976,7 @@ function renderChat(force){
   if (!filtered.length) {
     list.innerHTML = messages.length
       ? '<div class="chat-empty">No messages match your search.</div>'
-      : '<div class="chat-empty">No messages yet. Say hi! ðŸ‘‹</div>';
+      : '<div class="chat-empty">No messages yet. Say hi! \u{1F44B}</div>';
     updateChatScrollBtn();
     return;
   }
@@ -3006,7 +3006,6 @@ function renderChat(force){
   list.innerHTML = html;
 
   if (nearBottom || !isSearch) {
-    // If we were near bottom OR this is a fresh search, jump to bottom
     list.scrollTop = nearBottom ? list.scrollHeight : prevScroll;
   } else {
     list.scrollTop = Math.max(0, prevScroll + (list.scrollHeight - prevHeight));
@@ -3041,7 +3040,7 @@ function renderChatMessageHtml(m, hr, grouped){
     } else if (a.url) {
       const dl = a.downloadUrl || a.url;
       attachHtml += `<a class="chat-file" href="${escapeHtml(dl)}" target="_blank" rel="noopener" download>
-        ðŸ“Ž <span class="fname">${escapeHtml(a.name)}</span>
+        \u{1F4CE} <span class="fname">${escapeHtml(a.name)}</span>
         <small>${formatBytes(a.size || 0)}</small>
       </a>`;
     }
@@ -3051,21 +3050,21 @@ function renderChatMessageHtml(m, hr, grouped){
   if (m.linkedAssignment) {
     const la = m.linkedAssignment;
     linkedHtml += `<div class="chat-linked-card assignment" data-jump-assign="${escapeHtml(la.id)}">
-      <div class="chat-linked-label">ðŸ“š Linked assignment</div>
+      <div class="chat-linked-label">\u{1F4DA} Linked assignment</div>
       <div class="chat-linked-title">${escapeHtml(la.name)}</div>
-      <div class="chat-linked-meta">${la.sectionName ? escapeHtml(la.sectionName) : ''}${la.weight ? ' Â· ' + la.weight + '%' : ''}${la.due ? ' Â· Due ' + fmtDue(la.due) : ''}</div>
+      <div class="chat-linked-meta">${la.sectionName ? escapeHtml(la.sectionName) : ''}${la.weight ? ' \u00B7 ' + la.weight + '%' : ''}${la.due ? ' \u00B7 Due ' + fmtDue(la.due) : ''}</div>
     </div>`;
   }
   if (m.linkedNote) {
     linkedHtml += `<div class="chat-linked-card note" data-jump-note="${escapeHtml(m.linkedNote.id)}">
-      <div class="chat-linked-label">ðŸ“ Linked note</div>
+      <div class="chat-linked-label">\u{1F4DD} Linked note</div>
       <div class="chat-linked-title">${escapeHtml(m.linkedNote.title)}</div>
     </div>`;
   }
 
   const senderLine = (!own && !grouped) ? `<div class="chat-sender">${escapeHtml(m.senderName)}</div>` : '';
   const typeLabel = typeLabelInfo ? `<div class="chat-msg-label type-${type}">${typeLabelInfo.icon} ${typeLabelInfo.label}</div>` : '';
-  const deleteBtn = own ? `<button data-del-msg="${m.id}" title="Delete message">ðŸ—‘</button>` : '';
+  const deleteBtn = own ? `<button data-del-msg="${m.id}" title="Delete message">\u{1F5D1}</button>` : '';
 
   return `<div class="chat-msg ${own ? 'own' : 'other'} type-${type} ${grouped ? 'grouped' : ''}">
     <div class="chat-avatar">${initial}</div>
@@ -3138,14 +3137,14 @@ function toggleCategoryFields(){
   const cat = el('#aCategory').value;
   el('#assignmentFields').classList.toggle('hidden', cat !== 'assignment');
   el('#otherFields').classList.toggle('hidden', cat !== 'other');
-  el('#aSubmit').textContent = editingId ? 'âœ“ Save Changes' : (cat === 'other' ? '+ Add Item' : '+ Add Assignment');
+  el('#aSubmit').textContent = editingId ? '\u2713 Save Changes' : (cat === 'other' ? '+ Add Item' : '+ Add Assignment');
 }
 function addLinkRow(url = '', label = ''){
   const list = el('#aLinkList');
   const row = document.createElement('div');
   row.className = 'link-row';
   row.style.cssText = 'display:grid;grid-template-columns:110px 1fr 32px;gap:6px;margin-bottom:6px;align-items:center';
-  row.innerHTML = `<input type="text" class="link-label" placeholder="Label" value="${escapeHtml(label)}" style="padding:8px 10px;font-size:12.5px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);outline:none;min-width:0"><input type="url" class="link-url" placeholder="https://..." value="${escapeHtml(url)}" style="padding:8px 10px;font-size:12.5px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);outline:none;min-width:0"><button type="button" class="link-remove" style="width:32px;height:32px;border-radius:8px;background:var(--surface2);border:1px solid var(--border);color:var(--muted)">âœ•</button>`;
+  row.innerHTML = `<input type="text" class="link-label" placeholder="Label" value="${escapeHtml(label)}" style="padding:8px 10px;font-size:12.5px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);outline:none;min-width:0"><input type="url" class="link-url" placeholder="https://..." value="${escapeHtml(url)}" style="padding:8px 10px;font-size:12.5px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);outline:none;min-width:0"><button type="button" class="link-remove" style="width:32px;height:32px;border-radius:8px;background:var(--surface2);border:1px solid var(--border);color:var(--muted)">\u2715</button>`;
   row.querySelector('.link-remove').addEventListener('click', () => row.remove());
   list.appendChild(row);
 }
@@ -3158,7 +3157,7 @@ function collectLinks(){
 function refreshSectionDropdown(){
   const sel = el('#aSection'); if (!sel) return;
   const current = sel.value;
-  sel.innerHTML = ['<option value="">â€” No section â€”</option>'].concat(Store.data.sections.map(s => `<option value="${s.id}">${escapeHtml(s.name)}</option>`)).join('');
+  sel.innerHTML = ['<option value="">\u2014 No section \u2014</option>'].concat(Store.data.sections.map(s => `<option value="${s.id}">${escapeHtml(s.name)}</option>`)).join('');
   if (Array.from(sel.options).some(o => o.value === current)) sel.value = current;
   const filter = el('#sectionFilter');
   if (filter) {
@@ -3216,7 +3215,7 @@ function renderSectionsUI(){
   mgr.innerHTML = Store.data.sections.map(s => {
     const c = sectionColor(s);
     const count = Store.data.assignments.filter(a => a.sectionId === s.id && !a.deleted).length;
-    return `<div class="sec-row"><span class="sec-dot" style="background:${c}"></span><span class="sec-name">${escapeHtml(s.name)}</span><span class="sec-count">${count}</span><span class="sec-actions"><button data-rename="${s.id}">âœŽ</button><button data-delsec="${s.id}">ðŸ—‘</button></span></div>`;
+    return `<div class="sec-row"><span class="sec-dot" style="background:${c}"></span><span class="sec-name">${escapeHtml(s.name)}</span><span class="sec-count">${count}</span><span class="sec-actions"><button data-rename="${s.id}">\u270E</button><button data-delsec="${s.id}">\u{1F5D1}</button></span></div>`;
   }).join('');
   els('[data-rename]').forEach(b => b.addEventListener('click', () => renameSection(b.dataset.rename)));
   els('[data-delsec]').forEach(b => b.addEventListener('click', () => deleteSection(b.dataset.delsec)));
@@ -3312,7 +3311,7 @@ function editAssignment(id){
     if (!(a.links || []).length) addLinkRow();
   }
   el('#assignFormTitle').textContent = 'Edit Item';
-  el('#aSubmit').textContent = 'âœ“ Save Changes';
+  el('#aSubmit').textContent = '\u2713 Save Changes';
   if (assignFormCollapsed) {
     assignFormCollapsed = false;
     el('#assignTwoCol').classList.remove('form-collapsed');
@@ -3377,30 +3376,30 @@ function renderAssignments(){
   el('#assignCount').textContent = items.length;
   if (!items.length) {
     el('#assignList').innerHTML = isTrash
-      ? '<div class="empty-cta"><div class="icon">ðŸ—‘</div><div>Trash is empty</div></div>'
-      : '<div class="empty-cta"><div class="icon">ðŸ“š</div><div>No items match</div></div>';
+      ? '<div class="empty-cta"><div class="icon">\u{1F5D1}</div><div>Trash is empty</div></div>'
+      : '<div class="empty-cta"><div class="icon">\u{1F4DA}</div><div>No items match</div></div>';
     return;
   }
   el('#assignList').innerHTML = items.map(a => {
     const links = linksHtml(a);
     const tags = tagPillsHtml(a.tags);
-    const recur = a.recurrence ? '<span class="pill" style="color:var(--accent);border-color:var(--accent)">â†» weekly</span>' : '';
-    const inprog = a.inProgress && !a.completed ? '<span class="pill" style="color:var(--accent);border-color:var(--accent)">â–¶ In progress</span>' : '';
+    const recur = a.recurrence ? '<span class="pill" style="color:var(--accent);border-color:var(--accent)">\u21BB weekly</span>' : '';
+    const inprog = a.inProgress && !a.completed ? '<span class="pill" style="color:var(--accent);border-color:var(--accent)">\u25B6 In progress</span>' : '';
     const metaParts = [];
     if (a.category !== 'other') {
-      metaParts.push(`<span>ðŸ‘¤ ${escapeHtml(a.teacher || 'â€”')}</span>`);
-      if (a.due) metaParts.push(`<span>ðŸ“… ${fmtDue(a.due)} Â· ${relativeDue(a.due)}</span>`);
-      metaParts.push(`<span>âš–ï¸ ${escapeHtml(String(a.weight ?? 0))}%</span>`);
+      metaParts.push(`<span>\u{1F464} ${escapeHtml(a.teacher || '\u2014')}</span>`);
+      if (a.due) metaParts.push(`<span>\u{1F4C5} ${fmtDue(a.due)} \u00B7 ${relativeDue(a.due)}</span>`);
+      metaParts.push(`<span>\u{2696}\u{FE0F} ${escapeHtml(String(a.weight ?? 0))}%</span>`);
     }
     if (isTrash) metaParts.push(`<span class="muted">Trashed ${fmtDateTime(a.deletedAt)}</span>`);
     const actionsHtml = isTrash
       ? `<div class="mini-actions">
-           <button class="mini" data-restore="${a.id}" title="Restore">â†º</button>
-           <button class="mini del" data-purge="${a.id}" title="Delete forever">ðŸ—‘</button>
+           <button class="mini" data-restore="${a.id}" title="Restore">\u21BA</button>
+           <button class="mini del" data-purge="${a.id}" title="Delete forever">\u{1F5D1}</button>
          </div>`
       : `<div class="mini-actions">
-           <button class="mini" data-edit="${a.id}">âœŽ</button>
-           <button class="mini del" data-del="${a.id}" title="Move to trash">ðŸ—‘</button>
+           <button class="mini" data-edit="${a.id}">\u270E</button>
+           <button class="mini del" data-del="${a.id}" title="Move to trash">\u{1F5D1}</button>
          </div>`;
     return `<div class="item ${a.completed ? 'completed' : ''}">
       <div class="complete-check ${a.completed ? 'checked' : ''}" data-toggle-complete="${a.id}" ${isTrash ? 'style="opacity:.4;pointer-events:none"' : ''}></div>
@@ -3460,7 +3459,7 @@ function renderKanban(){
     if (!body) return;
     body.innerHTML = cols[col].length
       ? cols[col].map(a => kanbanCardHtml(a, col)).join('')
-      : '<div class="empty" style="padding:14px;font-size:12px">â€”</div>';
+      : '<div class="empty" style="padding:14px;font-size:12px">\u2014</div>';
   });
   els('#kanbanBoard [data-kmove]').forEach(b => b.addEventListener('click', e => {
     e.stopPropagation(); moveKanbanCard(b.dataset.id, b.dataset.kmove);
@@ -3468,15 +3467,15 @@ function renderKanban(){
   els('#kanbanBoard [data-kopen]').forEach(card => card.addEventListener('click', () => editAssignment(card.dataset.kopen)));
 }
 function kanbanCardHtml(a, col){
-  const due = a.due ? `<span>ðŸ“… ${fmtDue(a.due)}</span>` : '';
-  const gr  = a.grade ? `<span>ðŸŽ“ ${escapeHtml(a.grade)}</span>` : '';
+  const due = a.due ? `<span>\u{1F4C5} ${fmtDue(a.due)}</span>` : '';
+  const gr  = a.grade ? `<span>\u{1F393} ${escapeHtml(a.grade)}</span>` : '';
   const mv  = [];
-  if (col === 'todo')     mv.push(`<button data-kmove="progress" data-id="${a.id}" title="Start">â–¶</button>`);
+  if (col === 'todo')     mv.push(`<button data-kmove="progress" data-id="${a.id}" title="Start">\u25B6</button>`);
   if (col === 'progress') {
-    mv.push(`<button data-kmove="todo" data-id="${a.id}" title="Back">â—€</button>`);
-    mv.push(`<button data-kmove="done" data-id="${a.id}" title="Done">âœ“</button>`);
+    mv.push(`<button data-kmove="todo" data-id="${a.id}" title="Back">\u25C0</button>`);
+    mv.push(`<button data-kmove="done" data-id="${a.id}" title="Done">\u2713</button>`);
   }
-  if (col === 'done')     mv.push(`<button data-kmove="progress" data-id="${a.id}" title="Reopen">â†º</button>`);
+  if (col === 'done')     mv.push(`<button data-kmove="progress" data-id="${a.id}" title="Reopen">\u21BA</button>`);
   return `<div class="kanban-card ${a.completed?'completed':''}" data-kopen="${a.id}">
     <div class="k-title">${escapeHtml(a.name)}${sectionPillHtml(a.sectionId)}</div>
     <div class="k-meta">${due}${gr}</div>
@@ -3518,7 +3517,7 @@ function saveDraft(){
   localStorage.setItem(DRAFT_KEY, JSON.stringify({
     title, content, savedAt: Date.now(), editingId: editingNoteId
   }));
-  setNoteStatus('Draft saved Â· ' + new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}));
+  setNoteStatus('Draft saved \u00B7 ' + new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}));
 }
 function restoreDraft(){
   const raw = localStorage.getItem(DRAFT_KEY);
@@ -3553,7 +3552,7 @@ function submitNote(){
     clearNoteForm();
   }
   localStorage.removeItem(DRAFT_KEY);
-  setNoteStatus('Saved âœ“');
+  setNoteStatus('Saved \u2713');
 }
 function clearNoteForm(){ el('#nTitle').value = ''; el('#nContent').value = ''; }
 function cancelNoteEdit(){
@@ -3598,11 +3597,11 @@ function renderNotes(){
     const updated = new Date(n.updatedAt || n.createdAt || Date.now()).toLocaleString([], { month:'short', day:'numeric', year:'numeric', hour:'2-digit', minute:'2-digit' });
     return `<div class="note-row" data-open-note="${n.id}">
       <div class="note-row-actions">
-        <button class="mini" data-edit-note="${n.id}">âœŽ</button>
-        <button class="mini del" data-del-note="${n.id}">ðŸ—‘</button>
+        <button class="mini" data-edit-note="${n.id}">\u270E</button>
+        <button class="mini del" data-del-note="${n.id}">\u{1F5D1}</button>
       </div>
       <div class="note-row-title">${escapeHtml(n.title)}</div>
-      <div class="note-row-meta">Updated ${escapeHtml(updated)}${n.createdBy ? ' Â· ' + escapeHtml(n.createdBy) : ''}</div>
+      <div class="note-row-meta">Updated ${escapeHtml(updated)}${n.createdBy ? ' \u00B7 ' + escapeHtml(n.createdBy) : ''}</div>
       <div class="note-row-body">${body}</div>
     </div>`;
   }).join('');
@@ -3654,8 +3653,8 @@ function saveProject(){
     currentProjectId = proj.id;
     commit('added', 'Snippet', `Created "${name}"`);
   }
-  setEditorStatus('Saved âœ“');
-  toast('Snippet saved âœ“');
+  setEditorStatus('Saved \u2713');
+  toast('Snippet saved \u2713');
 }
 function cancelProjectEdit(){
   currentProjectId = null;
@@ -3698,7 +3697,7 @@ function buildPreview(code, lang){
   if (lang === 'css') return `<!doctype html><html><head><style>body{font-family:system-ui;padding:24px;background:#fff;color:#222}${code}</style></head><body><h1>Heading 1</h1><p>Sample text.</p><button>Button</button></body></html>`;
   if (lang === 'javascript') {
     const safe = String(code).replace(/<\/script>/gi, '<\\/script>');
-    return `<!doctype html><html><body style="font-family:ui-monospace;background:#0b0e18;color:#dbe4ff;padding:16px;margin:0"><pre id="out" style="white-space:pre-wrap;font-size:13px"></pre><script>const out=document.getElementById('out');const log=(...a)=>{out.textContent+=a.map(v=>typeof v==='object'?JSON.stringify(v):String(v)).join(' ')+'\\n'};console.log=log;try{${safe}}catch(e){log('âš  '+e.name+': '+e.message)}<\/script></body></html>`;
+    return `<!doctype html><html><body style="font-family:ui-monospace;background:#0b0e18;color:#dbe4ff;padding:16px;margin:0"><pre id="out" style="white-space:pre-wrap;font-size:13px"></pre><script>const out=document.getElementById('out');const log=(...a)=>{out.textContent+=a.map(v=>typeof v==='object'?JSON.stringify(v):String(v)).join(' ')+'\\n'};console.log=log;try{${safe}}catch(e){log('Error '+e.name+': '+e.message)}<\/script></body></html>`;
   }
   return `<!doctype html><html><body style="font-family:ui-monospace;background:#0b0e18;color:#dbe4ff;padding:16px;margin:0"><pre style="white-space:pre-wrap;font-size:13px">${escapeHtml(code)}</pre></body></html>`;
 }
@@ -3711,7 +3710,7 @@ function openPreview(projectId){
   } else {
     code = el('#codeArea').value; lang = el('#pLang').value; title = el('#pName').value.trim() || 'Untitled';
   }
-  el('#previewTitle').textContent = 'Preview Â· ' + title;
+  el('#previewTitle').textContent = 'Preview \u00B7 ' + title;
   el('#previewFrame').srcdoc = buildPreview(code, lang);
   el('#previewModal').classList.remove('hidden');
   document.body.style.overflow = 'hidden';
@@ -3736,14 +3735,14 @@ function renderProjects(){
     return `<div class="snippet-item ${p.id === currentProjectId ? 'active' : ''} ${isExpanded ? 'expanded' : ''}" data-open="${p.id}">
       <div class="snippet-item-main">
         <div class="snippet-item-title">${escapeHtml(p.name)}<span class="snippet-lang-tag">${escapeHtml(p.lang)}</span></div>
-        <div class="snippet-item-meta">Updated ${new Date(p.updatedAt || Date.now()).toLocaleDateString()}${p.updatedBy ? ' Â· ' + escapeHtml(p.updatedBy) : ''}</div>
-        ${previewCode ? `<div class="snippet-item-preview">${escapeHtml(previewCode)}${(p.code||'').split('\n').length > 2 ? '\nâ€¦' : ''}</div>` : ''}
+        <div class="snippet-item-meta">Updated ${new Date(p.updatedAt || Date.now()).toLocaleDateString()}${p.updatedBy ? ' \u00B7 ' + escapeHtml(p.updatedBy) : ''}</div>
+        ${previewCode ? `<div class="snippet-item-preview">${escapeHtml(previewCode)}${(p.code||'').split('\n').length > 2 ? '\n\u2026' : ''}</div>` : ''}
         <pre class="snippet-full-code" style="display:${isExpanded ? 'block' : 'none'};margin-top:10px;padding:12px;border-radius:8px;background:#0b0e18;color:#dbe4ff;font-family:var(--mono);font-size:12px;line-height:1.55;max-height:420px;overflow:auto;white-space:pre;border:1px solid var(--border)">${escapeHtml(p.code || '')}</pre>
       </div>
       <div class="mini-actions" style="flex-direction:column">
-        <button class="mini" data-expand="${p.id}" title="Expand">${isExpanded ? 'â–´' : 'â–¾'}</button>
-        <button class="mini" data-preview="${p.id}" title="Preview">â–¶</button>
-        <button class="mini del" data-pdel="${p.id}" title="Delete">ðŸ—‘</button>
+        <button class="mini" data-expand="${p.id}" title="Expand">${isExpanded ? '\u25B4' : '\u25BE'}</button>
+        <button class="mini" data-preview="${p.id}" title="Preview">\u25B6</button>
+        <button class="mini del" data-pdel="${p.id}" title="Delete">\u{1F5D1}</button>
       </div>
     </div>`;
   }).join('');
@@ -3760,7 +3759,7 @@ function renderProjects(){
     const pre = item.querySelector('.snippet-full-code');
     const nowOpen = pre.style.display === 'none';
     pre.style.display = nowOpen ? 'block' : 'none';
-    btn.textContent = nowOpen ? 'â–´' : 'â–¾';
+    btn.textContent = nowOpen ? '\u25B4' : '\u25BE';
     if (nowOpen) expandedProjects.add(id); else expandedProjects.delete(id);
   }));
 }
@@ -3809,10 +3808,10 @@ const THEMES = [
 ];
 
 const LAYOUTS = [
-  { id: 'sidebar', name: 'Sidebar',  icon: 'â–¤' },
-  { id: 'topbar',  name: 'Top Bar',  icon: 'â–¬' },
-  { id: 'rail',    name: 'Rail',     icon: 'â–®' },
-  { id: 'custom',  name: 'Custom',   icon: 'âš™' }
+  { id: 'sidebar', name: 'Sidebar',  icon: '\u25A4' },
+  { id: 'topbar',  name: 'Top Bar',  icon: '\u25AC' },
+  { id: 'rail',    name: 'Rail',     icon: '\u25AE' },
+  { id: 'custom',  name: 'Custom',   icon: '\u2699' }
 ];
 
 function initSettings(){
@@ -3821,10 +3820,10 @@ function initSettings(){
   el('#themeGrid').innerHTML = THEMES.map(t => `<button class="theme-swatch" data-theme="${t.id}"><div class="theme-dots">${t.dots.map(c => `<span style="background:${c}"></span>`).join('')}</div>${t.name}</button>`).join('');
   els('#themeGrid [data-theme]').forEach(btn => btn.addEventListener('click', () => {
     Store.data.settings.theme = btn.dataset.theme;
-    commit('edited', 'Settings', `Theme â†’ ${btn.dataset.theme}`);
+    commit('edited', 'Settings', `Theme \u2192 ${btn.dataset.theme}`);
   }));
   initLayoutPicker();
-  el('#setCursor').addEventListener('change', e => { Store.data.settings.cursor = e.target.value; commit('edited', 'Settings', `Cursor â†’ ${e.target.value}`); });
+  el('#setCursor').addEventListener('change', e => { Store.data.settings.cursor = e.target.value; commit('edited', 'Settings', `Cursor \u2192 ${e.target.value}`); });
   el('#setElAnim').addEventListener('change', e => { Store.data.settings.elementAnim = e.target.checked; commit('edited', 'Settings', `Element anim`); });
   el('#setTimerAnim').addEventListener('change', e => { Store.data.settings.timerAnim = e.target.checked; commit('edited', 'Settings', `Timer anim`); });
   el('#setClock24').addEventListener('change', e => { Store.data.settings.clock24 = e.target.checked; commit('edited', 'Settings', `Clock`); tickClock(); });
@@ -3838,11 +3837,11 @@ function initSettings(){
   el('#savePass').addEventListener('click', async () => {
     const np = el('#newPass').value;
     if (np.length < 4) { toast('Password must be at least 4 characters.'); return; }
-    try { await Store.withStatus(() => Store.apiPost({ action: 'changePassword', token: session.token, newPassword: np })); toast('Password updated âœ“'); el('#newPass').value = ''; }
+    try { await Store.withStatus(() => Store.apiPost({ action: 'changePassword', token: session.token, newPassword: np })); toast('Password updated \u2713'); el('#newPass').value = ''; }
     catch (err) { toast('Failed: ' + err.message); }
   });
   el('#manualSync').addEventListener('click', async () => {
-    toast('Pulling latestâ€¦');
+    toast('Pulling latest\u2026');
     await Store.loadCloudData();
     toast('Data refreshed');
   });
@@ -3872,7 +3871,7 @@ function initLayoutPicker(){
 
   els('#layoutGrid [data-layout]').forEach(btn => btn.addEventListener('click', () => {
     Store.data.settings.layout = btn.dataset.layout;
-    commit('edited', 'Settings', `Layout â†’ ${btn.dataset.layout}`);
+    commit('edited', 'Settings', `Layout \u2192 ${btn.dataset.layout}`);
     renderSettingsUI();
   }));
 
@@ -3883,7 +3882,7 @@ function initLayoutPicker(){
       const map = { customNavPos:'customNav', customNavStyle:'customNavStyle',
                     customWidth:'customWidth', customDensity:'customDensity' };
       Store.data.settings[map[id]] = node.value;
-      commit('edited', 'Settings', `${id} â†’ ${node.value}`);
+      commit('edited', 'Settings', `${id} \u2192 ${node.value}`);
     });
   });
 }
@@ -3915,7 +3914,7 @@ function importData(e){
       Store.data = fresh;
       Store.persist();
       applyAll();
-      toast('Imported backup âœ“');
+      toast('Imported backup \u2713');
     } catch (err) {
       toast('Invalid backup file');
     }
@@ -3953,8 +3952,8 @@ function updateSyncBadge(){
   if (!isCloudConfigured()) { text.textContent = 'Backend not configured'; return; }
   switch (connState) {
     case 'synced': badge.classList.add('synced'); text.textContent = 'Synced with Google Sheets'; break;
-    case 'syncing': badge.classList.add('syncing'); text.textContent = 'Syncingâ€¦'; break;
-    case 'unavailable': badge.classList.add('unavailable'); text.textContent = 'Offline â€” saved locally'; break;
+    case 'syncing': badge.classList.add('syncing'); text.textContent = 'Syncing\u2026'; break;
+    case 'unavailable': badge.classList.add('unavailable'); text.textContent = 'Offline \u2014 saved locally'; break;
     case 'error': badge.classList.add('error'); text.textContent = 'Sync error'; break;
     default: text.textContent = 'Cloud sync configured';
   }
@@ -3991,7 +3990,7 @@ function updateTimerContext(){
   const m = clamp(Number(el('#timerMin').value) || 0, 0, 180);
   const logStudy = el('#timerLogStudy')?.checked !== false;
   ctx.classList.remove('work','break');
-  if (!logStudy) { ctx.textContent = 'Break â€” not logged'; ctx.classList.add('break'); }
+  if (!logStudy) { ctx.textContent = 'Break \u2014 not logged'; ctx.classList.add('break'); }
   else if (m === 20 || m === 25 || m === 50) { ctx.textContent = 'Work / Study'; ctx.classList.add('work'); }
   else if (m === 10 || m === 5) { ctx.textContent = 'Break / Free time'; ctx.classList.add('break'); }
   else { ctx.textContent = ''; }
@@ -4093,7 +4092,7 @@ function updateTimerUI(){
 function timerFinished(){
   el('#timerDisplay').textContent = '00:00';
   el('#timerRing').style.strokeDashoffset = RING_C;
-  toast('â° Time is up!');
+  toast('Time is up!');
   if (Store.data.settings.sound) beep();
   timerState.startedAt = 0;
   renderStudyWidget();
@@ -4149,31 +4148,31 @@ function initModeToggle(){
    COMMAND PALETTE
 ============================================================ */
 const COMMANDS = [
-  { id:'tab-hub',         icon:'ðŸ ', label:'Go to Main Hub',         hint:'Tab',   run:() => switchTab('hub') },
-  { id:'tab-chat',        icon:'ðŸ’¬', label:'Go to Chatroom',          hint:'Tab',   run:() => switchTab('chat') },
-  { id:'tab-assignments', icon:'ðŸ“š', label:'Go to Assignments',       hint:'Tab',   run:() => switchTab('assignments') },
-  { id:'tab-notes',       icon:'ðŸ“', label:'Go to Notes',             hint:'Tab',   run:() => switchTab('notes') },
-  { id:'tab-code',        icon:'ðŸ’»', label:'Go to Code Storage',      hint:'Tab',   run:() => switchTab('code') },
-  { id:'tab-audit',       icon:'ðŸ“‹', label:'Go to Audit Log',         hint:'Tab',   run:() => switchTab('audit') },
-  { id:'new-assign',      icon:'ï¼‹', label:'New Assignment',          hint:'N',     run:() => { switchTab('assignments'); setTimeout(() => el('#aName').focus(), 100); } },
-  { id:'kanban',          icon:'â–¦',  label:'Toggle Kanban view',      hint:'',      run:() => { switchTab('assignments'); setTimeout(() => el('[data-view="kanban"]')?.click(), 120); } },
-  { id:'collapse-form',   icon:'â–¾',  label:'Toggle Add Item panel',   hint:'',      run:() => { switchTab('assignments'); setTimeout(() => el('#assignFormCollapse')?.click(), 120); } },
-  { id:'new-note',        icon:'ï¼‹', label:'New Note',                hint:'',      run:() => { switchTab('notes'); setTimeout(() => el('#nTitle').focus(), 100); } },
-  { id:'new-snippet',     icon:'ï¼‹', label:'New Code Snippet',        hint:'',      run:() => { switchTab('code'); setTimeout(() => el('#pName').focus(), 100); } },
-  { id:'start-timer',     icon:'â–¶',  label:'Start Timer',             hint:'T',     run:() => startTimer() },
-  { id:'pause-timer',     icon:'â¸',  label:'Pause Timer',             hint:'',      run:() => pauseTimer() },
-  { id:'focus',           icon:'ðŸŽ¯', label:'Toggle Focus Mode',       hint:'F',     run:() => toggleFocusMode() },
-  { id:'theme-aurora',    icon:'ðŸŽ¨', label:'Theme: Aurora',           hint:'',      run:() => { Store.data.settings.theme='aurora'; Store.persist(); applyAll(); } },
-  { id:'theme-midnight',  icon:'ðŸŽ¨', label:'Theme: Midnight',         hint:'',      run:() => { Store.data.settings.theme='midnight'; Store.persist(); applyAll(); } },
-  { id:'theme-neon',      icon:'ðŸŽ¨', label:'Theme: Neon',             hint:'',      run:() => { Store.data.settings.theme='neon'; Store.persist(); applyAll(); } },
-  { id:'theme-light',     icon:'ðŸŽ¨', label:'Theme: Light',            hint:'',      run:() => { Store.data.settings.theme='light'; Store.persist(); applyAll(); } },
-  { id:'layout-sidebar',  icon:'â–¤',  label:'Layout: Sidebar',         hint:'',      run:() => { Store.data.settings.layout='sidebar'; Store.persist(); applyAll(); } },
-  { id:'layout-topbar',   icon:'â–¬',  label:'Layout: Top Bar',         hint:'',      run:() => { Store.data.settings.layout='topbar'; Store.persist(); applyAll(); } },
-  { id:'layout-rail',     icon:'â–®',  label:'Layout: Rail',            hint:'',      run:() => { Store.data.settings.layout='rail'; Store.persist(); applyAll(); } },
-  { id:'export',          icon:'â¬‡',  label:'Export Data (backup)',    hint:'',      run:() => exportData() },
-  { id:'sync',            icon:'â†»',  label:'Pull latest from cloud',  hint:'',      run:() => Store.loadCloudData() },
-  { id:'settings',        icon:'âš™',  label:'Open Settings',           hint:'',      run:() => openSettings() },
-  { id:'logout',          icon:'âŽ‹',  label:'Sign Out',                hint:'',      run:() => logout() }
+  { id:'tab-hub',         icon:'\u{1F3E0}', label:'Go to Main Hub',         hint:'Tab',   run:() => switchTab('hub') },
+  { id:'tab-chat',        icon:'\u{1F4AC}', label:'Go to Chatroom',          hint:'Tab',   run:() => switchTab('chat') },
+  { id:'tab-assignments', icon:'\u{1F4DA}', label:'Go to Assignments',       hint:'Tab',   run:() => switchTab('assignments') },
+  { id:'tab-notes',       icon:'\u{1F4DD}', label:'Go to Notes',             hint:'Tab',   run:() => switchTab('notes') },
+  { id:'tab-code',        icon:'\u{1F4BB}', label:'Go to Code Storage',      hint:'Tab',   run:() => switchTab('code') },
+  { id:'tab-audit',       icon:'\u{1F4CB}', label:'Go to Audit Log',         hint:'Tab',   run:() => switchTab('audit') },
+  { id:'new-assign',      icon:'\uFF0B', label:'New Assignment',          hint:'N',     run:() => { switchTab('assignments'); setTimeout(() => el('#aName').focus(), 100); } },
+  { id:'kanban',          icon:'\u25A6',  label:'Toggle Kanban view',      hint:'',      run:() => { switchTab('assignments'); setTimeout(() => el('[data-view="kanban"]')?.click(), 120); } },
+  { id:'collapse-form',   icon:'\u25BE',  label:'Toggle Add Item panel',   hint:'',      run:() => { switchTab('assignments'); setTimeout(() => el('#assignFormCollapse')?.click(), 120); } },
+  { id:'new-note',        icon:'\uFF0B', label:'New Note',                hint:'',      run:() => { switchTab('notes'); setTimeout(() => el('#nTitle').focus(), 100); } },
+  { id:'new-snippet',     icon:'\uFF0B', label:'New Code Snippet',        hint:'',      run:() => { switchTab('code'); setTimeout(() => el('#pName').focus(), 100); } },
+  { id:'start-timer',     icon:'\u25B6',  label:'Start Timer',             hint:'T',     run:() => startTimer() },
+  { id:'pause-timer',     icon:'\u23F8',  label:'Pause Timer',             hint:'',      run:() => pauseTimer() },
+  { id:'focus',           icon:'\u{1F3AF}', label:'Toggle Focus Mode',       hint:'F',     run:() => toggleFocusMode() },
+  { id:'theme-aurora',    icon:'\u{1F3A8}', label:'Theme: Aurora',           hint:'',      run:() => { Store.data.settings.theme='aurora'; Store.persist(); applyAll(); } },
+  { id:'theme-midnight',  icon:'\u{1F3A8}', label:'Theme: Midnight',         hint:'',      run:() => { Store.data.settings.theme='midnight'; Store.persist(); applyAll(); } },
+  { id:'theme-neon',      icon:'\u{1F3A8}', label:'Theme: Neon',             hint:'',      run:() => { Store.data.settings.theme='neon'; Store.persist(); applyAll(); } },
+  { id:'theme-light',     icon:'\u{1F3A8}', label:'Theme: Light',            hint:'',      run:() => { Store.data.settings.theme='light'; Store.persist(); applyAll(); } },
+  { id:'layout-sidebar',  icon:'\u25A4',  label:'Layout: Sidebar',         hint:'',      run:() => { Store.data.settings.layout='sidebar'; Store.persist(); applyAll(); } },
+  { id:'layout-topbar',   icon:'\u25AC',  label:'Layout: Top Bar',         hint:'',      run:() => { Store.data.settings.layout='topbar'; Store.persist(); applyAll(); } },
+  { id:'layout-rail',     icon:'\u25AE',  label:'Layout: Rail',            hint:'',      run:() => { Store.data.settings.layout='rail'; Store.persist(); applyAll(); } },
+  { id:'export',          icon:'\u2B07',  label:'Export Data (backup)',    hint:'',      run:() => exportData() },
+  { id:'sync',            icon:'\u21BB',  label:'Pull latest from cloud',  hint:'',      run:() => Store.loadCloudData() },
+  { id:'settings',        icon:'\u2699',  label:'Open Settings',           hint:'',      run:() => openSettings() },
+  { id:'logout',          icon:'\u238B',  label:'Sign Out',                hint:'',      run:() => logout() }
 ];
 let cmdSelected = 0;
 let cmdFiltered = COMMANDS;
@@ -4234,7 +4233,7 @@ function runCommandById(id){
 function toggleFocusMode(){
   document.body.classList.toggle('focus-mode');
   const on = document.body.classList.contains('focus-mode');
-  toast(on ? 'Focus mode ON â€” press F to exit' : 'Focus mode off');
+  toast(on ? 'Focus mode ON \u2014 press F to exit' : 'Focus mode off');
 }
 
 /* ============================================================
@@ -4291,7 +4290,7 @@ function initCursor(){
     } else if (effect === 'sparkle') {
       const s = document.createElement('div');
       s.style.cssText = `position:fixed;pointer-events:none;z-index:9999;font-size:13px;color:var(--accent2);left:${e.clientX+(Math.random()*22-11)}px;top:${e.clientY+(Math.random()*22-11)}px;transform:translate(-50%,-50%);animation:sparkFade .85s ease-out forwards`;
-      s.textContent = ['âœ¦','âœ§','â‹†','âœ¶'][Math.floor(Math.random()*4)];
+      s.textContent = ['\u2726','\u2727','\u22C6','\u2736'][Math.floor(Math.random()*4)];
       document.body.appendChild(s); setTimeout(() => s.remove(), 900);
     } else if (effect === 'ripple') {
       const r = document.createElement('div');
@@ -4318,13 +4317,13 @@ function toast(msg, type){
   if (!t) return;
   if (!type) {
     const m = String(msg || '').toLowerCase();
-    if (m.includes('saved') || m.includes('updated') || m.includes('enabled') || m.includes('imported') || m.includes('âœ“') || m.includes('completed') || m.includes('refreshed') || m.includes('added') || m.includes('restored')) type = 'success';
+    if (m.includes('saved') || m.includes('updated') || m.includes('enabled') || m.includes('imported') || m.includes('completed') || m.includes('refreshed') || m.includes('added') || m.includes('restored')) type = 'success';
     else if (m.includes('fail') || m.includes('error') || m.includes('cannot') || m.includes('denied')) type = 'error';
     else if (m.includes('please') || m.includes('must') || m.includes('pick') || m.includes('enter') || m.includes('give')) type = 'warning';
     else type = 'info';
   }
-  const icon = { success: 'âœ“', error: 'âš ', warning: '!', info: 'â„¹' }[type] || '';
-  const clean = String(msg || '').replace(/^[âœ“âš â„¹!]+\s*/, '').replace(/^[â°ðŸ’¬ðŸ“ŽðŸ”¥]\s*/, '');
+  const icon = { success: '\u2713', error: '\u26A0', warning: '!', info: '\u2139' }[type] || '';
+  const clean = String(msg || '').replace(/^[\u2713\u26A0\u2139!]+\s*/, '').replace(/^[\u23F0\u{1F4AC}\u{1F4CE}\u{1F525}]\s*/u, '');
   t.innerHTML = icon ? `<span class="toast-icon">${icon}</span><span>${escapeHtml(clean)}</span>` : `<span>${escapeHtml(clean)}</span>`;
   t.classList.remove('type-success','type-error','type-warning','type-info');
   t.classList.add('type-' + type, 'show');
