@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="aurora" data-tabanim="on" data-tabstyle="slide" data-elanim="on">
+<html lang="en" data-theme="aurora" data-tabanim="on" data-tabstyle="slide" data-elanim="on" data-layout="sidebar">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>StudyDesk — Student Dashboard</title>
+<title>StudyDesk â€” Student Dashboard</title>
 <style>
-/* ===== StudyDesk v3 — Full restyle ===== */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 *{box-sizing:border-box;margin:0;padding:0}
 
@@ -75,7 +74,7 @@ button{cursor:pointer;border:none;background:none}
 ::-webkit-scrollbar-thumb{background:var(--border);border-radius:8px}
 ::-webkit-scrollbar-thumb:hover{background:var(--accent)}
 
-/* ============ LAYOUT: SIDEBAR ============ */
+/* ============ LAYOUT: SIDEBAR (default) ============ */
 #app{display:flex;min-height:100vh}
 
 .sidebar{width:var(--sidebar-w);flex-shrink:0;background:var(--surface);border-right:1px solid var(--border);
@@ -276,7 +275,7 @@ html[data-timeranim="on"] .ring-wrap.running .sw-ring .ring-fg{animation:spinRin
   cursor:pointer;transition:.15s}
 .complete-check:hover{border-color:var(--accent)}
 .complete-check.checked{background:var(--success);border-color:var(--success)}
-.complete-check.checked::after{content:'✓';color:#fff;font-size:13px;font-weight:900}
+.complete-check.checked::after{content:'âœ“';color:#fff;font-size:13px;font-weight:900}
 
 .pill{font-size:10px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;
   padding:3px 8px;border-radius:20px;border:1px solid}
@@ -310,7 +309,7 @@ html[data-timeranim="on"] .ring-wrap.running .sw-ring .ring-fg{animation:spinRin
 .empty-cta{display:flex;flex-direction:column;align-items:center;gap:12px;padding:32px 16px;color:var(--muted)}
 .empty-cta .icon{font-size:32px;opacity:.5}
 
-/* ============ ASSIGNMENTS / TWO-COL ============ */
+/* ============ ASSIGNMENTS ============ */
 .two-col{display:grid;grid-template-columns:minmax(340px,440px) 1fr;gap:18px;align-items:start}
 @media(max-width:900px){.two-col{grid-template-columns:1fr}}
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
@@ -472,7 +471,8 @@ html[data-timeranim="on"] .ring-wrap.running .sw-ring .ring-fg{animation:spinRin
 
 /* ============ CHAT ============ */
 .chat-wrap{display:flex;flex-direction:column;height:calc(100vh - 140px);min-height:500px;
-  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  overflow:hidden;position:relative}
 .chat-header{display:flex;align-items:center;gap:10px;padding:13px 16px;
   border-bottom:1px solid var(--border);flex-wrap:wrap}
 .chat-header .chat-title{font-weight:800;font-size:14px;display:flex;align-items:center;gap:8px}
@@ -481,7 +481,7 @@ html[data-timeranim="on"] .ring-wrap.running .sw-ring .ring-fg{animation:spinRin
 .chat-search{flex:1;min-width:180px;position:relative}
 .chat-search input{width:100%;padding:9px 34px;border-radius:10px;border:1px solid var(--border);
   background:var(--surface2);outline:none;font-size:12.5px}
-.chat-search::before{content:'🔍';position:absolute;left:11px;top:50%;transform:translateY(-50%);
+.chat-search::before{content:'ðŸ”';position:absolute;left:11px;top:50%;transform:translateY(-50%);
   font-size:12px;opacity:.55}
 .chat-search .search-clear{position:absolute;right:8px;top:50%;transform:translateY(-50%);
   width:24px;height:24px;border-radius:6px;color:var(--muted)}
@@ -494,9 +494,11 @@ html[data-timeranim="on"] .ring-wrap.running .sw-ring .ring-fg{animation:spinRin
 .chat-day-divider .line{flex:1;height:1px;background:var(--border)}
 .chat-day-divider .label{font-size:10.5px;font-weight:800;color:var(--muted);
   background:var(--surface2);padding:4px 12px;border-radius:20px;border:1px solid var(--border)}
-.chat-msg{display:flex;gap:10px;max-width:78%;margin-bottom:6px}
+.chat-msg{display:flex;gap:8px;max-width:78%;margin-bottom:6px;align-items:center}
 .chat-msg.own{align-self:flex-end;flex-direction:row-reverse}
 .chat-msg.other{align-self:flex-start}
+.chat-msg.grouped{margin-top:0}
+.chat-msg.grouped .chat-avatar{visibility:hidden}
 .chat-avatar{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;
   font-weight:800;font-size:12px;color:#fff;flex-shrink:0}
 .chat-msg.own .chat-avatar{background:linear-gradient(135deg,var(--accent),var(--accent2))}
@@ -530,11 +532,17 @@ html[data-timeranim="on"] .ring-wrap.running .sw-ring .ring-fg{animation:spinRin
 .chat-linked-meta{font-size:10.5px;color:var(--muted);display:flex;gap:8px;flex-wrap:wrap}
 .chat-meta{font-size:10px;color:var(--muted);padding:2px 6px 0}
 .chat-attach-wrap{margin-top:6px;display:flex;flex-direction:column;gap:6px}
-.chat-img{max-width:260px;max-height:260px;border-radius:10px;cursor:pointer;border:1px solid var(--border)}
+.chat-img{max-width:280px;max-height:320px;object-fit:cover;border-radius:10px;
+  cursor:pointer;border:1px solid var(--border)}
 .chat-file{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:9px;
   background:var(--surface);border:1px solid var(--border);color:var(--text);
   text-decoration:none;font-size:12px}
 .chat-file .fname{max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600}
+.chat-msg-actions{opacity:0;transition:opacity .15s;display:flex;gap:2px;flex-shrink:0}
+.chat-msg:hover .chat-msg-actions{opacity:1}
+.chat-msg-actions button{width:24px;height:24px;border-radius:6px;background:var(--surface);
+  border:1px solid var(--border);font-size:11px;color:var(--muted)}
+.chat-msg-actions button:hover{color:var(--danger);border-color:var(--danger)}
 .chat-attach-preview{padding:10px 16px;background:var(--surface2);border-top:1px solid var(--border);
   display:flex;gap:6px;flex-wrap:wrap}
 .chat-attach-chip{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:9px;
@@ -561,6 +569,12 @@ html[data-timeranim="on"] .ring-wrap.running .sw-ring .ring-fg{animation:spinRin
   font-size:17px;background:var(--surface2);border:1px solid var(--border);transition:.15s}
 .chat-icon-btn:hover{border-color:var(--accent);color:var(--accent)}
 .chat-send-btn{background:var(--accent);border-color:transparent;color:#fff}
+.chat-scroll-btn{position:absolute;bottom:100px;right:22px;width:38px;height:38px;
+  border-radius:50%;background:var(--accent);color:#fff;font-size:16px;
+  box-shadow:var(--shadow-lg);display:grid;place-items:center;z-index:10;
+  transition:transform .15s;cursor:pointer;border:none}
+.chat-scroll-btn:hover{transform:translateY(-2px)}
+.chat-scroll-btn.hidden{display:none}
 .highlight{background:var(--warn);color:#000;padding:1px 3px;border-radius:3px;font-weight:700}
 .chat-unread{background:var(--danger);color:#fff;font-size:9.5px;font-weight:900;
   padding:1px 5px;border-radius:20px;min-width:16px;text-align:center;display:inline-block}
@@ -603,7 +617,7 @@ html[data-timeranim="on"] .ring-wrap.running .sw-ring .ring-fg{animation:spinRin
 .snippet-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .library-search-row{display:grid;grid-template-columns:1fr 220px;gap:10px;margin-bottom:14px}
 .search-wrap{position:relative}
-.search-wrap::before{content:'🔍';position:absolute;left:12px;top:50%;transform:translateY(-50%);
+.search-wrap::before{content:'ðŸ”';position:absolute;left:12px;top:50%;transform:translateY(-50%);
   font-size:13px;opacity:.55}
 .library-search-row input{width:100%;padding:11px 13px 11px 36px;border-radius:9px;
   border:1px solid var(--border);background:var(--surface2);outline:none;font-size:13px}
@@ -714,6 +728,133 @@ body.focus-mode .hub-grid > .card:not(.timer-card):not(.clock-card){display:none
 body.focus-mode .hub-grid{grid-template-columns:1fr 1fr}
 body.focus-mode main{padding-top:40px}
 
+/* ============ PRIORITY LIST v2 ============ */
+.prio-group{margin-bottom:14px}
+.prio-group:last-child{margin-bottom:0}
+.prio-group-head{display:flex;align-items:center;justify-content:space-between;
+  padding:6px 4px 8px;font-size:10.5px;font-weight:800;text-transform:uppercase;
+  letter-spacing:1px;color:var(--muted);border-bottom:1px solid var(--border-soft);margin-bottom:8px}
+.prio-group-label{display:flex;align-items:center;gap:6px}
+.prio-group-count{background:var(--surface2);padding:2px 8px;border-radius:10px;font-size:10px}
+.prio-item{display:flex;align-items:center;gap:10px;padding:10px 11px;border-radius:11px;
+  background:var(--surface2);margin-bottom:6px;transition:border-color .15s;
+  border:1px solid transparent;cursor:pointer}
+.prio-item:hover{border-color:var(--border)}
+.prio-item.completed{opacity:.55}
+.prio-score{width:44px;height:44px;border-radius:11px;display:grid;place-items:center;
+  font-weight:900;font-size:14px;flex-shrink:0;color:#fff;position:relative}
+.prio-score.prio-critical{background:linear-gradient(135deg,#dc2626,#ef4444)}
+.prio-score.prio-high{background:linear-gradient(135deg,#ea580c,#f59e0b)}
+.prio-score.prio-medium{background:linear-gradient(135deg,#0891b2,#22b8ff)}
+.prio-score.prio-low{background:linear-gradient(135deg,#475569,#64748b)}
+.prio-body{flex:1;min-width:0}
+.prio-name{font-size:13.5px;font-weight:700;margin-bottom:4px;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+  display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.prio-meta{font-size:11px;color:var(--muted);display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.prio-actions{display:flex;gap:4px;flex-shrink:0;opacity:.4;transition:opacity .15s}
+.prio-item:hover .prio-actions{opacity:1}
+.prio-actions .mini{width:28px;height:28px;font-size:12px}
+.prio-head-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;gap:8px;flex-wrap:wrap}
+.prio-head-row h3{margin-bottom:0!important;flex:1}
+.prio-mode-toggle{display:inline-flex;background:var(--surface2);border:1px solid var(--border);
+  border-radius:9px;padding:2px;gap:2px;font-size:11px}
+.prio-mode-toggle button{padding:5px 10px;border-radius:6px;font-weight:700;
+  color:var(--muted);white-space:nowrap}
+.prio-mode-toggle button.active{background:var(--accent);color:#fff}
+
+/* ============ LAYOUT SYSTEM ============ */
+/* Top bar layout */
+html[data-layout="topbar"] #app{flex-direction:column}
+html[data-layout="topbar"] .sidebar{
+  width:100%;height:auto;position:sticky;top:0;flex-direction:row;
+  padding:8px 16px;border-right:none;border-bottom:1px solid var(--border);
+  gap:8px;overflow-x:auto;align-items:center;z-index:101;
+}
+html[data-layout="topbar"] .brand{padding:0 14px 0 0;font-size:15px;flex-shrink:0}
+html[data-layout="topbar"] .brand .logo{width:28px;height:28px;font-size:14px}
+html[data-layout="topbar"] .side-nav{flex-direction:row;flex:1;gap:2px;overflow-x:auto;overflow-y:visible}
+html[data-layout="topbar"] .tab-btn{padding:8px 14px;width:auto;font-size:13px;flex-shrink:0}
+html[data-layout="topbar"] .tab-btn.active::before{display:none}
+html[data-layout="topbar"] .side-bottom{
+  flex-direction:row;padding-top:0;border-top:none;border-left:1px solid var(--border);
+  padding-left:10px;margin-left:auto;gap:6px;flex-shrink:0
+}
+html[data-layout="topbar"] .main-wrap{flex:1}
+
+/* Rail layout â€” icon-only, expands on hover */
+html[data-layout="rail"] .sidebar{width:68px;overflow:hidden;transition:width .25s cubic-bezier(.2,.85,.25,1)}
+html[data-layout="rail"] .sidebar:hover{width:var(--sidebar-w)}
+html[data-layout="rail"] .brand span:not(.logo),
+html[data-layout="rail"] .tab-btn span:not(.tab-icon):not(.chat-unread),
+html[data-layout="rail"] .profile-meta{opacity:0;transition:opacity .15s;pointer-events:none}
+html[data-layout="rail"] .sidebar:hover .brand span:not(.logo),
+html[data-layout="rail"] .sidebar:hover .tab-btn span:not(.tab-icon),
+html[data-layout="rail"] .sidebar:hover .profile-meta{opacity:1;pointer-events:auto}
+html[data-layout="rail"] .tab-btn{justify-content:center;padding:11px 0}
+html[data-layout="rail"] .sidebar:hover .tab-btn{justify-content:flex-start;padding:11px 14px}
+html[data-layout="rail"] .brand{justify-content:center;padding:8px 0 22px}
+html[data-layout="rail"] .sidebar:hover .brand{justify-content:flex-start;padding:8px 10px 22px}
+html[data-layout="rail"] .profile-btn{justify-content:center;padding:9px 0}
+html[data-layout="rail"] .sidebar:hover .profile-btn{justify-content:flex-start;padding:9px 10px}
+
+/* Custom â€” right sidebar */
+html[data-layout="custom"][data-custom-nav="right"] #app{flex-direction:row-reverse}
+html[data-layout="custom"][data-custom-nav="right"] .sidebar{
+  border-right:none;border-left:1px solid var(--border)
+}
+
+/* Custom â€” top bar base */
+html[data-layout="custom"][data-custom-nav="top"] #app{flex-direction:column}
+html[data-layout="custom"][data-custom-nav="top"] .sidebar{
+  width:100%;height:auto;position:sticky;top:0;flex-direction:row;
+  padding:8px 16px;border-right:none;border-bottom:1px solid var(--border);
+  gap:8px;overflow-x:auto;align-items:center
+}
+html[data-layout="custom"][data-custom-nav="top"] .side-nav{flex-direction:row;flex:1;gap:2px}
+html[data-layout="custom"][data-custom-nav="top"] .tab-btn{padding:8px 14px;width:auto;font-size:13px}
+html[data-layout="custom"][data-custom-nav="top"] .tab-btn.active::before{display:none}
+html[data-layout="custom"][data-custom-nav="top"] .side-bottom{
+  flex-direction:row;padding-top:0;border-top:none;border-left:1px solid var(--border);
+  padding-left:10px;margin-left:auto
+}
+
+/* Custom â€” icon nav style */
+html[data-layout="custom"][data-custom-navstyle="icons"] .sidebar{width:68px;overflow:hidden}
+html[data-layout="custom"][data-custom-navstyle="icons"] .tab-btn span:not(.tab-icon):not(.chat-unread),
+html[data-layout="custom"][data-custom-navstyle="icons"] .brand span:not(.logo),
+html[data-layout="custom"][data-custom-navstyle="icons"] .profile-meta{display:none}
+html[data-layout="custom"][data-custom-navstyle="icons"] .tab-btn{justify-content:center;padding:11px 0}
+
+/* Custom â€” compact nav style */
+html[data-layout="custom"][data-custom-navstyle="compact"] .tab-btn{padding:9px 12px;font-size:12.5px}
+html[data-layout="custom"][data-custom-navstyle="compact"] .brand{padding-bottom:16px;font-size:15px}
+
+/* Custom â€” width */
+html[data-layout="custom"][data-custom-width="narrow"] main{max-width:900px}
+html[data-layout="custom"][data-custom-width="wide"] main{max-width:1900px}
+
+/* Custom â€” density */
+html[data-custom-density="compact"] .item{padding:9px 10px}
+html[data-custom-density="compact"] .prio-item{padding:8px 10px}
+html[data-custom-density="compact"] .card{padding:14px}
+html[data-custom-density="compact"] .list{gap:6px}
+html[data-custom-density="spacious"] .item{padding:16px}
+html[data-custom-density="spacious"] .prio-item{padding:14px 13px}
+html[data-custom-density="spacious"] .card{padding:26px}
+html[data-custom-density="spacious"] .list{gap:12px}
+
+/* Layout picker */
+.layout-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.layout-swatch{padding:14px 10px;border-radius:11px;border:2px solid var(--border);
+  background:var(--surface2);text-align:center;font-size:11px;font-weight:700;
+  display:flex;flex-direction:column;align-items:center;gap:6px;transition:.15s}
+.layout-swatch:hover{border-color:var(--accent)}
+.layout-swatch.active{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
+.layout-swatch span:first-child{font-size:20px;line-height:1}
+
+#syncBadge.hidden{display:inline-flex!important}
+
 @media print{
   .sidebar,.topbar,.drawer,#cursorGlow,#toast,.mini-actions,.btn,
   .chat-type-bar,.chat-input-bar{display:none!important}
@@ -722,9 +863,16 @@ body.focus-mode main{padding-top:40px}
 }
 
 @media(max-width:900px){
-  #app{flex-direction:column}
-  .sidebar{width:100%;height:auto;position:relative;flex-direction:row;padding:8px 12px;
-    overflow-x:auto;border-right:none;border-bottom:1px solid var(--border);gap:4px}
+  html[data-layout="sidebar"] #app,
+  html[data-layout="custom"][data-custom-nav="left"] #app,
+  html[data-layout="custom"][data-custom-nav="right"] #app{flex-direction:column}
+  html[data-layout="sidebar"] .sidebar,
+  html[data-layout="custom"][data-custom-nav="left"] .sidebar,
+  html[data-layout="custom"][data-custom-nav="right"] .sidebar{
+    width:100%;height:auto;position:sticky;top:0;flex-direction:row;padding:8px 12px;
+    overflow-x:auto;border-right:none;border-bottom:1px solid var(--border);gap:4px
+  }
+  html[data-layout="rail"] .sidebar{width:100%;height:auto;position:sticky;top:0;flex-direction:row}
   .brand{padding:0 8px 0 0;font-size:15px}
   .brand .logo{width:28px;height:28px;font-size:14px}
   .side-nav{flex-direction:row;flex:1;overflow-x:auto}
@@ -758,7 +906,7 @@ body.focus-mode main{padding-top:40px}
       <button data-role="teacher">Teacher</button>
     </div>
     <div class="field"><label>Username</label><input id="loginUser" type="text" placeholder="student"></div>
-    <div class="field"><label>Password</label><input id="loginPass" type="password" placeholder="••••••••"></div>
+    <div class="field"><label>Password</label><input id="loginPass" type="password" placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"></div>
     <button class="btn full" id="loginBtn">Sign In</button>
     <div class="login-error" id="loginError"></div>
     <div style="margin-top:18px;text-align:center;font-size:11.5px;color:var(--muted);line-height:1.6">
@@ -770,14 +918,14 @@ body.focus-mode main{padding-top:40px}
 <!-- APP -->
 <div id="app" class="hidden">
   <aside class="sidebar">
-    <div class="brand"><span class="logo">◆</span> StudyDesk</div>
+    <div class="brand"><span class="logo">â—†</span> StudyDesk</div>
     <nav class="side-nav" id="tabNav">
-      <button class="tab-btn active" data-tab="hub"><span class="tab-icon">🏠</span><span>Hub</span></button>
-      <button class="tab-btn" data-tab="chat"><span class="tab-icon">💬</span><span>Chat</span><span class="chat-unread hidden" id="chatTabUnread"></span></button>
-      <button class="tab-btn" data-tab="assignments"><span class="tab-icon">📚</span><span>Assignments</span></button>
-      <button class="tab-btn" data-tab="notes"><span class="tab-icon">📝</span><span>Notes</span></button>
-      <button class="tab-btn" data-tab="code"><span class="tab-icon">💻</span><span>Code</span></button>
-      <button class="tab-btn" data-tab="audit"><span class="tab-icon">📋</span><span>Audit</span></button>
+      <button class="tab-btn active" data-tab="hub"><span class="tab-icon">ðŸ </span><span>Hub</span></button>
+      <button class="tab-btn" data-tab="chat"><span class="tab-icon">ðŸ’¬</span><span>Chat</span><span class="chat-unread hidden" id="chatTabUnread"></span></button>
+      <button class="tab-btn" data-tab="assignments"><span class="tab-icon">ðŸ“š</span><span>Assignments</span></button>
+      <button class="tab-btn" data-tab="notes"><span class="tab-icon">ðŸ“</span><span>Notes</span></button>
+      <button class="tab-btn" data-tab="code"><span class="tab-icon">ðŸ’»</span><span>Code</span></button>
+      <button class="tab-btn" data-tab="audit"><span class="tab-icon">ðŸ“‹</span><span>Audit</span></button>
     </nav>
     <div class="side-bottom">
       <button class="profile-btn" id="profileBtn">
@@ -785,11 +933,11 @@ body.focus-mode main{padding-top:40px}
         <span class="profile-meta"><strong id="profileName">Student</strong><small id="profileRole">student</small></span>
       </button>
       <div class="menu hidden" id="profileMenu">
-        <button id="menuCmd">⌘ Command palette (Ctrl+K)</button>
-        <button id="menuFocus">🎯 Focus mode (F)</button>
-        <button id="menuSettings">⚙ Settings</button>
+        <button id="menuCmd">âŒ˜ Command palette (Ctrl+K)</button>
+        <button id="menuFocus">ðŸŽ¯ Focus mode (F)</button>
+        <button id="menuSettings">âš™ Settings</button>
         <div class="sep"></div>
-        <button id="logoutBtn">⎋ Sign out</button>
+        <button id="logoutBtn">âŽ‹ Sign out</button>
       </div>
     </div>
   </aside>
@@ -799,7 +947,7 @@ body.focus-mode main{padding-top:40px}
       <div class="topbar-title" id="topbarTitle">Hub</div>
       <div class="top-right">
         <div class="conn-status hidden" id="connStatus"><span class="dot"></span><span class="text">Synced</span></div>
-        <button class="icon-btn" id="settingsBtn" title="Settings">⚙</button>
+        <button class="icon-btn" id="settingsBtn" title="Settings">âš™</button>
       </div>
     </header>
 
@@ -810,7 +958,7 @@ body.focus-mode main{padding-top:40px}
         <div class="card clock-card">
           <h3>Time of Day</h3>
           <div class="clock-time" id="clockTime">--:--:--</div>
-          <div class="clock-date" id="clockDate">—</div>
+          <div class="clock-date" id="clockDate">â€”</div>
           <div class="greeting" id="greeting">Welcome back!</div>
         </div>
         <div class="card timer-card">
@@ -829,9 +977,9 @@ body.focus-mode main{padding-top:40px}
               <input type="number" id="timerSec" value="0" min="0" max="59"><span class="lbl">sec</span>
             </div>
             <div class="row">
-              <button class="ctrl-btn primary" id="timerStart">▶ Start</button>
-              <button class="ctrl-btn" id="timerPause">⏸ Pause</button>
-              <button class="ctrl-btn" id="timerReset">⟲ Reset</button>
+              <button class="ctrl-btn primary" id="timerStart">â–¶ Start</button>
+              <button class="ctrl-btn" id="timerPause">â¸ Pause</button>
+              <button class="ctrl-btn" id="timerReset">âŸ² Reset</button>
             </div>
             <div class="timer-toggle-row">
               <label title="Uncheck to run a timer without adding to study time">
@@ -846,28 +994,28 @@ body.focus-mode main{padding-top:40px}
               <div class="ring-label" id="swDisplay">00:00.0</div>
             </div>
             <div class="row" style="margin-top:56px">
-              <button class="ctrl-btn sw-primary" id="swStart">▶ Start</button>
-              <button class="ctrl-btn" id="swStop">⏸ Stop</button>
-              <button class="ctrl-btn" id="swReset">⟲ Reset</button>
+              <button class="ctrl-btn sw-primary" id="swStart">â–¶ Start</button>
+              <button class="ctrl-btn" id="swStop">â¸ Stop</button>
+              <button class="ctrl-btn" id="swReset">âŸ² Reset</button>
             </div>
           </div>
         </div>
         <div class="card calendar-card">
           <h3>Calendar</h3>
           <div class="cal-header">
-            <button class="cal-nav" id="calPrev">‹</button>
-            <span class="cal-label" id="calMonthLabel">—</span>
-            <button class="cal-nav" id="calImportToggle">📅</button>
-            <button class="cal-nav" id="calNext">›</button>
+            <button class="cal-nav" id="calPrev">â€¹</button>
+            <span class="cal-label" id="calMonthLabel">â€”</span>
+            <button class="cal-nav" id="calImportToggle">ðŸ“…</button>
+            <button class="cal-nav" id="calNext">â€º</button>
           </div>
           <div id="calImportPanel" class="hidden" style="margin-bottom:10px;padding:12px;border-radius:11px;background:var(--surface2);border:1px solid var(--border)">
             <div style="font-size:11px;font-weight:800;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Google Calendar Import</div>
             <div id="gcalStatus" style="font-size:11.5px;color:var(--muted);margin-bottom:8px">Paste your calendar's ICS URL below.</div>
             <input type="url" id="gcalUrl" placeholder="https://calendar.google.com/calendar/ical/.../basic.ics" style="width:100%;padding:9px;border-radius:8px;border:1px solid var(--border);background:var(--surface);outline:none;font-size:12px;margin-bottom:8px">
-            <textarea id="gcalText" placeholder="…or paste ICS text" style="display:none;width:100%;padding:9px;border-radius:8px;border:1px solid var(--border);background:var(--surface);outline:none;font-size:11px;margin-bottom:8px;min-height:80px"></textarea>
+            <textarea id="gcalText" placeholder="â€¦or paste ICS text" style="display:none;width:100%;padding:9px;border-radius:8px;border:1px solid var(--border);background:var(--surface);outline:none;font-size:11px;margin-bottom:8px;min-height:80px"></textarea>
             <button id="gcalToggleText" style="font-size:11px;color:var(--accent);background:none;padding:0;margin-bottom:8px;text-decoration:underline">Or paste ICS text instead</button>
             <div style="display:flex;gap:8px;flex-wrap:wrap">
-              <button class="btn mini" id="gcalImportBtn">⤓ Import</button>
+              <button class="btn mini" id="gcalImportBtn">â¤“ Import</button>
               <button class="btn mini ghost" id="gcalClearBtn">Clear imported</button>
               <button class="btn mini ghost" id="gcalCloseBtn">Close</button>
             </div>
@@ -889,8 +1037,8 @@ body.focus-mode main{padding-top:40px}
         <div class="card intent-card">
           <h3>Today's Focus</h3>
           <div class="intent-input-row">
-            <input id="intentInput" type="text" placeholder="Add a focus for today…">
-            <button class="btn mini" id="intentAdd" title="Add focus">＋</button>
+            <input id="intentInput" type="text" placeholder="Add a focus for todayâ€¦">
+            <button class="btn mini" id="intentAdd" title="Add focus">ï¼‹</button>
           </div>
           <div class="intent-list" id="intentList"></div>
         </div>
@@ -905,7 +1053,16 @@ body.focus-mode main{padding-top:40px}
           <div class="journal-history" id="journalHistory"></div>
         </div>
         <div class="card due-card"><h3>Due Assignments</h3><div class="list" id="dueList"></div></div>
-        <div class="card priority-card"><h3>Priority List</h3><div class="list" id="priorityList"></div></div>
+        <div class="card priority-card">
+          <div class="prio-head-row">
+            <h3>Priority List</h3>
+            <div class="prio-mode-toggle" id="prioModeToggle">
+              <button data-mode="auto" class="active">âš¡ Auto</button>
+              <button data-mode="manual">âœ‹ Manual</button>
+            </div>
+          </div>
+          <div id="priorityList"></div>
+        </div>
       </div>
     </section>
 
@@ -915,31 +1072,32 @@ body.focus-mode main{padding-top:40px}
         <div class="chat-header">
           <div class="chat-title"><span class="chat-dot"></span> Chatroom</div>
           <div class="chat-search">
-            <input id="chatSearchInput" type="text" placeholder="Search messages, dates, times…">
-            <button class="search-clear hidden" id="chatClearSearch">✕</button>
+            <input id="chatSearchInput" type="text" placeholder="Search messages, dates, timesâ€¦">
+            <button class="search-clear hidden" id="chatClearSearch">âœ•</button>
           </div>
-          <button class="chat-action-btn" id="chatNotifyBtn">🔔 <span id="chatNotifyLabel">Off</span></button>
+          <button class="chat-action-btn" id="chatNotifyBtn">ðŸ”” <span id="chatNotifyLabel">Off</span></button>
         </div>
-        <div class="chat-messages" id="chatMessages"><div class="chat-empty">No messages yet. Say hi! 👋</div></div>
+        <div class="chat-messages" id="chatMessages"><div class="chat-empty">No messages yet. Say hi! ðŸ‘‹</div></div>
+        <button class="chat-scroll-btn hidden" id="chatScrollBtn" title="Scroll to latest">â†“</button>
         <div class="chat-attach-preview hidden" id="chatAttachPreview"></div>
         <div class="chat-type-bar">
           <div class="chat-type-chips" id="chatTypeChips">
-            <button class="chat-type-chip active" data-type="normal">💬 Normal</button>
-            <button class="chat-type-chip" data-type="important">❗ Important</button>
-            <button class="chat-type-chip" data-type="question">❓ Question</button>
-            <button class="chat-type-chip" data-type="assignment">📚 Assignment</button>
+            <button class="chat-type-chip active" data-type="normal">ðŸ’¬ Normal</button>
+            <button class="chat-type-chip" data-type="important">â— Important</button>
+            <button class="chat-type-chip" data-type="question">â“ Question</button>
+            <button class="chat-type-chip" data-type="assignment">ðŸ“š Assignment</button>
           </div>
           <div class="chat-type-extras hidden" id="chatAssignmentExtras">
             <label>Link:</label>
-            <select id="chatAssignmentPick"><option value="">— Select an assignment —</option></select>
-            <select id="chatNotePick"><option value="">— Link a note —</option></select>
+            <select id="chatAssignmentPick"><option value="">â€” Select an assignment â€”</option></select>
+            <select id="chatNotePick"><option value="">â€” Link a note â€”</option></select>
           </div>
         </div>
         <div class="chat-input-bar">
-          <button class="chat-icon-btn" id="chatAttachBtn">📎</button>
+          <button class="chat-icon-btn" id="chatAttachBtn">ðŸ“Ž</button>
           <input type="file" id="chatFileInput" multiple class="hidden" accept="image/*,.pdf,.txt,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.zip,.csv">
-          <textarea id="chatInput" rows="1" placeholder="Type a message… (Shift+Enter for new line)"></textarea>
-          <button class="chat-icon-btn chat-send-btn" id="chatSendBtn">➤</button>
+          <textarea id="chatInput" rows="1" placeholder="Type a messageâ€¦ (Shift+Enter for new line)"></textarea>
+          <button class="chat-icon-btn chat-send-btn" id="chatSendBtn">âž¤</button>
         </div>
       </div>
     </section>
@@ -950,13 +1108,13 @@ body.focus-mode main{padding-top:40px}
         <div class="card" id="assignFormCard">
           <div class="form-card-head">
             <h3 id="assignFormTitle">Add Item</h3>
-            <button class="collapse-btn" id="assignFormCollapse" title="Minimize">▾</button>
+            <button class="collapse-btn" id="assignFormCollapse" title="Minimize">â–¾</button>
           </div>
           <div id="assignFormBody">
             <div class="field"><label>Category</label>
               <select id="aCategory">
-                <option value="assignment">📚 Assignment</option>
-                <option value="other">📌 Other (task / reminder)</option>
+                <option value="assignment">ðŸ“š Assignment</option>
+                <option value="other">ðŸ“Œ Other (task / reminder)</option>
               </select>
             </div>
             <div id="assignmentFields">
@@ -965,8 +1123,8 @@ body.focus-mode main{padding-top:40px}
                 <div class="field span2">
                   <label>Class / Section</label>
                   <div class="section-selector">
-                    <select id="aSection"><option value="">— No section —</option></select>
-                    <button class="btn mini" id="addSectionBtn">＋</button>
+                    <select id="aSection"><option value="">â€” No section â€”</option></select>
+                    <button class="btn mini" id="addSectionBtn">ï¼‹</button>
                   </div>
                 </div>
                 <div class="field"><label>Teacher</label><input id="aTeacher" type="text" placeholder="Ms. Rivera"></div>
@@ -1018,15 +1176,15 @@ body.focus-mode main{padding-top:40px}
             <h3>All Items (<span id="assignCount">0</span>)</h3>
             <div class="filters">
               <div class="view-toggle" id="assignViewToggle">
-                <button class="active" data-view="list">☰ List</button>
-                <button data-view="kanban">▦ Kanban</button>
+                <button class="active" data-view="list">â˜° List</button>
+                <button data-view="kanban">â–¦ Kanban</button>
               </div>
               <select id="sectionFilter"><option value="all">All sections</option><option value="none">No section</option></select>
               <select id="statusFilter">
                 <option value="all">All</option>
                 <option value="active">Active</option>
                 <option value="completed">Completed</option>
-                <option value="trash">🗑 Trash</option>
+                <option value="trash">ðŸ—‘ Trash</option>
               </select>
               <select id="tagFilter"><option value="all">All tags</option></select>
             </div>
@@ -1087,7 +1245,7 @@ body.focus-mode main{padding-top:40px}
           <div class="snippet-actions">
             <button class="btn" id="pSave">Save Code Snippet</button>
             <button class="btn ghost hidden" id="pCancel">Cancel</button>
-            <button class="btn ghost" id="pPreviewBtn">▶ Preview</button>
+            <button class="btn ghost" id="pPreviewBtn">â–¶ Preview</button>
             <span class="muted" id="editorStatus" style="font-size:11.5px;margin-left:auto">Ready</span>
           </div>
         </div>
@@ -1137,7 +1295,7 @@ body.focus-mode main{padding-top:40px}
   <div class="modal-card">
     <div class="modal-head">
       <h3 id="previewTitle">Preview</h3>
-      <button class="icon-btn" id="previewClose" style="width:32px;height:32px;font-size:14px">✕</button>
+      <button class="icon-btn" id="previewClose" style="width:32px;height:32px;font-size:14px">âœ•</button>
     </div>
     <div class="modal-body"><iframe id="previewFrame" sandbox="allow-scripts allow-modals"></iframe></div>
   </div>
@@ -1146,16 +1304,55 @@ body.focus-mode main{padding-top:40px}
 <!-- COMMAND PALETTE -->
 <div class="cmd-overlay hidden" id="cmdOverlay">
   <div class="cmd-box">
-    <input class="cmd-input" id="cmdInput" placeholder="Type a command… (assignments, notes, theme, focus, backup)">
+    <input class="cmd-input" id="cmdInput" placeholder="Type a commandâ€¦ (assignments, notes, theme, focus, backup)">
     <div class="cmd-list" id="cmdList"></div>
   </div>
 </div>
 
 <!-- SETTINGS DRAWER -->
 <aside class="drawer" id="settingsDrawer">
-  <div class="drawer-head"><h3>⚙ Settings</h3><button class="icon-btn" id="closeSettings" style="width:34px;height:34px">✕</button></div>
+  <div class="drawer-head"><h3>âš™ Settings</h3><button class="icon-btn" id="closeSettings" style="width:34px;height:34px">âœ•</button></div>
   <div class="drawer-body">
     <div class="setting-group"><label class="title">Theme</label><div class="theme-grid" id="themeGrid"></div></div>
+    <div class="divider"></div>
+    <div class="setting-group">
+      <label class="title">Layout</label>
+      <div class="layout-grid" id="layoutGrid"></div>
+      <div id="customLayoutOptions" class="hidden" style="margin-top:14px">
+        <div class="field">
+          <label>Nav position</label>
+          <select id="customNavPos">
+            <option value="left">Left sidebar</option>
+            <option value="right">Right sidebar</option>
+            <option value="top">Top bar</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Nav style</label>
+          <select id="customNavStyle">
+            <option value="expanded">Expanded</option>
+            <option value="compact">Compact</option>
+            <option value="icons">Icons only</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Content width</label>
+          <select id="customWidth">
+            <option value="narrow">Narrow</option>
+            <option value="normal">Normal</option>
+            <option value="wide">Wide</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Density</label>
+          <select id="customDensity">
+            <option value="compact">Compact</option>
+            <option value="normal">Normal</option>
+            <option value="spacious">Spacious</option>
+          </select>
+        </div>
+      </div>
+    </div>
     <div class="divider"></div>
     <div class="setting-group">
       <label class="title">Cursor Effect</label>
@@ -1183,12 +1380,14 @@ body.focus-mode main{padding-top:40px}
     <div class="divider"></div>
     <div class="setting-group">
       <label class="title">Data &amp; Sync</label>
-      <div class="conn-status hidden" id="syncBadge" style="margin-bottom:12px"><span class="dot"></span><span id="syncText">Synced</span></div>
-      <button class="btn ghost full" id="manualSync" style="margin-bottom:8px">↻ Pull latest from cloud</button>
-      <button class="btn ghost full" id="exportBtn" style="margin-bottom:8px">⬇ Export data (.json)</button>
-      <button class="btn ghost full" id="importBtn" style="margin-bottom:8px">⬆ Import data (.json)</button>
+      <div class="conn-status" id="syncBadge" style="margin-bottom:12px">
+        <span class="dot"></span><span id="syncText">Cloud sync configured</span>
+      </div>
+      <button class="btn ghost full" id="manualSync" style="margin-bottom:8px">â†» Pull latest from cloud</button>
+      <button class="btn ghost full" id="exportBtn" style="margin-bottom:8px">â¬‡ Export data (.json)</button>
+      <button class="btn ghost full" id="importBtn" style="margin-bottom:8px">â¬† Import data (.json)</button>
       <input type="file" id="importFile" accept=".json" class="hidden">
-      <button class="btn ghost full" id="printBtn" style="margin-bottom:8px">🖨 Print / Save PDF</button>
+      <button class="btn ghost full" id="printBtn" style="margin-bottom:8px">ðŸ–¨ Print / Save PDF</button>
       <button class="btn danger full" id="resetData">Reset All Data</button>
     </div>
   </div>
@@ -1199,7 +1398,7 @@ body.focus-mode main{padding-top:40px}
    CONFIG
 ============================================================ */
 const CLOUD_CONFIG = {
-  url: 'https://script.google.com/macros/s/AKfycby0_QBqCALdAHwM8TEwvBV-L95yroFTj7w_qbBdLFLYUP2yp4y6Sw1w0f0RY0jTnlEKVw/exec',
+  url: 'https://script.google.com/macros/s/AKfycbxqHM4SwpEQLP_-yz-CxrK3Z9bStztIc6OTG7rojtDivKGOPlxcaF9tFYsoOR7sS3THuw/exec',
   pollMs: 15000
 };
 
@@ -1209,23 +1408,23 @@ const uid = () => Math.random().toString(36).slice(2, 9) + Date.now().toString(3
 const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
 
 const SECTION_COLORS = ['#6c8cff','#39d4c8','#f59e0b','#ec4899','#8b5cf6','#10b981','#ef4444','#06b6d4'];
-const EVENT_EMOJIS = ['📌','📚','🎉','🎂','✏️','📝','🎯','⚽','🎵','🎨','🧪','💻','📅','⏰','⭐','❗','🔥','💡','🎓','🏆','🍕','🚀','❤️','☕','🎮','🛒','🎬','🎤','🏀','🧠'];
+const EVENT_EMOJIS = ['ðŸ“Œ','ðŸ“š','ðŸŽ‰','ðŸŽ‚','âœï¸','ðŸ“','ðŸŽ¯','âš½','ðŸŽµ','ðŸŽ¨','ðŸ§ª','ðŸ’»','ðŸ“…','â°','â­','â—','ðŸ”¥','ðŸ’¡','ðŸŽ“','ðŸ†','ðŸ•','ðŸš€','â¤ï¸','â˜•','ðŸŽ®','ðŸ›’','ðŸŽ¬','ðŸŽ¤','ðŸ€','ðŸ§ '];
 
 const GRADE_OPTIONS = [
-  { v: '',    l: '— No grade —' },
-  { v: 'A',   l: 'A · 4/100' },
-  { v: 'B',   l: 'B · 3/100' },
-  { v: 'C',   l: 'C · 2/100' },
-  { v: 'F',   l: 'F · 1/100' },
+  { v: '',    l: 'â€” No grade â€”' },
+  { v: 'A',   l: 'A Â· 4/100' },
+  { v: 'B',   l: 'B Â· 3/100' },
+  { v: 'C',   l: 'C Â· 2/100' },
+  { v: 'F',   l: 'F Â· 1/100' },
   { v: '0.1', l: '0.1/100' },
   { v: '0',   l: '0/100' }
 ];
 const TYPE_WEIGHT = { formative: 20, performance: 60, summative: 60 };
 const MSG_TYPE_LABELS = {
   normal: null,
-  important: { icon: '❗', label: 'Important' },
-  question:  { icon: '❓', label: 'Question' },
-  assignment:{ icon: '📚', label: 'Assignment' }
+  important: { icon: 'â—', label: 'Important' },
+  question:  { icon: 'â“', label: 'Question' },
+  assignment:{ icon: 'ðŸ“š', label: 'Assignment' }
 };
 
 const CHUNK_SIZE = 45000;
@@ -1247,14 +1446,11 @@ function dechunk(row, base, slots = CHUNK_SLOTS){
 function gradeOptionsHtml(selected){
   return GRADE_OPTIONS.map(o => `<option value="${o.v}" ${o.v === (selected||'') ? 'selected' : ''}>${o.l}</option>`).join('');
 }
-function gradeClass(g){
-  return { 'A':'grade-a','B':'grade-b','C':'grade-c','F':'grade-f','0.1':'grade-fail','0':'grade-zero' }[g] || '';
-}
 
 function escapeHtml(s){
   return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
-function fmtDateTime(ts){ if (!ts) return '—'; return new Date(Number(ts)).toLocaleString([],{year:'numeric',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}); }
+function fmtDateTime(ts){ if (!ts) return 'â€”'; return new Date(Number(ts)).toLocaleString([],{year:'numeric',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}); }
 function fmtDue(ts){
   if (!ts) return 'No date';
   const d = new Date(ts);
@@ -1264,6 +1460,7 @@ function fmtDue(ts){
   return datePart + ' ' + d.toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' });
 }
 function relativeDue(ts){
+  if (!ts) return '';
   const diff = new Date(ts).getTime() - Date.now();
   const days = Math.floor(diff / 86400000);
   const hrs  = Math.floor(diff / 3600000);
@@ -1380,7 +1577,7 @@ function parseIcs(text){
    CONNECTION STATUS
 ============================================================ */
 let connState = 'hidden';
-const CONN_LABELS = { synced:'Synced', syncing:'Syncing…', unavailable:'Offline', error:'Sync error', local:'Local mode', hidden:'Hidden' };
+const CONN_LABELS = { synced:'Synced', syncing:'Syncingâ€¦', unavailable:'Offline', error:'Sync error', local:'Local mode', hidden:'Hidden' };
 function setConnStatus(state){
   connState = state;
   const pill = el('#connStatus');
@@ -1407,7 +1604,10 @@ function DEFAULT_DATA(){
     settings: {
       theme:'aurora', cursor:'glow', tabAnim:true, tabAnimStyle:'slide',
       elementAnim:true, timerAnim:true, clock24:true, sound:true, autoSync:true,
-      chatNotifications: true, breakReminder: true, todayIntent: [], todayIntentDate: ''
+      chatNotifications: true, breakReminder: true, todayIntent: [], todayIntentDate: '',
+      layout: 'sidebar', customNav: 'left', customNavStyle: 'expanded',
+      customWidth: 'normal', customDensity: 'normal',
+      prioritySortMode: 'auto', priorityOrder: {}
     },
     chatLastRead: 0,
     updatedAt: Date.now()
@@ -1430,7 +1630,7 @@ function serializeForSheets(data) {
   }));
   s.sections = (data.sections || []).map(x => ({ id:x.id, name:x.name, colorIndex:x.colorIndex||0 }));
   s.events = (data.events || []).map(e => ({
-    id:e.id, name:e.name, emoji:e.emoji||'📌', date:e.date||'', time:e.time||'',
+    id:e.id, name:e.name, emoji:e.emoji||'ðŸ“Œ', date:e.date||'', time:e.time||'',
     source:e.source||'manual', importedAt: e.importedAt || ''
   }));
   s.notes = (data.notes || []).map(n => {
@@ -1502,7 +1702,7 @@ function deserializeFromSheets(raw) {
   }));
   d.sections = (raw.sections || []).map(r => ({ id:str(r.id), name:str(r.name), colorIndex:num(r.colorIndex,0) }));
   d.events = (raw.events || []).map(r => ({
-    id:str(r.id), name:str(r.name), emoji:str(r.emoji)||'📌',
+    id:str(r.id), name:str(r.name), emoji:str(r.emoji)||'ðŸ“Œ',
     date:str(r.date), time:str(r.time), source:str(r.source)||'manual', importedAt:r.importedAt||''
   }));
   d.notes = (raw.notes || []).map(r => ({
@@ -1539,12 +1739,19 @@ function deserializeFromSheets(raw) {
   return d;
 }
 
+function dataFingerprint(d){
+  return JSON.stringify({
+    a: d.assignments, s: d.sections, n: d.notes, p: d.projects,
+    m: d.messages, se: d.sessions, e: d.events, j: d.journal
+  });
+}
+
 /* ============================================================
    STORE
 ============================================================ */
 const LS_KEY = 'studydesk_v2';
 const Store = {
-  data: null, pushTimer: null, pollId: null,
+  data: null, pushTimer: null, pollId: null, lastPullFingerprint: null,
 
   init(){
     let localData = null;
@@ -1564,6 +1771,7 @@ const Store = {
     if (!this.data.settings) this.data.settings = DEFAULT_DATA().settings;
     if (!this.data.journal) this.data.journal = [];
     migrateIntentFormat(this.data);
+    this.lastPullFingerprint = dataFingerprint(this.data);
     applyAll();
   },
 
@@ -1593,6 +1801,7 @@ const Store = {
         fresh.chatLastRead = this.data.chatLastRead || 0;
         migrateIntentFormat(fresh);
         this.data = fresh;
+        this.lastPullFingerprint = dataFingerprint(fresh);
         localStorage.setItem(LS_KEY, JSON.stringify(this.data));
         applyAll();
       }
@@ -1604,6 +1813,7 @@ const Store = {
     if (!isCloudConfigured() || !session) return;
     const payload = serializeForSheets(this.data);
     await this.withStatus(() => this.apiPost({ action: 'save', token: session.token, data: payload }));
+    this.lastPullFingerprint = dataFingerprint(this.data);
   },
 
   startPolling(){
@@ -1622,7 +1832,9 @@ const Store = {
           fresh.settings = Object.assign({}, fresh.settings, this.data.settings || {});
           fresh.chatLastRead = this.data.chatLastRead || 0;
           migrateIntentFormat(fresh);
-          if ((fresh.updatedAt || 0) !== (this.data.updatedAt || 0) || JSON.stringify(fresh.assignments) !== JSON.stringify(this.data.assignments)) {
+          const fp = dataFingerprint(fresh);
+          if (fp !== this.lastPullFingerprint) {
+            this.lastPullFingerprint = fp;
             this.data = fresh;
             localStorage.setItem(LS_KEY, JSON.stringify(this.data));
             applyAll();
@@ -1647,7 +1859,6 @@ const Store = {
   }
 };
 
-/* Flush on unload (best-effort) */
 window.addEventListener('beforeunload', () => {
   if (!Store.pushTimer || !session || !session.token) return;
   clearTimeout(Store.pushTimer);
@@ -1682,7 +1893,7 @@ function stashForUndo(label, undoFn) {
 function showUndoToast(label) {
   const t = el('#toast');
   if (!t) return;
-  t.innerHTML = `<span class="toast-icon">↩</span><span>${escapeHtml(label)}</span>
+  t.innerHTML = `<span class="toast-icon">â†©</span><span>${escapeHtml(label)}</span>
     <button id="undoAction" style="margin-left:12px;padding:4px 10px;border-radius:6px;background:var(--accent);color:#fff;font-weight:700;font-size:11px;border:none;cursor:pointer">UNDO</button>`;
   t.classList.remove('type-success','type-error','type-warning','type-info');
   t.classList.add('type-info','show');
@@ -1756,10 +1967,28 @@ function applyAll(){
   renderChat();
   updateChatUnreadBadge();
   updateChatNotifyLabel();
-  refreshChatLinkDropdowns();
+  if (currentTab === 'chat') refreshChatLinkDropdowns();
+}
+
+function applyLayout(){
+  const s = Store.data.settings;
+  const html = document.documentElement;
+  html.dataset.layout = s.layout || 'sidebar';
+  if (s.layout === 'custom') {
+    html.dataset.customNav = s.customNav || 'left';
+    html.dataset.customNavStyle = s.customNavStyle || 'expanded';
+    html.dataset.customWidth = s.customWidth || 'normal';
+    html.dataset.customDensity = s.customDensity || 'normal';
+  } else {
+    delete html.dataset.customNav;
+    delete html.dataset.customNavStyle;
+    delete html.dataset.customWidth;
+    delete html.dataset.customDensity;
+  }
 }
 
 function applySettings(){
+  applyLayout();
   const s = Store.data.settings;
   const html = document.documentElement;
   html.dataset.theme = s.theme;
@@ -1793,10 +2022,10 @@ async function doLogin(){
   const user = el('#loginUser').value.trim().toLowerCase();
   const pass = el('#loginPass').value;
   if (!user || !pass) { el('#loginError').textContent = 'Enter username and password.'; return; }
-  if (user !== loginRole) { el('#loginError').textContent = `That account is a ${user} account — switch the role toggle.`; return; }
+  if (user !== loginRole) { el('#loginError').textContent = `That account is a ${user} account â€” switch the role toggle.`; return; }
   if (!isCloudConfigured()) { el('#loginError').textContent = 'Backend not configured.'; return; }
   const btn = el('#loginBtn');
-  el('#loginError').textContent = 'Signing in…';
+  el('#loginError').textContent = 'Signing inâ€¦';
   btn.disabled = true;
   try {
     const data = await Store.apiPost({ action: 'login', username: user, password: pass });
@@ -1872,21 +2101,25 @@ function tickClock(){
   el('#clockDate').textContent = now.toLocaleDateString([], { weekday:'long', year:'numeric', month:'long', day:'numeric' });
   const h = now.getHours();
   const greet = h < 12 ? 'Good morning' : h < 18 ? 'Good afternoon' : 'Good evening';
-  el('#greeting').textContent = `${greet}, ${session ? session.name : 'there'} — let's get things done.`;
+  el('#greeting').textContent = `${greet}, ${session ? session.name : 'there'} â€” let's get things done.`;
 }
 setInterval(tickClock, 1000);
 setInterval(() => { if (Store.data) { renderHubLists(); renderCalendar(); renderStudyWidget(); renderJournal(); renderIntent(); } }, 60000);
 
 /* ============================================================
-   PRIORITY
+   PRIORITY SCORE + ITEM ROW
 ============================================================ */
 function priorityScore(a){
+  if (!a.due) return 0;
   const due = new Date(a.due).getTime();
   const days = (due - Date.now()) / 86400000;
-  let urgency = days <= 0 ? 1 : Math.max(0, 1 - days / 14);
+  const urgency = days <= 0 ? 1 : Math.max(0, 1 - days / 14);
   const weight = clamp(Number(a.weight) || 0, 0, 100) / 100;
   const typeBonus = a.type === 'summative' ? 0.08 : (a.type === 'performance' ? 0.04 : 0);
   return Math.round(clamp(weight * 0.6 + urgency * 0.4 + typeBonus, 0, 1) * 100);
+}
+function gradeClass(g){
+  return { 'A':'grade-a','B':'grade-b','C':'grade-c','F':'grade-f','0.1':'grade-fail','0':'grade-zero' }[g] || '';
 }
 function gradeBadgeHtml(g){
   if (!g) return '';
@@ -1903,46 +2136,194 @@ function tagPillsHtml(tags){
 function linksHtml(a){
   const links = Array.isArray(a.links) ? a.links.filter(l => l && l.url) : [];
   if (!links.length) return '';
-  return links.map((l, i) => `<a href="${escapeHtml(l.url)}" target="_blank" rel="noopener">${escapeHtml(l.label || ('Link ' + (i+1)))} ↗</a>`).join('');
+  return links.map((l, i) => `<a href="${escapeHtml(l.url)}" target="_blank" rel="noopener">${escapeHtml(l.label || ('Link ' + (i+1)))} â†—</a>`).join('');
 }
 function assignmentRow(a, showScore){
   const score = priorityScore(a);
-  const diff = new Date(a.due).getTime() - Date.now();
+  const diff = a.due ? (new Date(a.due).getTime() - Date.now()) : Infinity;
   let duePill = '';
-  if (diff < 0) duePill = '<span class="pill overdue">Overdue</span>';
-  else if (diff < 2 * 86400000) duePill = '<span class="pill soon">Soon</span>';
+  if (a.due && diff < 0) duePill = '<span class="pill overdue">Overdue</span>';
+  else if (a.due && diff < 2 * 86400000) duePill = '<span class="pill soon">Soon</span>';
   const links = linksHtml(a);
   const tags = tagPillsHtml(a.tags);
-  const recur = a.recurrence ? '<span class="pill" style="color:var(--accent);border-color:var(--accent)">↻</span>' : '';
+  const recur = a.recurrence ? '<span class="pill" style="color:var(--accent);border-color:var(--accent)">â†»</span>' : '';
   return `<div class="item ${a.completed ? 'completed' : ''}">
     <div class="complete-check ${a.completed ? 'checked' : ''}" data-toggle-complete="${a.id}" title="Toggle complete"></div>
     <div class="item-main">
       <div class="item-title">${escapeHtml(a.name)}${sectionPillHtml(a.sectionId)}${typePillHtml(a.type)}${recur}${duePill}${tags}</div>
       <div class="item-meta">
-        <span>👤 ${escapeHtml(a.teacher || 'No teacher')}</span>
-        <span>📅 ${fmtDue(a.due)} · ${relativeDue(a.due)}</span>
-        <span>⚖️ ${escapeHtml(String(a.weight ?? 0))}%</span>
+        <span>ðŸ‘¤ ${escapeHtml(a.teacher || 'No teacher')}</span>
+        <span>ðŸ“… ${fmtDue(a.due)} Â· ${relativeDue(a.due)}</span>
+        <span>âš–ï¸ ${escapeHtml(String(a.weight ?? 0))}%</span>
         ${links}
       </div>
     </div>
     ${a.grade ? gradeBadgeHtml(a.grade) : (showScore ? `<div class="grade-badge" style="background:linear-gradient(135deg,var(--muted),var(--border));color:var(--text)">${score}</div>` : '')}
   </div>`;
 }
+
 function renderHubLists(){
   if (!Store.data) return;
   const upcoming = Store.data.assignments
     .filter(a => !a.deleted && a.category !== 'other' && !a.completed && a.due && new Date(a.due).getTime() - Date.now() < 14 * 86400000)
     .sort((a,b) => new Date(a.due) - new Date(b.due));
-  el('#dueList').innerHTML = upcoming.length ? upcoming.map(a => assignmentRow(a,false)).join('') : '<div class="empty">Nothing due in the next two weeks 🎉</div>';
-  const ranked = Store.data.assignments
-    .filter(a => !a.deleted && a.category !== 'other' && !a.completed && a.due)
-    .slice()
-    .sort((a,b) => { const d = priorityScore(b) - priorityScore(a); return d !== 0 ? d : new Date(a.due) - new Date(b.due); })
-    .slice(0, 8);
-  el('#priorityList').innerHTML = ranked.length ? ranked.map(a => assignmentRow(a,true)).join('') : '<div class="empty">Add assignments to build your priority list.</div>';
-  els('#dueList [data-toggle-complete], #priorityList [data-toggle-complete]').forEach(c => {
+  el('#dueList').innerHTML = upcoming.length ? upcoming.map(a => assignmentRow(a,false)).join('') : '<div class="empty">Nothing due in the next two weeks ðŸŽ‰</div>';
+  renderPriority();
+  els('#dueList [data-toggle-complete]').forEach(c => {
     c.addEventListener('click', () => toggleComplete(c.dataset.toggleComplete));
   });
+}
+
+/* ============================================================
+   PRIORITY LIST v2
+============================================================ */
+function renderPriority(){
+  if (!Store.data) return;
+  const container = el('#priorityList');
+  if (!container) return;
+
+  const now = Date.now();
+  const active = Store.data.assignments.filter(a => !a.deleted && a.category !== 'other' && !a.completed && a.due);
+  const useManual = Store.data.settings.prioritySortMode === 'manual';
+  const order = Store.data.settings.priorityOrder || {};
+
+  let sorted = active.slice();
+  if (useManual) {
+    sorted.sort((a, b) => (order[a.id] ?? 1e9) - (order[b.id] ?? 1e9));
+  } else {
+    sorted.sort((a, b) => {
+      const d = priorityScore(b) - priorityScore(a);
+      return d !== 0 ? d : new Date(a.due) - new Date(b.due);
+    });
+  }
+
+  const groups = { overdue: [], today: [], week: [], later: [] };
+  sorted.forEach(a => {
+    const due = new Date(a.due).getTime();
+    const days = (due - now) / 86400000;
+    if (due < now) groups.overdue.push(a);
+    else if (days < 1) groups.today.push(a);
+    else if (days < 7) groups.week.push(a);
+    else groups.later.push(a);
+  });
+  groups.later = groups.later.slice(0, 5);
+
+  const labels = {
+    overdue: { icon: 'ðŸ”¥', text: 'Overdue' },
+    today:   { icon: 'ðŸ“…', text: 'Today' },
+    week:    { icon: 'ðŸ—“', text: 'This Week' },
+    later:   { icon: 'ðŸ“†', text: 'Later' }
+  };
+
+  let html = '';
+  for (const key of ['overdue','today','week','later']) {
+    const items = groups[key];
+    if (!items.length) continue;
+    html += `<div class="prio-group">
+      <div class="prio-group-head">
+        <span class="prio-group-label">${labels[key].icon} ${labels[key].text}</span>
+        <span class="prio-group-count">${items.length}</span>
+      </div>
+      ${items.map(a => priorityItemHtml(a, useManual)).join('')}
+    </div>`;
+  }
+
+  if (!html) {
+    container.innerHTML = '<div class="empty-cta"><div class="icon">ðŸŽ‰</div><div>All caught up â€” nothing pending.</div></div>';
+  } else {
+    container.innerHTML = html;
+  }
+
+  const toggle = el('#prioModeToggle');
+  if (toggle) {
+    els('button', toggle).forEach(b => b.classList.toggle('active', b.dataset.mode === (useManual ? 'manual' : 'auto')));
+  }
+
+  container.querySelectorAll('[data-prio-complete]').forEach(b =>
+    b.addEventListener('click', e => { e.stopPropagation(); toggleComplete(b.dataset.prioComplete); }));
+  container.querySelectorAll('[data-prio-focus]').forEach(b =>
+    b.addEventListener('click', e => { e.stopPropagation(); startFocusForAssignment(b.dataset.prioFocus); }));
+  container.querySelectorAll('[data-prio-up]').forEach(b =>
+    b.addEventListener('click', e => { e.stopPropagation(); movePriority(b.dataset.prioUp, -1); }));
+  container.querySelectorAll('[data-prio-down]').forEach(b =>
+    b.addEventListener('click', e => { e.stopPropagation(); movePriority(b.dataset.prioDown, +1); }));
+  container.querySelectorAll('[data-open-assign]').forEach(card =>
+    card.addEventListener('click', e => {
+      if (e.target.closest('button')) return;
+      editAssignment(card.dataset.openAssign);
+    }));
+}
+
+function priorityItemHtml(a, showMove){
+  const score = priorityScore(a);
+  const tier = score >= 80 ? 'critical' : score >= 60 ? 'high' : score >= 40 ? 'medium' : 'low';
+  const due = new Date(a.due);
+  const diff = due.getTime() - Date.now();
+  let dueLabel;
+  if (diff < 0) dueLabel = diff > -86400000 ? 'Due today' : `Overdue ${Math.floor(-diff / 86400000)}d`;
+  else if (diff < 86400000) dueLabel = 'Due today';
+  else dueLabel = `Due in ${Math.floor(diff / 86400000)}d`;
+
+  return `<div class="prio-item ${a.completed ? 'completed' : ''}" data-open-assign="${a.id}">
+    <div class="prio-score prio-${tier}" title="Priority score ${score}/100">${score}</div>
+    <div class="prio-body">
+      <div class="prio-name">${escapeHtml(a.name)}${sectionPillHtml(a.sectionId)}</div>
+      <div class="prio-meta">
+        <span>ðŸ“… ${dueLabel}</span>
+        ${a.weight ? `<span>âš–ï¸ ${a.weight}%</span>` : ''}
+        ${a.teacher ? `<span>ðŸ‘¤ ${escapeHtml(a.teacher)}</span>` : ''}
+      </div>
+    </div>
+    <div class="prio-actions">
+      ${showMove ? `<button class="mini" data-prio-up="${a.id}" title="Move up">â–²</button>
+                    <button class="mini" data-prio-down="${a.id}" title="Move down">â–¼</button>` : ''}
+      <button class="mini" data-prio-focus="${a.id}" title="Start focus timer">â±</button>
+      <button class="mini" data-prio-complete="${a.id}" title="Mark complete">âœ“</button>
+    </div>
+  </div>`;
+}
+
+function movePriority(id, dir){
+  const items = Store.data.assignments.filter(a => !a.deleted && a.category !== 'other' && !a.completed && a.due);
+  const order = Store.data.settings.priorityOrder || {};
+  const sorted = items.slice().sort((a, b) => (order[a.id] ?? 1e9) - (order[b.id] ?? 1e9));
+  const idx = sorted.findIndex(a => a.id === id);
+  if (idx < 0) return;
+  const target = idx + dir;
+  if (target < 0 || target >= sorted.length) return;
+
+  const newOrder = {};
+  sorted.forEach((a, i) => newOrder[a.id] = i * 10);
+  const tmp = newOrder[sorted[idx].id];
+  newOrder[sorted[idx].id] = newOrder[sorted[target].id];
+  newOrder[sorted[target].id] = tmp;
+
+  Store.data.settings.priorityOrder = newOrder;
+  Store.data.settings.prioritySortMode = 'manual';
+  Store.persist();
+  renderPriority();
+}
+
+function setPriorityMode(mode){
+  Store.data.settings.prioritySortMode = mode;
+  if (mode === 'auto') Store.data.settings.priorityOrder = {};
+  Store.persist();
+  renderPriority();
+}
+
+function startFocusForAssignment(id){
+  const a = Store.data.assignments.find(x => x.id === id);
+  if (!a) return;
+  if (a.sectionId) {
+    timerState.sectionId = a.sectionId;
+    timerState.label = getSection(a.sectionId)?.name || '';
+    timerState.prompted = true;
+  }
+  switchTab('hub');
+  setTimeout(() => {
+    el('#timerRingWrap')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    if (!timerState.running) startTimer();
+  }, 150);
 }
 
 /* ============================================================
@@ -1985,7 +2366,7 @@ function renderStudyWidget(){
   if (!Store.data) return;
   el('#studyTotalToday').textContent = fmtSeconds(getTodaySeconds());
   const streak = computeStreak();
-  el('#studyStreak').textContent = streak > 0 ? `🔥 ${streak}-day streak` : 'Start a timer to build a streak';
+  el('#studyStreak').textContent = streak > 0 ? `ðŸ”¥ ${streak}-day streak` : 'Start a timer to build a streak';
   const bySec = getWeekSecondsBySection();
   const entries = Object.entries(bySec).sort((a,b) => b[1] - a[1]).slice(0, 5);
   const total = entries.reduce((s, [,v]) => s + v, 0);
@@ -2007,7 +2388,7 @@ function renderStudyWidget(){
 }
 
 /* ============================================================
-   DAILY INTENTS (multi)
+   DAILY INTENTS
 ============================================================ */
 function getTodayIntents(){
   const today = new Date().toDateString();
@@ -2052,7 +2433,7 @@ function renderIntent(){
     <div class="intent-item ${it.done ? 'done' : ''}" data-intent-id="${it.id}">
       <input type="checkbox" ${it.done ? 'checked' : ''} data-intent-toggle="${it.id}">
       <span class="intent-text">${escapeHtml(it.text)}</span>
-      <button class="intent-del" data-intent-del="${it.id}" title="Remove">✕</button>
+      <button class="intent-del" data-intent-del="${it.id}" title="Remove">âœ•</button>
     </div>`).join('');
   els('#intentList [data-intent-toggle]').forEach(cb => cb.addEventListener('change', () => toggleIntent(cb.dataset.intentToggle)));
   els('#intentList [data-intent-del]').forEach(b => b.addEventListener('click', () => deleteIntent(b.dataset.intentDel)));
@@ -2062,11 +2443,11 @@ function renderIntent(){
    JOURNAL
 ============================================================ */
 const MOODS = [
-  { id:'great', emoji:'😄', label:'Great' },
-  { id:'good',  emoji:'🙂', label:'Good'  },
-  { id:'okay',  emoji:'😐', label:'Okay'  },
-  { id:'low',   emoji:'😔', label:'Low'   },
-  { id:'bad',   emoji:'😢', label:'Rough' }
+  { id:'great', emoji:'ðŸ˜„', label:'Great' },
+  { id:'good',  emoji:'ðŸ™‚', label:'Good'  },
+  { id:'okay',  emoji:'ðŸ˜', label:'Okay'  },
+  { id:'low',   emoji:'ðŸ˜”', label:'Low'   },
+  { id:'bad',   emoji:'ðŸ˜¢', label:'Rough' }
 ];
 let selectedMood = 'good';
 function todayKey(){
@@ -2100,7 +2481,7 @@ function saveJournalEntry(){
     commit('added', 'Journal', `Entry ${date}`);
   }
   el('#journalText').value = '';
-  toast('Journal saved ✓');
+  toast('Journal saved âœ“');
   renderJournal();
 }
 function renderJournal(){
@@ -2120,7 +2501,7 @@ function renderJournal(){
     return `<div class="journal-entry">
       <div class="j-emoji">${m.emoji}</div>
       <div class="j-body">
-        <div class="j-date">${escapeHtml(e.date)}${e.createdBy ? ' · ' + escapeHtml(e.createdBy) : ''}</div>
+        <div class="j-date">${escapeHtml(e.date)}${e.createdBy ? ' Â· ' + escapeHtml(e.createdBy) : ''}</div>
         <div class="j-text">${escapeHtml(e.text)}</div>
       </div>
     </div>`;
@@ -2133,7 +2514,7 @@ function renderJournal(){
 let calViewDate = new Date();
 let calSelectedDate = null;
 let calEditingEventId = null;
-let calPickedEmoji = '📌';
+let calPickedEmoji = 'ðŸ“Œ';
 function initCalendar(){
   el('#calPrev').addEventListener('click', () => { calViewDate = new Date(calViewDate.getFullYear(), calViewDate.getMonth() - 1, 1); renderCalendar(); });
   el('#calNext').addEventListener('click', () => { calViewDate = new Date(calViewDate.getFullYear(), calViewDate.getMonth() + 1, 1); renderCalendar(); });
@@ -2152,37 +2533,37 @@ async function doGcalImport(){
   const url = el('#gcalUrl').value.trim();
   const text = el('#gcalText').value.trim();
   const status = el('#gcalStatus');
-  if (!url && !text) { status.textContent = '⚠ Enter an ICS URL or paste ICS text.'; status.style.color = 'var(--danger)'; return; }
+  if (!url && !text) { status.textContent = 'âš  Enter an ICS URL or paste ICS text.'; status.style.color = 'var(--danger)'; return; }
   let icsText = '';
   if (text) { icsText = text; }
   else {
-    status.textContent = '⤓ Fetching…';
+    status.textContent = 'â¤“ Fetchingâ€¦';
     status.style.color = 'var(--muted)';
     try {
       const res = await Store.withStatus(() => Store.apiPost({ action: 'fetchIcal', token: session.token, url }));
       if (res && res.ok) icsText = res.text || '';
       else throw new Error(res && res.error ? res.error : 'Fetch failed');
     } catch (err) {
-      status.textContent = '⚠ ' + err.message;
+      status.textContent = 'âš  ' + err.message;
       status.style.color = 'var(--danger)';
       return;
     }
   }
   const parsed = parseIcs(icsText);
-  if (!parsed.length) { status.textContent = '⚠ No events found.'; status.style.color = 'var(--danger)'; return; }
+  if (!parsed.length) { status.textContent = 'âš  No events found.'; status.style.color = 'var(--danger)'; return; }
   const newEvents = [];
   for (const ev of parsed) {
     const start = icsDateToLocal(ev.dtstart);
     if (!start) continue;
     newEvents.push({
       id: uid(), name: (ev.summary || '(Untitled event)').trim(),
-      emoji: '📅', date: start.date, time: start.time || '',
+      emoji: 'ðŸ“…', date: start.date, time: start.time || '',
       source: 'google', importedAt: Date.now()
     });
   }
   Store.data.events = newEvents;
   commit('added', 'Google Calendar', `Imported ${newEvents.length} events`);
-  status.textContent = `✓ Imported ${newEvents.length} events`;
+  status.textContent = `âœ“ Imported ${newEvents.length} events`;
   status.style.color = 'var(--success)';
   toast(`Imported ${newEvents.length} Google events`);
 }
@@ -2232,7 +2613,7 @@ function renderCalendar(){
     const evs = eventsByDate[key];
     if (items && items.length) cls.push('has-items');
     let emojiHtml = '';
-    if (evs && evs.length) emojiHtml = `<span class="cal-emoji-badge">${evs[0].emoji || '📌'}</span>`;
+    if (evs && evs.length) emojiHtml = `<span class="cal-emoji-badge">${evs[0].emoji || 'ðŸ“Œ'}</span>`;
     const gDot = evs && evs.some(e => e.source === 'google') ? '<span class="cal-gdot"></span>' : '';
     cells.push(`<div class="${cls.join(' ')}" data-date="${key}">${d}${gDot}${emojiHtml}${items ? '<span class="cal-dot"></span>' : ''}</div>`);
   }
@@ -2253,7 +2634,7 @@ function renderCalDayPanel(dueByDate, eventsByDate){
   const dateObj = new Date(calSelectedDate + 'T12:00:00');
   const label = dateObj.toLocaleDateString([], { weekday:'long', month:'short', day:'numeric' });
   const totalCount = items.length + evs.length;
-  const header = `<div class="cal-day-title"><span>${escapeHtml(label)}${totalCount ? ' · ' + totalCount + ' item' + (totalCount === 1 ? '' : 's') : ''}</span><button class="day-add-btn" data-add-event="1">+ Event</button></div>`;
+  const header = `<div class="cal-day-title"><span>${escapeHtml(label)}${totalCount ? ' Â· ' + totalCount + ' item' + (totalCount === 1 ? '' : 's') : ''}</span><button class="day-add-btn" data-add-event="1">+ Event</button></div>`;
   let body = '';
   if (items.length) body += items.map(a => {
     const sec = getSection(a.sectionId);
@@ -2262,10 +2643,10 @@ function renderCalDayPanel(dueByDate, eventsByDate){
   }).join('');
   if (evs.length) body += evs.map(ev => `
     <div class="cal-day-item ${ev.source === 'google' ? 'gcal' : ''}">
-      ${ev.source === 'google' ? '<span class="cal-gbadge">GCAL</span>' : `<span class="cal-emoji">${ev.emoji || '📌'}</span>`}
+      ${ev.source === 'google' ? '<span class="cal-gbadge">GCAL</span>' : `<span class="cal-emoji">${ev.emoji || 'ðŸ“Œ'}</span>`}
       <span class="cal-name">${escapeHtml(ev.name)}</span>
       ${ev.time ? `<span class="cal-time">${ev.time}</span>` : ''}
-      ${ev.source !== 'google' ? `<button class="item-del" data-del-event="${ev.id}">✕</button>` : ''}
+      ${ev.source !== 'google' ? `<button class="item-del" data-del-event="${ev.id}">âœ•</button>` : ''}
     </div>`).join('');
   if (!body) body = '<div class="empty">Nothing here yet</div>';
   let formHtml = '';
@@ -2281,13 +2662,13 @@ function renderCalDayPanel(dueByDate, eventsByDate){
       </div>
       <div class="ev-actions">
         <button class="btn mini ghost" id="eventCancel">Cancel</button>
-        <button class="btn mini" id="eventSave">${editing ? '✓ Save' : '+ Add'}</button>
+        <button class="btn mini" id="eventSave">${editing ? 'âœ“ Save' : '+ Add'}</button>
       </div>
     </div>`;
   }
   panel.innerHTML = header + body + formHtml;
   const addBtn = panel.querySelector('[data-add-event]');
-  if (addBtn) addBtn.addEventListener('click', () => { calEditingEventId = 'new'; calPickedEmoji = '📌'; renderCalendar(); setTimeout(() => el('#eventNameInput')?.focus(), 30); });
+  if (addBtn) addBtn.addEventListener('click', () => { calEditingEventId = 'new'; calPickedEmoji = 'ðŸ“Œ'; renderCalendar(); setTimeout(() => el('#eventNameInput')?.focus(), 30); });
   els('[data-del-event]').forEach(b => b.addEventListener('click', () => deleteEvent(b.dataset.delEvent)));
   const grid = panel.querySelector('.emoji-grid');
   if (grid) els('button', grid).forEach(b => b.addEventListener('click', () => {
@@ -2298,7 +2679,7 @@ function renderCalDayPanel(dueByDate, eventsByDate){
   el('#eventCancel')?.addEventListener('click', () => { calEditingEventId = null; renderCalendar(); });
   el('#eventSave')?.addEventListener('click', () => {
     const name = (el('#eventNameInput').value || '').trim();
-    const emoji = (el('#eventEmojiInput').value || '📌').trim() || '📌';
+    const emoji = (el('#eventEmojiInput').value || 'ðŸ“Œ').trim() || 'ðŸ“Œ';
     if (!name) { toast('Please enter an event name.'); return; }
     if (calEditingEventId === 'new') {
       Store.data.events.push({ id: uid(), name, emoji, date: calSelectedDate, source: 'manual', importedAt: Date.now() });
@@ -2333,6 +2714,7 @@ let chatInitialized = false;
 let chatMessageType = 'normal';
 let chatLinkedAssignmentId = '';
 let chatLinkedNoteId = '';
+let lastChatFingerprint = '';
 
 function initChat(){
   if (chatInitialized) return;
@@ -2346,10 +2728,15 @@ function initChat(){
   el('#chatSearchInput').addEventListener('input', e => {
     chatSearchQuery = e.target.value.trim();
     el('#chatClearSearch').classList.toggle('hidden', !chatSearchQuery);
-    renderChat();
+    renderChat(true);
   });
-  el('#chatClearSearch').addEventListener('click', () => { el('#chatSearchInput').value = ''; chatSearchQuery = ''; el('#chatClearSearch').classList.add('hidden'); renderChat(); });
+  el('#chatClearSearch').addEventListener('click', () => { el('#chatSearchInput').value = ''; chatSearchQuery = ''; el('#chatClearSearch').classList.add('hidden'); renderChat(true); });
   el('#chatNotifyBtn').addEventListener('click', toggleChatNotifications);
+  el('#chatScrollBtn').addEventListener('click', () => {
+    scrollChatToBottom();
+    updateChatScrollBtn();
+  });
+  el('#chatMessages').addEventListener('scroll', updateChatScrollBtn);
   els('#chatTypeChips .chat-type-chip').forEach(chip => {
     chip.addEventListener('click', () => {
       chatMessageType = chip.dataset.type;
@@ -2369,13 +2756,15 @@ function refreshChatLinkDropdowns(){
   const selN = el('#chatNotePick');
   if (!selA || !selN) return;
   const curA = selA.value;
-  selA.innerHTML = '<option value="">— Select an assignment —</option>' +
+  selA.innerHTML = '<option value="">â€” Select an assignment â€”</option>' +
     (Store.data.assignments || []).filter(a => !a.deleted).map(a => `<option value="${a.id}">${escapeHtml(a.name)}</option>`).join('');
-  if (Array.from(selA.options).some(o => o.value === curA)) selA.value = curA;
+  if (curA && Array.from(selA.options).some(o => o.value === curA)) selA.value = curA;
+  else if (chatLinkedAssignmentId) chatLinkedAssignmentId = '';
   const curN = selN.value;
-  selN.innerHTML = '<option value="">— Link a note —</option>' +
+  selN.innerHTML = '<option value="">â€” Link a note â€”</option>' +
     (Store.data.notes || []).map(n => `<option value="${n.id}">${escapeHtml(n.title)}</option>`).join('');
-  if (Array.from(selN.options).some(o => o.value === curN)) selN.value = curN;
+  if (curN && Array.from(selN.options).some(o => o.value === curN)) selN.value = curN;
+  else if (chatLinkedNoteId) chatLinkedNoteId = '';
 }
 function snapshotAssignment(id){
   if (!id) return null;
@@ -2404,21 +2793,21 @@ async function processFile(file){
   if (!isImage && file.size > 20 * 1024 * 1024) throw new Error('File larger than 20MB');
   let dataUrl, name, mime;
   if (isImage) {
-    // Downscale images client-side before upload
-    dataUrl = await downscaleImage(file);
-    name = file.name.replace(/\.[^.]+$/, '') + '.jpg';
-    mime = 'image/jpeg';
+    const keepPng = file.type === 'image/png' && file.size < 400 * 1024;
+    dataUrl = keepPng ? await readFileAsDataUrl(file) : await downscaleImage(file);
+    name = file.name.replace(/\.[^.]+$/, keepPng ? '.png' : '.jpg');
+    mime = keepPng ? 'image/png' : 'image/jpeg';
   } else {
     dataUrl = await readFileAsDataUrl(file);
     name = file.name;
     mime = file.type || 'application/octet-stream';
   }
   const resp = await Store.withStatus(() => Store.apiPost({
-    action: 'uploadAttachment', token: session.token,
-    dataUrl, name, mime
+    action: 'uploadAttachment', token: session.token, dataUrl, name, mime
   }));
   if (!resp || !resp.ok) throw new Error(resp && resp.error || 'Upload failed');
-  return { name: resp.name, mime: resp.mime, size: resp.size, url: resp.url, fileId: resp.id, isImage };
+  return { name: resp.name, mime: resp.mime, size: resp.size,
+           url: resp.url, downloadUrl: resp.downloadUrl, fileId: resp.id, isImage };
 }
 function readFileAsDataUrl(file){
   return new Promise((res, rej) => {
@@ -2455,7 +2844,7 @@ function renderAttachPreview(){
   const wrap = el('#chatAttachPreview'); if (!wrap) return;
   if (!chatAttachments.length) { wrap.classList.add('hidden'); wrap.innerHTML = ''; return; }
   wrap.classList.remove('hidden');
-  wrap.innerHTML = chatAttachments.map((a, i) => `<span class="chat-attach-chip">${a.isImage?'🖼️':'📎'} <span>${escapeHtml(a.name)}</span><button data-remove-attach="${i}">✕</button></span>`).join('');
+  wrap.innerHTML = chatAttachments.map((a, i) => `<span class="chat-attach-chip">${a.isImage?'ðŸ–¼ï¸':'ðŸ“Ž'} <span>${escapeHtml(a.name)}</span><button data-remove-attach="${i}">âœ•</button></span>`).join('');
   els('[data-remove-attach]').forEach(b => b.addEventListener('click', () => { chatAttachments.splice(Number(b.dataset.removeAttach), 1); renderAttachPreview(); }));
 }
 function sendChatMessage(){
@@ -2482,7 +2871,7 @@ function sendChatMessage(){
   Store.data.chatLastRead = Date.now();
   commit('added', 'Chat', text ? text.slice(0, 60) : 'attachment');
   lastSeenMessageId = msg.id;
-  renderChat();
+  renderChat(true);
   scrollChatToBottom();
   markChatRead();
 }
@@ -2529,8 +2918,8 @@ function toggleChatNotifications(){
 function showChatNotification(msg){
   if (Store.data.settings.chatNotifications === false) return;
   if (!('Notification' in window) || Notification.permission !== 'granted') return;
-  const prefix = msg.type === 'important' ? '❗ ' : msg.type === 'question' ? '❓ ' : msg.type === 'assignment' ? '📚 ' : '💬 ';
-  const body = msg.text ? msg.text.slice(0, 120) : '📎 attachment';
+  const prefix = msg.type === 'important' ? 'â— ' : msg.type === 'question' ? 'â“ ' : msg.type === 'assignment' ? 'ðŸ“š ' : 'ðŸ’¬ ';
+  const body = msg.text ? msg.text.slice(0, 120) : 'ðŸ“Ž attachment';
   try {
     const n = new Notification(prefix + (msg.senderName || 'New message'), { body, tag: 'studydesk-chat' });
     setTimeout(() => n.close(), 8000);
@@ -2547,7 +2936,7 @@ function checkForNewMessages(){
   if (wasInitial) return;
   if (last.sender === session.role) return;
   showChatNotification(last);
-  if (currentTab !== 'chat' || document.hidden) toast('💬 New message from ' + last.senderName);
+  if (currentTab !== 'chat' || document.hidden) toast('ðŸ’¬ New message from ' + last.senderName);
   else markChatRead();
   updateChatUnreadBadge();
 }
@@ -2557,14 +2946,20 @@ function formatChatDay(ts){
   const today = new Date();
   const y = new Date(); y.setDate(y.getDate() - 1);
   const same = (a, b) => a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
-  if (same(d, today)) return 'Today · ' + d.toLocaleDateString([], { month:'short', day:'numeric', year:'numeric' });
-  if (same(d, y)) return 'Yesterday · ' + d.toLocaleDateString([], { month:'short', day:'numeric', year:'numeric' });
+  if (same(d, today)) return 'Today Â· ' + d.toLocaleDateString([], { month:'short', day:'numeric', year:'numeric' });
+  if (same(d, y)) return 'Yesterday Â· ' + d.toLocaleDateString([], { month:'short', day:'numeric', year:'numeric' });
   return d.toLocaleDateString([], { weekday:'short', month:'short', day:'numeric', year:'numeric' });
 }
 function dayKeyOf(ts){ const d = new Date(ts); return d.getFullYear() + '-' + (d.getMonth()+1) + '-' + d.getDate(); }
-function renderChat(){
+
+function renderChat(force){
   const list = el('#chatMessages'); if (!list) return;
-  const messages = (Store.data.messages || []).slice();
+  const messages = Store.data.messages || [];
+  const last = messages[messages.length - 1];
+  const fp = messages.length + '|' + (last?.id || '') + '|' + chatSearchQuery + '|' + (Store.data.chatLastRead || 0);
+  if (!force && fp === lastChatFingerprint) return;
+  lastChatFingerprint = fp;
+
   const query = chatSearchQuery.toLowerCase();
   let filtered = messages, isSearch = false, highlightRegex = null;
   if (query) {
@@ -2577,58 +2972,104 @@ function renderChat(){
     const sq = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     try { highlightRegex = new RegExp('(' + sq + ')', 'gi'); } catch {}
   }
+
   if (!filtered.length) {
-    list.innerHTML = messages.length ? '<div class="chat-empty">No messages match your search.</div>' : '<div class="chat-empty">No messages yet. Say hi! 👋</div>';
+    list.innerHTML = messages.length
+      ? '<div class="chat-empty">No messages match your search.</div>'
+      : '<div class="chat-empty">No messages yet. Say hi! ðŸ‘‹</div>';
+    updateChatScrollBtn();
     return;
   }
+
   const nearBottom = list.scrollHeight - list.scrollTop - list.clientHeight < 100;
-  let html = '', lastDay = null;
+  const prevScroll = list.scrollTop;
+  const prevHeight = list.scrollHeight;
+
+  let html = '';
+  let lastDay = null;
+  let lastSender = null;
+  let lastTime = 0;
+
   for (const m of filtered) {
     const key = dayKeyOf(m.time);
     if (key !== lastDay) {
       html += `<div class="chat-day-divider"><span class="line"></span><span class="label">${escapeHtml(formatChatDay(m.time))}</span><span class="line"></span></div>`;
       lastDay = key;
+      lastSender = null;
     }
-    html += renderChatMessageHtml(m, highlightRegex);
+    const grouped = !isSearch && lastSender === m.sender && (m.time - lastTime) < 5 * 60 * 1000;
+    html += renderChatMessageHtml(m, highlightRegex, grouped);
+    lastSender = m.sender;
+    lastTime = m.time;
   }
+
   list.innerHTML = html;
-  els('#chatMessages .chat-img').forEach(img => img.addEventListener('click', () => window.open(img.src, '_blank')));
-  els('#chatMessages [data-jump-assign]').forEach(card => card.addEventListener('click', () => switchTab('assignments')));
-  els('#chatMessages [data-jump-note]').forEach(card => card.addEventListener('click', () => switchTab('notes')));
-  if (!isSearch && nearBottom) list.scrollTop = list.scrollHeight;
+
+  if (nearBottom || !isSearch) {
+    // If we were near bottom OR this is a fresh search, jump to bottom
+    list.scrollTop = nearBottom ? list.scrollHeight : prevScroll;
+  } else {
+    list.scrollTop = Math.max(0, prevScroll + (list.scrollHeight - prevHeight));
+  }
+
+  els('#chatMessages .chat-img').forEach(img =>
+    img.addEventListener('click', () => window.open(img.src, '_blank')));
+  els('#chatMessages [data-del-msg]').forEach(b =>
+    b.addEventListener('click', e => { e.stopPropagation(); deleteMessage(b.dataset.delMsg); }));
+  els('#chatMessages [data-jump-assign]').forEach(card =>
+    card.addEventListener('click', () => switchTab('assignments')));
+  els('#chatMessages [data-jump-note]').forEach(card =>
+    card.addEventListener('click', () => switchTab('notes')));
+
+  updateChatScrollBtn();
 }
-function renderChatMessageHtml(m, hr){
+
+function renderChatMessageHtml(m, hr, grouped){
   const own = session && m.sender === session.role;
   const initial = (m.senderName || '?').charAt(0).toUpperCase();
   const time = formatChatTime(m.time);
   const type = m.type || 'normal';
   const typeLabelInfo = MSG_TYPE_LABELS[type];
+
   let textHtml = escapeHtml(m.text || '');
   if (hr && textHtml) { try { textHtml = textHtml.replace(hr, '<span class="highlight">$1</span>'); } catch {} }
+
   let attachHtml = '';
   for (const a of (m.attachments || [])) {
-    if (a.isImage && a.url) attachHtml += `<img class="chat-img" src="${escapeHtml(a.url)}">`;
-    else if (a.url) attachHtml += `<a class="chat-file" href="${escapeHtml(a.url)}" target="_blank" rel="noopener">📎 <span class="fname">${escapeHtml(a.name)}</span> <small>${formatBytes(a.size || 0)}</small></a>`;
+    if (a.isImage && a.url) {
+      attachHtml += `<img class="chat-img" src="${escapeHtml(a.url)}" alt="${escapeHtml(a.name)}">`;
+    } else if (a.url) {
+      const dl = a.downloadUrl || a.url;
+      attachHtml += `<a class="chat-file" href="${escapeHtml(dl)}" target="_blank" rel="noopener" download>
+        ðŸ“Ž <span class="fname">${escapeHtml(a.name)}</span>
+        <small>${formatBytes(a.size || 0)}</small>
+      </a>`;
+    }
   }
+
   let linkedHtml = '';
   if (m.linkedAssignment) {
     const la = m.linkedAssignment;
     linkedHtml += `<div class="chat-linked-card assignment" data-jump-assign="${escapeHtml(la.id)}">
-      <div class="chat-linked-label">📚 Linked assignment</div>
+      <div class="chat-linked-label">ðŸ“š Linked assignment</div>
       <div class="chat-linked-title">${escapeHtml(la.name)}</div>
-      <div class="chat-linked-meta">${la.sectionName ? escapeHtml(la.sectionName) : ''}${la.weight ? ' · ' + la.weight + '%' : ''}${la.due ? ' · Due ' + fmtDue(la.due) : ''}</div>
+      <div class="chat-linked-meta">${la.sectionName ? escapeHtml(la.sectionName) : ''}${la.weight ? ' Â· ' + la.weight + '%' : ''}${la.due ? ' Â· Due ' + fmtDue(la.due) : ''}</div>
     </div>`;
   }
   if (m.linkedNote) {
     linkedHtml += `<div class="chat-linked-card note" data-jump-note="${escapeHtml(m.linkedNote.id)}">
-      <div class="chat-linked-label">📝 Linked note</div>
+      <div class="chat-linked-label">ðŸ“ Linked note</div>
       <div class="chat-linked-title">${escapeHtml(m.linkedNote.title)}</div>
     </div>`;
   }
-  const senderLine = own ? '' : `<div class="chat-sender">${escapeHtml(m.senderName)}</div>`;
+
+  const senderLine = (!own && !grouped) ? `<div class="chat-sender">${escapeHtml(m.senderName)}</div>` : '';
   const typeLabel = typeLabelInfo ? `<div class="chat-msg-label type-${type}">${typeLabelInfo.icon} ${typeLabelInfo.label}</div>` : '';
-  return `<div class="chat-msg ${own ? 'own' : 'other'} type-${type}">
+  const deleteBtn = own ? `<button data-del-msg="${m.id}" title="Delete message">ðŸ—‘</button>` : '';
+
+  return `<div class="chat-msg ${own ? 'own' : 'other'} type-${type} ${grouped ? 'grouped' : ''}">
     <div class="chat-avatar">${initial}</div>
+    <div class="chat-msg-actions">${deleteBtn}</div>
     <div class="chat-body">
       ${senderLine}${typeLabel}
       ${textHtml ? `<div class="chat-bubble">${textHtml}</div>` : ''}
@@ -2638,6 +3079,30 @@ function renderChatMessageHtml(m, hr){
     </div>
   </div>`;
 }
+
+function deleteMessage(id){
+  const idx = Store.data.messages.findIndex(m => m.id === id);
+  if (idx < 0) return;
+  if (!confirm('Delete this message?')) return;
+  const backup = Store.data.messages[idx];
+  Store.data.messages.splice(idx, 1);
+  stashForUndo('Message deleted', () => {
+    Store.data.messages.splice(idx, 0, backup);
+    Store.persist();
+    applyAll();
+    renderChat(true);
+  });
+  commit('removed', 'Chat', 'Deleted message');
+}
+
+function updateChatScrollBtn(){
+  const btn = el('#chatScrollBtn');
+  const list = el('#chatMessages');
+  if (!btn || !list) return;
+  const farFromBottom = list.scrollHeight - list.scrollTop - list.clientHeight > 200;
+  btn.classList.toggle('hidden', !farFromBottom);
+}
+
 function scrollChatToBottom(){ const l = el('#chatMessages'); if (l) l.scrollTop = l.scrollHeight; }
 
 /* ============================================================
@@ -2673,14 +3138,14 @@ function toggleCategoryFields(){
   const cat = el('#aCategory').value;
   el('#assignmentFields').classList.toggle('hidden', cat !== 'assignment');
   el('#otherFields').classList.toggle('hidden', cat !== 'other');
-  el('#aSubmit').textContent = editingId ? '✓ Save Changes' : (cat === 'other' ? '+ Add Item' : '+ Add Assignment');
+  el('#aSubmit').textContent = editingId ? 'âœ“ Save Changes' : (cat === 'other' ? '+ Add Item' : '+ Add Assignment');
 }
 function addLinkRow(url = '', label = ''){
   const list = el('#aLinkList');
   const row = document.createElement('div');
   row.className = 'link-row';
   row.style.cssText = 'display:grid;grid-template-columns:110px 1fr 32px;gap:6px;margin-bottom:6px;align-items:center';
-  row.innerHTML = `<input type="text" class="link-label" placeholder="Label" value="${escapeHtml(label)}" style="padding:8px 10px;font-size:12.5px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);outline:none;min-width:0"><input type="url" class="link-url" placeholder="https://..." value="${escapeHtml(url)}" style="padding:8px 10px;font-size:12.5px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);outline:none;min-width:0"><button type="button" class="link-remove" style="width:32px;height:32px;border-radius:8px;background:var(--surface2);border:1px solid var(--border);color:var(--muted)">✕</button>`;
+  row.innerHTML = `<input type="text" class="link-label" placeholder="Label" value="${escapeHtml(label)}" style="padding:8px 10px;font-size:12.5px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);outline:none;min-width:0"><input type="url" class="link-url" placeholder="https://..." value="${escapeHtml(url)}" style="padding:8px 10px;font-size:12.5px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);outline:none;min-width:0"><button type="button" class="link-remove" style="width:32px;height:32px;border-radius:8px;background:var(--surface2);border:1px solid var(--border);color:var(--muted)">âœ•</button>`;
   row.querySelector('.link-remove').addEventListener('click', () => row.remove());
   list.appendChild(row);
 }
@@ -2693,7 +3158,7 @@ function collectLinks(){
 function refreshSectionDropdown(){
   const sel = el('#aSection'); if (!sel) return;
   const current = sel.value;
-  sel.innerHTML = ['<option value="">— No section —</option>'].concat(Store.data.sections.map(s => `<option value="${s.id}">${escapeHtml(s.name)}</option>`)).join('');
+  sel.innerHTML = ['<option value="">â€” No section â€”</option>'].concat(Store.data.sections.map(s => `<option value="${s.id}">${escapeHtml(s.name)}</option>`)).join('');
   if (Array.from(sel.options).some(o => o.value === current)) sel.value = current;
   const filter = el('#sectionFilter');
   if (filter) {
@@ -2751,7 +3216,7 @@ function renderSectionsUI(){
   mgr.innerHTML = Store.data.sections.map(s => {
     const c = sectionColor(s);
     const count = Store.data.assignments.filter(a => a.sectionId === s.id && !a.deleted).length;
-    return `<div class="sec-row"><span class="sec-dot" style="background:${c}"></span><span class="sec-name">${escapeHtml(s.name)}</span><span class="sec-count">${count}</span><span class="sec-actions"><button data-rename="${s.id}">✎</button><button data-delsec="${s.id}">🗑</button></span></div>`;
+    return `<div class="sec-row"><span class="sec-dot" style="background:${c}"></span><span class="sec-name">${escapeHtml(s.name)}</span><span class="sec-count">${count}</span><span class="sec-actions"><button data-rename="${s.id}">âœŽ</button><button data-delsec="${s.id}">ðŸ—‘</button></span></div>`;
   }).join('');
   els('[data-rename]').forEach(b => b.addEventListener('click', () => renameSection(b.dataset.rename)));
   els('[data-delsec]').forEach(b => b.addEventListener('click', () => deleteSection(b.dataset.delsec)));
@@ -2847,7 +3312,7 @@ function editAssignment(id){
     if (!(a.links || []).length) addLinkRow();
   }
   el('#assignFormTitle').textContent = 'Edit Item';
-  el('#aSubmit').textContent = '✓ Save Changes';
+  el('#aSubmit').textContent = 'âœ“ Save Changes';
   if (assignFormCollapsed) {
     assignFormCollapsed = false;
     el('#assignTwoCol').classList.remove('form-collapsed');
@@ -2912,30 +3377,30 @@ function renderAssignments(){
   el('#assignCount').textContent = items.length;
   if (!items.length) {
     el('#assignList').innerHTML = isTrash
-      ? '<div class="empty-cta"><div class="icon">🗑</div><div>Trash is empty</div></div>'
-      : '<div class="empty-cta"><div class="icon">📚</div><div>No items match</div></div>';
+      ? '<div class="empty-cta"><div class="icon">ðŸ—‘</div><div>Trash is empty</div></div>'
+      : '<div class="empty-cta"><div class="icon">ðŸ“š</div><div>No items match</div></div>';
     return;
   }
   el('#assignList').innerHTML = items.map(a => {
     const links = linksHtml(a);
     const tags = tagPillsHtml(a.tags);
-    const recur = a.recurrence ? '<span class="pill" style="color:var(--accent);border-color:var(--accent)">↻ weekly</span>' : '';
-    const inprog = a.inProgress && !a.completed ? '<span class="pill" style="color:var(--accent);border-color:var(--accent)">▶ In progress</span>' : '';
+    const recur = a.recurrence ? '<span class="pill" style="color:var(--accent);border-color:var(--accent)">â†» weekly</span>' : '';
+    const inprog = a.inProgress && !a.completed ? '<span class="pill" style="color:var(--accent);border-color:var(--accent)">â–¶ In progress</span>' : '';
     const metaParts = [];
     if (a.category !== 'other') {
-      metaParts.push(`<span>👤 ${escapeHtml(a.teacher || '—')}</span>`);
-      if (a.due) metaParts.push(`<span>📅 ${fmtDue(a.due)} · ${relativeDue(a.due)}</span>`);
-      metaParts.push(`<span>⚖️ ${escapeHtml(String(a.weight ?? 0))}%</span>`);
+      metaParts.push(`<span>ðŸ‘¤ ${escapeHtml(a.teacher || 'â€”')}</span>`);
+      if (a.due) metaParts.push(`<span>ðŸ“… ${fmtDue(a.due)} Â· ${relativeDue(a.due)}</span>`);
+      metaParts.push(`<span>âš–ï¸ ${escapeHtml(String(a.weight ?? 0))}%</span>`);
     }
     if (isTrash) metaParts.push(`<span class="muted">Trashed ${fmtDateTime(a.deletedAt)}</span>`);
     const actionsHtml = isTrash
       ? `<div class="mini-actions">
-           <button class="mini" data-restore="${a.id}" title="Restore">↺</button>
-           <button class="mini del" data-purge="${a.id}" title="Delete forever">🗑</button>
+           <button class="mini" data-restore="${a.id}" title="Restore">â†º</button>
+           <button class="mini del" data-purge="${a.id}" title="Delete forever">ðŸ—‘</button>
          </div>`
       : `<div class="mini-actions">
-           <button class="mini" data-edit="${a.id}">✎</button>
-           <button class="mini del" data-del="${a.id}" title="Move to trash">🗑</button>
+           <button class="mini" data-edit="${a.id}">âœŽ</button>
+           <button class="mini del" data-del="${a.id}" title="Move to trash">ðŸ—‘</button>
          </div>`;
     return `<div class="item ${a.completed ? 'completed' : ''}">
       <div class="complete-check ${a.completed ? 'checked' : ''}" data-toggle-complete="${a.id}" ${isTrash ? 'style="opacity:.4;pointer-events:none"' : ''}></div>
@@ -2995,7 +3460,7 @@ function renderKanban(){
     if (!body) return;
     body.innerHTML = cols[col].length
       ? cols[col].map(a => kanbanCardHtml(a, col)).join('')
-      : '<div class="empty" style="padding:14px;font-size:12px">—</div>';
+      : '<div class="empty" style="padding:14px;font-size:12px">â€”</div>';
   });
   els('#kanbanBoard [data-kmove]').forEach(b => b.addEventListener('click', e => {
     e.stopPropagation(); moveKanbanCard(b.dataset.id, b.dataset.kmove);
@@ -3003,15 +3468,15 @@ function renderKanban(){
   els('#kanbanBoard [data-kopen]').forEach(card => card.addEventListener('click', () => editAssignment(card.dataset.kopen)));
 }
 function kanbanCardHtml(a, col){
-  const due = a.due ? `<span>📅 ${fmtDue(a.due)}</span>` : '';
-  const gr  = a.grade ? `<span>🎓 ${escapeHtml(a.grade)}</span>` : '';
+  const due = a.due ? `<span>ðŸ“… ${fmtDue(a.due)}</span>` : '';
+  const gr  = a.grade ? `<span>ðŸŽ“ ${escapeHtml(a.grade)}</span>` : '';
   const mv  = [];
-  if (col === 'todo')     mv.push(`<button data-kmove="progress" data-id="${a.id}" title="Start">▶</button>`);
+  if (col === 'todo')     mv.push(`<button data-kmove="progress" data-id="${a.id}" title="Start">â–¶</button>`);
   if (col === 'progress') {
-    mv.push(`<button data-kmove="todo" data-id="${a.id}" title="Back">◀</button>`);
-    mv.push(`<button data-kmove="done" data-id="${a.id}" title="Done">✓</button>`);
+    mv.push(`<button data-kmove="todo" data-id="${a.id}" title="Back">â—€</button>`);
+    mv.push(`<button data-kmove="done" data-id="${a.id}" title="Done">âœ“</button>`);
   }
-  if (col === 'done')     mv.push(`<button data-kmove="progress" data-id="${a.id}" title="Reopen">↺</button>`);
+  if (col === 'done')     mv.push(`<button data-kmove="progress" data-id="${a.id}" title="Reopen">â†º</button>`);
   return `<div class="kanban-card ${a.completed?'completed':''}" data-kopen="${a.id}">
     <div class="k-title">${escapeHtml(a.name)}${sectionPillHtml(a.sectionId)}</div>
     <div class="k-meta">${due}${gr}</div>
@@ -3053,7 +3518,7 @@ function saveDraft(){
   localStorage.setItem(DRAFT_KEY, JSON.stringify({
     title, content, savedAt: Date.now(), editingId: editingNoteId
   }));
-  setNoteStatus('Draft saved · ' + new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}));
+  setNoteStatus('Draft saved Â· ' + new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}));
 }
 function restoreDraft(){
   const raw = localStorage.getItem(DRAFT_KEY);
@@ -3088,7 +3553,7 @@ function submitNote(){
     clearNoteForm();
   }
   localStorage.removeItem(DRAFT_KEY);
-  setNoteStatus('Saved ✓');
+  setNoteStatus('Saved âœ“');
 }
 function clearNoteForm(){ el('#nTitle').value = ''; el('#nContent').value = ''; }
 function cancelNoteEdit(){
@@ -3133,11 +3598,11 @@ function renderNotes(){
     const updated = new Date(n.updatedAt || n.createdAt || Date.now()).toLocaleString([], { month:'short', day:'numeric', year:'numeric', hour:'2-digit', minute:'2-digit' });
     return `<div class="note-row" data-open-note="${n.id}">
       <div class="note-row-actions">
-        <button class="mini" data-edit-note="${n.id}">✎</button>
-        <button class="mini del" data-del-note="${n.id}">🗑</button>
+        <button class="mini" data-edit-note="${n.id}">âœŽ</button>
+        <button class="mini del" data-del-note="${n.id}">ðŸ—‘</button>
       </div>
       <div class="note-row-title">${escapeHtml(n.title)}</div>
-      <div class="note-row-meta">Updated ${escapeHtml(updated)}${n.createdBy ? ' · ' + escapeHtml(n.createdBy) : ''}</div>
+      <div class="note-row-meta">Updated ${escapeHtml(updated)}${n.createdBy ? ' Â· ' + escapeHtml(n.createdBy) : ''}</div>
       <div class="note-row-body">${body}</div>
     </div>`;
   }).join('');
@@ -3189,8 +3654,8 @@ function saveProject(){
     currentProjectId = proj.id;
     commit('added', 'Snippet', `Created "${name}"`);
   }
-  setEditorStatus('Saved ✓');
-  toast('Snippet saved ✓');
+  setEditorStatus('Saved âœ“');
+  toast('Snippet saved âœ“');
 }
 function cancelProjectEdit(){
   currentProjectId = null;
@@ -3233,7 +3698,7 @@ function buildPreview(code, lang){
   if (lang === 'css') return `<!doctype html><html><head><style>body{font-family:system-ui;padding:24px;background:#fff;color:#222}${code}</style></head><body><h1>Heading 1</h1><p>Sample text.</p><button>Button</button></body></html>`;
   if (lang === 'javascript') {
     const safe = String(code).replace(/<\/script>/gi, '<\\/script>');
-    return `<!doctype html><html><body style="font-family:ui-monospace;background:#0b0e18;color:#dbe4ff;padding:16px;margin:0"><pre id="out" style="white-space:pre-wrap;font-size:13px"></pre><script>const out=document.getElementById('out');const log=(...a)=>{out.textContent+=a.map(v=>typeof v==='object'?JSON.stringify(v):String(v)).join(' ')+'\\n'};console.log=log;try{${safe}}catch(e){log('⚠ '+e.name+': '+e.message)}<\/script></body></html>`;
+    return `<!doctype html><html><body style="font-family:ui-monospace;background:#0b0e18;color:#dbe4ff;padding:16px;margin:0"><pre id="out" style="white-space:pre-wrap;font-size:13px"></pre><script>const out=document.getElementById('out');const log=(...a)=>{out.textContent+=a.map(v=>typeof v==='object'?JSON.stringify(v):String(v)).join(' ')+'\\n'};console.log=log;try{${safe}}catch(e){log('âš  '+e.name+': '+e.message)}<\/script></body></html>`;
   }
   return `<!doctype html><html><body style="font-family:ui-monospace;background:#0b0e18;color:#dbe4ff;padding:16px;margin:0"><pre style="white-space:pre-wrap;font-size:13px">${escapeHtml(code)}</pre></body></html>`;
 }
@@ -3246,7 +3711,7 @@ function openPreview(projectId){
   } else {
     code = el('#codeArea').value; lang = el('#pLang').value; title = el('#pName').value.trim() || 'Untitled';
   }
-  el('#previewTitle').textContent = 'Preview · ' + title;
+  el('#previewTitle').textContent = 'Preview Â· ' + title;
   el('#previewFrame').srcdoc = buildPreview(code, lang);
   el('#previewModal').classList.remove('hidden');
   document.body.style.overflow = 'hidden';
@@ -3271,14 +3736,14 @@ function renderProjects(){
     return `<div class="snippet-item ${p.id === currentProjectId ? 'active' : ''} ${isExpanded ? 'expanded' : ''}" data-open="${p.id}">
       <div class="snippet-item-main">
         <div class="snippet-item-title">${escapeHtml(p.name)}<span class="snippet-lang-tag">${escapeHtml(p.lang)}</span></div>
-        <div class="snippet-item-meta">Updated ${new Date(p.updatedAt || Date.now()).toLocaleDateString()}${p.updatedBy ? ' · ' + escapeHtml(p.updatedBy) : ''}</div>
-        ${previewCode ? `<div class="snippet-item-preview">${escapeHtml(previewCode)}${(p.code||'').split('\n').length > 2 ? '\n…' : ''}</div>` : ''}
+        <div class="snippet-item-meta">Updated ${new Date(p.updatedAt || Date.now()).toLocaleDateString()}${p.updatedBy ? ' Â· ' + escapeHtml(p.updatedBy) : ''}</div>
+        ${previewCode ? `<div class="snippet-item-preview">${escapeHtml(previewCode)}${(p.code||'').split('\n').length > 2 ? '\nâ€¦' : ''}</div>` : ''}
         <pre class="snippet-full-code" style="display:${isExpanded ? 'block' : 'none'};margin-top:10px;padding:12px;border-radius:8px;background:#0b0e18;color:#dbe4ff;font-family:var(--mono);font-size:12px;line-height:1.55;max-height:420px;overflow:auto;white-space:pre;border:1px solid var(--border)">${escapeHtml(p.code || '')}</pre>
       </div>
       <div class="mini-actions" style="flex-direction:column">
-        <button class="mini" data-expand="${p.id}" title="Expand">${isExpanded ? '▴' : '▾'}</button>
-        <button class="mini" data-preview="${p.id}" title="Preview">▶</button>
-        <button class="mini del" data-pdel="${p.id}" title="Delete">🗑</button>
+        <button class="mini" data-expand="${p.id}" title="Expand">${isExpanded ? 'â–´' : 'â–¾'}</button>
+        <button class="mini" data-preview="${p.id}" title="Preview">â–¶</button>
+        <button class="mini del" data-pdel="${p.id}" title="Delete">ðŸ—‘</button>
       </div>
     </div>`;
   }).join('');
@@ -3295,7 +3760,7 @@ function renderProjects(){
     const pre = item.querySelector('.snippet-full-code');
     const nowOpen = pre.style.display === 'none';
     pre.style.display = nowOpen ? 'block' : 'none';
-    btn.textContent = nowOpen ? '▴' : '▾';
+    btn.textContent = nowOpen ? 'â–´' : 'â–¾';
     if (nowOpen) expandedProjects.add(id); else expandedProjects.delete(id);
   }));
 }
@@ -3343,15 +3808,23 @@ const THEMES = [
   { id:'mono', name:'Mono', dots:['#eaeaea','#8a8a8a','#0a0a0a'] }
 ];
 
+const LAYOUTS = [
+  { id: 'sidebar', name: 'Sidebar',  icon: 'â–¤' },
+  { id: 'topbar',  name: 'Top Bar',  icon: 'â–¬' },
+  { id: 'rail',    name: 'Rail',     icon: 'â–®' },
+  { id: 'custom',  name: 'Custom',   icon: 'âš™' }
+];
+
 function initSettings(){
   el('#settingsBtn').addEventListener('click', openSettings);
   el('#closeSettings').addEventListener('click', closeSettings);
   el('#themeGrid').innerHTML = THEMES.map(t => `<button class="theme-swatch" data-theme="${t.id}"><div class="theme-dots">${t.dots.map(c => `<span style="background:${c}"></span>`).join('')}</div>${t.name}</button>`).join('');
   els('#themeGrid [data-theme]').forEach(btn => btn.addEventListener('click', () => {
     Store.data.settings.theme = btn.dataset.theme;
-    commit('edited', 'Settings', `Theme → ${btn.dataset.theme}`);
+    commit('edited', 'Settings', `Theme â†’ ${btn.dataset.theme}`);
   }));
-  el('#setCursor').addEventListener('change', e => { Store.data.settings.cursor = e.target.value; commit('edited', 'Settings', `Cursor → ${e.target.value}`); });
+  initLayoutPicker();
+  el('#setCursor').addEventListener('change', e => { Store.data.settings.cursor = e.target.value; commit('edited', 'Settings', `Cursor â†’ ${e.target.value}`); });
   el('#setElAnim').addEventListener('change', e => { Store.data.settings.elementAnim = e.target.checked; commit('edited', 'Settings', `Element anim`); });
   el('#setTimerAnim').addEventListener('change', e => { Store.data.settings.timerAnim = e.target.checked; commit('edited', 'Settings', `Timer anim`); });
   el('#setClock24').addEventListener('change', e => { Store.data.settings.clock24 = e.target.checked; commit('edited', 'Settings', `Clock`); tickClock(); });
@@ -3365,11 +3838,11 @@ function initSettings(){
   el('#savePass').addEventListener('click', async () => {
     const np = el('#newPass').value;
     if (np.length < 4) { toast('Password must be at least 4 characters.'); return; }
-    try { await Store.withStatus(() => Store.apiPost({ action: 'changePassword', token: session.token, newPassword: np })); toast('Password updated ✓'); el('#newPass').value = ''; }
+    try { await Store.withStatus(() => Store.apiPost({ action: 'changePassword', token: session.token, newPassword: np })); toast('Password updated âœ“'); el('#newPass').value = ''; }
     catch (err) { toast('Failed: ' + err.message); }
   });
   el('#manualSync').addEventListener('click', async () => {
-    toast('Pulling latest…');
+    toast('Pulling latestâ€¦');
     await Store.loadCloudData();
     toast('Data refreshed');
   });
@@ -3379,6 +3852,7 @@ function initSettings(){
   el('#printBtn').addEventListener('click', () => window.print());
   el('#resetData').addEventListener('click', () => {
     if (!confirm('Reset ALL dashboard data?')) return;
+    if (!confirm('This cannot be undone. Are you absolutely sure?')) return;
     Store.data = DEFAULT_DATA();
     Store.persist();
     currentProjectId = null;
@@ -3386,6 +3860,34 @@ function initSettings(){
     toast('Dashboard reset.');
   });
 }
+
+function initLayoutPicker(){
+  const grid = el('#layoutGrid');
+  if (!grid) return;
+  grid.innerHTML = LAYOUTS.map(l =>
+    `<button class="layout-swatch" data-layout="${l.id}">
+       <span>${l.icon}</span>
+       <span>${l.name}</span>
+     </button>`).join('');
+
+  els('#layoutGrid [data-layout]').forEach(btn => btn.addEventListener('click', () => {
+    Store.data.settings.layout = btn.dataset.layout;
+    commit('edited', 'Settings', `Layout â†’ ${btn.dataset.layout}`);
+    renderSettingsUI();
+  }));
+
+  ['customNavPos','customNavStyle','customWidth','customDensity'].forEach(id => {
+    const node = el('#' + id);
+    if (!node) return;
+    node.addEventListener('change', () => {
+      const map = { customNavPos:'customNav', customNavStyle:'customNavStyle',
+                    customWidth:'customWidth', customDensity:'customDensity' };
+      Store.data.settings[map[id]] = node.value;
+      commit('edited', 'Settings', `${id} â†’ ${node.value}`);
+    });
+  });
+}
+
 function exportData(){
   const data = serializeForSheets(Store.data);
   data.settings = [Store.data.settings];
@@ -3413,7 +3915,7 @@ function importData(e){
       Store.data = fresh;
       Store.persist();
       applyAll();
-      toast('Imported backup ✓');
+      toast('Imported backup âœ“');
     } catch (err) {
       toast('Invalid backup file');
     }
@@ -3427,6 +3929,15 @@ function renderSettingsUI(){
   if (!Store.data) return;
   const s = Store.data.settings;
   els('#themeGrid [data-theme]').forEach(b => b.classList.toggle('active', b.dataset.theme === s.theme));
+
+  els('#layoutGrid [data-layout]').forEach(b => b.classList.toggle('active', b.dataset.layout === (s.layout || 'sidebar')));
+  const showCustom = s.layout === 'custom';
+  el('#customLayoutOptions')?.classList.toggle('hidden', !showCustom);
+  if (el('#customNavPos')) el('#customNavPos').value = s.customNav || 'left';
+  if (el('#customNavStyle')) el('#customNavStyle').value = s.customNavStyle || 'expanded';
+  if (el('#customWidth')) el('#customWidth').value = s.customWidth || 'normal';
+  if (el('#customDensity')) el('#customDensity').value = s.customDensity || 'normal';
+
   el('#setCursor').value = s.cursor;
   el('#setElAnim').checked = !!s.elementAnim;
   el('#setTimerAnim').checked = !!s.timerAnim;
@@ -3438,12 +3949,12 @@ function renderSettingsUI(){
 function updateSyncBadge(){
   const badge = el('#syncBadge'), text = el('#syncText');
   if (!badge || !text) return;
-  badge.classList.remove('hidden','synced','syncing','unavailable','error','local');
-  if (!isCloudConfigured()) { badge.classList.add('local'); text.textContent = 'Backend not configured'; return; }
+  badge.classList.remove('synced','syncing','unavailable','error','local');
+  if (!isCloudConfigured()) { text.textContent = 'Backend not configured'; return; }
   switch (connState) {
     case 'synced': badge.classList.add('synced'); text.textContent = 'Synced with Google Sheets'; break;
-    case 'syncing': badge.classList.add('syncing'); text.textContent = 'Syncing…'; break;
-    case 'unavailable': badge.classList.add('unavailable'); text.textContent = 'Offline — saved locally'; break;
+    case 'syncing': badge.classList.add('syncing'); text.textContent = 'Syncingâ€¦'; break;
+    case 'unavailable': badge.classList.add('unavailable'); text.textContent = 'Offline â€” saved locally'; break;
     case 'error': badge.classList.add('error'); text.textContent = 'Sync error'; break;
     default: text.textContent = 'Cloud sync configured';
   }
@@ -3480,7 +3991,7 @@ function updateTimerContext(){
   const m = clamp(Number(el('#timerMin').value) || 0, 0, 180);
   const logStudy = el('#timerLogStudy')?.checked !== false;
   ctx.classList.remove('work','break');
-  if (!logStudy) { ctx.textContent = 'Break — not logged'; ctx.classList.add('break'); }
+  if (!logStudy) { ctx.textContent = 'Break â€” not logged'; ctx.classList.add('break'); }
   else if (m === 20 || m === 25 || m === 50) { ctx.textContent = 'Work / Study'; ctx.classList.add('work'); }
   else if (m === 10 || m === 5) { ctx.textContent = 'Break / Free time'; ctx.classList.add('break'); }
   else { ctx.textContent = ''; }
@@ -3582,7 +4093,7 @@ function updateTimerUI(){
 function timerFinished(){
   el('#timerDisplay').textContent = '00:00';
   el('#timerRing').style.strokeDashoffset = RING_C;
-  toast('⏰ Time is up!');
+  toast('â° Time is up!');
   if (Store.data.settings.sound) beep();
   timerState.startedAt = 0;
   renderStudyWidget();
@@ -3638,28 +4149,31 @@ function initModeToggle(){
    COMMAND PALETTE
 ============================================================ */
 const COMMANDS = [
-  { id:'tab-hub',         icon:'🏠', label:'Go to Main Hub',         hint:'Tab',   run:() => switchTab('hub') },
-  { id:'tab-chat',        icon:'💬', label:'Go to Chatroom',          hint:'Tab',   run:() => switchTab('chat') },
-  { id:'tab-assignments', icon:'📚', label:'Go to Assignments',       hint:'Tab',   run:() => switchTab('assignments') },
-  { id:'tab-notes',       icon:'📝', label:'Go to Notes',             hint:'Tab',   run:() => switchTab('notes') },
-  { id:'tab-code',        icon:'💻', label:'Go to Code Storage',      hint:'Tab',   run:() => switchTab('code') },
-  { id:'tab-audit',       icon:'📋', label:'Go to Audit Log',         hint:'Tab',   run:() => switchTab('audit') },
-  { id:'new-assign',      icon:'＋', label:'New Assignment',          hint:'N',     run:() => { switchTab('assignments'); setTimeout(() => el('#aName').focus(), 100); } },
-  { id:'kanban',          icon:'▦',  label:'Toggle Kanban view',      hint:'',      run:() => { switchTab('assignments'); setTimeout(() => el('[data-view="kanban"]')?.click(), 120); } },
-  { id:'collapse-form',   icon:'▾',  label:'Toggle Add Item panel',   hint:'',      run:() => { switchTab('assignments'); setTimeout(() => el('#assignFormCollapse')?.click(), 120); } },
-  { id:'new-note',        icon:'＋', label:'New Note',                hint:'',      run:() => { switchTab('notes'); setTimeout(() => el('#nTitle').focus(), 100); } },
-  { id:'new-snippet',     icon:'＋', label:'New Code Snippet',        hint:'',      run:() => { switchTab('code'); setTimeout(() => el('#pName').focus(), 100); } },
-  { id:'start-timer',     icon:'▶',  label:'Start Timer',             hint:'T',     run:() => startTimer() },
-  { id:'pause-timer',     icon:'⏸',  label:'Pause Timer',             hint:'',      run:() => pauseTimer() },
-  { id:'focus',           icon:'🎯', label:'Toggle Focus Mode',       hint:'F',     run:() => toggleFocusMode() },
-  { id:'theme-aurora',    icon:'🎨', label:'Theme: Aurora',           hint:'',      run:() => { Store.data.settings.theme='aurora'; Store.persist(); applyAll(); } },
-  { id:'theme-midnight',  icon:'🎨', label:'Theme: Midnight',         hint:'',      run:() => { Store.data.settings.theme='midnight'; Store.persist(); applyAll(); } },
-  { id:'theme-neon',      icon:'🎨', label:'Theme: Neon',             hint:'',      run:() => { Store.data.settings.theme='neon'; Store.persist(); applyAll(); } },
-  { id:'theme-light',     icon:'🎨', label:'Theme: Light',            hint:'',      run:() => { Store.data.settings.theme='light'; Store.persist(); applyAll(); } },
-  { id:'export',          icon:'⬇',  label:'Export Data (backup)',    hint:'',      run:() => exportData() },
-  { id:'sync',            icon:'↻',  label:'Pull latest from cloud',  hint:'',      run:() => Store.loadCloudData() },
-  { id:'settings',        icon:'⚙',  label:'Open Settings',           hint:'',      run:() => openSettings() },
-  { id:'logout',          icon:'⎋',  label:'Sign Out',                hint:'',      run:() => logout() }
+  { id:'tab-hub',         icon:'ðŸ ', label:'Go to Main Hub',         hint:'Tab',   run:() => switchTab('hub') },
+  { id:'tab-chat',        icon:'ðŸ’¬', label:'Go to Chatroom',          hint:'Tab',   run:() => switchTab('chat') },
+  { id:'tab-assignments', icon:'ðŸ“š', label:'Go to Assignments',       hint:'Tab',   run:() => switchTab('assignments') },
+  { id:'tab-notes',       icon:'ðŸ“', label:'Go to Notes',             hint:'Tab',   run:() => switchTab('notes') },
+  { id:'tab-code',        icon:'ðŸ’»', label:'Go to Code Storage',      hint:'Tab',   run:() => switchTab('code') },
+  { id:'tab-audit',       icon:'ðŸ“‹', label:'Go to Audit Log',         hint:'Tab',   run:() => switchTab('audit') },
+  { id:'new-assign',      icon:'ï¼‹', label:'New Assignment',          hint:'N',     run:() => { switchTab('assignments'); setTimeout(() => el('#aName').focus(), 100); } },
+  { id:'kanban',          icon:'â–¦',  label:'Toggle Kanban view',      hint:'',      run:() => { switchTab('assignments'); setTimeout(() => el('[data-view="kanban"]')?.click(), 120); } },
+  { id:'collapse-form',   icon:'â–¾',  label:'Toggle Add Item panel',   hint:'',      run:() => { switchTab('assignments'); setTimeout(() => el('#assignFormCollapse')?.click(), 120); } },
+  { id:'new-note',        icon:'ï¼‹', label:'New Note',                hint:'',      run:() => { switchTab('notes'); setTimeout(() => el('#nTitle').focus(), 100); } },
+  { id:'new-snippet',     icon:'ï¼‹', label:'New Code Snippet',        hint:'',      run:() => { switchTab('code'); setTimeout(() => el('#pName').focus(), 100); } },
+  { id:'start-timer',     icon:'â–¶',  label:'Start Timer',             hint:'T',     run:() => startTimer() },
+  { id:'pause-timer',     icon:'â¸',  label:'Pause Timer',             hint:'',      run:() => pauseTimer() },
+  { id:'focus',           icon:'ðŸŽ¯', label:'Toggle Focus Mode',       hint:'F',     run:() => toggleFocusMode() },
+  { id:'theme-aurora',    icon:'ðŸŽ¨', label:'Theme: Aurora',           hint:'',      run:() => { Store.data.settings.theme='aurora'; Store.persist(); applyAll(); } },
+  { id:'theme-midnight',  icon:'ðŸŽ¨', label:'Theme: Midnight',         hint:'',      run:() => { Store.data.settings.theme='midnight'; Store.persist(); applyAll(); } },
+  { id:'theme-neon',      icon:'ðŸŽ¨', label:'Theme: Neon',             hint:'',      run:() => { Store.data.settings.theme='neon'; Store.persist(); applyAll(); } },
+  { id:'theme-light',     icon:'ðŸŽ¨', label:'Theme: Light',            hint:'',      run:() => { Store.data.settings.theme='light'; Store.persist(); applyAll(); } },
+  { id:'layout-sidebar',  icon:'â–¤',  label:'Layout: Sidebar',         hint:'',      run:() => { Store.data.settings.layout='sidebar'; Store.persist(); applyAll(); } },
+  { id:'layout-topbar',   icon:'â–¬',  label:'Layout: Top Bar',         hint:'',      run:() => { Store.data.settings.layout='topbar'; Store.persist(); applyAll(); } },
+  { id:'layout-rail',     icon:'â–®',  label:'Layout: Rail',            hint:'',      run:() => { Store.data.settings.layout='rail'; Store.persist(); applyAll(); } },
+  { id:'export',          icon:'â¬‡',  label:'Export Data (backup)',    hint:'',      run:() => exportData() },
+  { id:'sync',            icon:'â†»',  label:'Pull latest from cloud',  hint:'',      run:() => Store.loadCloudData() },
+  { id:'settings',        icon:'âš™',  label:'Open Settings',           hint:'',      run:() => openSettings() },
+  { id:'logout',          icon:'âŽ‹',  label:'Sign Out',                hint:'',      run:() => logout() }
 ];
 let cmdSelected = 0;
 let cmdFiltered = COMMANDS;
@@ -3720,7 +4234,7 @@ function runCommandById(id){
 function toggleFocusMode(){
   document.body.classList.toggle('focus-mode');
   const on = document.body.classList.contains('focus-mode');
-  toast(on ? 'Focus mode ON — press F to exit' : 'Focus mode off');
+  toast(on ? 'Focus mode ON â€” press F to exit' : 'Focus mode off');
 }
 
 /* ============================================================
@@ -3777,7 +4291,7 @@ function initCursor(){
     } else if (effect === 'sparkle') {
       const s = document.createElement('div');
       s.style.cssText = `position:fixed;pointer-events:none;z-index:9999;font-size:13px;color:var(--accent2);left:${e.clientX+(Math.random()*22-11)}px;top:${e.clientY+(Math.random()*22-11)}px;transform:translate(-50%,-50%);animation:sparkFade .85s ease-out forwards`;
-      s.textContent = ['✦','✧','⋆','✶'][Math.floor(Math.random()*4)];
+      s.textContent = ['âœ¦','âœ§','â‹†','âœ¶'][Math.floor(Math.random()*4)];
       document.body.appendChild(s); setTimeout(() => s.remove(), 900);
     } else if (effect === 'ripple') {
       const r = document.createElement('div');
@@ -3804,13 +4318,13 @@ function toast(msg, type){
   if (!t) return;
   if (!type) {
     const m = String(msg || '').toLowerCase();
-    if (m.includes('saved') || m.includes('updated') || m.includes('enabled') || m.includes('imported') || m.includes('✓') || m.includes('completed') || m.includes('refreshed') || m.includes('added') || m.includes('restored')) type = 'success';
+    if (m.includes('saved') || m.includes('updated') || m.includes('enabled') || m.includes('imported') || m.includes('âœ“') || m.includes('completed') || m.includes('refreshed') || m.includes('added') || m.includes('restored')) type = 'success';
     else if (m.includes('fail') || m.includes('error') || m.includes('cannot') || m.includes('denied')) type = 'error';
     else if (m.includes('please') || m.includes('must') || m.includes('pick') || m.includes('enter') || m.includes('give')) type = 'warning';
     else type = 'info';
   }
-  const icon = { success: '✓', error: '⚠', warning: '!', info: 'ℹ' }[type] || '';
-  const clean = String(msg || '').replace(/^[✓⚠ℹ!]+\s*/, '').replace(/^[⏰💬📎🔥]\s*/, '');
+  const icon = { success: 'âœ“', error: 'âš ', warning: '!', info: 'â„¹' }[type] || '';
+  const clean = String(msg || '').replace(/^[âœ“âš â„¹!]+\s*/, '').replace(/^[â°ðŸ’¬ðŸ“ŽðŸ”¥]\s*/, '');
   t.innerHTML = icon ? `<span class="toast-icon">${icon}</span><span>${escapeHtml(clean)}</span>` : `<span>${escapeHtml(clean)}</span>`;
   t.classList.remove('type-success','type-error','type-warning','type-info');
   t.classList.add('type-' + type, 'show');
@@ -3840,6 +4354,9 @@ function boot(){
   initCursor();
   initCommandPalette();
   initKeyboardShortcuts();
+
+  els('#prioModeToggle button').forEach(b =>
+    b.addEventListener('click', () => setPriorityMode(b.dataset.mode)));
 
   el('#intentAdd').addEventListener('click', addIntent);
   el('#intentInput').addEventListener('keydown', e => {
